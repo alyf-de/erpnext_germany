@@ -460,69 +460,8 @@ ACCOUNT_NAME_COLUMNS = [
 	"Sprach-ID"
 ]
 
-QUERY_REPORT_COLUMNS = [
-	{
-		"label": "Umsatz (ohne Soll/Haben-Kz)",
-		"fieldname": "Umsatz (ohne Soll/Haben-Kz)",
-		"fieldtype": "Currency",
-	},
-	{
-		"label": "Soll/Haben-Kennzeichen",
-		"fieldname": "Soll/Haben-Kennzeichen",
-		"fieldtype": "Data",
-	},
-	{
-		"label": "Konto",
-		"fieldname": "Konto",
-		"fieldtype": "Data",
-	},
-	{
-		"label": "Gegenkonto (ohne BU-Schlüssel)",
-		"fieldname": "Gegenkonto (ohne BU-Schlüssel)",
-		"fieldtype": "Data",
-	},
-	{
-		"label": "Belegdatum",
-		"fieldname": "Belegdatum",
-		"fieldtype": "Date",
-	},
-	{
-		"label": "Belegfeld 1",
-		"fieldname": "Belegfeld 1",
-		"fieldtype": "Data",
-	},
-	{
-		"label": "Buchungstext",
-		"fieldname": "Buchungstext",
-		"fieldtype": "Text",
-	},
-	{
-		"label": "Beleginfo - Art 1",
-		"fieldname": "Beleginfo - Art 1",
-		"fieldtype": "Link",
-		"options": "DocType"
-	},
-	{
-		"label": "Beleginfo - Inhalt 1",
-		"fieldname": "Beleginfo - Inhalt 1",
-		"fieldtype": "Dynamic Link",
-		"options": "Beleginfo - Art 1"
-	},
-	{
-		"label": "Beleginfo - Art 2",
-		"fieldname": "Beleginfo - Art 2",
-		"fieldtype": "Link",
-		"options": "DocType"
-	},
-	{
-		"label": "Beleginfo - Inhalt 2",
-		"fieldname": "Beleginfo - Inhalt 2",
-		"fieldtype": "Dynamic Link",
-		"options": "Beleginfo - Art 2"
-	}
-]
-
 class DataCategory():
+
 	"""Field of the CSV Header."""
 
 	DEBTORS_CREDITORS = "16"
@@ -531,6 +470,7 @@ class DataCategory():
 	POSTING_TEXT_CONSTANTS = "67"
 
 class FormatName():
+
 	"""Field of the CSV Header, corresponds to DataCategory."""
 
 	DEBTORS_CREDITORS = "Debitoren/Kreditoren"
