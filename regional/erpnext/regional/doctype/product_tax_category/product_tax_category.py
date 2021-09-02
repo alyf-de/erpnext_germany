@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class SouthAfricaVATSettings(Document):
+class ProductTaxCategory(Document):
 	pass

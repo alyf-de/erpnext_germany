@@ -5,5 +5,5 @@
 import unittest
 
 
-class TestSouthAfricaVATSettings(unittest.TestCase):
+class TestProductTaxCategory(unittest.TestCase):
 	pass
