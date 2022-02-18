@@ -13,12 +13,12 @@ import frappe
 from frappe import _
 
 from erpnext.accounts.utils import get_fiscal_year
-from erpnext.regional.germany.utils.datev.datev_constants import (
+from erpnext_germany.utils.datev.datev_constants import (
 	AccountNames,
 	DebtorsCreditors,
 	Transactions,
 )
-from erpnext.regional.germany.utils.datev.datev_csv import get_datev_csv, zip_and_download
+from erpnext_germany.utils.datev.datev_csv import get_datev_csv, zip_and_download
 
 COLUMNS = [
 	{
@@ -538,7 +538,7 @@ def download_datev_csv(filters):
 	Validate the filters, get the data, produce the CSV file and provide it for
 	download. Can be called like this:
 
-	GET /api/method/erpnext.regional.report.datev.datev.download_datev_csv
+	GET /api/method/erpnext_germany.erpnext_germany.report.datev.datev.download_datev_csv
 
 	Arguments / Params:
 	filters -- dict of filters to be passed to the sql query
