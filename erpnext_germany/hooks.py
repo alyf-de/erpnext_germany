@@ -68,6 +68,9 @@ app_license = "MIT"
 # before_install = "erpnext_germany.install.before_install"
 # after_install = "erpnext_germany.install.after_install"
 
+after_install = "erpnext_germany.install.after_install"
+
+
 # Uninstallation
 # ------------
 
@@ -111,6 +114,15 @@ app_license = "MIT"
 # 		"on_trash": "method"
 #	}
 # }
+
+doc_events = {
+	"Sales Invoice": {
+		"on_submit": "germany_compliance.create_transaction_log"
+	},
+	"Payment Entry": {
+		"on_submit": "germany_compliance.create_transaction_log"
+	},
+}
 
 # Scheduled Tasks
 # ---------------

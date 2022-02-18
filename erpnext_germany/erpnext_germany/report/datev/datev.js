@@ -45,7 +45,7 @@ frappe.query_reports["DATEV"] = {
 					query_report.get_values()
 				)
 			);
-			window.open(`/api/method/erpnext.regional.report.datev.datev.download_datev_csv?filters=${filters}`);
+			window.open(`/api/method/erpnext_germany.report.datev.datev.download_datev_csv?filters=${filters}`);
 		});
 
 		query_report.page.add_menu_item(__("Change DATEV Settings"), () => {

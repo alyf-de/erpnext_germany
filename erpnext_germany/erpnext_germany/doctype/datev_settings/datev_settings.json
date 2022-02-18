@@ -1,7 +1,7 @@
 {
  "actions": [],
  "autoname": "field:client",
- "creation": "2019-08-13 23:56:34.259906",
+ "creation": "2022-02-17 23:29:46.086115",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -77,10 +77,11 @@
   }
  ],
  "links": [],
- "modified": "2020-11-19 19:00:09.088816",
+ "modified": "2022-02-18 04:14:25.874848",
  "modified_by": "Administrator",
- "module": "Regional",
+ "module": "ERPNext Germany",
  "name": "DATEV Settings",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -121,5 +122,6 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }
