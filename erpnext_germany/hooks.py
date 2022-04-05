@@ -58,8 +58,8 @@ app_license = "MIT"
 
 # add methods and filters to jinja environment
 # jinja = {
-# 	"methods": "erpnext_germany.utils.jinja_methods",
-# 	"filters": "erpnext_germany.utils.jinja_filters"
+#	"methods": "erpnext_germany.utils.jinja_methods",
+#	"filters": "erpnext_germany.utils.jinja_filters"
 # }
 
 # Installation
@@ -68,7 +68,7 @@ app_license = "MIT"
 # before_install = "erpnext_germany.install.before_install"
 # after_install = "erpnext_germany.install.after_install"
 
-after_install = "erpnext_germany.install.after_install"
+# after_install = "erpnext_germany.install.after_install"
 
 
 # Uninstallation
@@ -88,11 +88,11 @@ after_install = "erpnext_germany.install.after_install"
 # Permissions evaluated in scripted ways
 
 # permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
+#	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
 # }
 #
 # has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
+#	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
 
 # DocType Class
@@ -100,7 +100,7 @@ after_install = "erpnext_germany.install.after_install"
 # Override standard doctype classes
 
 # override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
+#	"ToDo": "custom_app.overrides.CustomToDo"
 # }
 
 # Document Events
@@ -108,19 +108,19 @@ after_install = "erpnext_germany.install.after_install"
 # Hook on document methods and events
 
 # doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
+#	"*": {
+#		"on_update": "method",
+#		"on_cancel": "method",
+#		"on_trash": "method"
 #	}
 # }
 
 doc_events = {
 	"Sales Invoice": {
-		"on_submit": "germany_compliance.create_transaction_log"
+		"on_submit": "erpnext_germany.create_transaction_log"
 	},
 	"Payment Entry": {
-		"on_submit": "germany_compliance.create_transaction_log"
+		"on_submit": "erpnext_germany.create_transaction_log"
 	},
 }
 
@@ -128,21 +128,21 @@ doc_events = {
 # ---------------
 
 # scheduler_events = {
-# 	"all": [
-# 		"erpnext_germany.tasks.all"
-# 	],
-# 	"daily": [
-# 		"erpnext_germany.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"erpnext_germany.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"erpnext_germany.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"erpnext_germany.tasks.monthly"
-# 	],
+#	"all": [
+#		"erpnext_germany.tasks.all"
+#	],
+#	"daily": [
+#		"erpnext_germany.tasks.daily"
+#	],
+#	"hourly": [
+#		"erpnext_germany.tasks.hourly"
+#	],
+#	"weekly": [
+#		"erpnext_germany.tasks.weekly"
+#	],
+#	"monthly": [
+#		"erpnext_germany.tasks.monthly"
+#	],
 # }
 
 # Testing
@@ -154,14 +154,14 @@ doc_events = {
 # ------------------------------
 #
 # override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "erpnext_germany.event.get_events"
+#	"frappe.desk.doctype.event.event.get_events": "erpnext_germany.event.get_events"
 # }
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
 # along with any modifications made in other Frappe apps
 # override_doctype_dashboards = {
-# 	"Task": "erpnext_germany.task.get_dashboard_data"
+#	"Task": "erpnext_germany.task.get_dashboard_data"
 # }
 
 # exempt linked doctypes from being automatically cancelled
@@ -173,30 +173,30 @@ doc_events = {
 # --------------------
 
 # user_data_fields = [
-# 	{
-# 		"doctype": "{doctype_1}",
-# 		"filter_by": "{filter_by}",
-# 		"redact_fields": ["{field_1}", "{field_2}"],
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_2}",
-# 		"filter_by": "{filter_by}",
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_3}",
-# 		"strict": False,
-# 	},
-# 	{
-# 		"doctype": "{doctype_4}"
-# 	}
+#	{
+#		"doctype": "{doctype_1}",
+#		"filter_by": "{filter_by}",
+#		"redact_fields": ["{field_1}", "{field_2}"],
+#		"partial": 1,
+#	},
+#	{
+#		"doctype": "{doctype_2}",
+#		"filter_by": "{filter_by}",
+#		"partial": 1,
+#	},
+#	{
+#		"doctype": "{doctype_3}",
+#		"strict": False,
+#	},
+#	{
+#		"doctype": "{doctype_4}"
+#	}
 # ]
 
 # Authentication and authorization
 # --------------------------------
 
 # auth_hooks = [
-# 	"erpnext_germany.auth.validate"
+#	"erpnext_germany.auth.validate"
 # ]
 

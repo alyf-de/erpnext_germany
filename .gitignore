@@ -4,3 +4,4 @@
 *.swp
 tags
 erpnext_germany/docs/current
+build/
