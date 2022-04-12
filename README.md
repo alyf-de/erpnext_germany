@@ -2,34 +2,32 @@
 
 App to hold regional code for Germany, built on top of ERPNext.
 
-### Introduction
+> Currently this app is mostly empty. It holds the remains of the regional module in ERPNext that has been removed beginning with Version 14.
 
-ERPNext Germany aims to support regional customizations for Germany. The app is built on Frappe, a full-stack, meta-data driven, web framework, and integrates seamlessly with ERPNext, the most agile ERP software.
+## Installation
 
-Customizations include:
+### On Frappe Cloud
 
-1. Datev Settings -
-The german DATEV eG is a registered cooperative of the tax, accountancy and legal professions. DATEV Settings is a DocType where users can configure DATEV settings that are applied for a company and it has all the necessary fields.
+1. Go to https://frappecloud.com/dashboard/#/sites and click the "New Site" button.
+2. In Step 2 ("Select apps to install"), select "ERPNext" and "ERPNext Germany".
+3. Complete the new site wizard.
 
-
-2. DATEV Report -
-ERPNext Germany has a report called DATEV. It helps to generate the DATEV format which is a CSV-based file interface for importing data into DATEV Accounting.
-### Installation
+### Local
 
 Using bench, [install ERPNext](https://github.com/frappe/bench#installation) as mentioned here.
 
-Once ERPNext is installed, add ERPNext Germany app to your bench by running
+Once ERPNext is installed, add the ERPNext Germany app to your bench by running
 
-```sh
-$ bench get-app https://github.com/frappe/erpnext_germany.git
+```bash
+bench get-app https://github.com/alyf-de/erpnext_germany.git
 ```
 
-After that, you can install the app on required site (let's say demo.com )by running
+After that, you can install the app on required site (let's say demo.com ) by running
 
-```sh
-$ bench --site demo.com install-app erpnext_germany
+```bash
+bench --site demo.com install-app erpnext_germany
 ```
 
 ### License
 
-GNU GPL V3. See [license.txt](https://github.com/frappe/erpnext_germany/blob/develop/license.txt) for more information.
+GNU GPL V3. See the `LICENSE` file for more information.
