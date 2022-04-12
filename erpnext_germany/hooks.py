@@ -2,12 +2,13 @@ from . import __version__ as app_version
 
 app_name = "erpnext_germany"
 app_title = "ERPNext Germany"
-app_publisher = "Frappe Technologies Private Limited"
+app_publisher = "ALYF GmbH"
 app_description = "App to hold regional code for Germany, built on top of ERPNext."
+required_apps = ["erpnext"]
 app_icon = "octicon octicon-file-directory"
 app_color = "grey"
-app_email = "contact@frappe.io"
-app_license = "MIT"
+app_email = "hallo@alyf.de"
+app_license = "GPLv3"
 
 # Includes in <head>
 # ------------------
