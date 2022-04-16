@@ -1,4 +1,6 @@
 from . import __version__ as app_version
+from .constants import REGISTER_COURTS
+
 
 app_name = "erpnext_germany"
 app_title = "ERPNext Germany"
@@ -67,7 +69,7 @@ app_license = "GPLv3"
 # ------------
 
 # before_install = "erpnext_germany.install.before_install"
-# after_install = "erpnext_germany.install.after_install"
+after_install = "erpnext_germany.install.after_install"
 
 # Uninstallation
 # ------------
@@ -193,3 +195,55 @@ doc_events = {
 # auth_hooks = [
 # 	"erpnext_germany.auth.validate"
 # ]
+
+
+def get_register_fields(insert_after: str):
+	return [
+		{
+			"fieldtype": "Section Break",
+			"fieldname": "register_sb_1",
+			"label": "Register Information",
+			"insert_after": insert_after,
+			"collapsible": 1,
+		},
+		{
+			"fieldtype": "Select",
+			"fieldname": "register_type",
+			"label": "Register Type",
+			"insert_after": "register_sb_1",
+			"options": "\nHRA\nHRB\nGnR\nPR\nVR",
+			"translatable": 0,
+		},
+		{
+			"fieldtype": "Column Break",
+			"fieldname": "register_cb_1",
+			"insert_after": "register_type",
+		},
+		{
+			"fieldtype": "Data",
+			"fieldname": "register_number",
+			"label": "Register Number",
+			"insert_after": "register_cb_1",
+			"translatable": 0,
+		},
+		{
+			"fieldtype": "Column Break",
+			"fieldname": "register_cb_2",
+			"insert_after": "register_number",
+		},
+		{
+			"fieldtype": "Select",
+			"fieldname": "register_court",
+			"label": "Register Court",
+			"insert_after": "register_cb_2",
+			"options": "\n".join(REGISTER_COURTS),
+			"translatable": 0,
+		},
+	]
+
+
+germany_custom_fields = {
+	"Company": [] + get_register_fields("address_html"),
+	"Customer": [] + get_register_fields("disabled"),
+	"Supplier": [] + get_register_fields("prevent_pos"),
+}

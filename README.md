@@ -2,7 +2,11 @@
 
 App to hold regional code for Germany, built on top of ERPNext.
 
-> Currently this app is mostly empty. It holds the remains of the regional module in ERPNext that has been removed beginning with Version 14.
+### Features
+
+- Section for Register Information (Registerart, -gericht und nummer) in **Company**, **Customer** and **Supplier**
+
+    ![Section with Register Information](docs/register_information.png)
 
 ## Installation
 
