@@ -1,7 +1,6 @@
 from . import __version__ as app_version
 from .constants import REGISTER_COURTS
 
-
 app_name = "erpnext_germany"
 app_title = "ERPNext Germany"
 app_publisher = "ALYF GmbH"
@@ -17,7 +16,7 @@ app_license = "GPLv3"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/erpnext_germany/css/erpnext_germany.css"
-# app_include_js = "/assets/erpnext_germany/js/erpnext_germany.js"
+app_include_js = "/assets/erpnext_germany/js/validate_vat_id.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_germany/css/erpnext_germany.css"
