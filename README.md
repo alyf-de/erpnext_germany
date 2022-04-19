@@ -8,6 +8,10 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     ![Section with Register Information](docs/register_information.png)
 
+- Validation of EU VAT IDs
+
+    <video src="docs/validate_vat_id.webm" autoplay loop>Validate EU VAT ID</video>
+
 ## Installation
 
 ### On Frappe Cloud
