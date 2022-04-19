@@ -9,7 +9,7 @@ erpnext_germany.utils.setup_vat_id_validation_button = function (frm) {
 		>
             <a
 				class="btn btn-xs btn-default"
-				title="${__("Check VAT ID")}"
+				title="${__("Validate EU VAT ID")}"
 				style="padding: 3px;"
 			>
                 ${frappe.utils.icon("search", "sm")}
@@ -36,7 +36,7 @@ erpnext_germany.utils.setup_vat_id_validation_button = function (frm) {
 				}
 			}).catch(() => 
 				frappe.show_alert({
-					message: __("The Tax ID could not be checked"),
+					message: __("Tax ID could not be validated"),
 					indicator: "grey",
 				})
 			);
