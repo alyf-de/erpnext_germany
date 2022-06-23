@@ -245,7 +245,99 @@ def get_register_fields(insert_after: str):
 
 
 germany_custom_fields = {
-	"Company": [] + get_register_fields("address_html"),
-	"Customer": [] + get_register_fields("disabled"),
-	"Supplier": [] + get_register_fields("prevent_pos"),
+	"Company": [] + get_register_fields(insert_after="address_html"),
+	"Customer": [] + get_register_fields(insert_after="disabled"),
+	"Supplier": [] + get_register_fields(insert_after="prevent_pos"),
+	"Employee": [
+		{
+			"fieldtype": "Link",
+			"fieldname": "nationality",
+			"label": "Nationality",
+			"options": "Country",
+			"insert_after": "date_of_joining",
+		},
+		{
+			"fieldtype": "Check",
+			"fieldname": "is_severely_disabled",
+			"label": "Is Severely Disabled",
+			"insert_after": "nationality",
+		},
+		{
+			"fieldtype": "Float",
+			"fieldname": "working_hours_per_week",
+			"label": "Working Hours Per Week",
+			"insert_after": "attendance_device_id",
+		},
+		# -- BEGIN TAXES SECTION --
+		{
+			"fieldtype": "Section Break",
+			"fieldname": "employee_taxes_sb",
+			"label": "Taxes",
+			"insert_after": "default_shift",
+			"collapsible": 1,
+		},
+		{
+			"fieldtype": "Data",
+			"fieldname": "tax_id",
+			"label": "Tax ID",
+			"insert_after": "employee_taxes",
+		},
+		{
+			"fieldtype": "Data",
+			"fieldname": "tax_office",
+			"label": "Tax Office",
+			"insert_after": "tax_id",
+		},
+		{
+			"fieldtype": "Data",
+			"fieldname": "tax_office_number",
+			"label": "Tax Office Number",
+			"insert_after": "tax_office",
+		},
+		{
+			"fieldtype": "Column Break",
+			"fieldname": "employee_taxes_cb",
+			"insert_after": "tax_office_number",
+		},
+		{
+			"fieldtype": "Select",
+			"fieldname": "tax_bracket",
+			"label": "Tax Bracket",
+			"options": "\nI\nII\nIII\nIV\nV\nVI",
+			"insert_after": "employee_taxes_cb",
+		},
+		{
+			"fieldtype": "Int",
+			"fieldname": "children_eligible_for_tax_credits",
+			"label": "Children Eligible for Tax Credits",
+			"insert_after": "tax_bracket",
+		},
+		{
+			"fieldtype": "Link",
+			"fieldname": "religious_denomination",
+			"label": "Religious Denomination",
+			"options": "Religious Denomination",
+			"insert_after": "children_eligible_for_tax_credits",
+		},
+		# -- END TAXES SECTION --
+		{
+			"fieldtype": "Check",
+			"fieldname": "has_children",
+			"label": "Has Children",
+			"insert_after": "health_insurance_no",
+		},
+		{
+			"fieldtype": "Check",
+			"fieldname": "has_other_employments",
+			"label": "Has Other Employments",
+			"insert_after": "external_work_history",
+		},
+		{
+			"fieldtype": "Select",
+			"fieldname": "highest_school_qualification",
+			"label": "Highest School Qualification",
+			"options": "\nOhne Schulabschluss\nHaupt-/Volksschulabschluss\nMitttlere Reife\n(Fach-)Abitur",
+			"insert_after": "education",
+		},
+	],
 }
