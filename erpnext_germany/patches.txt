@@ -1,1 +1,1 @@
-execute:from erpnext_germany.install import after_install; after_install() # 4
+execute:from erpnext_germany.install import after_install; after_install() # 5

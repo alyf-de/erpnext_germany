@@ -1,3 +1,5 @@
+from csv import DictReader
+
 import frappe
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 from frappe.custom.doctype.property_setter.property_setter import make_property_setter
@@ -7,6 +9,28 @@ def after_install():
 	custom_fields = frappe.get_hooks("germany_custom_fields")
 	create_custom_fields(custom_fields)
 	make_property_setters()
+	import_data()
+
+
+def import_data():
+	for doctype, filename in (
+		("Religious Denomination", "religious_denomination.csv"),
+		("Employee Health Insurance", "employee_health_insurance.csv"),
+	):
+		path = frappe.get_app_path("erpnext_germany", "data", filename)
+		import_csv(doctype, path)
+
+
+def import_csv(doctype, path):
+	with open(path) as csvfile:
+		reader = DictReader(csvfile)
+		for row in reader:
+			if frappe.db.exists(doctype, row):
+				continue
+
+			doc = frappe.new_doc(doctype)
+			doc.update(row)
+			doc.insert()
 
 
 def make_property_setters():
