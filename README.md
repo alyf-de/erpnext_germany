@@ -12,6 +12,12 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     <video src="docs/validate_vat_id.webm" autoplay loop>Validate EU VAT ID</video>
 
+### HR
+
+- Custom fields in **Employee** (tax information, etc.)
+- List of religios denominations ("Konfessionen")
+- List of German health insurance providers
+
 ## Installation
 
 ### On Frappe Cloud
