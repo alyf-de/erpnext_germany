@@ -280,19 +280,22 @@ germany_custom_fields = {
 			"fieldtype": "Data",
 			"fieldname": "tax_id",
 			"label": "Tax ID",
-			"insert_after": "employee_taxes",
+			"insert_after": "employee_taxes_sb",
+			"translatable": 0,
 		},
 		{
 			"fieldtype": "Data",
 			"fieldname": "tax_office",
 			"label": "Tax Office",
 			"insert_after": "tax_id",
+			"translatable": 0,
 		},
 		{
 			"fieldtype": "Data",
 			"fieldname": "tax_office_number",
 			"label": "Tax Office Number",
 			"insert_after": "tax_office",
+			"translatable": 0,
 		},
 		{
 			"fieldtype": "Column Break",
@@ -305,6 +308,7 @@ germany_custom_fields = {
 			"label": "Tax Bracket",
 			"options": "\nI\nII\nIII\nIV\nV\nVI",
 			"insert_after": "employee_taxes_cb",
+			"translatable": 0,
 		},
 		{
 			"fieldtype": "Int",
@@ -338,6 +342,7 @@ germany_custom_fields = {
 			"label": "Highest School Qualification",
 			"options": "\nOhne Schulabschluss\nHaupt-/Volksschulabschluss\nMitttlere Reife\n(Fach-)Abitur",
 			"insert_after": "education",
+			"translatable": 0,
 		},
 	],
 }
