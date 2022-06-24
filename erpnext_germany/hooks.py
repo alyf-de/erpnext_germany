@@ -341,3 +341,14 @@ germany_custom_fields = {
 		},
 	],
 }
+
+germany_property_setters = {
+	"Employee": [
+		("salary_currency", "default", "EUR", "Small Text"),
+		("bank_ac_no", "label", "IBAN", "Data"),
+		("ctc", "hidden", 1, "Check"),
+		("salary_mode", "default", "Bank", "Small Text"),
+		("permanent_accommodation_type", "hidden", 1, "Check"),
+		("current_accommodation_type", "hidden", 1, "Check"),
+	],
+}
