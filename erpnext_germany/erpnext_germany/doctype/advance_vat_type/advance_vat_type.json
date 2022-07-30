@@ -1,0 +1,112 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2022-07-30 14:26:39.354577",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "description",
+  "line_number",
+  "account",
+  "method",
+  "section_break_4",
+  "base_number",
+  "base",
+  "section_break_7",
+  "tax_number",
+  "tax"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "label": "Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "label": "Base"
+  },
+  {
+   "fieldname": "base_number",
+   "fieldtype": "Data",
+   "label": "Base Number"
+  },
+  {
+   "fieldname": "base",
+   "fieldtype": "Code",
+   "label": "Base",
+   "options": "Python"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break",
+   "label": "Tax"
+  },
+  {
+   "fieldname": "tax_number",
+   "fieldtype": "Data",
+   "label": "Tax Number"
+  },
+  {
+   "fieldname": "tax",
+   "fieldtype": "Code",
+   "label": "Tax",
+   "options": "Python"
+  },
+  {
+   "fieldname": "method",
+   "fieldtype": "Select",
+   "label": "Method",
+   "options": "Add\nDeduct\nStatistical",
+   "reqd": 1
+  },
+  {
+   "fieldname": "line_number",
+   "fieldtype": "Int",
+   "label": "Line Number"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-07-30 15:16:49.833359",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Advance VAT Type",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

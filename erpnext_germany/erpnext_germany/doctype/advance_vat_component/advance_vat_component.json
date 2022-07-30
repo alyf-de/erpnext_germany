@@ -1,0 +1,74 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2022-07-30 14:31:43.996621",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "base_number",
+  "base",
+  "tax_number",
+  "tax",
+  "method"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "Advance VAT Type",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "type.base_number",
+   "fieldname": "base_number",
+   "fieldtype": "Data",
+   "label": "Base Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "base",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Base",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "type.tax_number",
+   "fieldname": "tax_number",
+   "fieldtype": "Data",
+   "label": "Tax Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "tax",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Tax",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "type.method",
+   "fieldname": "method",
+   "fieldtype": "Data",
+   "label": "Method",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-30 15:12:12.839583",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Advance VAT Component",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
