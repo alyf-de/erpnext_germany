@@ -17,6 +17,9 @@ def import_data():
 		("Religious Denomination", "religious_denomination.csv"),
 		("Employee Health Insurance", "employee_health_insurance.csv"),
 	):
+		if not frappe.db.exists("DocType", doctype):
+			continue
+
 		path = frappe.get_app_path("erpnext_germany", "data", filename)
 		import_csv(doctype, path)
 

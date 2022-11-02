@@ -18,6 +18,8 @@ App to hold regional code for Germany, built on top of ERPNext.
 - List of religios denominations ("Konfessionen")
 - List of German health insurance providers
 
+    Requires [HRMS](https://github.com/frappe/hrms) to be installed first.
+
 ## Installation
 
 ### On Frappe Cloud
