@@ -125,10 +125,10 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"erpnext_germany.tasks.all"
-# 	],
+scheduler_events = {
+	"all": [
+		"erpnext_germany.tasks.all"
+	],
 # 	"daily": [
 # 		"erpnext_germany.tasks.daily"
 # 	],
@@ -141,7 +141,7 @@ doc_events = {
 # 	"monthly": [
 # 		"erpnext_germany.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------
