@@ -1,0 +1,149 @@
+{
+ "actions": [],
+ "creation": "2023-03-26 18:28:14.770174",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "customer",
+  "column_break_hmgxr",
+  "tax_id",
+  "section_break_xljfy",
+  "company",
+  "column_break_scjlu",
+  "company_tax_id",
+  "section_break_dowxn",
+  "is_valid",
+  "column_break_c4uco",
+  "request_id"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "column_break_hmgxr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "request_id",
+   "fieldtype": "Data",
+   "label": "Request ID",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "is_valid",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Is Valid",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "customer.tax_id",
+   "fieldname": "tax_id",
+   "fieldtype": "Data",
+   "label": "Tax ID",
+   "read_only": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "company.tax_id",
+   "fetch_if_empty": 1,
+   "fieldname": "company_tax_id",
+   "fieldtype": "Data",
+   "label": "Company Tax ID",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_xljfy",
+   "fieldtype": "Section Break",
+   "label": "Requester"
+  },
+  {
+   "fieldname": "column_break_scjlu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:!doc.__islocal",
+   "fieldname": "section_break_dowxn",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "fieldname": "column_break_c4uco",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "links": [],
+ "modified": "2023-03-26 20:16:06.439169",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "VAT ID Check",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "write": 1
+  }
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customer"
+}
