@@ -1,20 +1,21 @@
 import frappe
+from .utils.eu_vat import check_vat, parse_vat_id
 
 
 @frappe.whitelist()
 def validate_vat_id(vat_id: str) -> bool:
 	"""Use the EU VAT checker to validate a VAT ID."""
-	from .utils.eu_vat import is_valid_eu_vat_id
-
-	result = frappe.cache().hget("eu_vat_validation", vat_id, shared=True)
-	if result is not None:
-		return result
+	is_valid = frappe.cache().hget("eu_vat_validation", vat_id, shared=True)
+	if is_valid is not None:
+		return is_valid
 
 	try:
-		result = is_valid_eu_vat_id(vat_id)
-		frappe.cache().hset("eu_vat_validation", vat_id, result, shared=True)
+		country_code, vat_number = parse_vat_id(vat_id)
+		result = check_vat(country_code, vat_number)
+		is_valid = result.valid
+		frappe.cache().hset("eu_vat_validation", vat_id, is_valid, shared=True)
 	except Exception:
 		frappe.response["status_code"] = 501
-		result = None
+		is_valid = None
 
-	return result
+	return is_valid
