@@ -117,10 +117,7 @@ after_install = "erpnext_germany.install.after_install"
 # 	}
 # }
 
-doc_events = {
-	"Sales Invoice": {"on_submit": "erpnext_germany.create_transaction_log"},
-	"Payment Entry": {"on_submit": "erpnext_germany.create_transaction_log"},
-}
+# doc_events = {}
 
 # Scheduled Tasks
 # ---------------
