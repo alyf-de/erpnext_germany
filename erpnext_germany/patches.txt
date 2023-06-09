@@ -1,1 +1,2 @@
 execute:from erpnext_germany.install import after_install; after_install() # 7
+erpnext_germany.patches.add_tax_exemption_reason_fields
