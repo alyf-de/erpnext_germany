@@ -15,12 +15,12 @@ Religious Denomination,Konfession
 Has Children,Hat Kinder
 Highest School Qualification,Höchster Schulabschluss
 Has Other Employments,Hat Nebenbeschäftigungen
-VAT ID Check,Ust-IdNr. Prüfung
+VAT ID Check,USt-IdNr Prüfung
 Request ID,Anfrage ID
 Is Valid,Ist gültig
 Valid,Gültig
 Invalid,Ungültig
-Company Tax ID,Ust-IdNr. des Unternehmens
-Customer Tax ID,Ust-IdNr. des Kunden
+Requester VAT ID,USt-IdNr. des Anfragenden
+Customer VAT ID,USt-IdNr. des Kunden
 Result,Ergebnis
 Requester,Anfragender

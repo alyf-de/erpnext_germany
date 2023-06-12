@@ -8,11 +8,11 @@
  "field_order": [
   "customer",
   "column_break_hmgxr",
-  "tax_id",
+  "customer_vat_id",
   "section_break_xljfy",
   "company",
   "column_break_scjlu",
-  "company_tax_id",
+  "requester_vat_id",
   "section_break_dowxn",
   "is_valid",
   "column_break_c4uco",
@@ -47,28 +47,11 @@
    "read_only": 1
   },
   {
-   "fetch_from": "customer.tax_id",
-   "fetch_if_empty": 1,
-   "fieldname": "tax_id",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Tax ID",
-   "set_only_once": 1
-  },
-  {
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
    "options": "Company",
    "set_only_once": 1
-  },
-  {
-   "fetch_from": "company.tax_id",
-   "fetch_if_empty": 1,
-   "fieldname": "company_tax_id",
-   "fieldtype": "Data",
-   "label": "Company Tax ID"
   },
   {
    "fieldname": "section_break_xljfy",
@@ -88,10 +71,28 @@
   {
    "fieldname": "column_break_c4uco",
    "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "customer.tax_id",
+   "fetch_if_empty": 1,
+   "fieldname": "customer_vat_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Customer VAT ID",
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "company.tax_id",
+   "fetch_if_empty": 1,
+   "fieldname": "requester_vat_id",
+   "fieldtype": "Data",
+   "label": "Requester VAT ID",
+   "set_only_once": 1
   }
  ],
  "links": [],
- "modified": "2023-06-12 12:44:24.099383",
+ "modified": "2023-06-12 14:05:24.036098",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
