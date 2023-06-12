@@ -354,3 +354,16 @@ germany_property_setters = {
 		("current_accommodation_type", "hidden", 1, "Check"),
 	],
 }
+
+germany_custom_records = [
+	{
+		"doctype": "DocType Link",
+		"parent": "Customer",
+		"parentfield": "links",
+		"parenttype": "Customize Form",
+		"group": "Pre Sales",
+		"link_doctype": "VAT ID Check",
+		"link_fieldname": "customer",
+		"custom": 1,
+	},
+]

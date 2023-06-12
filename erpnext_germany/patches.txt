@@ -1,1 +1,2 @@
 execute:from erpnext_germany.install import after_install; after_install() # 7
+execute:from erpnext_germany.install import insert_custom_records; insert_custom_records()
