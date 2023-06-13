@@ -7,6 +7,7 @@
  "engine": "InnoDB",
  "field_order": [
   "customer",
+  "status",
   "column_break_hmgxr",
   "customer_vat_id",
   "section_break_xljfy",
@@ -89,10 +90,18 @@
    "fieldtype": "Data",
    "label": "Requester VAT ID",
    "set_only_once": 1
+  },
+  {
+   "default": "Planned",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Planned\nRunning\nCompleted",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2023-06-13 18:08:25.520189",
+ "modified": "2023-06-13 19:08:12.049107",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
