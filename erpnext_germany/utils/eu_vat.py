@@ -44,7 +44,7 @@ def check_vat(country_code: str, vat_number: str):
 		retry_if_exception_message(message="TIMEOUT"),
 	),
 	stop=stop_after_attempt(3),
-	wait=wait_exponential(multiplier=1, min=2, max=8),
+	wait=wait_exponential(multiplier=1, min=2, max=64),
 )
 def check_vat_approx(
 	country_code, vat_number, requester_country_code=None, requester_vat_number=None
