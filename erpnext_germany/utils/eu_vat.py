@@ -1,5 +1,13 @@
-from zeep import Client
 import re
+
+from tenacity import (
+	retry,
+	retry_any,
+	retry_if_exception_message,
+	stop_after_attempt,
+	wait_exponential,
+)
+from zeep import Client
 
 WSDL_URL = "https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl"
 COUNTRY_CODE_REGEX = r"^[A-Z]{2}$"
@@ -27,6 +35,17 @@ def check_vat(country_code: str, vat_number: str):
 	)
 
 
+@retry(
+	retry=retry_any(
+		retry_if_exception_message(message="GLOBAL_MAX_CONCURRENT_REQ"),
+		retry_if_exception_message(message="MS_MAX_CONCURRENT_REQ"),
+		retry_if_exception_message(message="SERVICE_UNAVAILABLE"),
+		retry_if_exception_message(message="MS_UNAVAILABLE"),
+		retry_if_exception_message(message="TIMEOUT"),
+	),
+	stop=stop_after_attempt(3),
+	wait=wait_exponential(multiplier=1, min=2, max=8),
+)
 def check_vat_approx(
 	country_code, vat_number, requester_country_code=None, requester_vat_number=None
 ):
