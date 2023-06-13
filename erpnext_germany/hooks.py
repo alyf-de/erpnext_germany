@@ -339,6 +339,26 @@ germany_custom_fields = {
 			"translatable": 0,
 		},
 	],
+	("Quotation", "Sales Order", "Sales Invoice"): [
+		{
+			"label": "Tax Exemption Reason",
+			"fieldtype": "Small Text",
+			"fieldname": "tax_exemption_reason",
+			"fetch_from": "taxes_and_charges.tax_exemption_reason",
+			"depends_on": "tax_exemption_reason",
+			"insert_after": "taxes_and_charges",
+			"translatable": 0,
+		}
+	],
+	"Sales Taxes and Charges Template": [
+		{
+			"label": "Tax Exemption Reason",
+			"fieldtype": "Small Text",
+			"fieldname": "tax_exemption_reason",
+			"insert_after": "tax_category",
+			"translatable": 0,
+		}
+	],
 }
 
 germany_property_setters = {
