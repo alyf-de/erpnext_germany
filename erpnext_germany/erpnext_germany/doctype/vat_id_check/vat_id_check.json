@@ -25,7 +25,6 @@
    "in_list_view": 1,
    "label": "Customer",
    "options": "Customer",
-   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -80,6 +79,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Customer VAT ID",
+   "reqd": 1,
    "set_only_once": 1
   },
   {
@@ -92,7 +92,7 @@
   }
  ],
  "links": [],
- "modified": "2023-06-12 14:05:24.036098",
+ "modified": "2023-06-13 18:08:25.520189",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
