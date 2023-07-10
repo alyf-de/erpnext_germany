@@ -2,8 +2,8 @@ import frappe
 
 
 def before_uninstall():
-    remove_custom_fields()
-    remove_property_setters()
+	remove_custom_fields()
+	remove_property_setters()
 
 
 def remove_custom_fields():
