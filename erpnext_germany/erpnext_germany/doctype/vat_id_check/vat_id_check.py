@@ -5,6 +5,8 @@ import frappe
 from frappe.model.document import Document
 from erpnext_germany.utils.eu_vat import check_vat_approx, parse_vat_id
 
+from tenacity import RetryError
+
 
 class VATIDCheck(Document):
 	def before_insert(self):
@@ -33,16 +35,21 @@ def run_check(doc: VATIDCheck):
 		requester_country_code, requester_vat_number = parse_vat_id(doc.requester_vat_id)
 
 	country_code, vat_number = parse_vat_id(doc.customer_vat_id)
-	result = check_vat_approx(
-		country_code=country_code,
-		vat_number=vat_number,
-		trader_name=doc.trader_name,
-		trader_street=doc.trader_street,
-		trader_postcode=doc.trader_postcode,
-		trader_city=doc.trader_city,
-		requester_country_code=requester_country_code,
-		requester_vat_number=requester_vat_number
-	)
+	try:
+		result = check_vat_approx(
+			country_code=country_code,
+			vat_number=vat_number,
+			trader_name=doc.trader_name,
+			trader_street=doc.trader_street,
+			trader_postcode=doc.trader_postcode,
+			trader_city=doc.trader_city,
+			requester_country_code=requester_country_code,
+			requester_vat_number=requester_vat_number
+		)
+	except RetryError:
+		doc.db_set("status", "Service Unavailable", notify=True)
+		return
+
 	doc.db_set(
 		{
 			"status": "Completed",

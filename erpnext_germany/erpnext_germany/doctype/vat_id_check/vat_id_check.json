@@ -105,7 +105,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Planned\nRunning\nCompleted",
+   "options": "Planned\nRunning\nCompleted\nUnavailable",
    "read_only": 1
   },
   {
@@ -168,7 +168,7 @@
   }
  ],
  "links": [],
- "modified": "2023-07-10 23:59:04.133772",
+ "modified": "2023-07-11 00:31:49.194157",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
