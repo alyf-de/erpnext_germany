@@ -7,15 +7,24 @@
  "engine": "InnoDB",
  "field_order": [
   "customer",
-  "status",
-  "column_break_hmgxr",
   "customer_vat_id",
+  "trader_name",
+  "customer_address",
+  "trader_street",
+  "trader_postcode",
+  "trader_city",
+  "column_break_hmgxr",
+  "status",
   "section_break_xljfy",
   "company",
   "column_break_scjlu",
   "requester_vat_id",
   "section_break_dowxn",
   "is_valid",
+  "trader_name_match",
+  "trader_street_match",
+  "trader_postcode_match",
+  "trader_city_match",
   "column_break_c4uco",
   "request_id"
  ],
@@ -98,10 +107,68 @@
    "label": "Status",
    "options": "Planned\nRunning\nCompleted",
    "read_only": 1
+  },
+  {
+   "fieldname": "customer_address",
+   "fieldtype": "Link",
+   "label": "Customer Address",
+   "options": "Address"
+  },
+  {
+   "fetch_from": "customer.customer_name",
+   "fetch_if_empty": 1,
+   "fieldname": "trader_name",
+   "fieldtype": "Data",
+   "label": "Trader Name"
+  },
+  {
+   "fetch_from": "customer_address.address_line1",
+   "fetch_if_empty": 1,
+   "fieldname": "trader_street",
+   "fieldtype": "Data",
+   "label": "Trader Street"
+  },
+  {
+   "fetch_from": "customer_address.pincode",
+   "fetch_if_empty": 1,
+   "fieldname": "trader_postcode",
+   "fieldtype": "Data",
+   "label": "Trader Postcode"
+  },
+  {
+   "fetch_from": "customer_address.city",
+   "fetch_if_empty": 1,
+   "fieldname": "trader_city",
+   "fieldtype": "Data",
+   "label": "Trader City"
+  },
+  {
+   "default": "0",
+   "fieldname": "trader_name_match",
+   "fieldtype": "Check",
+   "label": "Trader Name Match"
+  },
+  {
+   "default": "0",
+   "fieldname": "trader_street_match",
+   "fieldtype": "Check",
+   "label": "Trader Street Match"
+  },
+  {
+   "default": "0",
+   "fieldname": "trader_postcode_match",
+   "fieldtype": "Check",
+   "label": "Trader Postcode Match"
+  },
+  {
+   "default": "0",
+   "fieldname": "trader_city_match",
+   "fieldtype": "Check",
+   "label": "Trader City Match"
   }
  ],
  "links": [],
- "modified": "2023-06-13 19:08:12.049107",
+ "modified": "2023-07-10 23:59:04.133772",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",

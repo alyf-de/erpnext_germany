@@ -34,13 +34,24 @@ def run_check(doc: VATIDCheck):
 
 	country_code, vat_number = parse_vat_id(doc.customer_vat_id)
 	result = check_vat_approx(
-		country_code, vat_number, requester_country_code, requester_vat_number
+		country_code=country_code,
+		vat_number=vat_number,
+		trader_name=doc.trader_name,
+		trader_street=doc.trader_street,
+		trader_postcode=doc.trader_postcode,
+		trader_city=doc.trader_city,
+		requester_country_code=requester_country_code,
+		requester_vat_number=requester_vat_number
 	)
 	doc.db_set(
 		{
 			"status": "Completed",
 			"is_valid": result.valid,
 			"request_id": result.requestIdentifier,
+			"trader_name_match": result.traderNameMatch,
+			"trader_street_match": result.traderStreetMatch,
+			"trader_postcode_match": result.traderPostcodeMatch,
+			"trader_city_match": result.traderCityMatch,
 		},
 		notify=True,
 	)

@@ -6,20 +6,6 @@ def all():
 	check_some_customers()
 
 
-def create_vat_id_check(
-	customer: str, tax_id: str, company: str, company_tax_id: str
-) -> str:
-	"""Create a VAT ID check document and return its name."""
-	doc = frappe.new_doc("VAT ID Check")
-	doc.customer = customer
-	doc.tax_id = tax_id
-	doc.company = company
-	doc.company_tax_id = company_tax_id
-	doc.insert(ignore_permissions=True)
-
-	return doc.name
-
-
 def get_customers(n=4):
 	"""Return a list of n customers who didn't have their VAT ID checked in the last 3 months."""
 	from pypika import functions as fn, Interval
@@ -40,7 +26,12 @@ def get_customers(n=4):
 		frappe.qb.from_(customers)
 		.left_join(last_check)
 		.on(customers.name == last_check.customer)
-		.select(customers.name, customers.tax_id)
+		.select(
+			customers.name,
+			customers.customer_name,
+			customers.customer_primary_address,
+			customers.tax_id
+		)
 		.where(
 			customers.tax_id.notnull()
 			& (customers.disabled == 0)
@@ -56,9 +47,21 @@ def get_customers(n=4):
 
 def check_some_customers():
 	"""Check VAT IDs of customers who didn't have their VAT ID checked in the last 3 months."""
-	company_tax_id = None
+	requester_vat_id = None
 	if company := get_default_company():
-		company_tax_id = frappe.get_cached_value("Company", company, "tax_id")
+		requester_vat_id = frappe.get_cached_value("Company", company, "tax_id")
 
-	for customer, tax_id in get_customers():
-		create_vat_id_check(customer, tax_id, company_tax_id)
+	for customer, customer_name, primary_address, vat_id in get_customers():
+		doc = frappe.new_doc("VAT ID Check")
+		doc.customer = customer
+		doc.trader_name = customer_name
+		doc.customer_vat_id = vat_id
+		doc.company = company
+		doc.requester_vat_id = requester_vat_id
+		if primary_address:
+			address = frappe.get_doc("Address", primary_address)
+			doc.trader_street = address.address_line1
+			doc.trader_postcode = address.pincode
+			doc.trader_city = address.city
+
+		doc.insert(ignore_permissions=True)

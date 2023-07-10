@@ -47,11 +47,22 @@ def check_vat(country_code: str, vat_number: str):
 	wait=wait_exponential(multiplier=1, min=2, max=64),
 )
 def check_vat_approx(
-	country_code, vat_number, requester_country_code=None, requester_vat_number=None
+	country_code: str,
+	vat_number: str,
+	trader_name: str | None = None,
+	trader_street: str | None = None,
+	trader_postcode: str | None = None,
+	trader_city: str | None = None,
+	requester_country_code: str | None = None,
+	requester_vat_number: str | None = None,
 ):
 	return Client(WSDL_URL).service.checkVatApprox(
 		countryCode=country_code,
 		vatNumber=vat_number,
+		traderName=trader_name,
+		traderStreet=trader_street,
+		traderPostcode=trader_postcode,
+		traderCity=trader_city,
 		requesterCountryCode=requester_country_code,
 		requesterVatNumber=requester_vat_number,
 	)
