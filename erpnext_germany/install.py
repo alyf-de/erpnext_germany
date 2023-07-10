@@ -11,10 +11,8 @@ def after_install():
 	custom_fields = frappe.get_hooks("germany_custom_fields")
 	create_custom_fields(custom_fields)
 	make_property_setters()
-
-	if "hrms" in frappe.get_installed_apps():
-		import_data()
-		update_holiday_lists()
+	import_data()
+	update_holiday_lists()
 
 
 def import_data():
@@ -42,6 +40,9 @@ def import_csv(doctype, path):
 
 
 def make_property_setters():
+	if not frappe.db.exists("DocType", "Holiday List"):
+		return
+
 	germany_property_setters = frappe.get_hooks("germany_property_setters")
 	for doctypes, property_setters in germany_property_setters.items():
 		if isinstance(doctypes, str):

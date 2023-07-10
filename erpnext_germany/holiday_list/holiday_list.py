@@ -86,7 +86,7 @@ def update_local_holiday_list(year: int, holidays: dict, name: str, week_len: in
 
 
 def update_holiday_lists(year: int | None = None) -> None:
-	if "hrms" not in frappe.get_installed_apps():
+	if not frappe.db.exists("DocType", "Holiday List"):
 		return
 
 	client = FeiertageApiClient()

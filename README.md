@@ -18,14 +18,18 @@ App to hold regional code for Germany, built on top of ERPNext.
 - List of religios denominations ("Konfessionen")
 - List of German health insurance providers
 
-    Requires [HRMS](https://github.com/frappe/hrms) to be installed first.
+    > Requires [HRMS](https://github.com/frappe/hrms) to be installed first.
+
+- Holiday lists for all german states (via https://feiertage-api.de/)
+
+    > Requires [HRMS](https://github.com/frappe/hrms) to be installed first.
 
 ## Installation
 
 ### On Frappe Cloud
 
 1. Go to https://frappecloud.com/dashboard/#/sites and click the "New Site" button.
-2. In Step 2 ("Select apps to install"), select "ERPNext" and "ERPNext Germany".
+2. In Step 2 ("Select apps to install"), select "ERPNext", "HRMS" and "ERPNext Germany".
 3. Complete the new site wizard.
 
 ### Local
