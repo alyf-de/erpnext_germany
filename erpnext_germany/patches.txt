@@ -1,2 +1,3 @@
 execute:from erpnext_germany.install import after_install; after_install() # 7
 erpnext_germany.patches.add_tax_exemption_reason_fields
+execute:from erpnext_germany.holiday_list.holiday_list import update_holiday_lists; update_holiday_lists()

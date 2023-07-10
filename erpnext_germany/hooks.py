@@ -122,7 +122,12 @@ after_install = "erpnext_germany.install.after_install"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
+	"cron": {
+		"0 0 1 1 *": [  # At 00:00 on day-of-month 1 in January.
+			"erpnext_germany.holiday_list.holiday_list.update_holiday_lists",
+		],
+	},
 # 	"all": [
 # 		"erpnext_germany.tasks.all"
 # 	],
@@ -138,7 +143,7 @@ after_install = "erpnext_germany.install.after_install"
 # 	"monthly": [
 # 		"erpnext_germany.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------

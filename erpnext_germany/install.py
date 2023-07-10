@@ -4,12 +4,17 @@ import frappe
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
+from erpnext_germany.holiday_list.holiday_list import update_holiday_lists
+
 
 def after_install():
 	custom_fields = frappe.get_hooks("germany_custom_fields")
 	create_custom_fields(custom_fields)
 	make_property_setters()
-	import_data()
+
+	if "hrms" in frappe.get_installed_apps():
+		import_data()
+		update_holiday_lists()
 
 
 def import_data():
