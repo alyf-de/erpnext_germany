@@ -1,6 +1,6 @@
 frappe.listview_settings["VAT ID Check"] = {
 	add_fields: ["is_valid"],
-    hide_name_column: true,
+	hide_name_column: true,
 	get_indicator: function (doc) {
 		if (doc.status === "Completed") {
 			return doc.is_valid === 1
@@ -10,8 +10,8 @@ frappe.listview_settings["VAT ID Check"] = {
 			return [__("Planned"), "blue", "status,=,Planned"];
 		} else if (doc.status === "Running") {
 			return [__("Running"), "yellow", "status,=,Running"];
-		} else if (doc.status === "Service Unavailable") {
-			return [__("Service Unavailable"), "gray", "status,=,Service Unavailable"];
+		} else if (["Service Unavailable", "Invalid Input"].includes(doc.status)) {
+			return [__(doc.status), "gray", `status,=,${doc.status}`];
 		}
 	},
 };

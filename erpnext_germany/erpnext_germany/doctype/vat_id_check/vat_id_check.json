@@ -34,7 +34,7 @@
   {
    "fieldname": "customer",
    "fieldtype": "Link",
-   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer",
    "set_only_once": 1
@@ -48,6 +48,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Request ID",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -55,6 +56,7 @@
    "fieldname": "is_valid",
    "fieldtype": "Check",
    "label": "Is Valid",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -107,7 +109,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Planned\nRunning\nCompleted\nUnavailable",
+   "options": "Planned\nRunning\nCompleted\nUnavailable\nInvalid Input",
    "read_only": 1
   },
   {
@@ -122,6 +124,7 @@
    "fetch_if_empty": 1,
    "fieldname": "trader_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Trader Name",
    "set_only_once": 1
   },
@@ -154,6 +157,7 @@
    "fieldname": "trader_name_match",
    "fieldtype": "Check",
    "label": "Trader Name Match",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -161,6 +165,7 @@
    "fieldname": "trader_street_match",
    "fieldtype": "Check",
    "label": "Trader Street Match",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -168,6 +173,7 @@
    "fieldname": "trader_postcode_match",
    "fieldtype": "Check",
    "label": "Trader Postcode Match",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -175,23 +181,26 @@
    "fieldname": "trader_city_match",
    "fieldtype": "Check",
    "label": "Trader City Match",
+   "no_copy": 1,
    "read_only": 1
   },
   {
    "fieldname": "actual_trader_name",
    "fieldtype": "Data",
    "label": "Actual Trader Name",
+   "no_copy": 1,
    "read_only": 1
   },
   {
    "fieldname": "actual_trader_address",
    "fieldtype": "Small Text",
    "label": "Actual Trader Address",
+   "no_copy": 1,
    "read_only": 1
   }
  ],
  "links": [],
- "modified": "2023-07-11 15:26:16.264105",
+ "modified": "2023-07-11 15:44:25.409571",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
@@ -247,5 +256,5 @@
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
- "title_field": "customer"
+ "title_field": "customer_vat_id"
 }

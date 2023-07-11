@@ -49,6 +49,11 @@ def run_check(doc: VATIDCheck):
 	except RetryError:
 		doc.db_set("status", "Service Unavailable", notify=True)
 		return
+	except Exception as e:
+		if e.message.upper() == "INVALID_INPUT":
+			doc.db_set({"status": "Invalid Input", "is_valid": False}, notify=True)
+			return
+		raise e
 
 	doc.db_set(
 		{
