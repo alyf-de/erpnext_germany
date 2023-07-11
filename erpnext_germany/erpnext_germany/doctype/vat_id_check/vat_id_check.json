@@ -26,7 +26,9 @@
   "trader_postcode_match",
   "trader_city_match",
   "column_break_c4uco",
-  "request_id"
+  "request_id",
+  "actual_trader_name",
+  "actual_trader_address"
  ],
  "fields": [
   {
@@ -112,63 +114,84 @@
    "fieldname": "customer_address",
    "fieldtype": "Link",
    "label": "Customer Address",
-   "options": "Address"
+   "options": "Address",
+   "set_only_once": 1
   },
   {
    "fetch_from": "customer.customer_name",
    "fetch_if_empty": 1,
    "fieldname": "trader_name",
    "fieldtype": "Data",
-   "label": "Trader Name"
+   "label": "Trader Name",
+   "set_only_once": 1
   },
   {
    "fetch_from": "customer_address.address_line1",
    "fetch_if_empty": 1,
    "fieldname": "trader_street",
    "fieldtype": "Data",
-   "label": "Trader Street"
+   "label": "Trader Street",
+   "set_only_once": 1
   },
   {
    "fetch_from": "customer_address.pincode",
    "fetch_if_empty": 1,
    "fieldname": "trader_postcode",
    "fieldtype": "Data",
-   "label": "Trader Postcode"
+   "label": "Trader Postcode",
+   "set_only_once": 1
   },
   {
    "fetch_from": "customer_address.city",
    "fetch_if_empty": 1,
    "fieldname": "trader_city",
    "fieldtype": "Data",
-   "label": "Trader City"
+   "label": "Trader City",
+   "set_only_once": 1
   },
   {
    "default": "0",
    "fieldname": "trader_name_match",
    "fieldtype": "Check",
-   "label": "Trader Name Match"
+   "label": "Trader Name Match",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "trader_street_match",
    "fieldtype": "Check",
-   "label": "Trader Street Match"
+   "label": "Trader Street Match",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "trader_postcode_match",
    "fieldtype": "Check",
-   "label": "Trader Postcode Match"
+   "label": "Trader Postcode Match",
+   "read_only": 1
   },
   {
    "default": "0",
    "fieldname": "trader_city_match",
    "fieldtype": "Check",
-   "label": "Trader City Match"
+   "label": "Trader City Match",
+   "read_only": 1
+  },
+  {
+   "fieldname": "actual_trader_name",
+   "fieldtype": "Data",
+   "label": "Actual Trader Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "actual_trader_address",
+   "fieldtype": "Small Text",
+   "label": "Actual Trader Address",
+   "read_only": 1
   }
  ],
  "links": [],
- "modified": "2023-07-11 00:31:49.194157",
+ "modified": "2023-07-11 15:26:16.264105",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
