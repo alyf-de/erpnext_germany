@@ -124,8 +124,8 @@ after_install = "erpnext_germany.install.after_install"
 
 scheduler_events = {
 	"cron": {
-		"0 0 1 1 *": [  # At 00:00 on day-of-month 1 in January.
-			"erpnext_germany.holiday_list.holiday_list.update_holiday_lists",
+		"42 2 1 7 *": [  # At 02:42 on 1st of July.
+			"erpnext_germany.tasks.update_holiday_list_for_next_year",
 		],
 	},
 # 	"all": [
