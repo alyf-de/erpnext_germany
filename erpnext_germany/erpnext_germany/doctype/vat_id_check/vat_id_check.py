@@ -52,8 +52,11 @@ def run_check(doc: VATIDCheck):
 	except Exception as e:
 		if e.message.upper() == "INVALID_INPUT":
 			doc.db_set({"status": "Invalid Input", "is_valid": False}, notify=True)
-			return
-		raise e
+		else:
+			doc.db_set({"status": "Error"}, notify=True)
+			frappe.log_error("VAT ID Check Error", frappe.get_traceback())
+
+		return
 
 	doc.db_set(
 		{

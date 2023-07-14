@@ -109,7 +109,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "Planned\nRunning\nCompleted\nUnavailable\nInvalid Input",
+   "options": "Planned\nRunning\nCompleted\nService Unavailable\nInvalid Input\nError",
    "read_only": 1
   },
   {
@@ -200,7 +200,7 @@
   }
  ],
  "links": [],
- "modified": "2023-07-11 15:44:25.409571",
+ "modified": "2023-07-14 18:51:09.693063",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
