@@ -71,23 +71,13 @@ def run_check(doc: VATIDCheck):
 		{
 			"status": "Completed",
 			"is_valid": result.valid,
-			"trader_name_match": is_match(result.traderNameMatch, result.traderName, doc.trader_name, exact=True),
-			"trader_street_match": is_match(result.traderStreetMatch, result.traderAddress, doc.trader_street),
-			"trader_postcode_match": is_match(result.traderPostcodeMatch, result.traderAddress, doc.trader_postcode),
-			"trader_city_match": is_match(result.traderCityMatch, result.traderAddress, doc.trader_city),
+			"trader_name_match": bool(result.traderNameMatch),
+			"trader_street_match": bool(result.traderStreetMatch),
+			"trader_postcode_match": bool(result.traderPostcodeMatch),
+			"trader_city_match": bool(result.traderCityMatch),
 			"request_id": result.requestIdentifier,
 			"actual_trader_name": result.traderName,
 			"actual_trader_address": result.traderAddress,
 		},
 		notify=True,
 	)
-
-
-def is_match(match, theirs, ours, exact=False):
-	if match is not None:
-		return bool(match)
-
-	if exact:
-		return ours.lower() == theirs.lower()
-
-	return ours.lower() in theirs.lower()
