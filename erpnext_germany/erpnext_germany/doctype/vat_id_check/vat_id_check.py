@@ -32,9 +32,18 @@ def run_check(doc: VATIDCheck):
 	doc.db_set("status", "Running", notify=True)
 	requester_country_code, requester_vat_number = None, None
 	if doc.requester_vat_id:
-		requester_country_code, requester_vat_number = parse_vat_id(doc.requester_vat_id)
+		try:
+			requester_country_code, requester_vat_number = parse_vat_id(doc.requester_vat_id)
+		except ValueError:
+			doc.db_set({"status": "Invalid Input", "is_valid": False}, notify=True)
+			return
 
-	country_code, vat_number = parse_vat_id(doc.customer_vat_id)
+	try:
+		country_code, vat_number = parse_vat_id(doc.customer_vat_id)
+	except ValueError:
+		doc.db_set({"status": "Invalid Input", "is_valid": False}, notify=True)
+		return
+
 	try:
 		result = check_vat_approx(
 			country_code=country_code,
