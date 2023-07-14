@@ -6,7 +6,7 @@ def all():
 	check_some_customers()
 
 
-def get_customers(n=4):
+def get_customers(batch_size=4):
 	"""Return a list of n customers who didn't have their VAT ID checked in the last 3 months."""
 	from pypika import functions as fn, Interval
 	from frappe.query_builder import DocType
@@ -40,7 +40,7 @@ def get_customers(n=4):
 				| (last_check.creation < fn.Now() - Interval(months=3))
 			)
 		)
-		.limit(n)
+		.limit(batch_size)
 		.run()
 	)
 
