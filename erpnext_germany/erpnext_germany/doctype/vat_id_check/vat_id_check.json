@@ -8,27 +8,29 @@
  "field_order": [
   "customer",
   "customer_vat_id",
-  "trader_name",
   "customer_address",
+  "column_break_hmgxr",
+  "status",
+  "section_break_6ctcl",
+  "trader_name",
   "trader_street",
   "trader_postcode",
   "trader_city",
-  "column_break_hmgxr",
-  "status",
+  "column_break_cxvts",
+  "trader_name_match",
+  "trader_street_match",
+  "trader_postcode_match",
+  "trader_city_match",
+  "column_break_cjvyk",
+  "actual_trader_name",
+  "actual_trader_address",
   "section_break_xljfy",
   "company",
   "column_break_scjlu",
   "requester_vat_id",
   "section_break_dowxn",
   "is_valid",
-  "trader_name_match",
-  "trader_street_match",
-  "trader_postcode_match",
-  "trader_city_match",
-  "column_break_c4uco",
-  "request_id",
-  "actual_trader_name",
-  "actual_trader_address"
+  "request_id"
  ],
  "fields": [
   {
@@ -80,10 +82,6 @@
    "fieldname": "section_break_dowxn",
    "fieldtype": "Section Break",
    "label": "Result"
-  },
-  {
-   "fieldname": "column_break_c4uco",
-   "fieldtype": "Column Break"
   },
   {
    "fetch_from": "customer.tax_id",
@@ -197,10 +195,22 @@
    "label": "Actual Trader Address",
    "no_copy": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_6ctcl",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_cxvts",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_cjvyk",
+   "fieldtype": "Column Break"
   }
  ],
  "links": [],
- "modified": "2023-07-14 18:51:09.693063",
+ "modified": "2023-07-14 19:27:17.103880",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
