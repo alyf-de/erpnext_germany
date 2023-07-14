@@ -73,7 +73,7 @@ after_install = "erpnext_germany.install.after_install"
 # Uninstallation
 # ------------
 
-# before_uninstall = "erpnext_germany.uninstall.before_uninstall"
+before_uninstall = "erpnext_germany.uninstall.before_uninstall"
 # after_uninstall = "erpnext_germany.uninstall.after_uninstall"
 
 # Desk Notifications
