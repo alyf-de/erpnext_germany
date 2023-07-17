@@ -16,3 +16,12 @@ Has Children,Hat Kinder
 Highest School Qualification,Höchster Schulabschluss
 Has Other Employments,Hat Nebenbeschäftigungen
 Tax Exemption Reason,Steuerbefreiungsgrund,
+VAT ID Check,USt-IdNr Prüfung
+Request ID,Anfrage ID
+Is Valid,Ist gültig
+Valid,Gültig
+Invalid,Ungültig
+Requester VAT ID,USt-IdNr. des Anfragenden
+Customer VAT ID,USt-IdNr. des Kunden
+Result,Ergebnis
+Requester,Anfragender

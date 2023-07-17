@@ -10,6 +10,7 @@ def after_install():
 	create_custom_fields(custom_fields)
 	make_property_setters()
 	import_data()
+	insert_custom_records()
 
 
 def import_data():
@@ -46,3 +47,15 @@ def make_property_setters():
 			for property_setter in property_setters:
 				for_doctype = not property_setter[0]
 				make_property_setter(doctype, *property_setter, for_doctype)
+
+
+def insert_custom_records():
+	for custom_record in frappe.get_hooks("germany_custom_records"):
+		filters = custom_record.copy()
+		# Clean up filters. They need to be a plain dict without nested dicts or lists.
+		for key, value in custom_record.items():
+			if isinstance(value, (list, dict)):
+				del filters[key]
+
+		if not frappe.db.exists(filters):
+			frappe.get_doc(custom_record).insert(ignore_if_duplicate=True)

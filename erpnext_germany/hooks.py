@@ -16,7 +16,7 @@ app_license = "GPLv3"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/erpnext_germany/css/erpnext_germany.css"
-app_include_js = "/assets/erpnext_germany/js/validate_vat_id.js"
+# app_include_js = "/assets/erpnext_germany/js/erpnext_germany.js"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_germany/css/erpnext_germany.css"
@@ -33,10 +33,7 @@ app_include_js = "/assets/erpnext_germany/js/validate_vat_id.js"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-doctype_js = {
-	"Customer": "public/js/customer.js",
-	"Supplier": "public/js/supplier.js",
-}
+# doctype_js = {}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -122,10 +119,10 @@ before_uninstall = "erpnext_germany.uninstall.before_uninstall"
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
-# 	"all": [
-# 		"erpnext_germany.tasks.all"
-# 	],
+scheduler_events = {
+	"all": [
+		"erpnext_germany.tasks.all"
+	],
 # 	"daily": [
 # 		"erpnext_germany.tasks.daily"
 # 	],
@@ -138,7 +135,7 @@ before_uninstall = "erpnext_germany.uninstall.before_uninstall"
 # 	"monthly": [
 # 		"erpnext_germany.tasks.monthly"
 # 	],
-# }
+}
 
 # Testing
 # -------
@@ -374,3 +371,16 @@ germany_property_setters = {
 		("current_accommodation_type", "hidden", 1, "Check"),
 	],
 }
+
+germany_custom_records = [
+	{
+		"doctype": "DocType Link",
+		"parent": "Customer",
+		"parentfield": "links",
+		"parenttype": "Customize Form",
+		"group": "Pre Sales",
+		"link_doctype": "VAT ID Check",
+		"link_fieldname": "customer",
+		"custom": 1,
+	},
+]
