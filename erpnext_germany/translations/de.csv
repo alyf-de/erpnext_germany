@@ -22,6 +22,22 @@ Is Valid,Ist gültig
 Valid,Gültig
 Invalid,Ungültig
 Requester VAT ID,USt-IdNr. des Anfragenden
-Customer VAT ID,USt-IdNr. des Kunden
+Customer VAT ID,USt-IdNr. des Händlers
 Result,Ergebnis
 Requester,Anfragender
+Trader Name,Name des Händlers
+Trader Street,Straße des Händlers
+Trader Postcode,PLZ des Händlers
+Trader City,Ort des Händlers
+Trader Name Match,Name des Händlers stimmt überein
+Trader Street Match,Straße des Händlers stimmt überein
+Trader Postcode Match,PLZ des Händlers stimmt überein
+Trader City Match,Ort des Händlers stimmt überein
+Actual Trader Name,Tatsächlicher Name des Händlers
+Actual Trader Address,Tatsächliche Adresse des Händlers
+Planned,Geplant
+Running,Läuft
+Completed,Abgeschlossen
+Service Unavailable,Dienst nicht verfügbar
+Invalid Input,Ungültige Eingabe
+Error,Fehler
