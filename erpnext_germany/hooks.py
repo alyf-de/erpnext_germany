@@ -106,13 +106,17 @@ before_uninstall = "erpnext_germany.uninstall.before_uninstall"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+	"Quotation": {
+		"on_trash": "erpnext_germany.custom.sales.on_trash",
+	},
+	"Sales Order": {
+		"on_trash": "erpnext_germany.custom.sales.on_trash",
+	},
+	"Sales Invoice": {
+		"on_trash": "erpnext_germany.custom.sales.on_trash",
+	},
+}
 
 # doc_events = {}
 
