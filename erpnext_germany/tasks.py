@@ -1,5 +1,6 @@
-from erpnext import get_default_company
 import frappe
+from erpnext import get_default_company
+from erpnext_germany.utils.eu_vat import parse_vat_id
 
 
 def all():
@@ -8,8 +9,9 @@ def all():
 
 def get_customers(batch_size=4):
 	"""Return a list of n customers who didn't have their VAT ID checked in the last 3 months."""
-	from pypika import functions as fn, Interval
 	from frappe.query_builder import DocType
+	from pypika import Interval
+	from pypika import functions as fn
 
 	customers = DocType("Customer")
 	vat_id_checks = DocType("VAT ID Check")
@@ -52,6 +54,11 @@ def check_some_customers():
 		requester_vat_id = frappe.get_cached_value("Company", company, "tax_id")
 
 	for customer, customer_name, primary_address, vat_id in get_customers():
+		try:
+			parse_vat_id(vat_id)
+		except ValueError:
+			continue
+
 		doc = frappe.new_doc("VAT ID Check")
 		doc.customer = customer
 		doc.trader_name = customer_name
