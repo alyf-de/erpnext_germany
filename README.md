@@ -12,9 +12,11 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     Automatically checks the validity of EU VAT IDs of all your customers every three months, or manually whenever you want. Check out the [intro on Youtube](https://youtu.be/hsFMn2Y85zA) (german).
 
-   ![Validate EU VAT ID](docs/vat_check.png)
+    ![Validate EU VAT ID](docs/vat_check.png)
 
-### HR
+- Allow deletion of the most recent sales transaction only
+
+    This ensures consecutive numbering of transactions. Applies to **Quotation**, **Sales Order**, **Sales Invoice**.
 
 - Custom fields in **Employee** (tax information, etc.)
 - List of religios denominations ("Konfessionen")
