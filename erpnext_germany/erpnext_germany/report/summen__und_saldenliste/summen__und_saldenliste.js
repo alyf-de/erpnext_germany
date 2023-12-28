@@ -24,7 +24,7 @@ frappe.query_reports["Summen- und Saldenliste"] = {
 			fieldname: "month",
 			label: __("Month"),
 			fieldtype: "Select",
-			default: (new Date()).getMonth(),
+			default: get_previous_month(),
 			options: [
 				{ value: 1, label: __("January") },
 				{ value: 2, label: __("February") },
@@ -40,6 +40,13 @@ frappe.query_reports["Summen- und Saldenliste"] = {
 				{ value: 12, label: __("December") },
 			],
 			reqd: 1,
-		}
+		},
 	],
 };
+
+function get_previous_month() {
+	/* Return the 1-indexed number of the previous month */
+	const date = new Date();
+	date.setDate(0); // set to last day of previous month
+	return date.getMonth() + 1; // getMonth() is 0-indexed
+}
