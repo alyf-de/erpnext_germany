@@ -70,8 +70,8 @@ def get_data(company: str, fy_start, month_start, month_end):
 	sum_until_month = frappe.qb.from_(gl_entry).select(
 		gl_entry.account,
 		gl_entry.account_currency,
-		Sum(gl_entry.debit).as_("debit_until_evaluation_period"),
-		Sum(gl_entry.credit).as_("credit_until_evaluation_period"),
+		Sum(gl_entry.debit_in_account_currency).as_("debit_until_evaluation_period"),
+		Sum(gl_entry.credit_in_account_currency).as_("credit_until_evaluation_period"),
 	).where(
 		(gl_entry.company == company)
 		& (gl_entry.is_cancelled == 0)
@@ -89,8 +89,8 @@ def get_data(company: str, fy_start, month_start, month_end):
 	).select(
 		gl_entry.account,
 		gl_entry.account_currency,
-		Sum(gl_entry.debit).as_("debit_in_evaluation_period"),
-		Sum(gl_entry.credit).as_("credit_in_evaluation_period"),
+		Sum(gl_entry.debit_in_account_currency).as_("debit_in_evaluation_period"),
+		Sum(gl_entry.credit_in_account_currency).as_("credit_in_evaluation_period"),
 	).where(
 		(gl_entry.company == company)
 		& (gl_entry.is_cancelled == 0)
