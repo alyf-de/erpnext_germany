@@ -7,7 +7,7 @@ from babel.dates import format_date
 
 import frappe
 from frappe import _
-from frappe.query_builder.functions import Sum
+from frappe.query_builder.functions import Sum, Cast
 
 
 def execute(filters=None):
@@ -65,6 +65,7 @@ def get_columns(current_month_name: str):
 
 def get_data(company: str, fy_start, month_start, month_end):
 	gl_entry = frappe.qb.DocType("GL Entry")
+	account = frappe.qb.DocType("Account")
 
 	sum_until_month = frappe.qb.from_(gl_entry).select(
 		gl_entry.account,
@@ -77,13 +78,15 @@ def get_data(company: str, fy_start, month_start, month_end):
 		& (gl_entry.posting_date >= fy_start)
 		& (gl_entry.posting_date < month_start)
 		& (gl_entry.voucher_type != "Period Closing Voucher")
-	).orderby(
-		gl_entry.account
 	).groupby(
 		gl_entry.account, gl_entry.account_currency
 	)
 
-	sum_in_month = frappe.qb.from_(gl_entry).select(
+	sum_in_month = frappe.qb.from_(gl_entry).left_join(
+		account
+	).on(
+		gl_entry.account == account.name
+	).select(
 		gl_entry.account,
 		gl_entry.account_currency,
 		Sum(gl_entry.debit).as_("debit_in_evaluation_period"),
@@ -95,7 +98,7 @@ def get_data(company: str, fy_start, month_start, month_end):
 		& (gl_entry.posting_date <= month_end)
 		& (gl_entry.voucher_type != "Period Closing Voucher")
 	).orderby(
-		gl_entry.account
+		Cast(account.account_number, "int")
 	).groupby(
 		gl_entry.account, gl_entry.account_currency
 	)
