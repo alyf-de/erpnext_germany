@@ -77,13 +77,8 @@ def get_data(company: str, fy_start, month_start, month_end):
 		frappe.qb.from_(gl_entry)
 		.select(
 			gl_entry.account,
-			gl_entry.account_currency,
-			Sum(gl_entry.debit_in_account_currency).as_(
-				"debit_until_evaluation_period"
-			),
-			Sum(gl_entry.credit_in_account_currency).as_(
-				"credit_until_evaluation_period"
-			),
+			Sum(gl_entry.debit_in_account_currency).as_("debit"),
+			Sum(gl_entry.credit_in_account_currency).as_("credit"),
 		)
 		.where(
 			(gl_entry.company == company)
@@ -92,7 +87,7 @@ def get_data(company: str, fy_start, month_start, month_end):
 			& (gl_entry.posting_date < month_start)
 			& (gl_entry.voucher_type != "Period Closing Voucher")
 		)
-		.groupby(gl_entry.account, gl_entry.account_currency)
+		.groupby(gl_entry.account)
 	)
 
 	sum_in_month = (
@@ -102,8 +97,8 @@ def get_data(company: str, fy_start, month_start, month_end):
 		.select(
 			gl_entry.account,
 			gl_entry.account_currency,
-			Sum(gl_entry.debit_in_account_currency).as_("debit_in_evaluation_period"),
-			Sum(gl_entry.credit_in_account_currency).as_("credit_in_evaluation_period"),
+			Sum(gl_entry.debit_in_account_currency).as_("debit"),
+			Sum(gl_entry.credit_in_account_currency).as_("credit"),
 		)
 		.where(
 			(gl_entry.company == company)
@@ -123,10 +118,10 @@ def get_data(company: str, fy_start, month_start, month_end):
 		.select(
 			sum_in_month.account,
 			sum_in_month.account_currency,
-			sum_until_month.debit_until_evaluation_period,
-			sum_until_month.credit_until_evaluation_period,
-			sum_in_month.debit_in_evaluation_period,
-			sum_in_month.credit_in_evaluation_period,
+			sum_until_month.debit,
+			sum_until_month.credit,
+			sum_in_month.debit,
+			sum_in_month.credit,
 		)
 	)
 
