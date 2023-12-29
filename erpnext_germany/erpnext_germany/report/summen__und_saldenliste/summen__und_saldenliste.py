@@ -8,6 +8,7 @@ from babel.dates import format_date
 import frappe
 from frappe import _
 from frappe.query_builder.functions import Sum, Cast
+from pypika.terms import Case
 
 
 def execute(filters=None):
@@ -37,6 +38,20 @@ def get_columns(current_month_name: str):
 			"fieldtype": "Link",
 			"options": "Currency",
 			"width": 100,
+		},
+		{
+			"fieldname": "debit_opening_balance",
+			"label": _("Debit Opening Balance"),
+			"fieldtype": "Currency",
+			"width": 170,
+			"options": "account_currency",
+		},
+		{
+			"fieldname": "credit_opening_balance",
+			"label": _("Credit Opening Balance"),
+			"fieldtype": "Currency",
+			"width": 170,
+			"options": "account_currency",
 		},
 		{
 			"fieldname": "debit_until_evaluation_period",
@@ -72,6 +87,37 @@ def get_columns(current_month_name: str):
 def get_data(company: str, fy_start, month_start, month_end):
 	gl_entry = frappe.qb.DocType("GL Entry")
 	account = frappe.qb.DocType("Account")
+
+	opening_balance = (
+		frappe.qb.from_(gl_entry)
+		.left_join(account)
+		.on(gl_entry.account == account.name)
+		.select(
+			gl_entry.account,
+			Case()
+			.when(
+				account.root_type == "Asset",
+				Sum(gl_entry.debit_in_account_currency)
+				- Sum(gl_entry.credit_in_account_currency),
+			)
+			.else_(None)
+			.as_("debit"),
+			Case()
+			.when(
+				account.root_type.isin(("Liability", "Equity")),
+				Sum(gl_entry.credit_in_account_currency)
+				- Sum(gl_entry.debit_in_account_currency),
+			)
+			.else_(None)
+			.as_("credit"),
+		)
+		.where(
+			(gl_entry.company == company)
+			& (gl_entry.is_cancelled == 0)
+			& (gl_entry.posting_date < fy_start)
+		)
+		.groupby(gl_entry.account)
+	)
 
 	sum_until_month = (
 		frappe.qb.from_(gl_entry)
@@ -115,9 +161,13 @@ def get_data(company: str, fy_start, month_start, month_end):
 		frappe.qb.from_(sum_in_month)
 		.left_join(sum_until_month)
 		.on(sum_until_month.account == sum_in_month.account)
+		.left_join(opening_balance)
+		.on(opening_balance.account == sum_in_month.account)
 		.select(
 			sum_in_month.account,
 			sum_in_month.account_currency,
+			opening_balance.debit,
+			opening_balance.credit,
 			sum_until_month.debit,
 			sum_until_month.credit,
 			sum_in_month.debit,
