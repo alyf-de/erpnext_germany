@@ -43,3 +43,9 @@ Invalid Input,Ungültige Eingabe
 Error,Fehler
 Cannot delete this transaction,Diese Transaktion kann nicht gelöscht werden
 Only the most recent {0} can be deleted in order to avoid gaps in numbering.,"Nur die neueste Transaktion vom Typ {0} kann gelöscht werden, um Lücken in der Nummerierung zu vermeiden."
+Debit until {0},Soll bis {0},
+Credit until {0},Haben bis {0},
+Debit in {0},Soll im {0},
+Credit in {0},Haben im {0},
+Debit Opening Balance,Soll Anfangsbestand,
+Credit Opening Balance,Haben Anfangsbestand,
