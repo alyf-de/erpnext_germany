@@ -7,7 +7,7 @@ from babel.dates import format_date
 
 import frappe
 from frappe import _
-from frappe.query_builder.functions import Sum, Cast
+from frappe.query_builder.functions import Sum, Cast, Coalesce
 from pypika.terms import Case
 
 
@@ -77,6 +77,20 @@ def get_columns(current_month_name: str):
 		{
 			"fieldname": "credit_in_evaluation_period",
 			"label": _("Credit in {0}").format(current_month_name),
+			"fieldtype": "Currency",
+			"width": 170,
+			"options": "account_currency",
+		},
+		{
+			"fieldname": "debit_closing_balance",
+			"label": _("Debit Closing Balance"),
+			"fieldtype": "Currency",
+			"width": 170,
+			"options": "account_currency",
+		},
+		{
+			"fieldname": "credit_closing_balance",
+			"label": _("Credit Closing Balance"),
 			"fieldtype": "Currency",
 			"width": 170,
 			"options": "account_currency",
@@ -163,6 +177,8 @@ def get_data(company: str, fy_start, month_start, month_end):
 		.on(sum_until_month.account == sum_in_month.account)
 		.left_join(opening_balance)
 		.on(opening_balance.account == sum_in_month.account)
+		.left_join(account)
+		.on(sum_until_month.account == account.name)
 		.select(
 			sum_in_month.account,
 			sum_in_month.account_currency,
@@ -172,6 +188,20 @@ def get_data(company: str, fy_start, month_start, month_end):
 			sum_until_month.credit,
 			sum_in_month.debit,
 			sum_in_month.credit,
+			Case()
+			.when(
+				account.root_type.isin(("Asset", "Expense")),
+				(Coalesce(opening_balance.debit, 0) + sum_until_month.debit + sum_in_month.debit)
+				- (Coalesce(opening_balance.credit, 0) + sum_until_month.credit + sum_in_month.credit),
+			)
+			.else_(None),
+			Case()
+			.when(
+				account.root_type.isin(("Liability", "Equity", "Income")),
+				(Coalesce(opening_balance.credit, 0) + sum_until_month.credit + sum_in_month.credit)
+				- (Coalesce(opening_balance.debit, 0) + sum_until_month.debit + sum_in_month.debit),
+			)
+			.else_(None)
 		)
 	)
 
