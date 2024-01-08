@@ -1,3 +1,4 @@
 execute:from erpnext_germany.install import after_install; after_install() # 7
 erpnext_germany.patches.add_tax_exemption_reason_fields
 execute:from erpnext_germany.install import insert_custom_records; insert_custom_records()
+erpnext_germany.patches.change_position_of_register_info

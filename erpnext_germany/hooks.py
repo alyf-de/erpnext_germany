@@ -244,8 +244,8 @@ def get_register_fields(insert_after: str):
 
 germany_custom_fields = {
 	"Company": [] + get_register_fields(insert_after="address_html"),
-	"Customer": [] + get_register_fields(insert_after="disabled"),
-	"Supplier": [] + get_register_fields(insert_after="prevent_pos"),
+	"Customer": [] + get_register_fields(insert_after="companies"),
+	"Supplier": [] + get_register_fields(insert_after="companies"),
 	"Employee": [
 		{
 			"fieldtype": "Link",
