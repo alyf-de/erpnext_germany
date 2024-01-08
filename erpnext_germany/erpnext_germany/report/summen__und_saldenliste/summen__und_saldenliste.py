@@ -178,7 +178,7 @@ def get_data(company: str, fy_start, month_start, month_end):
 		.left_join(opening_balance)
 		.on(opening_balance.account == sum_in_month.account)
 		.left_join(account)
-		.on(sum_until_month.account == account.name)
+		.on(sum_in_month.account == account.name)
 		.select(
 			sum_in_month.account,
 			sum_in_month.account_currency,
@@ -191,17 +191,33 @@ def get_data(company: str, fy_start, month_start, month_end):
 			Case()
 			.when(
 				account.root_type.isin(("Asset", "Expense")),
-				(Coalesce(opening_balance.debit, 0) + sum_until_month.debit + sum_in_month.debit)
-				- (Coalesce(opening_balance.credit, 0) + sum_until_month.credit + sum_in_month.credit),
+				(
+					Coalesce(opening_balance.debit, 0)
+					+ Coalesce(sum_until_month.debit, 0)
+					+ Coalesce(sum_in_month.debit, 0)
+				)
+				- (
+					Coalesce(opening_balance.credit, 0)
+					+ Coalesce(sum_until_month.credit, 0)
+					+ Coalesce(sum_in_month.credit, 0)
+				),
 			)
 			.else_(None),
 			Case()
 			.when(
 				account.root_type.isin(("Liability", "Equity", "Income")),
-				(Coalesce(opening_balance.credit, 0) + sum_until_month.credit + sum_in_month.credit)
-				- (Coalesce(opening_balance.debit, 0) + sum_until_month.debit + sum_in_month.debit),
+				(
+					Coalesce(opening_balance.credit, 0)
+					+ Coalesce(sum_until_month.credit, 0)
+					+ Coalesce(sum_in_month.credit, 0)
+				)
+				- (
+					Coalesce(opening_balance.debit, 0)
+					+ Coalesce(sum_until_month.debit, 0)
+					+ Coalesce(sum_in_month.debit, 0)
+				),
 			)
-			.else_(None)
+			.else_(None),
 		)
 	)
 
