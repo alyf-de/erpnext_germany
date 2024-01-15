@@ -16,8 +16,8 @@ class VATIDCheck(Document):
 			)
 			self.requester_vat_id = f"{requester_country_code}{requester_vat_number}"
 
-		country_code, vat_number = parse_vat_id(self.customer_vat_id)
-		self.customer_vat_id = f"{country_code}{vat_number}"
+		country_code, vat_number = parse_vat_id(self.party_vat_id)
+		self.party_vat_id = f"{country_code}{vat_number}"
 
 	def after_insert(self):
 		frappe.enqueue(
@@ -39,7 +39,7 @@ def run_check(doc: VATIDCheck):
 			return
 
 	try:
-		country_code, vat_number = parse_vat_id(doc.customer_vat_id)
+		country_code, vat_number = parse_vat_id(doc.party_vat_id)
 	except ValueError:
 		doc.db_set({"status": "Invalid Input", "is_valid": False}, notify=True)
 		return

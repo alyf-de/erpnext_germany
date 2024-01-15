@@ -3,12 +3,22 @@
 
 frappe.ui.form.on("VAT ID Check", {
 	setup: function (frm) {
-		frm.set_query("customer_address", function (doc) {
+		frm.add_fetch("party", "tax_id", "party_vat_id");
+
+		frm.set_query("party_type", function (doc) {
+			return {
+				filters: {
+					name: ["in", ["Customer", "Supplier"]],
+				},
+			};
+		});
+
+		frm.set_query("party_address", function (doc) {
 			return {
 				query: "frappe.contacts.doctype.address.address.address_query",
 				filters: {
-					link_doctype: "Customer",
-					link_name: doc.customer,
+					link_doctype: doc.party_type,
+					link_name: doc.party,
 				},
 			};
 		});

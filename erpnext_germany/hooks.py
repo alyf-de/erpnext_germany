@@ -384,7 +384,17 @@ germany_custom_records = [
 		"parenttype": "Customize Form",
 		"group": "Pre Sales",
 		"link_doctype": "VAT ID Check",
-		"link_fieldname": "customer",
+		"link_fieldname": "party",
+		"custom": 1,
+	},
+	{
+		"doctype": "DocType Link",
+		"parent": "Supplier",
+		"parentfield": "links",
+		"parenttype": "Customize Form",
+		"group": "Vendor Evaluation",
+		"link_doctype": "VAT ID Check",
+		"link_fieldname": "party",
 		"custom": 1,
 	},
 ]

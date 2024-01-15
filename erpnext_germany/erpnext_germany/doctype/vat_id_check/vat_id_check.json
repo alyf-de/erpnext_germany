@@ -6,9 +6,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "customer",
-  "customer_vat_id",
-  "customer_address",
+  "party_type",
+  "party",
+  "party_vat_id",
+  "party_address",
   "column_break_hmgxr",
   "status",
   "section_break_6ctcl",
@@ -33,14 +34,6 @@
   "request_id"
  ],
  "fields": [
-  {
-   "fieldname": "customer",
-   "fieldtype": "Link",
-   "in_standard_filter": 1,
-   "label": "Customer",
-   "options": "Customer",
-   "set_only_once": 1
-  },
   {
    "fieldname": "column_break_hmgxr",
    "fieldtype": "Column Break"
@@ -84,17 +77,6 @@
    "label": "Result"
   },
   {
-   "fetch_from": "customer.tax_id",
-   "fetch_if_empty": 1,
-   "fieldname": "customer_vat_id",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
-   "label": "Customer VAT ID",
-   "reqd": 1,
-   "set_only_once": 1
-  },
-  {
    "fetch_from": "company.tax_id",
    "fetch_if_empty": 1,
    "fieldname": "requester_vat_id",
@@ -109,13 +91,6 @@
    "label": "Status",
    "options": "Planned\nRunning\nCompleted\nService Unavailable\nInvalid Input\nError",
    "read_only": 1
-  },
-  {
-   "fieldname": "customer_address",
-   "fieldtype": "Link",
-   "label": "Customer Address",
-   "options": "Address",
-   "set_only_once": 1
   },
   {
    "fetch_from": "customer.customer_name",
@@ -207,10 +182,42 @@
   {
    "fieldname": "column_break_cjvyk",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Link",
+   "label": "Party Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "in_standard_filter": 1,
+   "label": "Party",
+   "options": "party_type",
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "party_address",
+   "fieldtype": "Link",
+   "label": "Party Address",
+   "options": "Address",
+   "set_only_once": 1
+  },
+  {
+   "fetch_from": "customer.tax_id",
+   "fetch_if_empty": 1,
+   "fieldname": "party_vat_id",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Party VAT ID",
+   "reqd": 1,
+   "set_only_once": 1
   }
  ],
  "links": [],
- "modified": "2023-07-14 19:27:17.103880",
+ "modified": "2024-01-15 19:51:41.796509",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
@@ -266,5 +273,5 @@
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
- "title_field": "customer_vat_id"
+ "title_field": "party_vat_id"
 }
