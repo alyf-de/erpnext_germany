@@ -1,5 +1,9 @@
 # German company register courts
 REGISTER_COURTS = [
+<<<<<<< HEAD
+=======
+	"",  # empty string to be able to select nothing
+>>>>>>> 90f334d (fix: update court list)
 	"Aachen",
 	"Altenburg",
 	"Amberg",
@@ -85,7 +89,7 @@ REGISTER_COURTS = [
 	"Lemgo",
 	"Limburg",
 	"Lübeck",
-	"Ludwigshafen a. Rhein",
+	"Ludwigshafen a.Rhein (Ludwigshafen)",
 	"Lüneburg",
 	"Mainz",
 	"Mannheim",
@@ -105,7 +109,7 @@ REGISTER_COURTS = [
 	"Nordhausen",
 	"Nürnberg",
 	"Offenbach am Main",
-	"Oldenburg",
+	"Oldenburg (Oldenburg)",
 	"Osnabrück",
 	"Ottweiler",
 	"Paderborn",
@@ -131,11 +135,11 @@ REGISTER_COURTS = [
 	"Stadtroda",
 	"Steinfurt",
 	"Stendal",
-	"St. Ingbert",
+	"St. Ingbert (St Ingbert)",
 	"Stralsund",
 	"Straubing",
 	"Stuttgart",
-	"St. Wendel",
+	"St. Wendel (St Wendel)",
 	"Suhl",
 	"Tostedt",
 	"Traunstein",
