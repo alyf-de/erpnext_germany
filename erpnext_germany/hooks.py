@@ -17,6 +17,9 @@ app_license = "GPLv3"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/erpnext_germany/css/erpnext_germany.css"
 # app_include_js = "/assets/erpnext_germany/js/erpnext_germany.js"
+app_include_js = [
+	"erpnext_germany.bundle.js",
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_germany/css/erpnext_germany.css"
@@ -124,21 +127,19 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
-	"all": [
-		"erpnext_germany.tasks.all"
-	],
-# 	"daily": [
-# 		"erpnext_germany.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"erpnext_germany.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"erpnext_germany.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"erpnext_germany.tasks.monthly"
-# 	],
+	"all": ["erpnext_germany.tasks.all"],
+	# 	"daily": [
+	# 		"erpnext_germany.tasks.daily"
+	# 	],
+	# 	"hourly": [
+	# 		"erpnext_germany.tasks.hourly"
+	# 	],
+	# 	"weekly": [
+	# 		"erpnext_germany.tasks.weekly"
+	# 	],
+	# 	"monthly": [
+	# 		"erpnext_germany.tasks.monthly"
+	# 	],
 }
 
 # Testing

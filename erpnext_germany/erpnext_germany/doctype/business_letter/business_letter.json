@@ -1,0 +1,167 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-02-02 11:10:16.599009",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "amended_from",
+  "section_break_ikyq",
+  "address",
+  "contact",
+  "column_break_ybiq",
+  "section_break_bsox",
+  "template",
+  "subject",
+  "content",
+  "html_help",
+  "reference_section",
+  "link_document_type",
+  "column_break_xyam",
+  "link_name",
+  "column_break_yebn",
+  "link_title",
+  "preview_tab",
+  "subject_preview",
+  "content_preview",
+  "html_notice"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Business Letter",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "Link",
+   "label": "Contact",
+   "options": "Contact"
+  },
+  {
+   "fetch_from": ".",
+   "fieldname": "subject",
+   "fieldtype": "Data",
+   "label": "Subject"
+  },
+  {
+   "fieldname": "template",
+   "fieldtype": "Link",
+   "label": "Load From Template",
+   "options": "Business Letter Template"
+  },
+  {
+   "fetch_from": ".content",
+   "fieldname": "content",
+   "fieldtype": "Text Editor",
+   "label": "Content"
+  },
+  {
+   "fieldname": "link_document_type",
+   "fieldtype": "Link",
+   "label": "Link Document Type",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "link_title",
+   "fieldtype": "Data",
+   "label": "Link Title"
+  },
+  {
+   "fieldname": "link_name",
+   "fieldtype": "Dynamic Link",
+   "label": "Link Name",
+   "options": "link_document_type"
+  },
+  {
+   "fieldname": "reference_section",
+   "fieldtype": "Section Break",
+   "label": "Reference"
+  },
+  {
+   "fieldname": "section_break_ikyq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_ybiq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "preview_tab",
+   "fieldtype": "Tab Break",
+   "label": "Preview"
+  },
+  {
+   "depends_on": "eval:!cur_frm.doc.__unsaved",
+   "fieldname": "subject_preview",
+   "fieldtype": "Data",
+   "label": "Subject",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:!cur_frm.doc.__unsaved",
+   "fieldname": "content_preview",
+   "fieldtype": "Text Editor",
+   "label": "Content",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_bsox",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_xyam",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_yebn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:cur_frm.doc.__unsaved",
+   "fieldname": "html_notice",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "html_help",
+   "fieldtype": "HTML"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-02-05 17:35:31.350359",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Business Letter",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
