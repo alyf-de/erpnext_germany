@@ -43,30 +43,20 @@ class BusinessLetter(Document):
 		}
 
 	def on_submit(self):
-		self.add_submit_comments()
+		self.add_comments(
+			_(
+				"submitted Business Letter <a href='/app/business-letter/{0}'><strong>{1}</strong></a>"
+			).format(self.name, self.subject_preview)
+		)
 
 	def on_cancel(self):
-		self.add_cancel_comments()
+		self.add_comments(
+			_(
+				"canceled Business Letter <a href='/app/business-letter/{0}'><strong>{1}</strong></a>"
+			).format(self.name, self.subject_preview)
+		)
 
-	def add_submit_comments(self):
-		msg = _(
-			"submitted Business Letter: <a href='/app/business-letter/{0}'><strong>{1}</strong></a>"
-		).format(self.name, self.subject_preview)
-
-		if self.contact:
-			frappe.get_doc("Contact", self.contact).add_comment("Info", msg)
-
-		if self.address:
-			frappe.get_doc("Address", self.address).add_comment("Info", msg)
-
-		if self.link_name:
-			frappe.get_doc(self.link_document_type, self.link_name).add_comment("Info", msg)
-
-	def add_cancel_comments(self):
-		msg = _(
-			"canceled Business Letter: <a href='/app/business-letter/{0}'><strong>{1}</strong></a>"
-		).format(self.name, self.subject_preview)
-
+	def add_comments(self, msg):
 		if self.contact:
 			frappe.get_doc("Contact", self.contact).add_comment("Info", msg)
 
