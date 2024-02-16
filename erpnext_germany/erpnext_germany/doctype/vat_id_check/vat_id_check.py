@@ -55,11 +55,11 @@ def run_check(doc: VATIDCheck):
 			requester_country_code=requester_country_code,
 			requester_vat_number=requester_vat_number
 		)
-	except RetryError:
+	except (RetryError, ConnectionError):
 		doc.db_set("status", "Service Unavailable", notify=True)
 		return
 	except Exception as e:
-		if e.message.upper() == "INVALID_INPUT":
+		if hasattr(e, "message") and e.message.upper() == "INVALID_INPUT":
 			doc.db_set({"status": "Invalid Input", "is_valid": False}, notify=True)
 		else:
 			doc.db_set({"status": "Error"}, notify=True)
