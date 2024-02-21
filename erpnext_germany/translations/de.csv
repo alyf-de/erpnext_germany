@@ -51,3 +51,6 @@ Debit Opening Balance,Soll Anfangsbestand,
 Credit Opening Balance,Haben Anfangsbestand,
 Debit Closing Balance,Soll Endbestand,
 Credit Closing Balance,Haben Endbestand,
+submitted Business Letter {0},hat Geschäftsbrief {0} eingereicht,
+cancelled Business Letter {0},hat Geschäftsbrief {0} storniert,
+

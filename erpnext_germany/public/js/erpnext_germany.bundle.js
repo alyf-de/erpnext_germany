@@ -1,1 +1,1 @@
-import "./erpnext_germany/utils.js";
+import "./erpnext_germany/business_letter.js";
