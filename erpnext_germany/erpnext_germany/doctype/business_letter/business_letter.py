@@ -24,10 +24,9 @@ class BusinessLetter(Document):
 		)
 
 	def set_link_title(self):
-		if self.link_name:
-			self.link_title = get_title(self.link_document_type, self.link_name)
-		else:
-			self.link_title = None
+		self.link_title = (
+			get_title(self.link_document_type, self.link_name) if self.link_name else None
+		)
 
 	def get_context(self):
 		address = frappe.get_doc("Address", self.address) if self.address else None
@@ -44,16 +43,16 @@ class BusinessLetter(Document):
 
 	def on_submit(self):
 		self.add_comments(
-			_(
-				"submitted Business Letter <a href='/app/business-letter/{0}'><strong>{1}</strong></a>"
-			).format(self.name, self.subject_preview)
+			_("submitted Business Letter {0}").format(
+				f"<a href='/app/business-letter/{self.name}'><strong>{self.subject_preview}</strong></a>"
+			)
 		)
 
 	def on_cancel(self):
 		self.add_comments(
-			_(
-				"canceled Business Letter <a href='/app/business-letter/{0}'><strong>{1}</strong></a>"
-			).format(self.name, self.subject_preview)
+			_("cancelled Business Letter {0}").format(
+				f"<a href='/app/business-letter/{self.name}'><strong>{self.subject_preview}</strong></a>"
+			)
 		)
 
 	def add_comments(self, msg):
