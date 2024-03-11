@@ -20,6 +20,9 @@ frappe.ui.form.on("Business Letter", {
 			});
 		}
 	},
+	address: function (frm) {
+		erpnext.utils.get_address_display(frm, "address");
+	},
 });
 
 function set_html_data(frm) {
