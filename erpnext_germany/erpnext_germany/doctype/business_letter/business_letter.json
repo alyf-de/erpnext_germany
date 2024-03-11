@@ -8,8 +8,10 @@
   "amended_from",
   "section_break_ikyq",
   "address",
-  "contact",
+  "address_display",
   "column_break_ybiq",
+  "contact",
+  "email_id",
   "section_break_bsox",
   "template",
   "subject",
@@ -22,6 +24,7 @@
   "column_break_yebn",
   "link_title",
   "preview_tab",
+  "sdf_section",
   "subject_preview",
   "content_preview",
   "html_notice"
@@ -41,7 +44,8 @@
    "fieldname": "address",
    "fieldtype": "Link",
    "label": "Address",
-   "options": "Address"
+   "options": "Address",
+   "print_hide": 1
   },
   {
    "fieldname": "contact",
@@ -50,40 +54,46 @@
    "options": "Contact"
   },
   {
-   "fetch_from": ".",
    "fieldname": "subject",
    "fieldtype": "Data",
-   "label": "Subject"
+   "label": "Subject",
+   "print_hide": 1
   },
   {
    "fieldname": "template",
    "fieldtype": "Link",
    "label": "Load From Template",
-   "options": "Business Letter Template"
+   "options": "Business Letter Template",
+   "print_hide": 1,
+   "report_hide": 1
   },
   {
-   "fetch_from": ".content",
    "fieldname": "content",
    "fieldtype": "Text Editor",
-   "label": "Content"
+   "label": "Content",
+   "print_hide": 1
   },
   {
    "fieldname": "link_document_type",
    "fieldtype": "Link",
    "label": "Link Document Type",
-   "options": "DocType"
+   "options": "DocType",
+   "print_hide": 1
   },
   {
    "fieldname": "link_title",
    "fieldtype": "Data",
    "label": "Link Title",
+   "no_copy": 1,
+   "print_hide": 1,
    "read_only": 1
   },
   {
    "fieldname": "link_name",
    "fieldtype": "Dynamic Link",
    "label": "Link Name",
-   "options": "link_document_type"
+   "options": "link_document_type",
+   "print_hide": 1
   },
   {
    "fieldname": "reference_section",
@@ -107,14 +117,16 @@
    "depends_on": "eval:!cur_frm.doc.__unsaved",
    "fieldname": "subject_preview",
    "fieldtype": "Data",
-   "label": "Subject",
+   "label": "Subject (Preview)",
+   "no_copy": 1,
    "read_only": 1
   },
   {
    "depends_on": "eval:!cur_frm.doc.__unsaved",
    "fieldname": "content_preview",
    "fieldtype": "Text Editor",
-   "label": "Content",
+   "label": "Content (Preview)",
+   "no_copy": 1,
    "read_only": 1
   },
   {
@@ -132,17 +144,43 @@
   {
    "depends_on": "eval:cur_frm.doc.__unsaved",
    "fieldname": "html_notice",
-   "fieldtype": "HTML"
+   "fieldtype": "HTML",
+   "no_copy": 1,
+   "print_hide": 1,
+   "report_hide": 1
   },
   {
    "fieldname": "html_help",
-   "fieldtype": "HTML"
+   "fieldtype": "HTML",
+   "no_copy": 1,
+   "print_hide": 1,
+   "report_hide": 1
+  },
+  {
+   "fieldname": "address_display",
+   "fieldtype": "Small Text",
+   "label": "Address",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fetch_from": "contact.email_id",
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email",
+   "no_copy": 1,
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "sdf_section",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-02-21 12:03:46.707325",
+ "modified": "2024-03-11 10:32:18.070494",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Letter",
