@@ -29,6 +29,6 @@ function set_html_data(frm) {
 
 	frm.get_field("html_notice").$wrapper.html(html_notice);
 	frm.get_field("html_help").$wrapper.html(
-		erpnext_germany.business_letter.get_help_text()
+		`<div>${erpnext_germany.business_letter.get_help_text()}</div>`
 	);
 }
