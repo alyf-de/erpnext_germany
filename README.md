@@ -28,6 +28,8 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     Requires [HRMS](https://github.com/frappe/hrms) to be installed first.
 
+- Create **Business Letters** from a template and print or email them to your customers or suppliers
+
 ## Installation
 
 ### On Frappe Cloud
