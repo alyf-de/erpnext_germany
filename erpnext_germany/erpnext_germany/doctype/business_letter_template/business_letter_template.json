@@ -26,9 +26,13 @@
    "fieldtype": "HTML"
   }
  ],
- "index_web_pages_for_search": 1,
- "links": [],
- "modified": "2024-02-05 16:51:17.915515",
+ "links": [
+  {
+   "link_doctype": "Business Letter",
+   "link_fieldname": "template"
+  }
+ ],
+ "modified": "2024-03-12 15:04:47.387792",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Letter Template",
