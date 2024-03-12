@@ -14,7 +14,6 @@ frappe.ui.form.on("Business Letter", {
 					if (r.message) {
 						frm.set_value("subject", r.message.subject);
 						frm.set_value("content", r.message.content);
-						frm.set_value("template", null);
 					}
 				},
 			});
