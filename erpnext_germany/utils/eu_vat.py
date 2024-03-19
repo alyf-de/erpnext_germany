@@ -1,9 +1,11 @@
 import re
 
+from requests.exceptions import ConnectionError
 from tenacity import (
 	retry,
 	retry_any,
 	retry_if_exception_message,
+	retry_if_exception_type,
 	stop_after_attempt,
 	wait_exponential,
 )
@@ -42,6 +44,7 @@ def check_vat(country_code: str, vat_number: str):
 		retry_if_exception_message(message="SERVICE_UNAVAILABLE"),
 		retry_if_exception_message(message="MS_UNAVAILABLE"),
 		retry_if_exception_message(message="TIMEOUT"),
+		retry_if_exception_type(ConnectionError),
 	),
 	stop=stop_after_attempt(3),
 	wait=wait_exponential(multiplier=1, min=2, max=64),
