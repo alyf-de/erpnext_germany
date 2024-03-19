@@ -12,6 +12,7 @@
   "column_break_ybiq",
   "contact",
   "email_id",
+  "date",
   "section_break_bsox",
   "template",
   "subject",
@@ -175,12 +176,18 @@
   {
    "fieldname": "sdf_section",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-11 10:32:18.070494",
+ "modified": "2024-03-19 10:33:10.545412",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Letter",
