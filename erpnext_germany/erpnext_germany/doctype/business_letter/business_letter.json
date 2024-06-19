@@ -24,6 +24,8 @@
   "link_name",
   "column_break_yebn",
   "link_title",
+  "settings_section",
+  "language",
   "preview_tab",
   "sdf_section",
   "subject_preview",
@@ -182,12 +184,24 @@
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
+  },
+  {
+   "default": "de",
+   "fieldname": "language",
+   "fieldtype": "Link",
+   "label": "Print Language",
+   "options": "Language"
+  },
+  {
+   "fieldname": "settings_section",
+   "fieldtype": "Section Break",
+   "label": "Settings"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-19 10:33:10.545412",
+ "modified": "2024-06-19 10:27:03.132326",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Letter",
