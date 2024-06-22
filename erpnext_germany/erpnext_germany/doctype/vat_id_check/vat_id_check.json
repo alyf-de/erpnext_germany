@@ -195,6 +195,7 @@
    "in_standard_filter": 1,
    "label": "Party",
    "options": "party_type",
+   "read_only_depends_on": "eval: !doc.party_type",
    "set_only_once": 1
   },
   {
@@ -202,6 +203,7 @@
    "fieldtype": "Link",
    "label": "Party Address",
    "options": "Address",
+   "read_only_depends_on": "eval: !doc.party",
    "set_only_once": 1
   },
   {
@@ -217,7 +219,7 @@
   }
  ],
  "links": [],
- "modified": "2024-01-15 19:51:41.796509",
+ "modified": "2024-06-11 10:14:55.846253",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
