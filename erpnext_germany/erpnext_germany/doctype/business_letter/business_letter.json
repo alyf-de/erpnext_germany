@@ -13,6 +13,7 @@
   "contact",
   "email_id",
   "date",
+  "company",
   "section_break_bsox",
   "template",
   "subject",
@@ -182,12 +183,20 @@
    "fieldname": "date",
    "fieldtype": "Date",
    "label": "Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "print_hide": 1,
+   "remember_last_selected_value": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-19 10:33:10.545412",
+ "modified": "2024-07-24 16:00:48.347166",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Letter",
