@@ -187,18 +187,16 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Company",
    "options": "Company",
    "print_hide": 1,
-   "remember_last_selected_value": 1,
-   "reqd": 1
+   "remember_last_selected_value": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-24 15:46:21.065818",
+ "modified": "2024-07-24 16:00:48.347166",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Letter",
