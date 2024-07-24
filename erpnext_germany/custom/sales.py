@@ -22,6 +22,6 @@ def is_not_latest(doctype, name, creation, company):
 		{
 			"creation": (">", creation),
 			"name": ("!=", name),
-			"company": ("=", company),
+			"company": company,
 		},
 	)
