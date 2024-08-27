@@ -18,9 +18,6 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     ![Validate EU VAT ID](docs/vat_check.png)
 
-    > [!INFO]
-    > Currently, we always check four customers that didn't have a VAT ID Check in the last three months. If these four all have an invalid VAT ID, we get stuck.
-
 - Allow deletion of the most recent sales transaction only
 
     This ensures consecutive numbering of transactions. Applies to **Quotation**, **Sales Order**, **Sales Invoice**.
