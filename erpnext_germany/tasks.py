@@ -93,11 +93,6 @@ def check_some_parties():
 	for party_type, party, party_name, primary_address, vat_id in (
 		get_customers() + get_suppliers()
 	):
-		try:
-			parse_vat_id(vat_id)
-		except ValueError:
-			continue
-
 		doc = frappe.new_doc("VAT ID Check")
 		doc.party_type = party_type
 		doc.party = party
