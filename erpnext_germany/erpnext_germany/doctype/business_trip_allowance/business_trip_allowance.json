@@ -1,0 +1,102 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2022-11-01 20:32:56.339187",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "date",
+  "whole_day",
+  "from_time",
+  "to_time",
+  "breakfast_was_provided",
+  "lunch_was_provided",
+  "dinner_was_provided",
+  "accommodation_was_provided",
+  "amount"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "columns": 1,
+   "default": "0",
+   "fieldname": "whole_day",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Whole Day"
+  },
+  {
+   "columns": 1,
+   "depends_on": "eval:!doc.whole_day",
+   "fieldname": "from_time",
+   "fieldtype": "Time",
+   "label": "From Time",
+   "mandatory_depends_on": "eval:!doc.whole_day"
+  },
+  {
+   "depends_on": "eval:!doc.whole_day",
+   "fieldname": "to_time",
+   "fieldtype": "Time",
+   "label": "To Time",
+   "mandatory_depends_on": "eval:!doc.whole_day"
+  },
+  {
+   "columns": 2,
+   "default": "1",
+   "fieldname": "breakfast_was_provided",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Breakfast was Provided"
+  },
+  {
+   "columns": 2,
+   "default": "0",
+   "fieldname": "lunch_was_provided",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Lunch was Provided"
+  },
+  {
+   "columns": 2,
+   "default": "0",
+   "fieldname": "dinner_was_provided",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Dinner was Provided"
+  },
+  {
+   "default": "1",
+   "fieldname": "accommodation_was_provided",
+   "fieldtype": "Check",
+   "label": "Accommodation was Provided"
+  },
+  {
+   "columns": 1,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-04 22:59:26.731082",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Business Trip Allowance",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
