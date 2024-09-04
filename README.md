@@ -29,6 +29,7 @@ App to hold regional code for Germany, built on top of ERPNext.
     Requires [HRMS](https://github.com/frappe/hrms) to be installed first.
 
 - Create **Business Letters** from a template and print or email them to your customers or suppliers
+- Record **Business Trips** and pay out allowances to your employees (dt. Reisekostenabrechnung)
 
 ## Installation
 
@@ -53,6 +54,16 @@ After that, you can install the app on required site (let's say demo.com ) by ru
 ```bash
 bench --site demo.com install-app erpnext_germany
 ```
+
+## Business Trip
+
+Before an employee can create a **Business Trip**, you should configure the available regions and their travel allowances in the **Business Trip Region** list.
+
+When a **Business Trip** is submitted, it creates a draft **Expense Claim** for the employee's travel allowances. The **Expense Claim** can be approved and submitted as usual.
+
+The receipts for transport and accommodation can be attached, but are not processed automatically. You can check them, create a **Purchase Invoice** and pay the respective amount to the employee.
+
+You can use our [Banking app](https://github.com/alyf-de/banking) to reconcile the **Expense Claims** and **Purchase Invoices** with the respective **Bank Transactions**.
 
 ### License
 
