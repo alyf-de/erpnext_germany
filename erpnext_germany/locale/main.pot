@@ -1,0 +1,509 @@
+# Translations template for ERPNext Germany.
+# Copyright (C) 2024 ALYF GmbH
+# This file is distributed under the same license as the ERPNext Germany project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ERPNext Germany VERSION\n"
+"Report-Msgid-Bugs-To: hallo@alyf.de\n"
+"POT-Creation-Date: 2024-09-28 15:29+0053\n"
+"PO-Revision-Date: 2024-09-28 15:29+0053\n"
+"Last-Translator: hallo@alyf.de\n"
+"Language-Team: hallo@alyf.de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:30
+msgid "Account"
+msgstr ""
+
+#. Label of a Small Text field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Actual Trader Address"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Actual Trader Name"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Letter'
+#. Label of a Small Text field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Address"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Amended From"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:32
+msgid "April"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:36
+msgid "August"
+msgstr ""
+
+#. Name of a DocType
+#. Linked DocType in Business Letter Template's connections
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+#: erpnext_germany/erpnext_germany/doctype/business_letter_template/business_letter_template.json
+msgid "Business Letter"
+msgstr ""
+
+#. Name of a DocType
+#: erpnext_germany/erpnext_germany/doctype/business_letter_template/business_letter_template.json
+msgid "Business Letter Template"
+msgstr ""
+
+#: erpnext_germany/custom/sales.py:15
+msgid "Cannot delete this transaction"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:123
+msgid "Children Eligible for Tax Credits"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Letter'
+#. Label of a Link field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:9
+msgid "Company"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Completed"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Contact"
+msgstr ""
+
+#. Label of a Text Editor field in DocType 'Business Letter'
+#. Label of a Text Editor field in DocType 'Business Letter Template'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+#: erpnext_germany/erpnext_germany/doctype/business_letter_template/business_letter_template.json
+msgid "Content"
+msgstr ""
+
+#. Label of a Text Editor field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Content (Preview)"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:93
+msgid "Credit Closing Balance"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:51
+msgid "Credit Opening Balance"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:79
+msgid "Credit in {0}"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:65
+msgid "Credit until {0}"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:37
+msgid "Currency"
+msgstr ""
+
+#. Label of a Date field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Date"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:86
+msgid "Debit Closing Balance"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:44
+msgid "Debit Opening Balance"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:72
+msgid "Debit in {0}"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:58
+msgid "Debit until {0}"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:40
+msgid "December"
+msgstr ""
+
+#: erpnext_germany/config/desktop.py:10
+msgid "ERPNext Germany"
+msgstr ""
+
+#. Label of a Data field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Email"
+msgstr ""
+
+#. Name of a role
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Employee"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Error"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:30
+msgid "February"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:17
+msgid "Fiscal Year"
+msgstr ""
+
+#. Name of a role
+#: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
+msgid "HR Manager"
+msgstr ""
+
+#. Name of a role
+#: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
+msgid "HR User"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:137
+msgid "Has Children"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:143
+msgid "Has Other Employments"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:149
+msgid "Highest School Qualification"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:8
+msgid "Invalid"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Invalid Input"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:69
+msgid "Is Severely Disabled"
+msgstr ""
+
+#. Label of a Check field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Is Valid"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:29
+msgid "January"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:35
+msgid "July"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:34
+msgid "June"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Link Document Type"
+msgstr ""
+
+#. Label of a Dynamic Link field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Link Name"
+msgstr ""
+
+#. Label of a Data field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Link Title"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Load From Template"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:31
+msgid "March"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:33
+msgid "May"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:25
+msgid "Month"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:62
+msgid "Nationality"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:39
+msgid "November"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:38
+msgid "October"
+msgstr ""
+
+#: erpnext_germany/custom/sales.py:12
+msgid "Only the most recent {0} can be deleted in order to avoid gaps in numbering."
+msgstr ""
+
+#. Label of a Dynamic Link field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Party"
+msgstr ""
+
+#. Label of a Link field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Party Address"
+msgstr ""
+
+#. Label of a Link field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Party Type"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Party VAT ID"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:10
+msgid "Planned"
+msgstr ""
+
+#. Label of a Tab Break field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Preview"
+msgstr ""
+
+#. Label of a Section Break field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Reference"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:45
+msgid "Register Court"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:13
+msgid "Register Information"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:33
+msgid "Register Number"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:20
+msgid "Register Type"
+msgstr ""
+
+#. Name of a DocType
+#: erpnext_germany/custom_fields.py:129
+#: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
+msgid "Religious Denomination"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Request ID"
+msgstr ""
+
+#. Label of a Section Break field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Requester"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Requester VAT ID"
+msgstr ""
+
+#. Label of a Section Break field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Result"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:12
+msgid "Running"
+msgstr ""
+
+#. Name of a role
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Sales Manager"
+msgstr ""
+
+#. Name of a role
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Sales Master Manager"
+msgstr ""
+
+#. Name of a role
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Sales User"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:37
+msgid "September"
+msgstr ""
+
+#. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Service Unavailable"
+msgstr ""
+
+#. Label of a Select field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Status"
+msgstr ""
+
+#. Label of a Data field in DocType 'Business Letter'
+#. Label of a Data field in DocType 'Business Letter Template'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+#: erpnext_germany/erpnext_germany/doctype/business_letter_template/business_letter_template.json
+msgid "Subject"
+msgstr ""
+
+#. Label of a Data field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Subject (Preview)"
+msgstr ""
+
+#. Name of a report
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.json
+msgid "Summen- und Saldenliste"
+msgstr ""
+
+#. Name of a role
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+#: erpnext_germany/erpnext_germany/doctype/business_letter_template/business_letter_template.json
+#: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "System Manager"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:115
+msgid "Tax Bracket"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:157 erpnext_germany/custom_fields.py:168
+msgid "Tax Exemption Reason"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:89
+msgid "Tax ID"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:96
+msgid "Tax Office"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:103
+msgid "Tax Office Number"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:82
+msgid "Taxes"
+msgstr ""
+
+#. Label of a Data field in DocType 'Religious Denomination'
+#: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
+msgid "Title"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader City"
+msgstr ""
+
+#. Label of a Check field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader City Match"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader Name"
+msgstr ""
+
+#. Label of a Check field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader Name Match"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader Postcode"
+msgstr ""
+
+#. Label of a Check field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader Postcode Match"
+msgstr ""
+
+#. Label of a Data field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader Street"
+msgstr ""
+
+#. Label of a Check field in DocType 'VAT ID Check'
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "Trader Street Match"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.js:28
+msgid "Unsaved changes. Save the document first to get a preview."
+msgstr ""
+
+#. Name of a DocType
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+msgid "VAT ID Check"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:7
+msgid "Valid"
+msgstr ""
+
+#: erpnext_germany/custom_fields.py:75
+msgid "Working Hours Per Week"
+msgstr ""
+
+#: erpnext_germany/public/js/erpnext_germany/business_letter.js:7
+msgid "You can use {0} in the Subject and Content fields for dynamic values.<br><br>All address details are available under the <code>address</code> object (e.g., <code>{{ address.city }}</code>), contact details under the <code>contact</code> object (e.g., <code>{{ contact.first_name }}</code>), and any specific information related to the dynamically linked document under the <code>reference</code> object (e.g., <code>{{ reference.some_field }}</code>).<br><br>"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.py:53
+msgid "cancelled Business Letter {0}"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.py:46
+msgid "submitted Business Letter {0}"
+msgstr ""
+
