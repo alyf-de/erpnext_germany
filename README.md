@@ -24,20 +24,19 @@ App to hold regional code for Germany, built on top of ERPNext.
 
 - Custom fields in **Employee** (tax information, etc.)
 - List of religios denominations ("Konfessionen")
-- List of German health insurance providers
-
-    Requires [HRMS](https://github.com/frappe/hrms) to be installed first.
-
+- List of German health insurance providers (depends on HRMS)
 - Create **Business Letters** from a template and print or email them to your customers or suppliers
-- Record **Business Trips** and pay out allowances to your employees (dt. Reisekostenabrechnung)
+- Record **Business Trips** and pay out allowances to your employees (dt. Reisekostenabrechnung) (depends on HRMS)
 
 ## Installation
 
+> [!NOTE]
+> Some features of this app depend on the [HRMS](https://github.com/frappe/hrms) app. If you want to use them, you need to install the HRMS app before installing this app.
+
 ### On Frappe Cloud
 
-1. Go to https://frappecloud.com/dashboard/#/sites and click the "New Site" button.
-2. In Step 2 ("Select apps to install"), select "ERPNext" and "ERPNext Germany".
-3. Complete the new site wizard.
+You can find ERPNext Germany in the [Frappe Cloud Marketplace](https://frappecloud.com/marketplace/apps/erpnext_germany).
+Please refer to the [Frappe Cloud documentation](https://frappecloud.com/docs/installing-an-app) on how to install an app.
 
 ### Local
 

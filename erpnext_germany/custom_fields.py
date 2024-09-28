@@ -1,4 +1,5 @@
 from .constants import REGISTER_COURTS
+from frappe import get_installed_apps
 
 
 def _(message: str) -> str:
@@ -173,5 +174,16 @@ def get_custom_fields():
 			}
 		],
 	}
+
+	if "hrms" in get_installed_apps():
+		custom_fields["Expense Claim"] = [
+			{
+				"fieldtype": "Link",
+				"fieldname": "business_trip",
+				"label": _("Business Trip"),
+				"options": "Business Trip",
+				"insert_after": "company",
+			},
+		]
 
 	return custom_fields

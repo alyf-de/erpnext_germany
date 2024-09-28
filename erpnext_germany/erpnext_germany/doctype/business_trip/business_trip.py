@@ -3,6 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe import get_installed_apps
 
 
 class BusinessTrip(Document):
@@ -14,6 +15,9 @@ class BusinessTrip(Document):
 		self.validate_from_to_dates("from_date", "to_date")
 
 	def set_regional_amount(self):
+		if not self.region:
+			return
+
 		region = frappe.get_doc("Business Trip Region", self.region)
 		whole_day = region.get("whole_day", 0.0)
 		arrival_or_departure = region.get("arrival_or_departure", 0.0)
@@ -43,6 +47,9 @@ class BusinessTrip(Document):
 
 	def on_submit(self):
 		if not self.allowances:
+			return
+
+		if "hrms" not in get_installed_apps():
 			return
 
 		expense_claim = frappe.new_doc("Expense Claim")
