@@ -1,4 +1,5 @@
 import frappe
+from .custom_fields import get_custom_fields
 
 
 def before_uninstall():
@@ -9,7 +10,7 @@ def before_uninstall():
 
 def remove_custom_fields():
 	print("* removing custom fields...")
-	for doctypes, custom_fields in frappe.get_hooks("germany_custom_fields").items():
+	for doctypes, custom_fields in get_custom_fields().items():
 		if isinstance(doctypes, str):
 			doctypes = (doctypes,)
 
