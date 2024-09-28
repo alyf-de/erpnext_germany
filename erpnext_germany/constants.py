@@ -1,6 +1,5 @@
 # German company register courts
 REGISTER_COURTS = [
-	"",  # empty string to be able to select nothing
 	"Aachen",
 	"Altenburg",
 	"Amberg",

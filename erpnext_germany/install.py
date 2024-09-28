@@ -3,11 +3,11 @@ from csv import DictReader
 import frappe
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 from frappe.custom.doctype.property_setter.property_setter import make_property_setter
+from .custom_fields import get_custom_fields
 
 
 def after_install():
-	custom_fields = frappe.get_hooks("germany_custom_fields")
-	create_custom_fields(custom_fields)
+	create_custom_fields(get_custom_fields())
 	make_property_setters()
 	import_data()
 	insert_custom_records()
