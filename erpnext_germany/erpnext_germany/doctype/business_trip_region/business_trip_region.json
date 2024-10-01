@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:title",
+ "creation": "2022-11-01 20:24:28.877901",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "whole_day",
+  "arrival_or_departure",
+  "accommodation"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "unique": 1
+  },
+  {
+   "description": "For an absence of at least 24 hours per calendar day",
+   "fieldname": "whole_day",
+   "fieldtype": "Currency",
+   "label": "Whole Day"
+  },
+  {
+   "description": "For the day of arrival and departure and for an absence of more than 8 hours per calendar day",
+   "fieldname": "arrival_or_departure",
+   "fieldtype": "Currency",
+   "label": "Arrival or Departure"
+  },
+  {
+   "description": "Lump sum for accommodation expenses",
+   "fieldname": "accommodation",
+   "fieldtype": "Currency",
+   "label": "Accommodation"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Business Trip",
+   "link_fieldname": "region"
+  }
+ ],
+ "modified": "2024-09-04 23:22:20.930187",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Business Trip Region",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title"
+}
