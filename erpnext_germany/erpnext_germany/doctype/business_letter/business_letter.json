@@ -7,12 +7,16 @@
  "field_order": [
   "amended_from",
   "section_break_ikyq",
+  "recipient_column",
   "address",
-  "address_display",
-  "column_break_ybiq",
   "contact",
   "email_id",
+  "address_display",
+  "column_break_ybiq",
   "date",
+  "author",
+  "author_name",
+  "department",
   "company",
   "section_break_bsox",
   "template",
@@ -73,6 +77,7 @@
    "fieldname": "content",
    "fieldtype": "Text Editor",
    "label": "Content",
+   "options": "Jinja",
    "print_hide": 1
   },
   {
@@ -108,7 +113,8 @@
   },
   {
    "fieldname": "column_break_ybiq",
-   "fieldtype": "Column Break"
+   "fieldtype": "Column Break",
+   "label": "Sender"
   },
   {
    "fieldname": "preview_tab",
@@ -191,12 +197,41 @@
    "options": "Company",
    "print_hide": 1,
    "remember_last_selected_value": 1
+  },
+  {
+   "fieldname": "author",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Author",
+   "options": "Employee",
+   "print_hide": 1,
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "remember_last_selected_value": 1
+  },
+  {
+   "fetch_from": "author.employee_name",
+   "fieldname": "author_name",
+   "fieldtype": "Data",
+   "label": "Author",
+   "read_only": 1
+  },
+  {
+   "fieldname": "recipient_column",
+   "fieldtype": "Column Break",
+   "label": "Recipient"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-07-24 16:00:48.347166",
+ "modified": "2024-10-11 16:14:01.183126",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Letter",
