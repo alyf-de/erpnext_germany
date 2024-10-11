@@ -45,11 +45,10 @@
    "link_fieldname": "region"
   }
  ],
- "modified": "2024-10-11 18:56:49.254117",
+ "modified": "2024-09-04 23:22:20.930187",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Region",
- "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -62,16 +61,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "write": 1
-  },
-  {
-   "role": "Employee",
-   "select": 1
-  },
-  {
-   "create": 1,
-   "read": 1,
-   "role": "Accounts User",
    "write": 1
   }
  ],
