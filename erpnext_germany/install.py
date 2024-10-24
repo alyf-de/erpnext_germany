@@ -17,6 +17,7 @@ def import_data():
 	for doctype, filename in (
 		("Religious Denomination", "religious_denomination.csv"),
 		("Employee Health Insurance", "employee_health_insurance.csv"),
+		("Expense Claim Type", "expense_claim_type.csv"),
 	):
 		if not frappe.db.exists("DocType", doctype):
 			continue
