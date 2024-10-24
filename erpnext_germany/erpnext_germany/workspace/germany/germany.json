@@ -61,7 +61,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-10-24 17:40:10.639791",
+ "modified": "2024-10-24 18:06:06.599157",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Germany",
@@ -82,19 +82,21 @@
    "type": "DocType"
   },
   {
-   "color": "Grey",
+   "color": "Red",
    "doc_view": "List",
+   "format": "{} Invalid",
    "label": "Vat Id Check",
    "link_to": "VAT ID Check",
-   "stats_filter": "[]",
+   "stats_filter": "[[\"VAT ID Check\",\"status\",\"=\",\"Completed\",false],[\"VAT ID Check\",\"is_valid\",\"=\",0,false]]",
    "type": "DocType"
   },
   {
-   "color": "Grey",
+   "color": "Yellow",
    "doc_view": "List",
+   "format": "{} Open",
    "label": "Business Trip",
    "link_to": "Business Trip",
-   "stats_filter": "[]",
+   "stats_filter": "[[\"Business Trip\",\"status\",\"=\",\"Submitted\",false]]",
    "type": "DocType"
   }
  ],
