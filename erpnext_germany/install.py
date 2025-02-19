@@ -10,7 +10,7 @@ from .custom_fields import get_custom_fields
 
 
 def after_install():
-	create_custom_fields(get_custom_fields())
+	make_custom_fields()
 	make_property_setters()
 	import_data()
 	insert_custom_records()
@@ -55,6 +55,10 @@ def make_property_setters():
 			for property_setter in property_setters:
 				for_doctype = not property_setter[0]
 				make_property_setter(doctype, *property_setter, for_doctype)
+
+
+def make_custom_fields():
+	create_custom_fields(get_custom_fields())
 
 
 def insert_custom_records():
