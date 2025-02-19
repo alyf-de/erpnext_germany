@@ -4,6 +4,23 @@
 frappe.ui.form.on("Business Letter", {
 	onload(frm) {
 		set_html_data(frm);
+		frm.set_query("department", function () {
+			return {
+				filters: {
+					company: frm.doc.company,
+				},
+			};
+		});
+
+		frm.set_query("employee", function () {
+			return {
+				filters: {
+					company: frm.doc.company,
+					status: "Active",
+					...(frm.doc.department && { department: frm.doc.department }),
+				},
+			};
+		});
 	},
 	template: function (frm) {
 		if (frm.doc.template) {
