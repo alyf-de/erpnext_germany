@@ -1,9 +1,6 @@
 # German company register courts
 REGISTER_COURTS = [
-<<<<<<< HEAD
-=======
 	"",  # empty string to be able to select nothing
->>>>>>> 90f334d (fix: update court list)
 	"Aachen",
 	"Altenburg",
 	"Amberg",
