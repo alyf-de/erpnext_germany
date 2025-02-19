@@ -2,6 +2,25 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on("Business Letter", {
+	setup(frm) {
+		frm.set_query("department", function (doc) {
+			return {
+				filters: {
+					company: doc.company,
+				},
+			};
+		});
+
+		frm.set_query("employee", function (doc) {
+			return {
+				filters: {
+					company: doc.company,
+					status: "Active",
+					...(doc.department && { department: doc.department }),
+				},
+			};
+		});
+	},
 	onload(frm) {
 		set_html_data(frm);
 	},
