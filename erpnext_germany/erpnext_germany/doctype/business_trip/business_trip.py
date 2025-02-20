@@ -8,6 +8,7 @@ from frappe import _, get_installed_apps
 
 class BusinessTrip(Document):
 	def before_save(self):
+		self.reset_distance()
 		self.set_regional_amount()
 		self.set_whole_day_time()
 		self.calculate_total()
@@ -41,6 +42,11 @@ class BusinessTrip(Document):
 
 			allowance.amount = max(amount, 0.0)
 
+	def reset_distance(self):
+		for journey in self.journeys:
+			if journey.mode_of_transport != "Car (private)":
+				journey.distance = 0
+
 	def set_whole_day_time(self):
 		for allowance in self.allowances:
 			if allowance.whole_day:
@@ -51,12 +57,8 @@ class BusinessTrip(Document):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
 
 	def calculate_total_mileage_allowance(self):
-		self.total_mileage_allowance = sum(
-			journey.distance
-			for journey in self.journeys
-			if journey.mode_of_transport == "Car (private)"
-		) * frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
-		for journey in self.journeys: journey.distance = 0 if journey.mode_of_transport != "Car (private)" else journey.distance
+		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
+		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
 
 	def before_submit(self):
 		self.status = "Submitted"
