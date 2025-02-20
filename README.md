@@ -56,9 +56,13 @@ bench --site demo.com install-app erpnext_germany
 
 ## Business Trip
 
-Before an employee can create a **Business Trip**, you should configure the available regions and their travel allowances in the **Business Trip Region** list. If you have HRMS installed, add the **Expense Claim Type** **Additional meal expenses** to allow the expenses book as Expense Claims.
+Before an employee can create a **Business Trip (Dienstreise)**, you should configure the available regions and their travel allowances in the **Business Trip Region** list. A basic list based on the German tax law is imported on installation, but not further updated later. In the **Business Trip Settings (Dienstreise-Einstellungen)** you can set the value for the mileage allowance and select **Expense Claim Type** for mileage allowance and **Additional meal expenses**. Both Expense Claim Type are preset to **Additional meal expenses**. If you have HRMS installed, it allows you to book expenses as Expense Claims.
 
-When a **Business Trip** is submitted, it creates a draft **Expense Claim** for the employee's travel allowances. The **Expense Claim** can be approved and submitted as usual.
+When a **Business Trip** is submitted, it creates a draft **Expense Claim** for the employee's travel allowances including the Additional meal expenses as well as mileage allowance for "Car (private)". One business trip will create on **Expense Claim** which can be approved and submitted as usual.
+
+Mileage allowance is calculated based on the distance entered in the details of the journey when "Car (private)" is selected.
+
+The Additional meal expenses depend on the selected region. Select the "From" and "To" dates of the trip and with the click on "Add Row" all days of the trip a pre-created.
 
 The receipts for transport and accommodation can be attached, but are not processed automatically. You can check them, create a **Purchase Invoice** and pay the respective amount to the employee.
 
