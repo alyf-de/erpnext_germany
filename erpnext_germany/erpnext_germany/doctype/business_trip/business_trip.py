@@ -83,24 +83,26 @@ class BusinessTrip(Document):
 			}
 		)
 
+		settings = frappe.get_single("Business Trip Settings")
 		for journey in self.journeys:
 			if journey.mode_of_transport == "Car (private)":
-				description = f'{journey.distance}km * {frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")}€/km von {getattr(journey, "from")} nach {journey.to} (Fahrt mit Privatauto)'
-
-				expense_claim_type_car = frappe.db.get_single_value(
-					"Business Trip Settings", "expense_claim_type_car"
+				description = _(
+					"{distance} * {mileage_allowance} from {from_place} to {to_place} (Journey by private car)"
+				).format(
+					distance=journey.get_formatted("distance"),
+					mileage_allowance=settings.get_formatted("mileage_allowance"),
+					from_place=getattr(journey, "from"),
+					to_place=getattr(journey, "to"),
 				)
 
 				expense_claim.append(
 					"expenses",
 					{
 						"expense_date": journey.date,
-						"expense_type": expense_claim_type_car,
+						"expense_type": settings.expense_claim_type_car,
 						"description": description,
-						"amount": journey.distance
-						* frappe.db.get_single_value("Business Trip Settings", "mileage_allowance"),
-						"sanctioned_amount": journey.distance
-						* frappe.db.get_single_value("Business Trip Settings", "mileage_allowance"),
+						"amount": journey.distance * settings.mileage_allowance,
+						"sanctioned_amount": journey.distance * settings.mileage_allowance,
 						"project": self.project,
 						"cost_center": self.cost_center,
 					},
@@ -109,7 +111,9 @@ class BusinessTrip(Document):
 				journey.distance = 0
 
 		for allowance in self.allowances:
-			description = _("Full Day") if allowance.whole_day else _("Arrival/Departure")
+			description = (
+				_("Full Day") if allowance.whole_day else _("Arrival/Departure")
+			)
 			if not allowance.accommodation_was_provided and frappe.db.get_value(
 				"Business Trip Region", self.region, "accommodation"
 			):
@@ -124,15 +128,11 @@ class BusinessTrip(Document):
 			if allowance.dinner_was_provided:
 				description += ", abzügl. Abendessen"
 
-			expense_claim_type = frappe.db.get_single_value(
-				"Business Trip Settings", "expense_claim_type"
-			)
-
 			expense_claim.append(
 				"expenses",
 				{
 					"expense_date": allowance.date,
-					"expense_type": expense_claim_type,
+					"expense_type": settings.expense_claim_type,
 					"description": description,
 					"amount": allowance.amount,
 					"sanctioned_amount": allowance.amount,
