@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-from frappe import _, get_installed_apps
+from frappe import get_installed_apps
 
 
 class BusinessTrip(Document):
@@ -86,9 +86,7 @@ class BusinessTrip(Document):
 		settings = frappe.get_single("Business Trip Settings")
 		for journey in self.journeys:
 			if journey.mode_of_transport == "Car (private)":
-				description = _(
-					"{distance} * {mileage_allowance} from {from_place} to {to_place} (Journey by private car)"
-				).format(
+				description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
 					distance=journey.get_formatted("distance"),
 					mileage_allowance=settings.get_formatted("mileage_allowance"),
 					from_place=getattr(journey, "from"),
@@ -111,9 +109,7 @@ class BusinessTrip(Document):
 				journey.distance = 0
 
 		for allowance in self.allowances:
-			description = (
-				_("Full Day") if allowance.whole_day else _("Arrival/Departure")
-			)
+			description = "Ganztägig" if allowance.whole_day else "An-/Abreise"
 			if not allowance.accommodation_was_provided and frappe.db.get_value(
 				"Business Trip Region", self.region, "accommodation"
 			):
