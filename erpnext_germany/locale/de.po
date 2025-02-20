@@ -1,4 +1,4 @@
-# Translations template for ERPNext Germany.
+# German translations for ERPNext Germany.
 # Copyright (C) 2024 ALYF GmbH
 # This file is distributed under the same license as the ERPNext Germany project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-02-20 10:40+0000\n"
+"POT-Creation-Date: 2025-02-20 17:53+0053\n"
 "PO-Revision-Date: 2025-02-20 11:46+0100\n"
 "Last-Translator: hallo@alyf.de\n"
-"Language-Team: hallo@alyf.de\n"
 "Language: de\n"
+"Language-Team: hallo@alyf.de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
-"X-Generator: Poedit 3.5\n"
 
 #. Label of a Currency field in DocType 'Business Trip Region'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
@@ -33,7 +33,7 @@ msgstr "Unterkunft wurde gestellt"
 msgid "Accommodations"
 msgstr "Unterkünfte"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:26
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:30
 msgid "Account"
 msgstr "Konto"
 
@@ -96,10 +96,6 @@ msgstr "April"
 msgid "Arrival or Departure"
 msgstr "Ankunft oder Abreise"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py:102
-msgid "Arrival/Departure"
-msgstr "An-/Abreise"
-
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:36
 msgid "August"
 msgstr "August"
@@ -137,7 +133,7 @@ msgstr "Geschäftsbriefvorlage"
 #. Name of a DocType
 #. Linked DocType in Business Trip Region's connections
 #. Label of a shortcut in the Germany Workspace
-#: erpnext_germany/custom_fields.py:185
+#: erpnext_germany/custom_fields.py:183
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
@@ -194,7 +190,7 @@ msgstr "Auto (privat)"
 msgid "Car (rental)"
 msgstr "Auto (Mietwagen)"
 
-#: erpnext_germany/custom_fields.py:126
+#: erpnext_germany/custom_fields.py:124
 msgid "Children Eligible for Tax Credits"
 msgstr "Anzahl Kinderfreibeträge"
 
@@ -240,25 +236,25 @@ msgstr "Inhalt (Vorschau)"
 msgid "Cost Center"
 msgstr "Kostenstelle"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:89
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:93
 msgid "Credit Closing Balance"
 msgstr "Haben Endbestand"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:47
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:51
 msgid "Credit Opening Balance"
 msgstr "Haben Anfangsbestand"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:75
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:79
 msgid "Credit in {0}"
 msgstr "Haben im {0}"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:61
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:65
 msgid "Credit until {0}"
 msgstr "Haben bis {0}"
 
 #. Label of a Link field in DocType 'Business Trip'
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:33
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:37
 msgid "Currency"
 msgstr "Währung"
 
@@ -276,19 +272,19 @@ msgstr "Kunde"
 msgid "Date"
 msgstr "Datum"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:82
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:86
 msgid "Debit Closing Balance"
 msgstr "Soll Endbestand"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:40
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:44
 msgid "Debit Opening Balance"
 msgstr "Soll Anfangsbestand"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:68
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:72
 msgid "Debit in {0}"
 msgstr "Soll im {0}"
 
-#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:54
+#: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:58
 msgid "Debit until {0}"
 msgstr "Soll bis {0}"
 
@@ -316,7 +312,7 @@ msgstr "Deaktiviert"
 msgid "Distance"
 msgstr "Entfernung"
 
-#: erpnext_germany/config/desktop.py:11
+#: erpnext_germany/config/desktop.py:10
 msgid "ERPNext Germany"
 msgstr "ERPNext-Deutschland"
 
@@ -398,10 +394,6 @@ msgstr "Ab Datum"
 msgid "From Time"
 msgstr "Ab Uhrzeit"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py:102
-msgid "Full Day"
-msgstr "Ganztägig"
-
 #. Name of a Workspace
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Germany"
@@ -417,15 +409,15 @@ msgstr "Personalwesen-Manager"
 msgid "HR User"
 msgstr "Personalwesen-Benutzer"
 
-#: erpnext_germany/custom_fields.py:140
+#: erpnext_germany/custom_fields.py:138
 msgid "Has Children"
 msgstr "Hat Kinder"
 
-#: erpnext_germany/custom_fields.py:146
+#: erpnext_germany/custom_fields.py:144
 msgid "Has Other Employments"
 msgstr "Hat Nebenbeschäftigungen"
 
-#: erpnext_germany/custom_fields.py:152
+#: erpnext_germany/custom_fields.py:150
 msgid "Highest School Qualification"
 msgstr "Höchster Schulabschluss"
 
@@ -438,7 +430,7 @@ msgstr "Ungültig"
 msgid "Invalid Input"
 msgstr "Ungültige Eingabe"
 
-#: erpnext_germany/custom_fields.py:72
+#: erpnext_germany/custom_fields.py:70
 msgid "Is Severely Disabled"
 msgstr "Ist Schwerbehindert"
 
@@ -517,7 +509,7 @@ msgstr "Verkehrsmittel"
 msgid "Month"
 msgstr "Monat"
 
-#: erpnext_germany/custom_fields.py:65
+#: erpnext_germany/custom_fields.py:63
 msgid "Nationality"
 msgstr "Nationalität"
 
@@ -570,6 +562,10 @@ msgstr "USt-IdNr. der Partei"
 msgid "Planned"
 msgstr "Geplant"
 
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:49
+msgid "Please enter a start and end date of the trip!"
+msgstr "Bitte geben Sie das Start- und Enddatum Ihrer Reise ein!"
+
 #. Label of a Tab Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 msgid "Preview"
@@ -601,7 +597,7 @@ msgstr "Beleg"
 #. Label of a Column Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 msgid "Recipient"
-msgstr ""
+msgstr "Empfänger"
 
 #. Label of a Section Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -636,7 +632,7 @@ msgstr "Abgelehnt"
 
 #. Name of a DocType
 #. Label of a Link in the Germany Workspace
-#: erpnext_germany/custom_fields.py:132
+#: erpnext_germany/custom_fields.py:130
 #: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Religious Denomination"
@@ -749,27 +745,27 @@ msgstr ""
 msgid "System Manager"
 msgstr ""
 
-#: erpnext_germany/custom_fields.py:118
+#: erpnext_germany/custom_fields.py:116
 msgid "Tax Bracket"
 msgstr "Steuerklasse"
 
-#: erpnext_germany/custom_fields.py:160 erpnext_germany/custom_fields.py:171
+#: erpnext_germany/custom_fields.py:158 erpnext_germany/custom_fields.py:169
 msgid "Tax Exemption Reason"
 msgstr "Steuerbefreiungsgrund"
 
-#: erpnext_germany/custom_fields.py:92
+#: erpnext_germany/custom_fields.py:90
 msgid "Tax ID"
 msgstr "Steuernummer"
 
-#: erpnext_germany/custom_fields.py:99
+#: erpnext_germany/custom_fields.py:97
 msgid "Tax Office"
 msgstr "Finanzamt"
 
-#: erpnext_germany/custom_fields.py:106
+#: erpnext_germany/custom_fields.py:104
 msgid "Tax Office Number"
 msgstr "Finanzamtnummer"
 
-#: erpnext_germany/custom_fields.py:85
+#: erpnext_germany/custom_fields.py:83
 msgid "Taxes"
 msgstr "Steuern"
 
@@ -778,6 +774,10 @@ msgstr "Steuern"
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
 msgid "Taxi"
 msgstr "Taxi"
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:57
+msgid "The end date should not be before the start date!"
+msgstr "Das Enddatum darf nicht vor dem Startdatum liegen!"
 
 #. Label of a Data field in DocType 'Business Trip'
 #. Label of a Data field in DocType 'Business Trip Region'
@@ -896,7 +896,7 @@ msgstr "USt-ID Prüfung"
 msgid "Whole Day"
 msgstr "Ganztägig"
 
-#: erpnext_germany/custom_fields.py:78
+#: erpnext_germany/custom_fields.py:76
 msgid "Working Hours Per Week"
 msgstr "Arbeitsstunden pro Woche"
 
@@ -926,4 +926,4 @@ msgstr "{} Ungültig"
 #. Count format of shortcut in the Germany Workspace
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "{} Open"
-msgstr "msgstr „{} Offen“"
+msgstr "{} Offen"
