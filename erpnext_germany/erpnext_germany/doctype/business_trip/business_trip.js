@@ -64,9 +64,17 @@ frappe.ui.form.on("Business Trip Allowance", {
 			for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
 				let child = frm.add_child("allowances");
 				let d_string = d.toISOString().slice(0, 10);
+
 				frappe.model.set_value(child.doctype, child.name, "date", d_string);
-				if (d_string != frm.doc.from_date && d_string != frm.doc.to_date) {
+
+				if (d_string == frm.doc.from_date) {
+					frappe.model.set_value(child.doctype, child.name, "to_time", "23:59");
+				} else if (d_string == frm.doc.to_date) {
+					frappe.model.set_value(child.doctype, child.name, "from_time", "00:00");
+				} else {
 					frappe.model.set_value(child.doctype, child.name, "whole_day", true);
+					frappe.model.set_value(child.doctype, child.name, "from_time", "00:00");
+					frappe.model.set_value(child.doctype, child.name, "to_time", "23:59");
 				}
 			}
 
