@@ -8,9 +8,11 @@ from frappe import get_installed_apps
 
 class BusinessTrip(Document):
 	def before_save(self):
+		self.reset_distance()
 		self.set_regional_amount()
 		self.set_whole_day_time()
 		self.calculate_total()
+		self.calculate_total_mileage_allowance()
 
 	def validate(self):
 		self.validate_from_to_dates("from_date", "to_date")
@@ -40,6 +42,11 @@ class BusinessTrip(Document):
 
 			allowance.amount = max(amount, 0.0)
 
+	def reset_distance(self):
+		for journey in self.journeys:
+			if journey.mode_of_transport != "Car (private)":
+				journey.distance = 0
+
 	def set_whole_day_time(self):
 		for allowance in self.allowances:
 			if allowance.whole_day:
@@ -48,6 +55,10 @@ class BusinessTrip(Document):
 
 	def calculate_total(self):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
+
+	def calculate_total_mileage_allowance(self):
+		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
+		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
 
 	def before_submit(self):
 		self.status = "Submitted"
@@ -59,6 +70,7 @@ class BusinessTrip(Document):
 		if "hrms" not in get_installed_apps():
 			return
 
+		# Create Expense Claim for Car (private) and Allowance
 		expense_claim = frappe.new_doc("Expense Claim")
 		expense_claim.update(
 			{
@@ -70,6 +82,31 @@ class BusinessTrip(Document):
 				"cost_center": self.cost_center,
 			}
 		)
+
+		settings = frappe.get_single("Business Trip Settings")
+		for journey in self.journeys:
+			if journey.mode_of_transport == "Car (private)":
+				description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
+					distance=journey.get_formatted("distance"),
+					mileage_allowance=settings.get_formatted("mileage_allowance"),
+					from_place=getattr(journey, "from"),
+					to_place=getattr(journey, "to"),
+				)
+
+				expense_claim.append(
+					"expenses",
+					{
+						"expense_date": journey.date,
+						"expense_type": settings.expense_claim_type_car,
+						"description": description,
+						"amount": journey.distance * settings.mileage_allowance,
+						"sanctioned_amount": journey.distance * settings.mileage_allowance,
+						"project": self.project,
+						"cost_center": self.cost_center,
+					},
+				)
+			else:
+				journey.distance = 0
 
 		for allowance in self.allowances:
 			description = "Ganztägig" if allowance.whole_day else "An-/Abreise"
@@ -91,7 +128,7 @@ class BusinessTrip(Document):
 				"expenses",
 				{
 					"expense_date": allowance.date,
-					"expense_type": "Additional meal expenses",
+					"expense_type": settings.expense_claim_type,
 					"description": description,
 					"amount": allowance.amount,
 					"sanctioned_amount": allowance.amount,

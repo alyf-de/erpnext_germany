@@ -1,14 +1,14 @@
 # Translations template for ERPNext Germany.
-# Copyright (C) 2024 ALYF GmbH
+# Copyright (C) 2025 ALYF GmbH
 # This file is distributed under the same license as the ERPNext Germany project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2024-09-28 16:11+0053\n"
-"PO-Revision-Date: 2024-09-28 16:11+0053\n"
+"POT-Creation-Date: 2025-02-20 17:53+0053\n"
+"PO-Revision-Date: 2025-02-20 17:53+0053\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language-Team: hallo@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,7 @@ msgstr ""
 
 #. Name of a role
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
 msgid "Accounts User"
 msgstr ""
 
@@ -115,8 +116,10 @@ msgstr ""
 
 #. Name of a DocType
 #. Linked DocType in Business Letter Template's connections
+#. Label of a shortcut in the Germany Workspace
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 #: erpnext_germany/erpnext_germany/doctype/business_letter_template/business_letter_template.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Business Letter"
 msgstr ""
 
@@ -127,9 +130,12 @@ msgstr ""
 
 #. Name of a DocType
 #. Linked DocType in Business Trip Region's connections
+#. Label of a shortcut in the Germany Workspace
 #: erpnext_germany/custom_fields.py:183
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+#: erpnext_germany/patches/add_business_trip_to_expense_claim.py:15
 msgid "Business Trip"
 msgstr ""
 
@@ -149,8 +155,15 @@ msgid "Business Trip Journey"
 msgstr ""
 
 #. Name of a DocType
+#. Label of a Link in the Germany Workspace
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Business Trip Region"
+msgstr ""
+
+#. Name of a DocType
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+msgid "Business Trip Settings"
 msgstr ""
 
 #: erpnext_germany/custom/sales.py:15
@@ -161,6 +174,18 @@ msgstr ""
 #. Journey'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
 msgid "Car"
+msgstr ""
+
+#. Option for the 'Mode of Transport' (Select) field in DocType 'Business Trip
+#. Journey'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
+msgid "Car (private)"
+msgstr ""
+
+#. Option for the 'Mode of Transport' (Select) field in DocType 'Business Trip
+#. Journey'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
+msgid "Car (rental)"
 msgstr ""
 
 #: erpnext_germany/custom_fields.py:124
@@ -202,6 +227,11 @@ msgstr ""
 #. Label of a Text Editor field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 msgid "Content (Preview)"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Trip'
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
+msgid "Cost Center"
 msgstr ""
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.py:93
@@ -260,9 +290,24 @@ msgstr ""
 msgid "December"
 msgstr ""
 
+#. Label of a Link field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Department"
+msgstr ""
+
 #. Label of a Check field in DocType 'Business Trip Allowance'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_allowance/business_trip_allowance.json
 msgid "Dinner was Provided"
+msgstr ""
+
+#. Label of a Check field in DocType 'Business Trip Region'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+msgid "Disabled"
+msgstr ""
+
+#. Label of a Int field in DocType 'Business Trip Journey'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
+msgid "Distance"
 msgstr ""
 
 #: erpnext_germany/config/desktop.py:10
@@ -274,14 +319,18 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
+#. Label of a Link field in DocType 'Business Letter'
 #. Name of a role
 #. Label of a Link field in DocType 'Business Trip'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
 msgid "Employee"
 msgstr ""
 
+#. Label of a Data field in DocType 'Business Letter'
 #. Label of a Data field in DocType 'Business Trip'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 msgid "Employee Name"
 msgstr ""
@@ -294,6 +343,16 @@ msgstr ""
 #. Linked DocType in Business Trip's connections
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 msgid "Expense Claim"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Trip Settings'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+msgid "Expense Claim Type for Additional Meal Expenses"
+msgstr ""
+
+#. Label of a Link field in DocType 'Business Trip Settings'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+msgid "Expense Claim Type for Mileage Allowance"
 msgstr ""
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:30
@@ -331,6 +390,11 @@ msgstr ""
 #. Label of a Time field in DocType 'Business Trip Allowance'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_allowance/business_trip_allowance.json
 msgid "From Time"
+msgstr ""
+
+#. Name of a Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "Germany"
 msgstr ""
 
 #. Name of a role
@@ -429,6 +493,11 @@ msgstr ""
 msgid "May"
 msgstr ""
 
+#. Label of a Currency field in DocType 'Business Trip Settings'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+msgid "Mileage Allowance"
+msgstr ""
+
 #. Label of a Select field in DocType 'Business Trip Journey'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
 msgid "Mode of Transport"
@@ -459,6 +528,12 @@ msgstr ""
 msgid "Paid"
 msgstr ""
 
+#. Description of the 'Total Mileage Allowance' (Currency) field in DocType
+#. 'Business Trip'
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
+msgid "Paid only for Car (private)"
+msgstr ""
+
 #. Label of a Dynamic Link field in DocType 'VAT ID Check'
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 msgid "Party"
@@ -483,6 +558,10 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:10
 msgid "Planned"
+msgstr ""
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:49
+msgid "Please enter a start and end date of the trip!"
 msgstr ""
 
 #. Label of a Tab Break field in DocType 'Business Letter'
@@ -511,6 +590,11 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/business_trip_accommodation/business_trip_accommodation.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
 msgid "Receipt"
+msgstr ""
+
+#. Label of a Column Break field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Recipient"
 msgstr ""
 
 #. Label of a Section Break field in DocType 'Business Letter'
@@ -545,9 +629,16 @@ msgid "Rejected"
 msgstr ""
 
 #. Name of a DocType
+#. Label of a Link in the Germany Workspace
 #: erpnext_germany/custom_fields.py:130
 #: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Religious Denomination"
+msgstr ""
+
+#. Label of a Card Break in the Germany Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "Reports"
 msgstr ""
 
 #. Label of a Data field in DocType 'VAT ID Check'
@@ -591,6 +682,11 @@ msgstr ""
 msgid "Sales User"
 msgstr ""
 
+#. Label of a Column Break field in DocType 'Business Letter'
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
+msgid "Sender"
+msgstr ""
+
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:37
 msgid "September"
 msgstr ""
@@ -598,6 +694,11 @@ msgstr ""
 #. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 msgid "Service Unavailable"
+msgstr ""
+
+#. Label of a Card Break in the Germany Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "Setup"
 msgstr ""
 
 #. Label of a Select field in DocType 'Business Trip'
@@ -625,7 +726,9 @@ msgid "Submitted"
 msgstr ""
 
 #. Name of a report
+#. Label of a Link in the Germany Workspace
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Summen- und Saldenliste"
 msgstr ""
 
@@ -634,6 +737,7 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/business_letter_template/business_letter_template.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
 #: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 msgid "System Manager"
@@ -669,6 +773,10 @@ msgstr ""
 msgid "Taxi"
 msgstr ""
 
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:57
+msgid "The end date should not be before the start date!"
+msgstr ""
+
 #. Label of a Data field in DocType 'Business Trip'
 #. Label of a Data field in DocType 'Business Trip Region'
 #. Label of a Data field in DocType 'Religious Denomination'
@@ -698,6 +806,11 @@ msgstr ""
 #. Label of a Currency field in DocType 'Business Trip'
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 msgid "Total Allowance"
+msgstr ""
+
+#. Label of a Currency field in DocType 'Business Trip'
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
+msgid "Total Mileage Allowance"
 msgstr ""
 
 #. Label of a Data field in DocType 'VAT ID Check'
@@ -746,8 +859,13 @@ msgstr ""
 msgid "Train"
 msgstr ""
 
-#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.js:28
+#: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.js:47
 msgid "Unsaved changes. Save the document first to get a preview."
+msgstr ""
+
+#. Description of the 'Distance' (Int) field in DocType 'Business Trip Journey'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
+msgid "Used to calculate the total Mileage Allowance"
 msgstr ""
 
 #. Name of a DocType
@@ -757,6 +875,16 @@ msgstr ""
 
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:7
 msgid "Valid"
+msgstr ""
+
+#. Label of a Date field in DocType 'Business Trip Region'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+msgid "Valid From"
+msgstr ""
+
+#. Label of a shortcut in the Germany Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "Vat Id Check"
 msgstr ""
 
 #. Label of a Check field in DocType 'Business Trip Allowance'
@@ -780,5 +908,21 @@ msgstr ""
 
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.py:46
 msgid "submitted Business Letter {0}"
+msgstr ""
+
+#. Description of the 'Mileage Allowance' (Currency) field in DocType 'Business
+#. Trip Settings'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+msgid "value / distance: e.g. 0.30€/km"
+msgstr ""
+
+#. Count format of shortcut in the Germany Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "{} Invalid"
+msgstr ""
+
+#. Count format of shortcut in the Germany Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "{} Open"
 msgstr ""
 
