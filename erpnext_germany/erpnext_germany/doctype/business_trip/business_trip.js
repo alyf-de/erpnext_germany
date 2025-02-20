@@ -45,14 +45,8 @@ frappe.ui.form.on("Business Trip Accommodation", {
 
 frappe.ui.form.on("Business Trip Allowance", {
 	allowances_add(frm) {
-		if (
-			!frm.doc.from_date ||
-			!frm.doc.to_date ||
-			frm.doc.to_date < frm.doc.from_date
-		) {
-			frappe.msgprint(
-				__("Please enter a correct start and end date of the trip!")
-			);
+		if (!frm.doc.from_date || !frm.doc.to_date || frm.doc.to_date < frm.doc.from_date) {
+			frappe.msgprint(__("Please enter a correct start and end date of the trip!"));
 			return;
 		}
 
@@ -62,29 +56,12 @@ frappe.ui.form.on("Business Trip Allowance", {
 
 			frm.clear_table("allowances");
 
-			for (
-				let d = new Date(start);
-				d <= end;
-				d.setDate(d.getDate() + 1)
-			) {
+			for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
 				let child = frm.add_child("allowances");
 				let d_string = d.toISOString().slice(0, 10);
-				frappe.model.set_value(
-					child.doctype,
-					child.name,
-					"date",
-					d_string
-				);
-				if (
-					d_string != start.toISOString().slice(0, 10) &&
-					d_string != end.toISOString().slice(0, 10)
-				) {
-					frappe.model.set_value(
-						child.doctype,
-						child.name,
-						"whole_day",
-						true
-					);
+				frappe.model.set_value(child.doctype, child.name, "date", d_string);
+				if (d_string != frm.doc.from_date && d_string != frm.doc.to_date) {
+					frappe.model.set_value(child.doctype, child.name, "whole_day", true);
 				}
 			}
 
