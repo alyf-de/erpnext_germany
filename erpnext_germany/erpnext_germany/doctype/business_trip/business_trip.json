@@ -24,6 +24,7 @@
   "customer",
   "section_break_12",
   "journeys",
+  "total_mileage_allowance",
   "section_break_14",
   "accommodations",
   "section_break_16",
@@ -183,6 +184,13 @@
    "in_standard_filter": 1,
    "label": "Cost Center",
    "options": "Cost Center"
+  },
+  {
+   "description": "Paid only for Car (private)",
+   "fieldname": "total_mileage_allowance",
+   "fieldtype": "Currency",
+   "label": "Total Mileage Allowance",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -193,7 +201,7 @@
    "link_fieldname": "business_trip"
   }
  ],
- "modified": "2024-10-11 13:54:43.761341",
+ "modified": "2025-02-20 10:58:45.064314",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip",

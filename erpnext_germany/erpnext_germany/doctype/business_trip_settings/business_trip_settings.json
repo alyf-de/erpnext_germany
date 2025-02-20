@@ -1,0 +1,64 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-02-20 11:02:49.284472",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "expense_claim_type",
+  "expense_claim_type_car",
+  "mileage_allowance"
+ ],
+ "fields": [
+  {
+   "default": "0.3",
+   "description": "value / distance: e.g. 0.30\u20ac/km",
+   "fieldname": "mileage_allowance",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Mileage Allowance",
+   "non_negative": 1,
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "default": "Additional meal expenses",
+   "fieldname": "expense_claim_type",
+   "fieldtype": "Link",
+   "label": "Expense Claim Type for Additional Meal Expenses",
+   "options": "Expense Claim Type",
+   "reqd": 1
+  },
+  {
+   "default": "Additional meal expenses",
+   "fieldname": "expense_claim_type_car",
+   "fieldtype": "Link",
+   "label": "Expense Claim Type for Mileage Allowance",
+   "options": "Expense Claim Type",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-02-20 11:33:16.958442",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Business Trip Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
