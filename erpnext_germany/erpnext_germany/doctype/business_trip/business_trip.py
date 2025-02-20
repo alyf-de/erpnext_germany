@@ -49,6 +49,7 @@ class BusinessTrip(Document):
 			for journey in self.journeys
 			if journey.mode_of_transport == "Car (private)"
 		) * frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
+		for journey in self.journeys: journey.distance = 0 if journey.mode_of_transport != "Car (private)" else journey.distance
 
 	def before_submit(self):
 		self.status = "Submitted"
