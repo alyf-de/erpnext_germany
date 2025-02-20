@@ -45,15 +45,20 @@ frappe.ui.form.on("Business Trip Accommodation", {
 
 frappe.ui.form.on("Business Trip Allowance", {
 	allowances_add(frm) {
-		if (!frm.doc.from_date || !frm.doc.to_date || frm.doc.to_date < frm.doc.from_date) {
-			frappe.msgprint(__("Please enter a correct start and end date of the trip!"));
+		if (!frm.doc.from_date || !frm.doc.to_date) {
+			frappe.msgprint(__("Please enter a start and end date of the trip!"));
 			return;
 		}
 
-		if (frm.doc.allowances && frm.doc.allowances.length == 1) {
-			let start = new Date(frm.doc.from_date);
-			let end = new Date(frm.doc.to_date);
+		let start = new Date(frm.doc.from_date);
+		let end = new Date(frm.doc.to_date);
 
+		if (end < start) {
+			frappe.msgprint(__("The end date should not be before the start date!"));
+			return;
+		}
+
+		if (frm.doc.allowances && frm.doc.allowances.length == 1 && !frm.doc.allowances[0].date) {
 			frm.clear_table("allowances");
 
 			for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
