@@ -61,7 +61,7 @@ class BusinessTrip(Document):
 			"Business Trip Settings", "mileage_allowance"
 		)
 		self.total_mileage_allowance = (
-			sum(journey.distance for journey in self.journeys) * mileage_allowance
+			sum(journey.distance for journey in self.journeys) * mileage_allowance or 0
 		)
 
 	def before_submit(self):
@@ -103,8 +103,8 @@ class BusinessTrip(Document):
 						"expense_date": journey.date,
 						"expense_type": settings.expense_claim_type_car,
 						"description": description,
-						"amount": journey.distance * settings.mileage_allowance,
-						"sanctioned_amount": journey.distance * settings.mileage_allowance,
+						"amount": journey.distance * settings.mileage_allowance or 0,
+						"sanctioned_amount": journey.distance * settings.mileage_allowance or 0,
 						"project": self.project,
 						"cost_center": self.cost_center,
 					},
