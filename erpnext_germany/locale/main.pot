@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-02-20 17:53+0053\n"
-"PO-Revision-Date: 2025-02-20 17:53+0053\n"
+"POT-Creation-Date: 2025-02-21 10:10+0000\n"
+"PO-Revision-Date: 2025-02-21 10:10+0000\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language-Team: hallo@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -162,7 +162,9 @@ msgid "Business Trip Region"
 msgstr ""
 
 #. Name of a DocType
+#. Label of a Link in the Germany Workspace
 #: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Business Trip Settings"
 msgstr ""
 
@@ -869,7 +871,9 @@ msgid "Used to calculate the total Mileage Allowance"
 msgstr ""
 
 #. Name of a DocType
+#. Label of a shortcut in the Germany Workspace
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "VAT ID Check"
 msgstr ""
 
@@ -880,11 +884,6 @@ msgstr ""
 #. Label of a Date field in DocType 'Business Trip Region'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
 msgid "Valid From"
-msgstr ""
-
-#. Label of a shortcut in the Germany Workspace
-#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
-msgid "Vat Id Check"
 msgstr ""
 
 #. Label of a Check field in DocType 'Business Trip Allowance'

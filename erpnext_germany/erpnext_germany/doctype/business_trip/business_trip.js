@@ -66,8 +66,10 @@ frappe.ui.form.on("Business Trip Allowance", {
 				let d_string = d.toISOString().slice(0, 10);
 
 				frappe.model.set_value(child.doctype, child.name, "date", d_string);
-
-				if (d_string == frm.doc.from_date) {
+				
+				if (d_string == frm.doc.from_date && d_string == frm.doc.to_date) {
+					continue
+				} else if (d_string == frm.doc.from_date) {
 					frappe.model.set_value(child.doctype, child.name, "to_time", "23:59");
 				} else if (d_string == frm.doc.to_date) {
 					frappe.model.set_value(child.doctype, child.name, "from_time", "00:00");

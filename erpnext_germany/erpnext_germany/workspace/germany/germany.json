@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"foL5O8DnUP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Letter\",\"col\":4}},{\"id\":\"oJkHa86NBg\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Trip\",\"col\":4}},{\"id\":\"VYs-C5iICV\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vat Id Check\",\"col\":3}},{\"id\":\"kJjc0XvpWD\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"8IxzobqofO\",\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}},{\"id\":\"G5Fnz7UZYk\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"foL5O8DnUP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Letter\",\"col\":4}},{\"id\":\"oJkHa86NBg\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Trip\",\"col\":4}},{\"id\":\"VYs-C5iICV\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"VAT ID Check\",\"col\":3}},{\"id\":\"kJjc0XvpWD\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"8IxzobqofO\",\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}},{\"id\":\"G5Fnz7UZYk\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2024-10-24 17:31:50.222160",
  "custom_blocks": [],
  "docstatus": 0,
@@ -16,7 +16,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Setup",
-   "link_count": 2,
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -44,6 +44,16 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Business Trip Settings",
+   "link_count": 0,
+   "link_to": "Business Trip Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Reports",
    "link_count": 1,
    "link_type": "DocType",
@@ -61,7 +71,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-10-24 18:06:06.599157",
+ "modified": "2025-02-21 11:10:10.661938",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Germany",
@@ -85,7 +95,7 @@
    "color": "Red",
    "doc_view": "List",
    "format": "{} Invalid",
-   "label": "Vat Id Check",
+   "label": "VAT ID Check",
    "link_to": "VAT ID Check",
    "stats_filter": "[[\"VAT ID Check\",\"status\",\"=\",\"Completed\",false],[\"VAT ID Check\",\"is_valid\",\"=\",0,false]]",
    "type": "DocType"

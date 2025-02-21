@@ -57,14 +57,18 @@ class BusinessTrip(Document):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
 
 	def calculate_total_mileage_allowance(self):
-		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
-		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
+		mileage_allowance = frappe.db.get_single_value(
+			"Business Trip Settings", "mileage_allowance"
+		)
+		self.total_mileage_allowance = (
+			sum(journey.distance for journey in self.journeys) * mileage_allowance
+		)
 
 	def before_submit(self):
 		self.status = "Submitted"
 
 	def on_submit(self):
-		if not self.allowances:
+		if not self.allowances and not self.journeys:
 			return
 
 		if "hrms" not in get_installed_apps():
@@ -86,7 +90,7 @@ class BusinessTrip(Document):
 		settings = frappe.get_single("Business Trip Settings")
 		for journey in self.journeys:
 			if journey.mode_of_transport == "Car (private)":
-				description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
+				description = "{distance} km * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
 					distance=journey.get_formatted("distance"),
 					mileage_allowance=settings.get_formatted("mileage_allowance"),
 					from_place=getattr(journey, "from"),
