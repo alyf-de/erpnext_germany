@@ -7,7 +7,8 @@
  "field_order": [
   "expense_claim_type",
   "expense_claim_type_car",
-  "mileage_allowance"
+  "mileage_allowance",
+  "distance_unit"
  ],
  "fields": [
   {
@@ -33,12 +34,19 @@
    "label": "Expense Claim Type for Mileage Allowance",
    "options": "Expense Claim Type",
    "reqd": 1
+  },
+  {
+   "default": "Kilometer",
+   "fieldname": "distance_unit",
+   "fieldtype": "Select",
+   "label": "Distance Unit",
+   "options": "Kilometer\nMile"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-21 11:09:18.298632",
+ "modified": "2025-02-21 15:38:36.293228",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Settings",

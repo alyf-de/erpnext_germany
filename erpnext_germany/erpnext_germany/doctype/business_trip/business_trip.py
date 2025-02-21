@@ -88,10 +88,12 @@ class BusinessTrip(Document):
 		)
 
 		settings = frappe.get_single("Business Trip Settings")
+		distance_unit_short = "m" if settings.distance_unit == "Mile" else "km"
 		for journey in self.journeys:
 			if journey.mode_of_transport == "Car (private)":
-				description = "{distance} km * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
+				description = "{distance} {distance_unit_short} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
 					distance=journey.get_formatted("distance"),
+					distance_unit_short=distance_unit_short,
 					mileage_allowance=settings.get_formatted("mileage_allowance"),
 					from_place=getattr(journey, "from"),
 					to_place=getattr(journey, "to"),
