@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-02-25 23:02+0053\n"
+"POT-Creation-Date: 2025-02-26 00:02+0053\n"
 "PO-Revision-Date: 2025-02-20 11:46+0100\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language: de\n"
@@ -96,11 +96,11 @@ msgstr "April"
 msgid "Arrival or Departure"
 msgstr "Ankunft oder Abreise"
 
-#: erpnext_germany/custom/file.py:45
+#: erpnext_germany/custom/file.py:48
 msgid "Attachment Deletion Restricted"
 msgstr "Löschen von Anhängen eingeschränkt"
 
-#: erpnext_germany/custom/file.py:38
+#: erpnext_germany/custom/file.py:41
 msgid "Attachments to the submitted record {0} of type {1} cannot be deleted."
 msgstr "Anhänge zu der gebuchten Transaktion {0} vom Typ {1} können nicht gelöscht werden."
 
@@ -445,8 +445,8 @@ msgstr "Falls aktiviert, ist nur die neueste Transaktion vom Typ <b>Angebot</b>,
 #. Description of the 'Prevent Attachment Deletion' (Check) field in DocType
 #. 'ERPNext Germany Settings'
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
-msgid "If enabled, disallows deletion of files attached to a submitted selling or buying transaction."
-msgstr "Falls aktiviert, ist die Löschung von Anhängen zu einer gebuchten Verkaufs- oder Einkaufsrechnung nicht möglich."
+msgid "If enabled, disallows deletion of files attached to a submitted transaction."
+msgstr "Falls aktiviert, können Anhängen einer gebuchten Transaktion nicht gelöscht werden."
 
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:8
 msgid "Invalid"
@@ -938,7 +938,7 @@ msgstr "Ganztägig"
 msgid "Working Hours Per Week"
 msgstr "Arbeitsstunden pro Woche"
 
-#: erpnext_germany/custom/file.py:43
+#: erpnext_germany/custom/file.py:46
 msgid "You can allow deletion via <b>ERPNext Germany Settings</b>."
 msgstr "Sie können das Löschen von Anhängen in den <b>ERPNext Deutschland Einstellungen</b> erlauben."
 

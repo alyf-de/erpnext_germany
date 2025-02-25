@@ -18,7 +18,7 @@
   },
   {
    "default": "0",
-   "description": "If enabled, disallows deletion of files attached to a submitted selling or buying transaction.",
+   "description": "If enabled, disallows deletion of files attached to a submitted transaction.",
    "fieldname": "prevent_attachment_deletion",
    "fieldtype": "Check",
    "label": "Prevent Attachment Deletion"
@@ -27,7 +27,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-25 22:51:09.967400",
+ "modified": "2025-02-26 00:02:15.955896",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "ERPNext Germany Settings",

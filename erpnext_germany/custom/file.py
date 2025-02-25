@@ -16,6 +16,9 @@ APPLICABLE_DOCTYPES = (
 	"Purchase Order",
 	"Purchase Receipt",
 	"Purchase Invoice",
+	"Journal Entry",
+	"Payment Entry",
+	"Asset",
 )
 
 

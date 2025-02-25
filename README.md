@@ -18,7 +18,10 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     ![Validate EU VAT ID](docs/vat_check.png)
 
-- Restrict deletion of attachments to submitted selling or buying transactions (**ERPNext Germany Settings**)
+- Restrict deletion of attachments to submitted transactions (**ERPNext Germany Settings**)
+
+    Applies to **Quotation**, **Sales Order**, **Delivery Note**, **Sales Invoice**, **Request for Quotation**, **Supplier Quotation**, **Purchase Order**, **Purchase Receipt**, **Purchase Invoice**, **Journal Entry**, **Payment Entry** and **Asset**.
+
 - Allow deletion of the most recent sales transaction only (**ERPNext Germany Settings**)
 
     This ensures consecutive numbering of transactions. Applies to **Quotation**, **Sales Order**, **Sales Invoice**.

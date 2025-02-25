@@ -14,6 +14,9 @@ $(document).ready(function () {
 			"Purchase Order",
 			"Purchase Receipt",
 			"Purchase Invoice",
+			"Journal Entry",
+			"Payment Entry",
+			"Asset",
 		].includes(frm.doctype)) {
 			return;
 		}
