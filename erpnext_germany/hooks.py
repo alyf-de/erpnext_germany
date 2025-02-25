@@ -118,6 +118,9 @@ doc_events = {
 	"Sales Invoice": {
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
 	},
+	"File": {
+		"on_trash": "erpnext_germany.custom.file.on_trash",
+	},
 }
 
 # doc_events = {}

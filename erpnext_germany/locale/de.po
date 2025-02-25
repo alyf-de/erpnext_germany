@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-02-20 17:53+0053\n"
+"POT-Creation-Date: 2025-02-25 23:02+0053\n"
 "PO-Revision-Date: 2025-02-20 11:46+0100\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language: de\n"
@@ -96,6 +96,14 @@ msgstr "April"
 msgid "Arrival or Departure"
 msgstr "Ankunft oder Abreise"
 
+#: erpnext_germany/custom/file.py:45
+msgid "Attachment Deletion Restricted"
+msgstr "Löschen von Anhängen eingeschränkt"
+
+#: erpnext_germany/custom/file.py:38
+msgid "Attachments to the submitted record {0} of type {1} cannot be deleted."
+msgstr "Anhänge zu der gebuchten Transaktion {0} vom Typ {1} können nicht gelöscht werden."
+
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:36
 msgid "August"
 msgstr "August"
@@ -168,7 +176,7 @@ msgstr "Dienstreise-Region"
 msgid "Business Trip Settings"
 msgstr "Dienstreise-Einstellungen"
 
-#: erpnext_germany/custom/sales.py:15
+#: erpnext_germany/custom/sales.py:18
 msgid "Cannot delete this transaction"
 msgstr "Diese Transaktion kann nicht gelöscht werden"
 
@@ -316,6 +324,13 @@ msgstr "Entfernung"
 msgid "ERPNext Germany"
 msgstr "ERPNext-Deutschland"
 
+#. Name of a DocType
+#. Label of a Link in the Germany Workspace
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "ERPNext Germany Settings"
+msgstr "ERPNext-Deutschland-Einstellungen"
+
 #. Label of a Data field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 msgid "Email"
@@ -421,6 +436,18 @@ msgstr "Hat Nebenbeschäftigungen"
 msgid "Highest School Qualification"
 msgstr "Höchster Schulabschluss"
 
+#. Description of the 'Prevent Gaps In Transaction Naming' (Check) field in
+#. DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "If enabled, allows deletion of the most recent record only. Applies to <b>Quotation</b>, <b>Sales Order</b> and <b>Sales Invoice</b>."
+msgstr "Falls aktiviert, ist nur die neueste Transaktion vom Typ <b>Angebot</b>, <b>Auftrag</b> und <b>Ausgangsrechnung</b> löschbar."
+
+#. Description of the 'Prevent Attachment Deletion' (Check) field in DocType
+#. 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "If enabled, disallows deletion of files attached to a submitted selling or buying transaction."
+msgstr "Falls aktiviert, ist die Löschung von Anhängen zu einer gebuchten Verkaufs- oder Einkaufsrechnung nicht möglich."
+
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:8
 msgid "Invalid"
 msgstr "Ungültig"
@@ -521,7 +548,7 @@ msgstr "November"
 msgid "October"
 msgstr "Oktober"
 
-#: erpnext_germany/custom/sales.py:12
+#: erpnext_germany/custom/sales.py:15
 msgid "Only the most recent {0} can be deleted in order to avoid gaps in numbering."
 msgstr "Nur die neueste Transaktion vom Typ {0} kann gelöscht werden, um Lücken in der Nummerierung zu vermeiden."
 
@@ -565,6 +592,16 @@ msgstr "Geplant"
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:49
 msgid "Please enter a start and end date of the trip!"
 msgstr "Bitte geben Sie das Start- und Enddatum Ihrer Reise ein!"
+
+#. Label of a Check field in DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "Prevent Attachment Deletion"
+msgstr "Löschen von Anhängen verhindern"
+
+#. Label of a Check field in DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "Prevent Gaps In Transaction Naming"
+msgstr "Lücken in Nummernkreisen verhindern"
 
 #. Label of a Tab Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -740,6 +777,7 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
 #: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 msgid "System Manager"
@@ -900,6 +938,10 @@ msgstr "Ganztägig"
 msgid "Working Hours Per Week"
 msgstr "Arbeitsstunden pro Woche"
 
+#: erpnext_germany/custom/file.py:43
+msgid "You can allow deletion via <b>ERPNext Germany Settings</b>."
+msgstr "Sie können das Löschen von Anhängen in den <b>ERPNext Deutschland Einstellungen</b> erlauben."
+
 #: erpnext_germany/public/js/erpnext_germany/business_letter.js:7
 msgid "You can use {0} in the Subject and Content fields for dynamic values.<br><br>All address details are available under the <code>address</code> object (e.g., <code>{{ address.city }}</code>), contact details under the <code>contact</code> object (e.g., <code>{{ contact.first_name }}</code>), and any specific information related to the dynamically linked document under the <code>reference</code> object (e.g., <code>{{ reference.some_field }}</code>).<br><br>"
 msgstr "Sie können in den Betreff- und Inhalt-Feldern {0} für dynamische Werte verwenden.<br><br>Alle Adressdetails sind unter dem <code>address</code>-Objekt verfügbar (z.B., <code>{{ address.city }}</code>), Kontaktdetails unter dem <code>contact</code>-Objekt (z.B., <code>{{ contact.first_name }}</code>), und jegliche spezifischen Informationen, die mit dem dynamisch verlinkten Dokument zusammenhängen, unter dem <code>reference</code>-Objekt (z.B., <code>{{ reference.some_field }}</code>).<br><br>"
@@ -927,3 +969,4 @@ msgstr "{} Ungültig"
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "{} Open"
 msgstr "{} Offen"
+

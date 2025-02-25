@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-02-20 17:53+0053\n"
-"PO-Revision-Date: 2025-02-20 17:53+0053\n"
+"POT-Creation-Date: 2025-02-25 23:02+0053\n"
+"PO-Revision-Date: 2025-02-25 23:02+0053\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language-Team: hallo@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -94,6 +94,14 @@ msgstr ""
 msgid "Arrival or Departure"
 msgstr ""
 
+#: erpnext_germany/custom/file.py:45
+msgid "Attachment Deletion Restricted"
+msgstr ""
+
+#: erpnext_germany/custom/file.py:38
+msgid "Attachments to the submitted record {0} of type {1} cannot be deleted."
+msgstr ""
+
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:36
 msgid "August"
 msgstr ""
@@ -166,7 +174,7 @@ msgstr ""
 msgid "Business Trip Settings"
 msgstr ""
 
-#: erpnext_germany/custom/sales.py:15
+#: erpnext_germany/custom/sales.py:18
 msgid "Cannot delete this transaction"
 msgstr ""
 
@@ -314,6 +322,13 @@ msgstr ""
 msgid "ERPNext Germany"
 msgstr ""
 
+#. Name of a DocType
+#. Label of a Link in the Germany Workspace
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "ERPNext Germany Settings"
+msgstr ""
+
 #. Label of a Data field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 msgid "Email"
@@ -419,6 +434,18 @@ msgstr ""
 msgid "Highest School Qualification"
 msgstr ""
 
+#. Description of the 'Prevent Gaps In Transaction Naming' (Check) field in
+#. DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "If enabled, allows deletion of the most recent record only. Applies to <b>Quotation</b>, <b>Sales Order</b> and <b>Sales Invoice</b>."
+msgstr ""
+
+#. Description of the 'Prevent Attachment Deletion' (Check) field in DocType
+#. 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "If enabled, disallows deletion of files attached to a submitted selling or buying transaction."
+msgstr ""
+
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:8
 msgid "Invalid"
 msgstr ""
@@ -519,7 +546,7 @@ msgstr ""
 msgid "October"
 msgstr ""
 
-#: erpnext_germany/custom/sales.py:12
+#: erpnext_germany/custom/sales.py:15
 msgid "Only the most recent {0} can be deleted in order to avoid gaps in numbering."
 msgstr ""
 
@@ -562,6 +589,16 @@ msgstr ""
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:49
 msgid "Please enter a start and end date of the trip!"
+msgstr ""
+
+#. Label of a Check field in DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "Prevent Attachment Deletion"
+msgstr ""
+
+#. Label of a Check field in DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "Prevent Gaps In Transaction Naming"
 msgstr ""
 
 #. Label of a Tab Break field in DocType 'Business Letter'
@@ -738,6 +775,7 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
 #: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
 #: erpnext_germany/erpnext_germany/doctype/religious_denomination/religious_denomination.json
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 msgid "System Manager"
@@ -896,6 +934,10 @@ msgstr ""
 
 #: erpnext_germany/custom_fields.py:76
 msgid "Working Hours Per Week"
+msgstr ""
+
+#: erpnext_germany/custom/file.py:43
+msgid "You can allow deletion via <b>ERPNext Germany Settings</b>."
 msgstr ""
 
 #: erpnext_germany/public/js/erpnext_germany/business_letter.js:7

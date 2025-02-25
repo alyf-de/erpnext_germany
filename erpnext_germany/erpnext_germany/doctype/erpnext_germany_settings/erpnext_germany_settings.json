@@ -5,21 +5,29 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "prevent_gaps_in_transaction_naming"
+  "prevent_gaps_in_transaction_naming",
+  "prevent_attachment_deletion"
  ],
  "fields": [
   {
    "default": "1",
-   "description": "Allow deletion of the most recent record only. Applies to <b>Quotation</b>, <b>Sales Order</b> and <b>Sales Invoice</b>.",
+   "description": "If enabled, allows deletion of the most recent record only. Applies to <b>Quotation</b>, <b>Sales Order</b> and <b>Sales Invoice</b>.",
    "fieldname": "prevent_gaps_in_transaction_naming",
    "fieldtype": "Check",
    "label": "Prevent Gaps In Transaction Naming"
+  },
+  {
+   "default": "0",
+   "description": "If enabled, disallows deletion of files attached to a submitted selling or buying transaction.",
+   "fieldname": "prevent_attachment_deletion",
+   "fieldtype": "Check",
+   "label": "Prevent Attachment Deletion"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-23 17:38:08.351007",
+ "modified": "2025-02-25 22:51:09.967400",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "ERPNext Germany Settings",
