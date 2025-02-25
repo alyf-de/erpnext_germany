@@ -199,6 +199,8 @@ scheduler_events = {
 # 	"erpnext_germany.auth.validate"
 # ]
 
+boot_session = "erpnext_germany.boot.boot_session"
+
 germany_property_setters = {
 	"Employee": [
 		("salary_currency", "default", "EUR", "Small Text"),
