@@ -35,7 +35,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Setup",
-   "link_count": 3,
+   "link_count": 4,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -63,6 +63,16 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Business Trip Settings",
+   "link_count": 0,
+   "link_to": "Business Trip Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "ERPNext Germany Settings",
    "link_count": 0,
    "link_to": "ERPNext Germany Settings",
@@ -71,7 +81,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-02-23 18:08:46.551030",
+ "modified": "2025-02-26 12:31:44.539466",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Germany",
