@@ -4,6 +4,7 @@
 import frappe
 from frappe.model.document import Document
 from frappe import get_installed_apps
+from frappe.utils.data import fmt_money
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
 
@@ -59,17 +60,38 @@ class BusinessTrip(Document):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
 
 	def calculate_total_mileage_allowance(self):
-		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
-		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
+		mileage_allowance = (
+			frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
+			or 0
+		)
+		self.total_mileage_allowance = (
+			sum(journey.distance for journey in self.journeys) * mileage_allowance
+		)
 
 	def before_submit(self):
 		self.status = "Submitted"
 
 	def on_submit(self):
-		if not self.allowances:
+		if not self.allowances and not self.journeys:
 			return
 
 		if "hrms" not in get_installed_apps():
+			return
+
+		settings = frappe.get_single("Business Trip Settings")
+		expenses = get_mileage_allowances(
+			self,
+			expense_claim_type=settings.expense_claim_type_car
+			or DEFAULT_EXPENSE_CLAIM_TYPE,
+			mileage_allowance=settings.mileage_allowance or 0.0,
+		)
+		expenses.extend(
+			get_meal_expenses(
+				self, settings.expense_claim_type or DEFAULT_EXPENSE_CLAIM_TYPE
+			)
+		)
+
+		if not expenses:
 			return
 
 		# Create Expense Claim for Car (private) and Allowance
@@ -84,59 +106,72 @@ class BusinessTrip(Document):
 				"cost_center": self.cost_center,
 			}
 		)
-
-		settings = frappe.get_single("Business Trip Settings")
-		for journey in self.journeys:
-			if journey.mode_of_transport == "Car (private)":
-				description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
-					distance=journey.get_formatted("distance"),
-					mileage_allowance=settings.get_formatted("mileage_allowance"),
-					from_place=getattr(journey, "from"),
-					to_place=getattr(journey, "to"),
-				)
-				mileage_amount = journey.distance * (settings.mileage_allowance or 0)
-				expense_claim.append(
-					"expenses",
-					{
-						"expense_date": journey.date,
-						"expense_type": settings.expense_claim_type_car or DEFAULT_EXPENSE_CLAIM_TYPE,
-						"description": description,
-						"amount": mileage_amount,
-						"sanctioned_amount": mileage_amount,
-						"project": self.project,
-						"cost_center": self.cost_center,
-					},
-				)
-			else:
-				journey.distance = 0
-
-		for allowance in self.allowances:
-			description = "Ganztägig" if allowance.whole_day else "An-/Abreise"
-			if not allowance.accommodation_was_provided and frappe.db.get_value(
-				"Business Trip Region", self.region, "accommodation"
-			):
-				description += ", zzgl. Hotel"
-
-			if allowance.breakfast_was_provided:
-				description += ", abzügl. Frühstück"
-
-			if allowance.lunch_was_provided:
-				description += ", abzügl. Mittagessen"
-
-			if allowance.dinner_was_provided:
-				description += ", abzügl. Abendessen"
-
-			expense_claim.append(
-				"expenses",
-				{
-					"expense_date": allowance.date,
-					"expense_type": settings.expense_claim_type or DEFAULT_EXPENSE_CLAIM_TYPE,
-					"description": description,
-					"amount": allowance.amount,
-					"sanctioned_amount": allowance.amount,
-					"project": self.project,
-					"cost_center": self.cost_center,
-				},
-			)
-
+		expense_claim.extend("expenses", expenses)
 		expense_claim.save()
+
+
+def get_mileage_allowances(
+	business_trip: BusinessTrip, expense_claim_type: str, mileage_allowance: float
+) -> list[dict]:
+	"""Return a list of expense claim rows for mileage allowances."""
+	expenses = []
+	for journey in business_trip.journeys:
+		if journey.mode_of_transport != "Car (private)":
+			continue
+
+		description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
+			distance=journey.get_formatted("distance"),
+			mileage_allowance=fmt_money(mileage_allowance),
+			from_place=getattr(journey, "from"),
+			to_place=getattr(journey, "to"),
+		)
+		mileage_amount = journey.distance * mileage_allowance
+		expenses.append(
+			{
+				"expense_date": journey.date,
+				"expense_type": expense_claim_type,
+				"description": description,
+				"amount": mileage_amount,
+				"sanctioned_amount": mileage_amount,
+				"project": business_trip.project,
+				"cost_center": business_trip.cost_center,
+			},
+		)
+
+	return expenses
+
+
+def get_meal_expenses(
+	business_trip: BusinessTrip, expense_claim_type: str
+) -> list[dict]:
+	"""Return a list of expense claim rows for meal expenses"""
+	expenses = []
+	for allowance in business_trip.allowances:
+		description = "Ganztägig" if allowance.whole_day else "An-/Abreise"
+		if not allowance.accommodation_was_provided and frappe.db.get_value(
+			"Business Trip Region", business_trip.region, "accommodation"
+		):
+			description += ", zzgl. Hotel"
+
+		if allowance.breakfast_was_provided:
+			description += ", abzügl. Frühstück"
+
+		if allowance.lunch_was_provided:
+			description += ", abzügl. Mittagessen"
+
+		if allowance.dinner_was_provided:
+			description += ", abzügl. Abendessen"
+
+		expenses.append(
+			{
+				"expense_date": allowance.date,
+				"expense_type": expense_claim_type,
+				"description": description,
+				"amount": allowance.amount,
+				"sanctioned_amount": allowance.amount,
+				"project": business_trip.project,
+				"cost_center": business_trip.cost_center,
+			},
+		)
+
+	return expenses
