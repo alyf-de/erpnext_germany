@@ -11,7 +11,6 @@
  ],
  "fields": [
   {
-   "default": "0.3",
    "description": "value / distance: e.g. 0.30\u20ac/km",
    "fieldname": "mileage_allowance",
    "fieldtype": "Currency",
@@ -22,7 +21,6 @@
    "reqd": 1
   },
   {
-   "default": "Additional meal expenses",
    "fieldname": "expense_claim_type",
    "fieldtype": "Link",
    "label": "Expense Claim Type for Additional Meal Expenses",
@@ -30,7 +28,6 @@
    "reqd": 1
   },
   {
-   "default": "Additional meal expenses",
    "fieldname": "expense_claim_type_car",
    "fieldtype": "Link",
    "label": "Expense Claim Type for Mileage Allowance",
@@ -41,7 +38,7 @@
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-20 11:33:16.958442",
+ "modified": "2025-02-26 12:23:22.874639",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Settings",

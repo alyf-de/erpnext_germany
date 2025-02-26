@@ -5,6 +5,8 @@ import frappe
 from frappe.model.document import Document
 from frappe import get_installed_apps
 
+DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
+
 
 class BusinessTrip(Document):
 	def before_save(self):
@@ -57,7 +59,7 @@ class BusinessTrip(Document):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
 
 	def calculate_total_mileage_allowance(self):
-		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
+		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
 		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
 
 	def before_submit(self):
@@ -92,15 +94,15 @@ class BusinessTrip(Document):
 					from_place=getattr(journey, "from"),
 					to_place=getattr(journey, "to"),
 				)
-
+				mileage_amount = journey.distance * (settings.mileage_allowance or 0)
 				expense_claim.append(
 					"expenses",
 					{
 						"expense_date": journey.date,
-						"expense_type": settings.expense_claim_type_car,
+						"expense_type": settings.expense_claim_type_car or DEFAULT_EXPENSE_CLAIM_TYPE,
 						"description": description,
-						"amount": journey.distance * settings.mileage_allowance,
-						"sanctioned_amount": journey.distance * settings.mileage_allowance,
+						"amount": mileage_amount,
+						"sanctioned_amount": mileage_amount,
 						"project": self.project,
 						"cost_center": self.cost_center,
 					},
@@ -128,7 +130,7 @@ class BusinessTrip(Document):
 				"expenses",
 				{
 					"expense_date": allowance.date,
-					"expense_type": settings.expense_claim_type,
+					"expense_type": settings.expense_claim_type or DEFAULT_EXPENSE_CLAIM_TYPE,
 					"description": description,
 					"amount": allowance.amount,
 					"sanctioned_amount": allowance.amount,

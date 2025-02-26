@@ -10,3 +10,4 @@ erpnext_germany.patches.add_business_trip_to_expense_claim
 erpnext_germany.patches.import_business_trip_regions
 execute:from erpnext_germany.install import make_custom_fields; make_custom_fields()
 execute:frappe.db.set_single_value("ERPNext Germany Settings", "prevent_gaps_in_transaction_naming", 1)
+erpnext_germany.patches.set_business_trip_settings
