@@ -1,6 +1,7 @@
 import frappe
 
 from .custom_fields import get_custom_fields
+from .property_setters import get_property_setters
 
 
 def before_uninstall():
@@ -28,9 +29,21 @@ def remove_custom_fields():
 
 def remove_property_setters():
 	print("* removing property setters...")
-	for doctype, property_setters in frappe.get_hooks("germany_property_setters").items():
-		for ps in property_setters:
-			frappe.db.delete("Property Setter", {"doc_type": doctype, "property": ps[0], "value": ps[-2]})
+	for doctypes, property_setters in get_property_setters().items():
+		if isinstance(doctypes, str):
+			doctypes = (doctypes,)
+
+		for doctype in doctypes:
+			for ps in property_setters:
+				frappe.db.delete(
+					"Property Setter",
+					{
+						"doc_type": doctype,
+						"field_name": ps[0],
+						"property": ps[1],
+						"value": ps[2],
+					},
+				)
 
 
 def remove_custom_records():
