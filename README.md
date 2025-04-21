@@ -22,6 +22,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     This ensures consecutive numbering of transactions. Applies to **Quotation**, **Sales Order**, **Sales Invoice**.
 
+- Restrict deletion of attachments to submitted transactions
 - Custom fields in **Employee** (tax information, etc.)
 - List of religios denominations ("Konfessionen")
 - List of German health insurance providers (depends on HRMS)
