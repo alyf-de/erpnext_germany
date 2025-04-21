@@ -1,6 +1,6 @@
 import frappe
-from frappe import _
 from erpnext.controllers.selling_controller import SellingController
+from frappe import _
 
 
 def on_trash(doc: SellingController, event: str = None) -> None:
@@ -12,9 +12,9 @@ def on_trash(doc: SellingController, event: str = None) -> None:
 
 	if is_not_latest(doc.doctype, doc.name, doc.creation, doc.company):
 		frappe.throw(
-			msg=_(
-				"Only the most recent {0} can be deleted in order to avoid gaps in numbering."
-			).format(_(doc.doctype)),
+			msg=_("Only the most recent {0} can be deleted in order to avoid gaps in numbering.").format(
+				_(doc.doctype)
+			),
 			title=_("Cannot delete this transaction"),
 		)
 

@@ -1,7 +1,8 @@
+from frappe import get_app_path, get_installed_apps
+from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
+
 from erpnext_germany.custom_fields import _
 from erpnext_germany.install import import_csv
-from frappe import get_installed_apps, get_app_path
-from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 
 def execute():

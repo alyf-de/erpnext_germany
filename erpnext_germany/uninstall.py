@@ -1,4 +1,5 @@
 import frappe
+
 from .custom_fields import get_custom_fields
 
 
@@ -21,7 +22,7 @@ def remove_custom_fields():
 					{
 						"dt": doctype,
 						"fieldname": cf.get("fieldname"),
-					}
+					},
 				)
 
 
@@ -29,14 +30,7 @@ def remove_property_setters():
 	print("* removing property setters...")
 	for doctype, property_setters in frappe.get_hooks("germany_property_setters").items():
 		for ps in property_setters:
-			frappe.db.delete(
-				"Property Setter",
-				{
-					"doc_type": doctype,
-					"property": ps[0],
-					"value": ps[-2]
-				}
-			)
+			frappe.db.delete("Property Setter", {"doc_type": doctype, "property": ps[0], "value": ps[-2]})
 
 
 def remove_custom_records():

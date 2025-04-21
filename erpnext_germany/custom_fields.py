@@ -1,5 +1,6 @@
-from .constants import REGISTER_COURTS
 from frappe import get_installed_apps
+
+from .constants import REGISTER_COURTS
 
 
 def _(message: str) -> str:

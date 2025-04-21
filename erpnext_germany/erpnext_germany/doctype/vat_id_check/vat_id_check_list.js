@@ -4,8 +4,8 @@ frappe.listview_settings["VAT ID Check"] = {
 	get_indicator: function (doc) {
 		if (doc.status === "Completed") {
 			return doc.is_valid === 1
-			? [__("Valid"), "green", "is_valid,=,Yes"]
-			: [__("Invalid"), "red", "is_valid,=,No"];
+				? [__("Valid"), "green", "is_valid,=,Yes"]
+				: [__("Invalid"), "red", "is_valid,=,No"];
 		} else if (doc.status === "Planned") {
 			return [__("Planned"), "blue", "status,=,Planned"];
 		} else if (doc.status === "Running") {

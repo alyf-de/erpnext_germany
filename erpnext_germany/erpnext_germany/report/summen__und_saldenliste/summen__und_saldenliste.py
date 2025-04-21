@@ -1,26 +1,20 @@
 # Copyright (c) 2023, ALYF GmbH and contributors
 # For license information, please see license.txt
 
-from datetime import date
 from calendar import monthrange
-from babel.dates import format_date
+from datetime import date
 
 import frappe
+from babel.dates import format_date
 from frappe import _
-from frappe.query_builder.functions import Sum, Cast, Coalesce
+from frappe.query_builder.functions import Cast, Coalesce, Sum
 from pypika.terms import Case
 
 
 def execute(filters=None):
-	fy_start, month_start, month_end = get_dates(
-		int(filters.month), filters.fiscal_year
-	)
-	current_month_name = format_date(
-		month_start, format="MMMM", locale=frappe.local.lang
-	)
-	return get_columns(current_month_name), get_data(
-		filters.company, fy_start, month_start, month_end
-	)
+	fy_start, month_start, month_end = get_dates(int(filters.month), filters.fiscal_year)
+	current_month_name = format_date(month_start, format="MMMM", locale=frappe.local.lang)
+	return get_columns(current_month_name), get_data(filters.company, fy_start, month_start, month_end)
 
 
 def get_columns(current_month_name: str):
@@ -111,24 +105,20 @@ def get_data(company: str, fy_start, month_start, month_end):
 			Case()
 			.when(
 				account.root_type == "Asset",
-				Sum(gl_entry.debit_in_account_currency)
-				- Sum(gl_entry.credit_in_account_currency),
+				Sum(gl_entry.debit_in_account_currency) - Sum(gl_entry.credit_in_account_currency),
 			)
 			.else_(None)
 			.as_("debit"),
 			Case()
 			.when(
 				account.root_type.isin(("Liability", "Equity")),
-				Sum(gl_entry.credit_in_account_currency)
-				- Sum(gl_entry.debit_in_account_currency),
+				Sum(gl_entry.credit_in_account_currency) - Sum(gl_entry.debit_in_account_currency),
 			)
 			.else_(None)
 			.as_("credit"),
 		)
 		.where(
-			(gl_entry.company == company)
-			& (gl_entry.is_cancelled == 0)
-			& (gl_entry.posting_date < fy_start)
+			(gl_entry.company == company) & (gl_entry.is_cancelled == 0) & (gl_entry.posting_date < fy_start)
 		)
 		.groupby(gl_entry.account)
 	)
