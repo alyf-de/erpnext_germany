@@ -1,4 +1,5 @@
 import frappe
+
 from .utils.eu_vat import check_vat, parse_vat_id
 
 

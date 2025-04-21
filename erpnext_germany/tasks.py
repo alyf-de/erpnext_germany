@@ -28,10 +28,7 @@ def get_customers(batch_size=4):
 		.where(
 			customers.tax_id.notnull()
 			& (customers.disabled == 0)
-			& (
-				last_check.creation.isnull()
-				| (last_check.creation < fn.Now() - Interval(months=3))
-			)
+			& (last_check.creation.isnull() | (last_check.creation < fn.Now() - Interval(months=3)))
 		)
 		.limit(batch_size)
 		.run()
@@ -57,10 +54,7 @@ def get_suppliers(batch_size=4):
 		.where(
 			suppliers.tax_id.notnull()
 			& (suppliers.disabled == 0)
-			& (
-				last_check.creation.isnull()
-				| (last_check.creation < fn.Now() - Interval(months=3))
-			)
+			& (last_check.creation.isnull() | (last_check.creation < fn.Now() - Interval(months=3)))
 		)
 		.limit(batch_size)
 		.run()
@@ -89,9 +83,7 @@ def check_some_parties():
 	if company := get_default_company():
 		requester_vat_id = frappe.get_cached_value("Company", company, "tax_id")
 
-	for party_type, party, party_name, primary_address, vat_id in (
-		get_customers() + get_suppliers()
-	):
+	for party_type, party, party_name, primary_address, vat_id in get_customers() + get_suppliers():
 		doc = frappe.new_doc("VAT ID Check")
 		doc.party_type = party_type
 		doc.party = party

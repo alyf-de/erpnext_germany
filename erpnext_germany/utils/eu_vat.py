@@ -32,9 +32,7 @@ def parse_vat_id(vat_id: str) -> tuple[str, str]:
 
 def check_vat(country_code: str, vat_number: str):
 	"""Use the EU VAT checker to validate a VAT ID."""
-	return Client(WSDL_URL).service.checkVat(
-		vatNumber=vat_number, countryCode=country_code
-	)
+	return Client(WSDL_URL).service.checkVat(vatNumber=vat_number, countryCode=country_code)
 
 
 @retry(

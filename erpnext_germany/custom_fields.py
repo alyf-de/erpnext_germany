@@ -1,5 +1,6 @@
-from .constants import REGISTER_COURTS
 from frappe import get_installed_apps
+
+from .constants import REGISTER_COURTS
 
 
 def _(message: str) -> str:
@@ -45,7 +46,7 @@ def get_register_fields(insert_after: str):
 			"fieldname": "register_court",
 			"label": _("Register Court"),
 			"insert_after": "register_cb_2",
-			"options": "\n".join([""] + REGISTER_COURTS),  # empty string to be able to select nothing
+			"options": "\n".join(["", *REGISTER_COURTS]),  # empty string to be able to select nothing
 			"translatable": 0,
 		},
 	]
@@ -53,9 +54,9 @@ def get_register_fields(insert_after: str):
 
 def get_custom_fields():
 	custom_fields = {
-		"Company": [] + get_register_fields(insert_after="address_html"),
-		"Customer": [] + get_register_fields(insert_after="companies"),
-		"Supplier": [] + get_register_fields(insert_after="companies"),
+		"Company": get_register_fields(insert_after="address_html"),
+		"Customer": get_register_fields(insert_after="companies"),
+		"Supplier": get_register_fields(insert_after="companies"),
 		"Employee": [
 			{
 				"fieldtype": "Link",
@@ -148,7 +149,15 @@ def get_custom_fields():
 				"fieldtype": "Select",
 				"fieldname": "highest_school_qualification",
 				"label": _("Highest School Qualification"),
-				"options": "\nOhne Schulabschluss\nHaupt-/Volksschulabschluss\nMitttlere Reife\n(Fach-)Abitur",
+				"options": "\n".join(
+					[
+						"",
+						"Ohne Schulabschluss",
+						"Haupt-/Volksschulabschluss",
+						"Mitttlere Reife",
+						"(Fach-)Abitur",
+					]
+				),
 				"insert_after": "education",
 				"translatable": 0,
 			},

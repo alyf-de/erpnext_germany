@@ -66,7 +66,7 @@ def insert_custom_records():
 		filters = custom_record.copy()
 		# Clean up filters. They need to be a plain dict without nested dicts or lists.
 		for key, value in custom_record.items():
-			if isinstance(value, (list, dict)):
+			if isinstance(value, list | dict):
 				del filters[key]
 
 		if not frappe.db.exists(filters):

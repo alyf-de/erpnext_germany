@@ -2,8 +2,8 @@
 # For license information, please see license.txt
 
 import frappe
-from frappe.model.document import Document
 from frappe import get_installed_apps
+from frappe.model.document import Document
 from frappe.utils.data import fmt_money
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
@@ -60,13 +60,8 @@ class BusinessTrip(Document):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
 
 	def calculate_total_mileage_allowance(self):
-		mileage_allowance = (
-			frappe.db.get_single_value("Business Trip Settings", "mileage_allowance")
-			or 0
-		)
-		self.total_mileage_allowance = (
-			sum(journey.distance for journey in self.journeys) * mileage_allowance
-		)
+		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
+		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
 
 	def before_submit(self):
 		self.status = "Submitted"
@@ -81,15 +76,10 @@ class BusinessTrip(Document):
 		settings = frappe.get_single("Business Trip Settings")
 		expenses = get_mileage_allowances(
 			self,
-			expense_claim_type=settings.expense_claim_type_car
-			or DEFAULT_EXPENSE_CLAIM_TYPE,
+			expense_claim_type=settings.expense_claim_type_car or DEFAULT_EXPENSE_CLAIM_TYPE,
 			mileage_allowance=settings.mileage_allowance or 0.0,
 		)
-		expenses.extend(
-			get_meal_expenses(
-				self, settings.expense_claim_type or DEFAULT_EXPENSE_CLAIM_TYPE
-			)
-		)
+		expenses.extend(get_meal_expenses(self, settings.expense_claim_type or DEFAULT_EXPENSE_CLAIM_TYPE))
 
 		if not expenses:
 			return
@@ -119,11 +109,13 @@ def get_mileage_allowances(
 		if journey.mode_of_transport != "Car (private)":
 			continue
 
-		description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
-			distance=journey.get_formatted("distance"),
-			mileage_allowance=fmt_money(mileage_allowance),
-			from_place=getattr(journey, "from"),
-			to_place=getattr(journey, "to"),
+		description = (
+			"{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
+				distance=journey.get_formatted("distance"),
+				mileage_allowance=fmt_money(mileage_allowance),
+				from_place=getattr(journey, "from"),
+				to_place=journey.to,
+			)
 		)
 		mileage_amount = journey.distance * mileage_allowance
 		expenses.append(
@@ -141,9 +133,7 @@ def get_mileage_allowances(
 	return expenses
 
 
-def get_meal_expenses(
-	business_trip: BusinessTrip, expense_claim_type: str
-) -> list[dict]:
+def get_meal_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> list[dict]:
 	"""Return a list of expense claim rows for meal expenses"""
 	expenses = []
 	for allowance in business_trip.allowances:

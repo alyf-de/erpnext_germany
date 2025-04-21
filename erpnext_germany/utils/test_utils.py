@@ -1,12 +1,13 @@
 from unittest import TestCase
+
 from .eu_vat import is_valid_vat_id
 
 
 class TestUtils(TestCase):
 	def test_validate_vat_id(self):
 		valid_ids = [
-			"DE329035522", # ALYF
-			"DE210157578", # SAP
+			"DE329035522",  # ALYF
+			"DE210157578",  # SAP
 		]
 		invalid_ids = [
 			"ABC123",
