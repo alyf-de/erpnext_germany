@@ -3,7 +3,7 @@ from erpnext.controllers.selling_controller import SellingController
 from frappe import _
 
 
-def on_trash(doc: SellingController, event: str = None) -> None:
+def on_trash(doc: SellingController, event: str | None = None) -> None:
 	if doc.flags.ignore_validate:
 		return
 
