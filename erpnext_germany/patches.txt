@@ -12,3 +12,4 @@ execute:from erpnext_germany.install import make_custom_fields; make_custom_fiel
 execute:frappe.db.set_single_value("ERPNext Germany Settings", "prevent_gaps_in_transaction_naming", 1)
 erpnext_germany.patches.set_business_trip_settings
 erpnext_germany.patches.remove_some_employee_property_setters
+execute:from erpnext_germany.install import make_property_setters; make_property_setters()
