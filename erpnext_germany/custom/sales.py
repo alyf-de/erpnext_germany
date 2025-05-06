@@ -7,6 +7,9 @@ def on_trash(doc: SellingController, event: str = None) -> None:
 	if doc.flags.ignore_validate:
 		return
 
+	if not frappe.db.get_single_value("ERPNext Germany Settings", "prevent_gaps_in_transaction_naming"):
+		return
+
 	if is_not_latest(doc.doctype, doc.name, doc.creation, doc.company):
 		frappe.throw(
 			msg=_(
