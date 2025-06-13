@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://github.com/frappe/erpnext",
+    "branch": "version-15"
+  },
+  {
+    "url": "https://github.com/frappe/hrms.git",
+    "branch": "version-15"
+  },
+  {
+    "url": "https://github.com/alyf-de/erpnext_pdf-on-submit.git",
+    "branch": "version-15"
+  },
+  {
+    "url": "https://github.com/alyf-de/erpnext_germany.git",
+    "branch": "version-15"
+  },
+  {
+    "url": "https://github.com/alyf-de/erpnext_datev.git",
+    "branch": "version-15"
+  },
+  {
+    "url": "https://github.com/alyf-de/banking.git",
+    "branch": "version-15"
+  },
+  {
+    "url": "https://github.com/alyf-de/eu_einvoice.git",
+    "branch": "version-15"
+  }
+]
