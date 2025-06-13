@@ -5,9 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - version-15
-    tags:
-      - "*"
+      - '**'
 jobs:
   build:
     name: Build
