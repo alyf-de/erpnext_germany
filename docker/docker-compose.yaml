@@ -69,11 +69,11 @@ services:
       REDIS_CACHE: redis-cache:6379
       REDIS_QUEUE: redis-queue:6379
       SOCKETIO_PORT: "9000"
-    image: ghcr.io/alyf-de/erpnext_germany:stable
+    image: ${CUSTOM_IMAGE}:${CUSTOM_TAG}
     networks:
       default: null
     platform: linux/amd64
-    pull_policy: always
+    pull_policy: ${PULL_POLICY}
     restart: on-failure
     volumes:
       - type: volume
