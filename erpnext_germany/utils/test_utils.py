@@ -31,15 +31,15 @@ def test_parse_vat_id_invalid_country_code():
 	# Too short country code (only 1 character provided)
 	with pytest.raises(ValueError, match="Invalid country code"):
 		parse_vat_id("D123456789")
-	
+
 	# Non-alphabetic country code
 	with pytest.raises(ValueError, match="Invalid country code"):
 		parse_vat_id("D1123456789")
-	
+
 	# Numbers in country code
 	with pytest.raises(ValueError, match="Invalid country code"):
 		parse_vat_id("12123456789")
-	
+
 	# Special characters in country code
 	with pytest.raises(ValueError, match="Invalid country code"):
 		parse_vat_id("D-123456789")
