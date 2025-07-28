@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 from tenacity import RetryError
 
@@ -11,10 +12,18 @@ from erpnext_germany.utils.eu_vat import check_vat_approx, parse_vat_id
 class VATIDCheck(Document):
 	def before_insert(self):
 		if self.requester_vat_id:
-			requester_country_code, requester_vat_number = parse_vat_id(self.requester_vat_id)
+			try:
+				requester_country_code, requester_vat_number = parse_vat_id(self.requester_vat_id)
+			except ValueError:
+				frappe.throw(
+					_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("requester_vat_id")))
+				)
 			self.requester_vat_id = f"{requester_country_code}{requester_vat_number}"
 
-		country_code, vat_number = parse_vat_id(self.party_vat_id)
+		try:
+			country_code, vat_number = parse_vat_id(self.party_vat_id)
+		except ValueError:
+			frappe.throw(_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("party_vat_id"))))
 		self.party_vat_id = f"{country_code}{vat_number}"
 
 	def after_insert(self):

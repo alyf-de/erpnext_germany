@@ -17,15 +17,17 @@ VAT_NUMBER_REGEX = r"^[0-9A-Za-z\+\*\.]{2,12}$"
 
 
 def parse_vat_id(vat_id: str) -> tuple[str, str]:
-	country_code = vat_id[:2].upper()
-	vat_number = vat_id[2:].replace(" ", "")
+	_vat_id = vat_id.replace(" ", "")
+
+	country_code = _vat_id[:2].upper()
+	vat_number = _vat_id[2:]
 
 	# check vat_number and country_code with regex
 	if not re.match(COUNTRY_CODE_REGEX, country_code):
-		raise ValueError("Invalid country code")
+		raise ValueError(f"Invalid country code: {country_code}")
 
 	if not re.match(VAT_NUMBER_REGEX, vat_number):
-		raise ValueError("Invalid VAT number")
+		raise ValueError(f"Invalid VAT number: {vat_number}")
 
 	return country_code, vat_number
 
