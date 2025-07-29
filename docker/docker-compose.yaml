@@ -8,7 +8,6 @@ services:
     image: ghcr.io/alyf-de/erpnext_germany:stable
     networks:
       default: null
-    platform: linux/amd64
     pull_policy: always
     restart: unless-stopped
     volumes:
