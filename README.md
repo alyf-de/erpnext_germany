@@ -69,6 +69,24 @@ The receipts for transport and accommodation can be attached, but are not proces
 
 You can use our [Banking app](https://github.com/alyf-de/banking) to reconcile the **Expense Claims** and **Purchase Invoices** with the respective **Bank Transactions**.
 
+## Quick Start Demo
+
+The fastest way to get a running demo site on your local desktop.
+
+Prerequisites: [Docker](https://www.docker.com/) and [git](https://git-scm.com/) installed on your machine.
+
+```bash
+git clone https://github.com/alyf-de/erpnext_germany.git
+cd erpnext_germany/docker
+cp .env.example .env
+docker compose up -d
+```
+
+The first setup will take a while. Then you can access the demo site at http://localhost:8000.
+Log in with the Username `Administrator` and the default password `admin`.
+
+Read more about the setup in the [docker/README.md](docker/README.md) file.
+
 ### License
 
 GNU GPL V3. See the `LICENSE` file for more information.

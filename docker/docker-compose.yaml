@@ -8,7 +8,6 @@ services:
     image: ghcr.io/alyf-de/erpnext_germany:stable
     networks:
       default: null
-    platform: linux/amd64
     pull_policy: always
     restart: unless-stopped
     volumes:
@@ -72,7 +71,6 @@ services:
     image: ${CUSTOM_IMAGE}:${CUSTOM_TAG}
     networks:
       default: null
-    platform: linux/amd64
     pull_policy: ${PULL_POLICY}
     restart: on-failure
     volumes:
@@ -125,7 +123,6 @@ services:
     image: ghcr.io/alyf-de/erpnext_germany:stable
     networks:
       default: null
-    platform: linux/amd64
     ports:
       - mode: ingress
         target: 8080
@@ -151,7 +148,6 @@ services:
     image: ghcr.io/alyf-de/erpnext_germany:stable
     networks:
       default: null
-    platform: linux/amd64
     pull_policy: always
     restart: unless-stopped
     volumes:
@@ -172,7 +168,6 @@ services:
     image: ghcr.io/alyf-de/erpnext_germany:stable
     networks:
       default: null
-    platform: linux/amd64
     pull_policy: always
     restart: unless-stopped
     volumes:
@@ -206,7 +201,6 @@ services:
     image: ghcr.io/alyf-de/erpnext_germany:stable
     networks:
       default: null
-    platform: linux/amd64
     pull_policy: always
     restart: unless-stopped
     volumes:
@@ -225,7 +219,6 @@ services:
     image: ghcr.io/alyf-de/erpnext_germany:stable
     networks:
       default: null
-    platform: linux/amd64
     pull_policy: always
     restart: unless-stopped
     volumes:
