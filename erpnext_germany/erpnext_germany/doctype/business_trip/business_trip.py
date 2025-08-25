@@ -25,9 +25,9 @@ class BusinessTrip(Document):
 			return
 
 		region = frappe.get_doc("Business Trip Region", self.region)
-		whole_day = region.get("whole_day", 0.0)
-		arrival_or_departure = region.get("arrival_or_departure", 0.0)
-		accomodation = region.get("accomodation", 0.0)
+		whole_day = region.whole_day or 0.0
+		arrival_or_departure = region.arrival_or_departure or 0.0
+		accomodation = region.accommodation or 0.0
 
 		for allowance in self.allowances:
 			amount = whole_day if allowance.whole_day else arrival_or_departure
