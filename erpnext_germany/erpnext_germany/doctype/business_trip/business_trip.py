@@ -1,5 +1,6 @@
 # Copyright (c) 2024, ALYF GmbH and contributors
 # For license information, please see license.txt
+from typing import TYPE_CHECKING
 
 import frappe
 from frappe import get_installed_apps
@@ -8,8 +9,54 @@ from frappe.utils.data import fmt_money
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
 
+if TYPE_CHECKING:
+	from erpnext_germany.erpnext_germany.doctype.business_trip_region.business_trip_region import (
+		BusinessTripRegion,
+	)
+	from erpnext_germany.erpnext_germany.doctype.business_trip_settings.business_trip_settings import (
+		BusinessTripSettings,
+	)
+
 
 class BusinessTrip(Document):
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
+
+	from typing import TYPE_CHECKING
+
+	if TYPE_CHECKING:
+		from frappe.types import DF
+
+		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import (  # noqa: E501
+			BusinessTripAccommodation,
+		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_allowance.business_trip_allowance import (
+			BusinessTripAllowance,
+		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import (
+			BusinessTripJourney,
+		)
+
+		accommodations: DF.Table[BusinessTripAccommodation]
+		allowances: DF.Table[BusinessTripAllowance]
+		amended_from: DF.Link | None
+		company: DF.Link | None
+		cost_center: DF.Link | None
+		currency: DF.Link | None
+		customer: DF.Link | None
+		employee: DF.Link
+		employee_name: DF.Data | None
+		from_date: DF.Date
+		journeys: DF.Table[BusinessTripJourney]
+		project: DF.Link | None
+		region: DF.Link
+		status: DF.Literal["", "Submitted", "Approved", "Rejected", "Paid", "Billed"]
+		title: DF.Data
+		to_date: DF.Date
+		total_allowance: DF.Currency
+		total_mileage_allowance: DF.Currency
+	# end: auto-generated types
+
 	def before_save(self):
 		self.reset_distance()
 		self.set_regional_amount()
@@ -24,10 +71,10 @@ class BusinessTrip(Document):
 		if not self.region:
 			return
 
-		region = frappe.get_doc("Business Trip Region", self.region)
-		whole_day = region.get("whole_day", 0.0)
-		arrival_or_departure = region.get("arrival_or_departure", 0.0)
-		accomodation = region.get("accomodation", 0.0)
+		region: BusinessTripRegion = frappe.get_doc("Business Trip Region", self.region)
+		whole_day = region.whole_day or 0.0
+		arrival_or_departure = region.arrival_or_departure or 0.0
+		accomodation = region.accommodation or 0.0
 
 		for allowance in self.allowances:
 			amount = whole_day if allowance.whole_day else arrival_or_departure
@@ -73,7 +120,7 @@ class BusinessTrip(Document):
 		if "hrms" not in get_installed_apps():
 			return
 
-		settings = frappe.get_single("Business Trip Settings")
+		settings: BusinessTripSettings = frappe.get_single("Business Trip Settings")
 		expenses = get_mileage_allowances(
 			self,
 			expense_claim_type=settings.expense_claim_type_car or DEFAULT_EXPENSE_CLAIM_TYPE,
