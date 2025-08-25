@@ -1,5 +1,6 @@
 # Copyright (c) 2024, ALYF GmbH and contributors
 # For license information, please see license.txt
+from typing import TYPE_CHECKING
 
 import frappe
 from frappe import get_installed_apps
@@ -7,6 +8,14 @@ from frappe.model.document import Document
 from frappe.utils.data import fmt_money
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
+
+if TYPE_CHECKING:
+	from erpnext_germany.erpnext_germany.doctype.business_trip_region.business_trip_region import (
+		BusinessTripRegion,
+	)
+	from erpnext_germany.erpnext_germany.doctype.business_trip_settings.business_trip_settings import (
+		BusinessTripSettings,
+	)
 
 
 class BusinessTrip(Document):
@@ -62,7 +71,7 @@ class BusinessTrip(Document):
 		if not self.region:
 			return
 
-		region = frappe.get_doc("Business Trip Region", self.region)
+		region: BusinessTripRegion = frappe.get_doc("Business Trip Region", self.region)
 		whole_day = region.whole_day or 0.0
 		arrival_or_departure = region.arrival_or_departure or 0.0
 		accomodation = region.accommodation or 0.0
@@ -111,7 +120,7 @@ class BusinessTrip(Document):
 		if "hrms" not in get_installed_apps():
 			return
 
-		settings = frappe.get_single("Business Trip Settings")
+		settings: BusinessTripSettings = frappe.get_single("Business Trip Settings")
 		expenses = get_mileage_allowances(
 			self,
 			expense_claim_type=settings.expense_claim_type_car or DEFAULT_EXPENSE_CLAIM_TYPE,
