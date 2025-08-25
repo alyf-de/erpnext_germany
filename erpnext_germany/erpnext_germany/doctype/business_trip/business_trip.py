@@ -10,6 +10,44 @@ DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
 
 
 class BusinessTrip(Document):
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
+
+	from typing import TYPE_CHECKING
+
+	if TYPE_CHECKING:
+		from frappe.types import DF
+
+		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import (  # noqa: E501
+			BusinessTripAccommodation,
+		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_allowance.business_trip_allowance import (
+			BusinessTripAllowance,
+		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import (
+			BusinessTripJourney,
+		)
+
+		accommodations: DF.Table[BusinessTripAccommodation]
+		allowances: DF.Table[BusinessTripAllowance]
+		amended_from: DF.Link | None
+		company: DF.Link | None
+		cost_center: DF.Link | None
+		currency: DF.Link | None
+		customer: DF.Link | None
+		employee: DF.Link
+		employee_name: DF.Data | None
+		from_date: DF.Date
+		journeys: DF.Table[BusinessTripJourney]
+		project: DF.Link | None
+		region: DF.Link
+		status: DF.Literal["", "Submitted", "Approved", "Rejected", "Paid", "Billed"]
+		title: DF.Data
+		to_date: DF.Date
+		total_allowance: DF.Currency
+		total_mileage_allowance: DF.Currency
+	# end: auto-generated types
+
 	def before_save(self):
 		self.reset_distance()
 		self.set_regional_amount()

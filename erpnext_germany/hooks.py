@@ -196,6 +196,7 @@ scheduler_events = {
 # 	"erpnext_germany.auth.validate"
 # ]
 
+<<<<<<< HEAD
 germany_property_setters = {
 	"Employee": [
 		("salary_currency", "default", "EUR", "Small Text"),
@@ -206,6 +207,9 @@ germany_property_setters = {
 		("current_accommodation_type", "hidden", 1, "Check"),
 	],
 }
+=======
+export_python_type_annotations = True
+>>>>>>> f249c03 (chore: export type annotations)
 
 germany_custom_records = [
 	{
