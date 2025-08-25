@@ -194,6 +194,8 @@ scheduler_events = {
 # 	"erpnext_germany.auth.validate"
 # ]
 
+export_python_type_annotations = True
+
 germany_custom_records = [
 	{
 		"doctype": "DocType Link",
