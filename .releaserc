@@ -12,7 +12,8 @@
 					{"type": "perf", "release": "patch"},
 					{"type": "refactor", "release": "patch"},
 					{"type": "docs", "release": "patch"},
-					{"type": "chore", "release": "patch"}
+					{"type": "chore", "release": "patch"},
+					{"type": "ci", "release": "patch"}
 				]
 			}
 		],
