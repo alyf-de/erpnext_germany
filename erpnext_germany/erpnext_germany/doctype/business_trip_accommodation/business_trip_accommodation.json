@@ -9,6 +9,7 @@
   "from_date",
   "to_date",
   "city",
+  "expenses",
   "receipt"
  ],
  "fields": [
@@ -34,6 +35,13 @@
    "reqd": 1
   },
   {
+   "description": "Expenses paid by the Employee for accommodation.",
+   "fieldname": "expenses",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Expenses"
+  },
+  {
    "fieldname": "receipt",
    "fieldtype": "Attach",
    "in_list_view": 1,
@@ -43,7 +51,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-09-04 22:59:37.891096",
+ "modified": "2024-09-09 16:57:37.891096",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Accommodation",

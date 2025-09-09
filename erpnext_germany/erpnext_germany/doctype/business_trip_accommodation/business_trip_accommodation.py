@@ -15,6 +15,7 @@ class BusinessTripAccommodation(Document):
 		from frappe.types import DF
 
 		city: DF.Data
+		expenses: DF.Currency
 		from_date: DF.Date
 		parent: DF.Data
 		parentfield: DF.Data

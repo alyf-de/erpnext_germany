@@ -55,6 +55,7 @@ class BusinessTrip(Document):
 		to_date: DF.Date
 		total_allowance: DF.Currency
 		total_mileage_allowance: DF.Currency
+		employee_paid_accommodation_expenses: DF.Currency
 	# end: auto-generated types
 
 	def before_save(self):
@@ -64,6 +65,7 @@ class BusinessTrip(Document):
 		self.calculate_total()
 		self.calculate_total_mileage_allowance()
 		self.calculate_journeys_expenses()
+		self.calculate_accommodation_expenses()
 
 	def validate(self):
 		self.validate_from_to_dates("from_date", "to_date")
@@ -115,6 +117,11 @@ class BusinessTrip(Document):
 
 	def calculate_journeys_expenses(self):
 		self.employee_paid_journey_expenses = sum(journey.expenses for journey in self.journeys)
+
+	def calculate_accommodation_expenses(self):
+		self.employee_paid_accommodation_expenses = sum(
+			accommodation.expenses for accommodation in self.accommodations
+		)
 
 	def before_submit(self):
 		self.status = "Submitted"

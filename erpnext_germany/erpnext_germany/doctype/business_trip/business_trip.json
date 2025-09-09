@@ -28,6 +28,7 @@
   "employee_paid_journey_expenses",
   "section_break_14",
   "accommodations",
+  "employee_paid_accommodation_expenses",
   "section_break_16",
   "region",
   "allowances",
@@ -194,10 +195,16 @@
    "read_only": 1
   },
   {
-   "description": "Expenses paid by the Employee (excl. mileage allowance)",
+   "description": "Journey Expenses paid by the employee (excl. mileage allowance)",
    "fieldname": "employee_paid_journey_expenses",
    "fieldtype": "Currency",
    "label": "Employee Paid Journey Expenses",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee_paid_accommodation_expenses",
+   "fieldtype": "Currency",
+   "label": "Employee Paid Accommodation Expenses",
    "read_only": 1
   }
  ],
@@ -210,7 +217,7 @@
    "link_fieldname": "business_trip"
   }
  ],
- "modified": "2025-09-09 16:37:47.047959",
+ "modified": "2025-09-09 16:57:47.047959",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip",
