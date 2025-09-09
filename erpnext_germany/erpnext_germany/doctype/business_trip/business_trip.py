@@ -58,11 +58,12 @@ class BusinessTrip(Document):
 	# end: auto-generated types
 
 	def before_save(self):
-		self.reset_distance()
+		self.reset_distance_and_journeys_expenses()
 		self.set_regional_amount()
 		self.set_whole_day_time()
 		self.calculate_total()
 		self.calculate_total_mileage_allowance()
+		self.calculate_journeys_expenses()
 
 	def validate(self):
 		self.validate_from_to_dates("from_date", "to_date")
@@ -92,9 +93,11 @@ class BusinessTrip(Document):
 
 			allowance.amount = max(amount, 0.0)
 
-	def reset_distance(self):
+	def reset_distance_and_journeys_expenses(self):
 		for journey in self.journeys:
-			if journey.mode_of_transport != "Car (private)":
+			if journey.mode_of_transport == "Car (private)":
+				journey.expenses = 0
+			else:
 				journey.distance = 0
 
 	def set_whole_day_time(self):
@@ -109,6 +112,9 @@ class BusinessTrip(Document):
 	def calculate_total_mileage_allowance(self):
 		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
 		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
+
+	def calculate_journeys_expenses(self):
+		self.employee_paid_journey_expenses = sum(journey.expenses for journey in self.journeys)
 
 	def before_submit(self):
 		self.status = "Submitted"
