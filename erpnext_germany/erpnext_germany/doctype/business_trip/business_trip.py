@@ -149,6 +149,12 @@ class BusinessTrip(Document):
 			expense_claim_type=settings.expense_claim_type_car or DEFAULT_EXPENSE_CLAIM_TYPE,
 			mileage_allowance=settings.mileage_allowance or 0.0,
 		)
+		expenses.extend(
+			get_journey_expenses(self, settings.expense_claim_type_for_other_journey_expenses or DEFAULT_EXPENSE_CLAIM_TYPE)
+		)
+		expenses.extend(
+			get_accommodation_expenses(self, settings.expense_claim_type_for_accommodations or DEFAULT_EXPENSE_CLAIM_TYPE)
+		)
 		expenses.extend(get_meal_expenses(self, settings.expense_claim_type or DEFAULT_EXPENSE_CLAIM_TYPE))
 
 		if not expenses:
@@ -195,6 +201,61 @@ def get_mileage_allowances(
 				"description": description,
 				"amount": mileage_amount,
 				"sanctioned_amount": mileage_amount,
+				"project": business_trip.project,
+				"cost_center": business_trip.cost_center,
+			},
+		)
+
+	return expenses
+
+
+def get_journey_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> list[dict]:
+	"""Return a list of expense claim rows for journey expenses (excl. mileage allowance)."""
+	expenses = []
+	for journey in business_trip.journeys:
+		if not journey.expenses:
+			continue
+
+		description = "Fahrt von {from_place} nach {to_place} ({mode})".format(
+			from_place=getattr(journey, "from"),
+			to_place=journey.to,
+			mode=journey.mode_of_transport,
+		)
+
+		expenses.append(
+			{
+				"expense_date": journey.date,
+				"expense_type": expense_claim_type,
+				"description": description,
+				"amount": journey.expenses,
+				"sanctioned_amount": journey.expenses,
+				"project": business_trip.project,
+				"cost_center": business_trip.cost_center,
+			},
+		)
+
+	return expenses
+
+
+def get_accommodation_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> list[dict]:
+	"""Return a list of expense claim rows for accommodation expenses."""
+	expenses = []
+	for accommodation in business_trip.accommodations:
+		if not accommodation.expenses:
+			continue
+
+		description = (
+			f"Unterkunft in {accommodation.city} "
+			f"({accommodation.from_date} - {accommodation.to_date})"
+		)
+
+		expenses.append(
+			{
+				"expense_date": accommodation.from_date,
+				"expense_type": expense_claim_type,
+				"description": description,
+				"amount": accommodation.expenses,
+				"sanctioned_amount": accommodation.expenses,
 				"project": business_trip.project,
 				"cost_center": business_trip.cost_center,
 			},

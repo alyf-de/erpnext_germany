@@ -5,8 +5,10 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "expense_claim_type",
   "expense_claim_type_car",
+  "expense_claim_type_for_other_journey_expenses",
+  "expense_claim_type_for_accommodations",
+  "expense_claim_type",
   "mileage_allowance"
  ],
  "fields": [
@@ -33,12 +35,27 @@
    "label": "Expense Claim Type for Mileage Allowance",
    "options": "Expense Claim Type",
    "reqd": 1
+  },
+  {
+   "fieldname": "expense_claim_type_for_other_journey_expenses",
+   "fieldtype": "Link",
+   "label": "Expense Claim Type for Other Journey Expenses",
+   "options": "Expense Claim Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "expense_claim_type_for_accommodations",
+   "fieldtype": "Link",
+   "label": "Expense Claim Type for Accommodations",
+   "options": "Expense Claim Type",
+   "reqd": 1
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-26 12:23:22.874639",
+ "modified": "2025-09-09 17:57:34.876836",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Settings",
@@ -55,6 +72,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

@@ -16,6 +16,8 @@ class BusinessTripSettings(Document):
 
 		expense_claim_type: DF.Link
 		expense_claim_type_car: DF.Link
+		expense_claim_type_for_accommodations: DF.Link
+		expense_claim_type_for_other_journey_expenses: DF.Link
 		mileage_allowance: DF.Currency
 	# end: auto-generated types
 	pass
