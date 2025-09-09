@@ -25,6 +25,7 @@
   "section_break_12",
   "journeys",
   "total_mileage_allowance",
+  "employee_paid_journey_expenses",
   "section_break_14",
   "accommodations",
   "section_break_16",
@@ -191,8 +192,16 @@
    "fieldtype": "Currency",
    "label": "Total Mileage Allowance",
    "read_only": 1
+  },
+  {
+   "description": "Expenses paid by the Employee (excl. mileage allowance)",
+   "fieldname": "employee_paid_journey_expenses",
+   "fieldtype": "Currency",
+   "label": "Employee Paid Journey Expenses",
+   "read_only": 1
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [
@@ -201,7 +210,7 @@
    "link_fieldname": "business_trip"
   }
  ],
- "modified": "2025-02-20 10:58:45.064314",
+ "modified": "2025-09-09 16:37:47.047959",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip",
@@ -260,6 +269,7 @@
    "role": "Accounts User"
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],
