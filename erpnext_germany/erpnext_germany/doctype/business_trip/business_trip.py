@@ -150,10 +150,14 @@ class BusinessTrip(Document):
 			mileage_allowance=settings.mileage_allowance or 0.0,
 		)
 		expenses.extend(
-			get_journey_expenses(self, settings.expense_claim_type_for_other_journey_expenses or DEFAULT_EXPENSE_CLAIM_TYPE)
+			get_journey_expenses(
+				self, settings.expense_claim_type_for_other_journey_expenses or DEFAULT_EXPENSE_CLAIM_TYPE
+			)
 		)
 		expenses.extend(
-			get_accommodation_expenses(self, settings.expense_claim_type_for_accommodations or DEFAULT_EXPENSE_CLAIM_TYPE)
+			get_accommodation_expenses(
+				self, settings.expense_claim_type_for_accommodations or DEFAULT_EXPENSE_CLAIM_TYPE
+			)
 		)
 		expenses.extend(get_meal_expenses(self, settings.expense_claim_type or DEFAULT_EXPENSE_CLAIM_TYPE))
 
@@ -245,8 +249,7 @@ def get_accommodation_expenses(business_trip: BusinessTrip, expense_claim_type: 
 			continue
 
 		description = (
-			f"Unterkunft in {accommodation.city} "
-			f"({accommodation.from_date} - {accommodation.to_date})"
+			f"Unterkunft in {accommodation.city} ({accommodation.from_date} - {accommodation.to_date})"
 		)
 
 		expenses.append(
