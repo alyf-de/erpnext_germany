@@ -943,6 +943,11 @@ msgstr "Vorschuss vom Mitarbeiter bezahlt"
 msgid "Business Trip Employee"
 msgstr "Dienstreise-Mitarbeiter"
 
+#. Label of a button in DocType 'Business Trip'
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js
+msgid "Show Processing Details"
+msgstr "Bearbeitungsdetails anzeigen"
+
 # Description of a Check field in DocType 'Purchase Invoice'
 # erpnext_germany/custom_fields.py
 msgid "If checked, the invoice was advanced by the employee."
