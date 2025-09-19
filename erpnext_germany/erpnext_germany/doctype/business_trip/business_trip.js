@@ -13,6 +13,14 @@ frappe.ui.form.on("Business Trip", {
 		});
 	},
 
+	refresh(frm) {
+		if (frm.doc.docstatus === 1) {
+			frm.add_custom_button(__("Show Processing Details"), function () {
+				show_processing_details_dialog(frm);
+			});
+		}
+	},
+
 	from_date: function (frm) {
 		if (!frm.doc.to_date) {
 			frm.set_value("to_date", frm.doc.from_date);
@@ -84,3 +92,104 @@ frappe.ui.form.on("Business Trip Allowance", {
 		}
 	},
 });
+
+function show_processing_details_dialog(frm) {
+	frappe.call({
+		method: "erpnext_germany.erpnext_germany.doctype.business_trip.business_trip.get_processing_details",
+		args: {
+			business_trip: frm.doc.name,
+		},
+		callback: function (r) {
+			if (r.message) {
+				// Prepare table data first
+				let table_data = prepare_table_data(r.message);
+
+				// Create dialog with the data
+				let dialog = new frappe.ui.Dialog({
+					title: __("Processing Details"),
+					fields: [
+						{
+							fieldname: "processing_details",
+							fieldtype: "Table",
+							label: __("Linked Documents"),
+							cannot_add_rows: true,
+							in_place_edit: false,
+							reqd: 0,
+							data: table_data,
+							get_data: function () {
+								return this.data;
+							},
+							fields: [
+								{
+									fieldtype: "Link",
+									fieldname: "doctype",
+									label: __("DocType"),
+									options: "DocType",
+									read_only: 1,
+									in_list_view: 1,
+								},
+								{
+									fieldtype: "Dynamic Link",
+									fieldname: "document_name",
+									label: __("Document Name"),
+									options: "doctype",
+									read_only: 1,
+									in_list_view: 1,
+								},
+								{
+									fieldtype: "Currency",
+									fieldname: "grand_total",
+									label: __("Grand Total"),
+									read_only: 1,
+									in_list_view: 1,
+								},
+								{
+									fieldtype: "Data",
+									fieldname: "status",
+									label: __("Status"),
+									read_only: 1,
+									in_list_view: 1,
+								},
+							],
+						},
+					],
+					size: "large",
+					primary_action_label: __("Close"),
+					primary_action: function () {
+						dialog.hide();
+					},
+				});
+
+				dialog.show();
+			} else {
+				frappe.msgprint(__("No processing details found."));
+			}
+		},
+	});
+}
+
+function prepare_table_data(data) {
+	let table_data = [];
+
+	if (data && data.length > 0) {
+		data.forEach(function (record) {
+			table_data.push({
+				doctype: __(record.doctype),
+				document_name: record.name,
+				grand_total: record.grand_total || 0,
+				status: __(record.status),
+			});
+		});
+	}
+
+	if (table_data.length === 0) {
+		table_data.push({
+			doctype: "",
+			document_name: __("No linked documents found"),
+			grand_total: 0,
+			status: "",
+		});
+	}
+
+	return table_data;
+}

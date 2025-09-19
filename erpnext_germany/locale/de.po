@@ -927,3 +927,8 @@ msgstr "{} Ungültig"
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "{} Open"
 msgstr "{} Offen"
+
+#. Dialog title for Business Trip processing details
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js
+msgid "Processing Details"
+msgstr "Bearbeitungsdetails"
