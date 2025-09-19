@@ -199,6 +199,10 @@
   {
    "link_doctype": "Expense Claim",
    "link_fieldname": "business_trip"
+  },
+  {
+   "link_doctype": "Purchase Invoice",
+   "link_fieldname": "business_trip"
   }
  ],
  "modified": "2025-02-20 10:58:45.064314",

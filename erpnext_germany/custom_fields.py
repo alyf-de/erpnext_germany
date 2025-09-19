@@ -162,6 +162,27 @@ def get_custom_fields():
 				"translatable": 0,
 			},
 		],
+		"Purchase Invoice": [
+			{
+				"fieldtype": "Link",
+				"fieldname": "business_trip",
+				"label": _("Business Trip"),
+				"options": "Business Trip",
+				"insert_after": "apply_tds",
+				"allow_on_submit": 1,
+			},
+			{
+				"fieldtype": "Check",
+				"fieldname": "paid_by_company",
+				"label": _("Paid By Company"),
+				"insert_after": "business_trip",
+				"default": 0,
+				"allow_on_submit": 1,
+				"depends_on": "eval: doc.business_trip",
+				"read_only_depends_on": "eval: doc.status === 'Paid'",
+				"description": _("If unchecked, the invoice for the Business Trip is paid by employee"),
+			},
+		],
 		("Quotation", "Sales Order", "Sales Invoice"): [
 			{
 				"label": _("Tax Exemption Reason"),
