@@ -932,3 +932,18 @@ msgstr "{} Offen"
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js
 msgid "Processing Details"
 msgstr "Bearbeitungsdetails"
+
+#. Label of a Check field in DocType 'Purchase Invoice'
+#: erpnext_germany/custom_fields.py
+msgid "Advance Paid by Employee"
+msgstr "Vorschuss vom Mitarbeiter bezahlt"
+
+#. Label of a Link field in DocType 'Purchase Invoice'
+#: erpnext_germany/custom_fields.py
+msgid "Business Trip Employee"
+msgstr "Dienstreise-Mitarbeiter"
+
+# Description of a Check field in DocType 'Purchase Invoice'
+# erpnext_germany/custom_fields.py
+msgid "If checked, the invoice was advanced by the employee."
+msgstr "Wenn aktiviert, wurde die Rechnung vom Mitarbeiter vorgestreckt."
