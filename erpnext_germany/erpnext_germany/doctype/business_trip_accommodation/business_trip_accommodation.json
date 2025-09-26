@@ -44,8 +44,7 @@
    "depends_on": "receipt",
    "fieldname": "create_purchase_invoice",
    "fieldtype": "Button",
-   "label": "Create Purchase Invoice",
-   "depends_on": "eval:doc.receipt"
+   "label": "Create Purchase Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
