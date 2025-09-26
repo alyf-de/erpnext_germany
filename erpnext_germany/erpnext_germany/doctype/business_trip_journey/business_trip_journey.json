@@ -10,7 +10,8 @@
   "from",
   "to",
   "distance",
-  "receipt"
+  "receipt",
+  "create_purchase_invoice"
  ],
  "fields": [
   {
@@ -55,12 +56,19 @@
    "fieldtype": "Int",
    "label": "Distance",
    "non_negative": 1
+  },
+  {
+   "depends_on": "receipt",
+   "fieldname": "create_purchase_invoice",
+   "fieldtype": "Button",
+   "label": "Create Purchase Invoice",
+   "depends_on": "eval:doc.receipt"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-02-20 11:01:39.706560",
+ "modified": "2025-09-26 09:43:00.000000",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Journey",

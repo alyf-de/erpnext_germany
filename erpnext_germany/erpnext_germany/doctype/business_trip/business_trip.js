@@ -42,12 +42,20 @@ frappe.ui.form.on("Business Trip Journey", {
 	journeys_add(frm, cdt, cdn) {
 		frappe.model.set_value(cdt, cdn, "date", frm.doc.from_date);
 	},
+
+	create_purchase_invoice(frm, cdt, cdn) {
+		create_purchase_invoice_with_receipt(frm, cdt, cdn);
+	},
 });
 
 frappe.ui.form.on("Business Trip Accommodation", {
 	accommodations_add(frm, cdt, cdn) {
 		frappe.model.set_value(cdt, cdn, "from_date", frm.doc.from_date);
 		frappe.model.set_value(cdt, cdn, "to_date", frm.doc.to_date);
+	},
+
+	create_purchase_invoice(frm, cdt, cdn) {
+		create_purchase_invoice_with_receipt(frm, cdt, cdn);
 	},
 });
 
@@ -192,4 +200,31 @@ function prepare_table_data(data) {
 	}
 
 	return table_data;
+}
+
+function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
+	if (frm.is_dirty()) {
+		frappe.msgprint({
+			title: __("Save Required"),
+			message: __(
+				"Please save the Business Trip document first before creating a Purchase Invoice."
+			),
+			indicator: "red",
+		});
+		return;
+	}
+
+	let row = locals[cdt][cdn];
+
+	frappe.new_doc("Purchase Invoice", {
+		from_date: row.from_date || row.date, // accomodation or journey date
+		to_date: row.to_date || row.date, // accomodation or journey date
+		// TODO: Set the date range also if no_copy is set in Purchase Invoice
+		advance_paid_by_employee: 1,
+		supplier_invoice_file: row.receipt,
+		// this is a field form EU E-Invoice. If not existing in an instance: No error.
+		// a more sophisticated solution is expected in the future.
+		business_trip: frm.doc.name,
+		project: frm.doc.project,
+	});
 }
