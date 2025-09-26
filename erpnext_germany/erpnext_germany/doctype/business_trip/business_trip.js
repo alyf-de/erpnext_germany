@@ -219,7 +219,7 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 	frappe.new_doc("Purchase Invoice", {
 		from_date: row.from_date || row.date, // accomodation or journey date
 		to_date: row.to_date || row.date, // accomodation or journey date
-		// TODO: Set the date range also if no_copy is set in Purchase Invoice
+		// Note: the date range is only set if the respective fields are no_copy = 0.
 		advance_paid_by_employee: 1,
 		supplier_invoice_file: row.receipt,
 		// this is a field form EU E-Invoice. If not existing in an instance: No error.
