@@ -145,6 +145,13 @@ function show_processing_details_dialog(frm) {
 									in_list_view: 1,
 								},
 								{
+									fieldtype: "Data",
+									fieldname: "supplier_name",
+									label: __("Supplier Name"),
+									read_only: 1,
+									in_list_view: 1,
+								},
+								{
 									fieldtype: "Currency",
 									fieldname: "grand_total",
 									label: __("Grand Total"),
@@ -186,6 +193,7 @@ function prepare_table_data(data) {
 				document_name: record.name,
 				grand_total: record.grand_total || 0,
 				status: __(record.status),
+				supplier_name: record.supplier_name || "",
 			});
 		});
 	}
@@ -196,6 +204,7 @@ function prepare_table_data(data) {
 			document_name: __("No linked documents found"),
 			grand_total: 0,
 			status: "",
+			supplier_name: "",
 		});
 	}
 
