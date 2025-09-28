@@ -226,20 +226,11 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 	}
 
 	let row = locals[cdt][cdn];
+	const dates = get_dates(row);
 
 	frappe.new_doc("Purchase Invoice", {
-		from_date:
-			row.doctype === "Business Trip Accommodation"
-				? row.from_date
-				: row.doctype === "Business Trip Journey"
-				? row.date
-				: null,
-		to_date:
-			row.doctype === "Business Trip Accommodation"
-				? row.to_date
-				: row.doctype === "Business Trip Journey"
-				? row.date
-				: null,
+		from_date: dates.from_date,
+		to_date: dates.to_date,
 		// Note: the date range is only set if the respective fields are no_copy = 0.
 		advance_paid_by_employee: 1,
 		supplier_invoice_file: row.receipt,
@@ -248,4 +239,20 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 		business_trip: frm.doc.name,
 		project: frm.doc.project,
 	});
+}
+
+function get_dates(row) {
+	const FROM_DATE_MAP = {
+		"Business Trip Accommodation": "from_date",
+		"Business Trip Journey": "date",
+	};
+	const TO_DATE_MAP = {
+		"Business Trip Accommodation": "to_date",
+		"Business Trip Journey": "date",
+	};
+
+	return {
+		from_date: row.doctype in FROM_DATE_MAP ? row[FROM_DATE_MAP[row.doctype]] : null,
+		to_date: row.doctype in TO_DATE_MAP ? row[TO_DATE_MAP[row.doctype]] : null,
+	};
 }
