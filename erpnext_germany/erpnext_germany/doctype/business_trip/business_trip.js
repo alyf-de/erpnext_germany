@@ -216,7 +216,7 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 		frappe.msgprint({
 			title: __("Save Required"),
 			message: __(
-				"Please save the Business Trip document first before creating a Purchase Invoice."
+				"Before creating a purchase invoice, please save this record."
 			),
 			indicator: "red",
 		});
