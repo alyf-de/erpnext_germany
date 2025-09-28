@@ -229,13 +229,13 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 
 	frappe.new_doc("Purchase Invoice", {
 		from_date:
-			row.doctype === "Business Trip Accomodation"
+			row.doctype === "Business Trip Accommodation"
 				? row.from_date
 				: row.doctype === "Business Trip Journey"
 				? row.date
 				: null,
 		to_date:
-			row.doctype === "Business Trip Accomodation"
+			row.doctype === "Business Trip Accommodation"
 				? row.to_date
 				: row.doctype === "Business Trip Journey"
 				? row.date
