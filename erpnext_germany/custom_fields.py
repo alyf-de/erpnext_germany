@@ -183,12 +183,11 @@ def get_custom_fields():
 			},
 			{
 				"fieldtype": "Check",
-				"fieldname": "advance_paid_by_employee",
-				"label": _("Advance Paid by Employee"),
+				"fieldname": "pay_to_employee",
+				"label": _("Pay to Employee"),
 				"insert_after": "business_trip_employee",
-				"depends_on": "eval: doc.business_trip",
-				"read_only_depends_on": "eval: doc.status === 'Paid'",
-				"description": _("If checked, the invoice was advanced by the employee."),
+				"depends_on": "business_trip",
+				"description": _("If checked, the invoice was advanced by the employee and must be reimbursed."),
 			},
 		],
 		("Quotation", "Sales Order", "Sales Invoice"): [
