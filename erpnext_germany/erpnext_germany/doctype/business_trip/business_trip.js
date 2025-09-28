@@ -66,8 +66,8 @@ frappe.ui.form.on("Business Trip Allowance", {
 			return;
 		}
 
-		let start = new Date(frm.doc.from_date);
-		let end = new Date(frm.doc.to_date);
+		const start = new Date(frm.doc.from_date);
+		const end = new Date(frm.doc.to_date);
 
 		if (end < start) {
 			frappe.msgprint(__("The end date should not be before the start date!"));
@@ -225,7 +225,7 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 		return;
 	}
 
-	let row = locals[cdt][cdn];
+	const row = locals[cdt][cdn];
 	const dates = get_dates(row);
 
 	frappe.new_doc("Purchase Invoice", {
