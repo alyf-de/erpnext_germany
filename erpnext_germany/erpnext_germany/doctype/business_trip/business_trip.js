@@ -232,7 +232,7 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 		from_date: dates.from_date,
 		to_date: dates.to_date,
 		// Note: the date range is only set if the respective fields are no_copy = 0.
-		advance_paid_by_employee: 1,
+		pay_to_employee: 1,
 		supplier_invoice_file: row.receipt,
 		// this is a field form EU E-Invoice. If not existing in an instance: No error.
 		// a more sophisticated solution is expected in the future.
