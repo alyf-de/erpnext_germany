@@ -112,62 +112,78 @@ function show_processing_details_dialog(frm) {
 				// Prepare table data first
 				let table_data = prepare_table_data(r.message);
 
-				// Create dialog with the data
+				// Create dialog fields based on whether we have data
+				let fields = [];
+
+				if (table_data.length > 0) {
+					// Show table when we have data
+					fields.push({
+						fieldname: "processing_details",
+						fieldtype: "Table",
+						label: __("Linked Documents"),
+						cannot_add_rows: true,
+						in_place_edit: false,
+						reqd: 0,
+						data: table_data,
+						get_data: function () {
+							return this.data;
+						},
+						fields: [
+							{
+								fieldtype: "Link",
+								fieldname: "doctype",
+								label: __("DocType"),
+								options: "DocType",
+								read_only: 1,
+								in_list_view: 1,
+							},
+							{
+								fieldtype: "Dynamic Link",
+								fieldname: "document_name",
+								label: __("Document Name"),
+								options: "doctype",
+								read_only: 1,
+								in_list_view: 1,
+							},
+							{
+								fieldtype: "Data",
+								fieldname: "supplier_name",
+								label: __("Supplier Name"),
+								read_only: 1,
+								in_list_view: 1,
+							},
+							{
+								fieldtype: "Currency",
+								fieldname: "grand_total",
+								label: __("Grand Total"),
+								read_only: 1,
+								in_list_view: 1,
+							},
+							{
+								fieldtype: "Data",
+								fieldname: "status",
+								label: __("Status"),
+								read_only: 1,
+								in_list_view: 1,
+							},
+						],
+					});
+				} else {
+					// Show HTML message when no data
+					fields.push({
+						fieldname: "no_documents_message",
+						fieldtype: "HTML",
+						options: `<div style="text-align: center; padding: 20px; color: #666;">
+							<i class="fa fa-info-circle" style="font-size: 24px; margin-bottom: 10px;"></i><br>
+							${__("No linked documents found")}
+						</div>`,
+					});
+				}
+
+				// Create dialog with the appropriate fields
 				let dialog = new frappe.ui.Dialog({
 					title: __("Processing Details"),
-					fields: [
-						{
-							fieldname: "processing_details",
-							fieldtype: "Table",
-							label: __("Linked Documents"),
-							cannot_add_rows: true,
-							in_place_edit: false,
-							reqd: 0,
-							data: table_data,
-							get_data: function () {
-								return this.data;
-							},
-							fields: [
-								{
-									fieldtype: "Link",
-									fieldname: "doctype",
-									label: __("DocType"),
-									options: "DocType",
-									read_only: 1,
-									in_list_view: 1,
-								},
-								{
-									fieldtype: "Dynamic Link",
-									fieldname: "document_name",
-									label: __("Document Name"),
-									options: "doctype",
-									read_only: 1,
-									in_list_view: 1,
-								},
-								{
-									fieldtype: "Data",
-									fieldname: "supplier_name",
-									label: __("Supplier Name"),
-									read_only: 1,
-									in_list_view: 1,
-								},
-								{
-									fieldtype: "Currency",
-									fieldname: "grand_total",
-									label: __("Grand Total"),
-									read_only: 1,
-									in_list_view: 1,
-								},
-								{
-									fieldtype: "Data",
-									fieldname: "status",
-									label: __("Status"),
-									read_only: 1,
-									in_list_view: 1,
-								},
-							],
-						},
-					],
+					fields: fields,
 					size: "large",
 					primary_action_label: __("Close"),
 					primary_action: function () {
@@ -184,31 +200,19 @@ function show_processing_details_dialog(frm) {
 }
 
 function prepare_table_data(data) {
-	let table_data = [];
-
-	if (data && data.length > 0) {
-		data.forEach(function (record) {
-			table_data.push({
-				doctype: record.doctype,
-				document_name: record.name,
-				grand_total: record.grand_total || 0,
-				status: __(record.status),
-				supplier_name: record.supplier_name || "",
-			});
-		});
+	if (!data || data.length === 0) {
+		return [];
 	}
 
-	if (table_data.length === 0) {
-		table_data.push({
-			doctype: "",
-			document_name: __("No linked documents found"),
-			grand_total: 0,
-			status: "",
-			supplier_name: "",
-		});
-	}
-
-	return table_data;
+	return data.map(function (record) {
+		return {
+			doctype: record.doctype,
+			document_name: record.name,
+			grand_total: record.grand_total || 0,
+			status: __(record.status),
+			supplier_name: record.supplier_name || "",
+		};
+	});
 }
 
 function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
