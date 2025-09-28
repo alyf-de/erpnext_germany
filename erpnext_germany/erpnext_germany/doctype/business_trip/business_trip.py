@@ -244,12 +244,10 @@ def get_processing_details(business_trip: str):
 
 	for claim in expense_claims:
 		claim["doctype"] = "Expense Claim"
-		claim["supplier_name"] = ""
 		combined_records.append(claim)
 
 	for invoice in purchase_invoices:
 		invoice["doctype"] = "Purchase Invoice"
-		invoice["supplier_name"] = invoice.get("supplier_name", "")
 		combined_records.append(invoice)
 
 	return combined_records
