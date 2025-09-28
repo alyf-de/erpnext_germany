@@ -212,3 +212,42 @@ def get_meal_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> l
 		)
 
 	return expenses
+
+
+@frappe.whitelist()
+def get_processing_details(business_trip: str):
+	"""Get linked Expense Claims and Purchase Invoices for the Business Trip"""
+	frappe.has_permission("Business Trip", doc=business_trip, throw=True)
+
+	# Get Expense Claims
+	expense_claims = frappe.get_all(
+		"Expense Claim",
+		filters={
+			"business_trip": business_trip,
+			"docstatus": ["!=", 2],
+		},
+		fields=["name", "grand_total", "status"],
+	)
+
+	# Get Purchase Invoices
+	purchase_invoices = frappe.get_all(
+		"Purchase Invoice",
+		filters={
+			"business_trip": business_trip,
+			"docstatus": ["!=", 2],
+		},
+		fields=["name", "grand_total", "status", "supplier_name"],
+	)
+
+	# Combine and add doctype field
+	combined_records = []
+
+	for claim in expense_claims:
+		claim["doctype"] = "Expense Claim"
+		combined_records.append(claim)
+
+	for invoice in purchase_invoices:
+		invoice["doctype"] = "Purchase Invoice"
+		combined_records.append(invoice)
+
+	return combined_records

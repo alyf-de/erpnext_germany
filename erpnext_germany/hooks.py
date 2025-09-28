@@ -116,6 +116,9 @@ doc_events = {
 	"Sales Invoice": {
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
 	},
+	"Purchase Invoice": {
+		"before_validate": "erpnext_germany.custom.purchase_invoice.before_validate",
+	},
 }
 
 # doc_events = {}

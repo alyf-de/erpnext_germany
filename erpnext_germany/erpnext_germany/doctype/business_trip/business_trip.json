@@ -199,9 +199,13 @@
   {
    "link_doctype": "Expense Claim",
    "link_fieldname": "business_trip"
+  },
+  {
+   "link_doctype": "Purchase Invoice",
+   "link_fieldname": "business_trip"
   }
  ],
- "modified": "2025-02-20 10:58:45.064314",
+ "modified": "2025-09-19 17:11:36.711485",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip",
@@ -260,6 +264,8 @@
    "role": "Accounts User"
   }
  ],
+ "row_format": "Dynamic",
+ "search_fields": "employee_name,from_date,to_date",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

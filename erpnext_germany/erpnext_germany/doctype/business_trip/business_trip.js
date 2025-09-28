@@ -13,6 +13,14 @@ frappe.ui.form.on("Business Trip", {
 		});
 	},
 
+	refresh(frm) {
+		if (frm.doc.docstatus === 1) {
+			frm.add_custom_button(__("Show Processing Details"), function () {
+				show_processing_details_dialog(frm);
+			});
+		}
+	},
+
 	from_date: function (frm) {
 		if (!frm.doc.to_date) {
 			frm.set_value("to_date", frm.doc.from_date);
@@ -34,12 +42,20 @@ frappe.ui.form.on("Business Trip Journey", {
 	journeys_add(frm, cdt, cdn) {
 		frappe.model.set_value(cdt, cdn, "date", frm.doc.from_date);
 	},
+
+	create_purchase_invoice(frm, cdt, cdn) {
+		create_purchase_invoice_with_receipt(frm, cdt, cdn);
+	},
 });
 
 frappe.ui.form.on("Business Trip Accommodation", {
 	accommodations_add(frm, cdt, cdn) {
 		frappe.model.set_value(cdt, cdn, "from_date", frm.doc.from_date);
 		frappe.model.set_value(cdt, cdn, "to_date", frm.doc.to_date);
+	},
+
+	create_purchase_invoice(frm, cdt, cdn) {
+		create_purchase_invoice_with_receipt(frm, cdt, cdn);
 	},
 });
 
@@ -50,8 +66,8 @@ frappe.ui.form.on("Business Trip Allowance", {
 			return;
 		}
 
-		let start = new Date(frm.doc.from_date);
-		let end = new Date(frm.doc.to_date);
+		const start = new Date(frm.doc.from_date);
+		const end = new Date(frm.doc.to_date);
 
 		if (end < start) {
 			frappe.msgprint(__("The end date should not be before the start date!"));
@@ -84,3 +100,140 @@ frappe.ui.form.on("Business Trip Allowance", {
 		}
 	},
 });
+
+function show_processing_details_dialog(frm) {
+	frappe.call({
+		method: "erpnext_germany.erpnext_germany.doctype.business_trip.business_trip.get_processing_details",
+		args: {
+			business_trip: frm.doc.name,
+		},
+		callback: function (r) {
+			const fields = [];
+
+			if (r.message && r.message.length > 0) {
+				fields.push({
+					fieldname: "processing_details",
+					fieldtype: "Table",
+					label: __("Linked Documents"),
+					cannot_add_rows: true,
+					cannot_delete_rows: true,
+					in_place_edit: false,
+					reqd: 0,
+					data: r.message.map((record) => {
+						return {
+							doctype: record.doctype,
+							document_name: record.name,
+							grand_total: record.grand_total || 0,
+							status: __(record.status),
+							supplier_name: record.supplier_name || "",
+						};
+					}),
+					fields: [
+						{
+							fieldtype: "Link",
+							fieldname: "doctype",
+							label: __("DocType"),
+							options: "DocType",
+							read_only: 1,
+							in_list_view: 1,
+						},
+						{
+							fieldtype: "Dynamic Link",
+							fieldname: "document_name",
+							label: __("Document Name"),
+							options: "doctype",
+							read_only: 1,
+							in_list_view: 1,
+						},
+						{
+							fieldtype: "Data",
+							fieldname: "supplier_name",
+							label: __("Supplier Name"),
+							read_only: 1,
+							in_list_view: 1,
+						},
+						{
+							fieldtype: "Currency",
+							fieldname: "grand_total",
+							label: __("Grand Total"),
+							read_only: 1,
+							in_list_view: 1,
+						},
+						{
+							fieldtype: "Data",
+							fieldname: "status",
+							label: __("Status"),
+							read_only: 1,
+							in_list_view: 1,
+						},
+					],
+				});
+			} else {
+				// Show HTML message when no data
+				fields.push({
+					fieldname: "no_documents_message",
+					fieldtype: "HTML",
+					options: `<div style="text-align: center; padding: 20px; color: #666;">
+						<i class="fa fa-info-circle" style="font-size: 24px; margin-bottom: 10px;"></i><br>
+						${__("No linked documents found.")}
+					</div>`,
+				});
+			}
+
+			// Create dialog with the appropriate fields
+			const dialog = new frappe.ui.Dialog({
+				title: __("Processing Details"),
+				fields: fields,
+				size: "large",
+				primary_action_label: __("Close"),
+				primary_action: function () {
+					dialog.hide();
+				},
+			});
+
+			dialog.show();
+		},
+	});
+}
+
+function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
+	if (frm.is_dirty()) {
+		frappe.msgprint({
+			title: __("Save Required"),
+			message: __("Before creating a purchase invoice, please save this record."),
+			indicator: "red",
+		});
+		return;
+	}
+
+	const row = locals[cdt][cdn];
+	const dates = get_dates(row);
+
+	frappe.new_doc("Purchase Invoice", {
+		from_date: dates.from_date,
+		to_date: dates.to_date,
+		// Note: the date range is only set if the respective fields are no_copy = 0.
+		pay_to_employee: 1,
+		supplier_invoice_file: row.receipt,
+		// this is a field form EU E-Invoice. If not existing in an instance: No error.
+		// a more sophisticated solution is expected in the future.
+		business_trip: frm.doc.name,
+		project: frm.doc.project,
+	});
+}
+
+function get_dates(row) {
+	const FROM_DATE_MAP = {
+		"Business Trip Accommodation": "from_date",
+		"Business Trip Journey": "date",
+	};
+	const TO_DATE_MAP = {
+		"Business Trip Accommodation": "to_date",
+		"Business Trip Journey": "date",
+	};
+
+	return {
+		from_date: row.doctype in FROM_DATE_MAP ? row[FROM_DATE_MAP[row.doctype]] : null,
+		to_date: row.doctype in TO_DATE_MAP ? row[TO_DATE_MAP[row.doctype]] : null,
+	};
+}

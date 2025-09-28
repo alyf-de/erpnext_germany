@@ -162,6 +162,36 @@ def get_custom_fields():
 				"translatable": 0,
 			},
 		],
+		"Purchase Invoice": [
+			{
+				"fieldtype": "Link",
+				"fieldname": "business_trip",
+				"label": _("Business Trip"),
+				"options": "Business Trip",
+				"insert_after": "apply_tds",
+			},
+			{
+				"fieldtype": "Link",
+				"fieldname": "business_trip_employee",
+				"label": _("Business Trip Employee"),
+				"options": "Employee",
+				"insert_after": "business_trip",
+				"read_only": 1,
+				"fetch_from": "business_trip.employee",
+				"depends_on": "eval: doc.business_trip",
+				"ignore_user_permissions": 1,
+			},
+			{
+				"fieldtype": "Check",
+				"fieldname": "pay_to_employee",
+				"label": _("Pay to Employee"),
+				"insert_after": "business_trip_employee",
+				"depends_on": "business_trip",
+				"description": _(
+					"If checked, the invoice was advanced by the employee and must be reimbursed."
+				),
+			},
+		],
 		("Quotation", "Sales Order", "Sales Invoice"): [
 			{
 				"label": _("Tax Exemption Reason"),
