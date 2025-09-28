@@ -187,7 +187,9 @@ def get_custom_fields():
 				"label": _("Pay to Employee"),
 				"insert_after": "business_trip_employee",
 				"depends_on": "business_trip",
-				"description": _("If checked, the invoice was advanced by the employee and must be reimbursed."),
+				"description": _(
+					"If checked, the invoice was advanced by the employee and must be reimbursed."
+				),
 			},
 		],
 		("Quotation", "Sales Order", "Sales Invoice"): [
