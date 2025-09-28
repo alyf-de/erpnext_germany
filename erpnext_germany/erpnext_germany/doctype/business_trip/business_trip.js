@@ -215,9 +215,7 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 	if (frm.is_dirty()) {
 		frappe.msgprint({
 			title: __("Save Required"),
-			message: __(
-				"Before creating a purchase invoice, please save this record."
-			),
+			message: __("Before creating a purchase invoice, please save this record."),
 			indicator: "red",
 		});
 		return;
@@ -226,8 +224,18 @@ function create_purchase_invoice_with_receipt(frm, cdt, cdn) {
 	let row = locals[cdt][cdn];
 
 	frappe.new_doc("Purchase Invoice", {
-		from_date: row.from_date || row.date, // accomodation or journey date
-		to_date: row.to_date || row.date, // accomodation or journey date
+		from_date:
+			row.doctype === "Business Trip Accomodation"
+				? row.from_date
+				: row.doctype === "Business Trip Journey"
+				? row.date
+				: null,
+		to_date:
+			row.doctype === "Business Trip Accomodation"
+				? row.to_date
+				: row.doctype === "Business Trip Journey"
+				? row.date
+				: null,
 		// Note: the date range is only set if the respective fields are no_copy = 0.
 		advance_paid_by_employee: 1,
 		supplier_invoice_file: row.receipt,
