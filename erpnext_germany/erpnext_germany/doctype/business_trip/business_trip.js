@@ -108,110 +108,91 @@ function show_processing_details_dialog(frm) {
 			business_trip: frm.doc.name,
 		},
 		callback: function (r) {
-			if (r.message) {
-				// Prepare table data first
-				let table_data = prepare_table_data(r.message);
+			const fields = [];
 
-				// Create dialog fields based on whether we have data
-				let fields = [];
-
-				if (table_data.length > 0) {
-					// Show table when we have data
-					fields.push({
-						fieldname: "processing_details",
-						fieldtype: "Table",
-						label: __("Linked Documents"),
-						cannot_add_rows: true,
-						in_place_edit: false,
-						reqd: 0,
-						data: table_data,
-						get_data: function () {
-							return this.data;
+			if (r.message && r.message.length > 0) {
+				fields.push({
+					fieldname: "processing_details",
+					fieldtype: "Table",
+					label: __("Linked Documents"),
+					cannot_add_rows: true,
+					cannot_delete_rows: true,
+					in_place_edit: false,
+					reqd: 0,
+					data: r.message.map((record) => {
+						return {
+							doctype: record.doctype,
+							document_name: record.name,
+							grand_total: record.grand_total || 0,
+							status: __(record.status),
+							supplier_name: record.supplier_name || "",
+						};
+					}),
+					fields: [
+						{
+							fieldtype: "Link",
+							fieldname: "doctype",
+							label: __("DocType"),
+							options: "DocType",
+							read_only: 1,
+							in_list_view: 1,
 						},
-						fields: [
-							{
-								fieldtype: "Link",
-								fieldname: "doctype",
-								label: __("DocType"),
-								options: "DocType",
-								read_only: 1,
-								in_list_view: 1,
-							},
-							{
-								fieldtype: "Dynamic Link",
-								fieldname: "document_name",
-								label: __("Document Name"),
-								options: "doctype",
-								read_only: 1,
-								in_list_view: 1,
-							},
-							{
-								fieldtype: "Data",
-								fieldname: "supplier_name",
-								label: __("Supplier Name"),
-								read_only: 1,
-								in_list_view: 1,
-							},
-							{
-								fieldtype: "Currency",
-								fieldname: "grand_total",
-								label: __("Grand Total"),
-								read_only: 1,
-								in_list_view: 1,
-							},
-							{
-								fieldtype: "Data",
-								fieldname: "status",
-								label: __("Status"),
-								read_only: 1,
-								in_list_view: 1,
-							},
-						],
-					});
-				} else {
-					// Show HTML message when no data
-					fields.push({
-						fieldname: "no_documents_message",
-						fieldtype: "HTML",
-						options: `<div style="text-align: center; padding: 20px; color: #666;">
-							<i class="fa fa-info-circle" style="font-size: 24px; margin-bottom: 10px;"></i><br>
-							${__("No linked documents found")}
-						</div>`,
-					});
-				}
-
-				// Create dialog with the appropriate fields
-				let dialog = new frappe.ui.Dialog({
-					title: __("Processing Details"),
-					fields: fields,
-					size: "large",
-					primary_action_label: __("Close"),
-					primary_action: function () {
-						dialog.hide();
-					},
+						{
+							fieldtype: "Dynamic Link",
+							fieldname: "document_name",
+							label: __("Document Name"),
+							options: "doctype",
+							read_only: 1,
+							in_list_view: 1,
+						},
+						{
+							fieldtype: "Data",
+							fieldname: "supplier_name",
+							label: __("Supplier Name"),
+							read_only: 1,
+							in_list_view: 1,
+						},
+						{
+							fieldtype: "Currency",
+							fieldname: "grand_total",
+							label: __("Grand Total"),
+							read_only: 1,
+							in_list_view: 1,
+						},
+						{
+							fieldtype: "Data",
+							fieldname: "status",
+							label: __("Status"),
+							read_only: 1,
+							in_list_view: 1,
+						},
+					],
 				});
-
-				dialog.show();
 			} else {
-				frappe.msgprint(__("No processing details found."));
+				// Show HTML message when no data
+				fields.push({
+					fieldname: "no_documents_message",
+					fieldtype: "HTML",
+					options: `<div style="text-align: center; padding: 20px; color: #666;">
+						<i class="fa fa-info-circle" style="font-size: 24px; margin-bottom: 10px;"></i><br>
+						${__("No linked documents found.")}
+					</div>`,
+				});
 			}
+
+			// Create dialog with the appropriate fields
+			const dialog = new frappe.ui.Dialog({
+				title: __("Processing Details"),
+				fields: fields,
+				size: "large",
+				primary_action_label: __("Close"),
+				primary_action: function () {
+					dialog.hide();
+				},
+			});
+
+			dialog.show();
 		},
-	});
-}
-
-function prepare_table_data(data) {
-	if (!data || data.length === 0) {
-		return [];
-	}
-
-	return data.map(function (record) {
-		return {
-			doctype: record.doctype,
-			document_name: record.name,
-			grand_total: record.grand_total || 0,
-			status: __(record.status),
-			supplier_name: record.supplier_name || "",
-		};
 	});
 }
 
