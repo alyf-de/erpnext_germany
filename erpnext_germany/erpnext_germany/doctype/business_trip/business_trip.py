@@ -217,7 +217,7 @@ def get_meal_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> l
 @frappe.whitelist()
 def get_processing_details(business_trip: str):
 	"""Get linked Expense Claims and Purchase Invoices for the Business Trip"""
-	frappe.has_permission(doctype="Business Trip", doc=business_trip, ptype="read", throw=True)
+	frappe.has_permission("Business Trip", doc=business_trip, throw=True)
 
 	# Get Expense Claims
 	expense_claims = frappe.get_all(
