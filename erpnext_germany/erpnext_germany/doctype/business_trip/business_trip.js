@@ -189,7 +189,7 @@ function prepare_table_data(data) {
 	if (data && data.length > 0) {
 		data.forEach(function (record) {
 			table_data.push({
-				doctype: __(record.doctype),
+				doctype: record.doctype,
 				document_name: record.name,
 				grand_total: record.grand_total || 0,
 				status: __(record.status),
