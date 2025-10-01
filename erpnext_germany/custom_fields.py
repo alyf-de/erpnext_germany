@@ -176,9 +176,12 @@ def get_custom_fields():
 				"label": _("Business Trip Employee"),
 				"options": "Employee",
 				"insert_after": "business_trip",
-				"read_only": 1,
+				"read_only": 0,  # kept 0 on purpose to override former value
+				"read_only_depends_on": "business_trip",
+				"mandatory_depends_on": "pay_to_employee",
 				"fetch_from": "business_trip.employee",
-				"depends_on": "eval: doc.business_trip",
+				"fetch_if_empty": 1,
+				"depends_on": "eval: doc.business_trip || doc.pay_to_employee",
 				"ignore_user_permissions": 1,
 			},
 			{
@@ -186,7 +189,7 @@ def get_custom_fields():
 				"fieldname": "pay_to_employee",
 				"label": _("Pay to Employee"),
 				"insert_after": "business_trip_employee",
-				"depends_on": "business_trip",
+				"depends_on": "",  # kept empty on purpose to override former value
 				"description": _(
 					"If checked, the invoice was advanced by the employee and must be reimbursed."
 				),
