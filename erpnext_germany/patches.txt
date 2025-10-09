@@ -5,5 +5,11 @@ execute:from erpnext_germany.install import after_install; after_install() # 7
 erpnext_germany.patches.add_tax_exemption_reason_fields
 execute:from erpnext_germany.install import insert_custom_records; insert_custom_records()
 erpnext_germany.patches.dynamic_party_in_vat_id_check
+<<<<<<< HEAD
 execute:from erpnext_germany.install import make_custom_fields; make_custom_fields()
+=======
+erpnext_germany.patches.add_business_trip_to_expense_claim
+erpnext_germany.patches.import_business_trip_regions
+execute:from erpnext_germany.install import make_custom_fields; make_custom_fields() # 2025-10-09
+>>>>>>> dc6d74b (fix: update position of register fields (#92))
 execute:frappe.db.set_single_value("ERPNext Germany Settings", "prevent_gaps_in_transaction_naming", 1)
