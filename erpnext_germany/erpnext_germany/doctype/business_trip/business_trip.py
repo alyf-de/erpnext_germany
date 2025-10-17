@@ -25,17 +25,11 @@ class BusinessTrip(Document):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
+		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import BusinessTripAccommodation
+		from erpnext_germany.erpnext_germany.doctype.business_trip_allowance.business_trip_allowance import BusinessTripAllowance
+		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import BusinessTripJourney
+		from erpnext_germany.erpnext_germany.doctype.business_trip_other_expenses.business_trip_other_expenses import BusinessTripOtherExpenses
 		from frappe.types import DF
-
-		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import (  # noqa: E501
-			BusinessTripAccommodation,
-		)
-		from erpnext_germany.erpnext_germany.doctype.business_trip_allowance.business_trip_allowance import (
-			BusinessTripAllowance,
-		)
-		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import (
-			BusinessTripJourney,
-		)
 
 		accommodations: DF.Table[BusinessTripAccommodation]
 		allowances: DF.Table[BusinessTripAllowance]
@@ -48,6 +42,7 @@ class BusinessTrip(Document):
 		employee_name: DF.Data | None
 		from_date: DF.Date
 		journeys: DF.Table[BusinessTripJourney]
+		other_expenses: DF.Table[BusinessTripOtherExpenses]
 		project: DF.Link | None
 		region: DF.Link
 		status: DF.Literal["", "Submitted", "Approved", "Rejected", "Paid", "Billed"]
