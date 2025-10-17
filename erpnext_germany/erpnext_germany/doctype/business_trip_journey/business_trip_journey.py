@@ -16,9 +16,7 @@ class BusinessTripJourney(Document):
 
 		date: DF.Date
 		distance: DF.Int
-		mode_of_transport: DF.Literal[
-			"Car", "Car (private)", "Car (rental)", "Taxi", "Bus", "Train", "Airplane", "Public Transport"
-		]
+		mode_of_transport: DF.Literal["Car", "Car (private)", "Car (rental)", "Taxi", "Bus", "Train", "Airplane", "Public Transport"]
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
