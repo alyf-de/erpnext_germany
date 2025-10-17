@@ -25,11 +25,20 @@ class BusinessTrip(Document):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
-		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import BusinessTripAccommodation
-		from erpnext_germany.erpnext_germany.doctype.business_trip_allowance.business_trip_allowance import BusinessTripAllowance
-		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import BusinessTripJourney
-		from erpnext_germany.erpnext_germany.doctype.business_trip_other_expenses.business_trip_other_expenses import BusinessTripOtherExpenses
 		from frappe.types import DF
+
+		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import (
+			BusinessTripAccommodation,
+		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_allowance.business_trip_allowance import (
+			BusinessTripAllowance,
+		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import (
+			BusinessTripJourney,
+		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_other_expenses.business_trip_other_expenses import (
+			BusinessTripOtherExpenses,
+		)
 
 		accommodations: DF.Table[BusinessTripAccommodation]
 		allowances: DF.Table[BusinessTripAllowance]
