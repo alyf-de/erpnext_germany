@@ -964,8 +964,8 @@ msgstr "Ungespeicherte Änderungen. Speichern Sie das Dokument zuerst, um eine V
 
 #. Description of the 'Distance' (Int) field in DocType 'Business Trip Journey'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
-msgid "Used to calculate the Total Mileage Allowance for private cars and for informational purposes only for other modes of transport."
-msgstr "Wird zur Berechnung der gesamten Fahrtkostenpauschale für private PKW verwendet und dient bei anderen Transportmitteln lediglich zu Informationszwecken."
+msgid "Used to calculate the <i>Total Mileage Allowance</i> for private cars and for informational purposes only for other modes of transport."
+msgstr "Wird zur Berechnung für <i>Gesamte Kilometerpauschale</i> für private PKW verwendet und dient bei anderen Transportmitteln lediglich zu Informationszwecken."
 
 #. Name of a DocType
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
