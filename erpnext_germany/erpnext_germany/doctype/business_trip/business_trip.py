@@ -27,7 +27,7 @@ class BusinessTrip(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import (
+		from erpnext_germany.erpnext_germany.doctype.business_trip_accommodation.business_trip_accommodation import (  # noqa: E501
 			BusinessTripAccommodation,
 		)
 		from erpnext_germany.erpnext_germany.doctype.business_trip_allowance.business_trip_allowance import (
@@ -36,7 +36,7 @@ class BusinessTrip(Document):
 		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import (
 			BusinessTripJourney,
 		)
-		from erpnext_germany.erpnext_germany.doctype.business_trip_other_expense.business_trip_other_expense import (
+		from erpnext_germany.erpnext_germany.doctype.business_trip_other_expense.business_trip_other_expense import (  # noqa: E501
 			BusinessTripOtherExpense,
 		)
 
