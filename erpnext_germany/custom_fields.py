@@ -52,9 +52,9 @@ def get_register_fields(insert_after: str):
 
 def get_custom_fields():
 	custom_fields = {
-		"Company": [] + get_register_fields(insert_after="address_html"),
-		"Customer": [] + get_register_fields(insert_after="disabled"),
-		"Supplier": [] + get_register_fields(insert_after="prevent_pos"),
+		"Company": get_register_fields(insert_after="registration_details"),
+		"Customer": get_register_fields(insert_after="customer_details"),
+		"Supplier": get_register_fields(insert_after="language"),
 		"Employee": [
 			{
 				"fieldtype": "Link",
