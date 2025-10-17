@@ -15,8 +15,7 @@ class BusinessTripOtherExpense(Document):
 		from frappe.types import DF
 
 		date: DF.Date
-		description: DF.Data | None
-		expense_type: DF.Link
+		description: DF.Data
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data
