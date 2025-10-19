@@ -36,6 +36,9 @@ class BusinessTrip(Document):
 		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import (
 			BusinessTripJourney,
 		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_other_expense.business_trip_other_expense import (  # noqa: E501
+			BusinessTripOtherExpense,
+		)
 
 		accommodations: DF.Table[BusinessTripAccommodation]
 		allowances: DF.Table[BusinessTripAllowance]
@@ -48,6 +51,7 @@ class BusinessTrip(Document):
 		employee_name: DF.Data | None
 		from_date: DF.Date
 		journeys: DF.Table[BusinessTripJourney]
+		other_expenses: DF.Table[BusinessTripOtherExpense]
 		project: DF.Link | None
 		region: DF.Link
 		status: DF.Literal["", "Submitted", "Approved", "Rejected", "Paid", "Billed"]
