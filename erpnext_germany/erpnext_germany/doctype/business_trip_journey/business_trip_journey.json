@@ -50,8 +50,8 @@
    "label": "Receipt"
   },
   {
-   "depends_on": "eval:doc.mode_of_transport===\"Car (private)\"",
-   "description": "Used to calculate the total Mileage Allowance",
+   "depends_on": "eval: [\"Car (private)\", \"Car (rental)\", \"Car\"].includes(doc.mode_of_transport)",
+   "description": "Used to calculate the <i>Total Mileage Allowance</i> for private cars and for informational purposes only for other modes of transport.",
    "fieldname": "distance",
    "fieldtype": "Int",
    "label": "Distance",
@@ -67,7 +67,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-09-26 14:43:47.723734",
+ "modified": "2025-10-20 00:37:06.859729",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Journey",
