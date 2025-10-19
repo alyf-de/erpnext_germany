@@ -69,7 +69,7 @@ msgstr "Flugzeug"
 #. DocType 'ERPNext Germany Settings'
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
 msgid "Allow deletion of the most recent record only. Applies to <b>Quotation</b>, <b>Sales Order</b> and <b>Sales Invoice</b>."
-msgstr ""
+msgstr "Falls aktiviert, kann nur die neueste Transaktion vom Typ <b>Angebot</b>, <b>Verkaufsauftrag</b> und <b>Verkaufsrechnung</b> gelöscht werden."
 
 #. Label of a Table field in DocType 'Business Trip'
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
@@ -336,7 +336,7 @@ msgstr "Abteilung"
 #. Label of a Data field in DocType 'Business Trip Other Expense'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_other_expense/business_trip_other_expense.json
 msgid "Description"
-msgstr ""
+msgstr "Beschreibung"
 
 #. Label of a Check field in DocType 'Business Trip Allowance'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_allowance/business_trip_allowance.json
@@ -370,7 +370,7 @@ msgstr "ERPNext-Deutschland"
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "ERPNext Germany Settings"
-msgstr ""
+msgstr "ERPNext-Deutschland-Einstellungen"
 
 #. Label of a Data field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -542,7 +542,7 @@ msgstr "Titel des verknüpften Dokuments"
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:123
 msgid "Linked Documents"
-msgstr ""
+msgstr "Verknüpfte Dokumente"
 
 #. Label of a Link field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -588,7 +588,7 @@ msgstr "Nationalität"
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:182
 msgid "No linked documents found."
-msgstr ""
+msgstr "Keine verknüpften Dokumente gefunden."
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:39
 msgid "November"
@@ -655,7 +655,7 @@ msgstr "Bitte geben Sie das Start- und Enddatum Ihrer Reise ein!"
 #. Label of a Check field in DocType 'ERPNext Germany Settings'
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
 msgid "Prevent Gaps In Transaction Naming"
-msgstr ""
+msgstr "Lücken im Nummernkreis vermeiden"
 
 #. Label of a Tab Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -788,7 +788,7 @@ msgstr "Vertriebsbenutzer"
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:208
 msgid "Save Required"
-msgstr ""
+msgstr "Speichern erforderlich"
 
 #. Label of a Column Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -894,7 +894,7 @@ msgstr "Taxi"
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.py:19
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.py:26
 msgid "The VAT ID in {0} is invalid."
-msgstr ""
+msgstr "Die USt-IdNr. in {0} ist ungültig."
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:73
 msgid "The end date should not be before the start date!"
