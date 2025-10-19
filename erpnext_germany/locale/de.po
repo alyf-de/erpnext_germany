@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-09-26 14:59+0053\n"
+"POT-Creation-Date: 2025-10-20 00:38+0053\n"
 "PO-Revision-Date: 2025-02-20 11:46+0100\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language: de\n"
@@ -964,8 +964,8 @@ msgstr "Ungespeicherte Änderungen. Speichern Sie das Dokument zuerst, um eine V
 
 #. Description of the 'Distance' (Int) field in DocType 'Business Trip Journey'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
-msgid "Used to calculate the total Mileage Allowance"
-msgstr "Wird verwendet um die gesamte Kilometerpauschale zu errechnen"
+msgid "Used to calculate the <i>Total Mileage Allowance</i> for private cars and for informational purposes only for other modes of transport."
+msgstr "Wird zur Berechnung für <i>Gesamte Kilometerpauschale</i> für private PKW verwendet und dient bei anderen Transportmitteln lediglich zu Informationszwecken."
 
 #. Name of a DocType
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json

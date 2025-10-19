@@ -94,7 +94,7 @@ class BusinessTrip(Document):
 
 	def reset_distance(self):
 		for journey in self.journeys:
-			if journey.mode_of_transport != "Car (private)":
+			if journey.mode_of_transport not in {"Car (private)", "Car (rental)", "Car"}:
 				journey.distance = 0
 
 	def set_whole_day_time(self):
@@ -108,7 +108,10 @@ class BusinessTrip(Document):
 
 	def calculate_total_mileage_allowance(self):
 		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
-		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
+		self.total_mileage_allowance = (
+			sum(journey.distance for journey in self.journeys if journey.mode_of_transport == "Car (private)")
+			* mileage_allowance
+		)
 
 	def before_submit(self):
 		self.status = "Submitted"
