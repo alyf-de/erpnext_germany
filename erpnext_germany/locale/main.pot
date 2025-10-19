@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-10-20 00:38+0053\n"
-"PO-Revision-Date: 2025-10-20 00:38+0053\n"
+"POT-Creation-Date: 2025-10-20 00:48+0053\n"
+"PO-Revision-Date: 2025-10-20 00:48+0053\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language-Team: hallo@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -414,11 +414,6 @@ msgstr ""
 #. Label of a Link field in DocType 'Business Trip Settings'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
 msgid "Expense Claim Type for Mileage Allowance"
-msgstr ""
-
-#. Label of a Link field in DocType 'Business Trip Other Expense'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_other_expense/business_trip_other_expense.json
-msgid "Expense Type"
 msgstr ""
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:30

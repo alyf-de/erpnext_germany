@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-10-20 00:38+0053\n"
+"POT-Creation-Date: 2025-10-20 00:48+0053\n"
 "PO-Revision-Date: 2025-02-20 11:46+0100\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language: de\n"
@@ -417,11 +417,6 @@ msgstr "Art der Auslagenabrechnung für Verpflegungsmehraufwände"
 #: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
 msgid "Expense Claim Type for Mileage Allowance"
 msgstr "Art der Auslagenabrechnung für Kilometerpauschale"
-
-#. Label of a Link field in DocType 'Business Trip Other Expense'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_other_expense/business_trip_other_expense.json
-msgid "Expense Type"
-msgstr "Ausgabenart"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:30
 msgid "February"
