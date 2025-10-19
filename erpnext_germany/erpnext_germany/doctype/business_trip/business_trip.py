@@ -67,11 +67,6 @@ class BusinessTrip(Document):
 	def validate(self):
 		self.validate_from_to_dates("from_date", "to_date")
 
-	def reset_distance(self):
-		for journey in self.journeys:
-			if journey.mode_of_transport not in ["Car (private)", "Car (rental)", "Car"]:
-				journey.distance = 0
-
 	def set_regional_amount(self):
 		if not self.region:
 			return
@@ -96,6 +91,11 @@ class BusinessTrip(Document):
 				amount += accomodation
 
 			allowance.amount = max(amount, 0.0)
+
+	def reset_distance(self):
+		for journey in self.journeys:
+			if journey.mode_of_transport not in {"Car (private)", "Car (rental)", "Car"}:
+				journey.distance = 0
 
 	def set_whole_day_time(self):
 		for allowance in self.allowances:
