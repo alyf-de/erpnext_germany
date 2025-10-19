@@ -36,6 +36,9 @@ class BusinessTrip(Document):
 		from erpnext_germany.erpnext_germany.doctype.business_trip_journey.business_trip_journey import (
 			BusinessTripJourney,
 		)
+		from erpnext_germany.erpnext_germany.doctype.business_trip_other_expense.business_trip_other_expense import (  # noqa: E501
+			BusinessTripOtherExpense,
+		)
 
 		accommodations: DF.Table[BusinessTripAccommodation]
 		allowances: DF.Table[BusinessTripAllowance]
@@ -48,6 +51,7 @@ class BusinessTrip(Document):
 		employee_name: DF.Data | None
 		from_date: DF.Date
 		journeys: DF.Table[BusinessTripJourney]
+		other_expenses: DF.Table[BusinessTripOtherExpense]
 		project: DF.Link | None
 		region: DF.Link
 		status: DF.Literal["", "Submitted", "Approved", "Rejected", "Paid", "Billed"]
@@ -94,7 +98,7 @@ class BusinessTrip(Document):
 
 	def reset_distance(self):
 		for journey in self.journeys:
-			if journey.mode_of_transport != "Car (private)":
+			if journey.mode_of_transport not in {"Car (private)", "Car (rental)", "Car"}:
 				journey.distance = 0
 
 	def set_whole_day_time(self):
@@ -108,7 +112,10 @@ class BusinessTrip(Document):
 
 	def calculate_total_mileage_allowance(self):
 		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
-		self.total_mileage_allowance = sum(journey.distance for journey in self.journeys) * mileage_allowance
+		self.total_mileage_allowance = (
+			sum(journey.distance for journey in self.journeys if journey.mode_of_transport == "Car (private)")
+			* mileage_allowance
+		)
 
 	def before_submit(self):
 		self.status = "Submitted"
