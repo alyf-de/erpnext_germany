@@ -27,7 +27,7 @@ class BusinessTripRegion(Document):
         1) Warn if no allowances.
         2) Validate unique valid_till.
      """
-        self._ensure_title()
+       
         self._warn_if_no_allowances()
         self._validate_allowance_valid_till_unique()
 
