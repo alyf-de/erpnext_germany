@@ -7,7 +7,7 @@ CHILD_TABLE_FIELD = "allowances"
 def execute():
     
     updated_docs = 0
-    created_rows_total = 0  # Changed this counter
+    created_rows_total = 0  
     errors = 0
 
     try:
@@ -32,24 +32,22 @@ def execute():
         try:
             doc = frappe.get_doc(PARENT_DOCTYPE, name)
             
-            # Get parent values
+           
             parent_whole_day = r.get("whole_day") or 0
             parent_arrival = r.get("arrival_or_departure") or 0
             parent_accom = r.get("accommodation") or 0
 
-            # 1. DELETE all previous rows
+           
             doc.set(CHILD_TABLE_FIELD, [])
 
-            # 2. CREATE one new row
+            
             new_row = doc.append(CHILD_TABLE_FIELD, {})
             
-            # 3. SET values on the new row
+            
             new_row.full_day = parent_whole_day
             new_row.arrival__departure = parent_arrival
             new_row.accommodation = parent_accom
-            # 'valid_till' will be None by default
-
-            # 4. SAVE the document
+      
             doc.save(ignore_permissions=True)
             
             updated_docs += 1

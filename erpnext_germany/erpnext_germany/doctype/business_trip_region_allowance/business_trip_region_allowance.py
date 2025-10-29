@@ -1,14 +1,6 @@
 # Copyright (c) 2025, ALYF GmbH and contributors
 # For license information, please see license.txt
 
-<<<<<<< Updated upstream
-# import frappe
-# from frappe.model.document import Document
-
-
-# class BusinessTripRegionAllowance(Document):
-# 	  pass
-=======
 import frappe
 from frappe.model.document import Document
 
@@ -31,4 +23,3 @@ class BusinessTripRegionAllowance(Document):
 		valid_till: DF.Date | None
 	# end: auto-generated types
 	pass
->>>>>>> Stashed changes
