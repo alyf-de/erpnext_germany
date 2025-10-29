@@ -1,6 +1,3 @@
-[pre_model_sync]
-
-[post_model_sync]
 execute:from erpnext_germany.install import after_install; after_install() # 7
 erpnext_germany.patches.add_tax_exemption_reason_fields
 execute:from erpnext_germany.install import insert_custom_records; insert_custom_records()
@@ -13,3 +10,4 @@ execute:frappe.db.set_single_value("ERPNext Germany Settings", "prevent_gaps_in_
 erpnext_germany.patches.set_business_trip_settings
 erpnext_germany.patches.remove_some_employee_property_setters
 execute:from erpnext_germany.install import make_property_setters; make_property_setters()
+erpnext_germany.patches.fix_allowance_data_and_date
