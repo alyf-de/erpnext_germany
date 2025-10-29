@@ -1,7 +1,11 @@
 {
  "actions": [],
  "allow_rename": 1,
+<<<<<<< Updated upstream
  "creation": "2025-10-25 11:12:10.378046",
+=======
+ "creation": "2025-10-27 22:46:54.274590",
+>>>>>>> Stashed changes
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
@@ -41,7 +45,11 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
+<<<<<<< Updated upstream
  "modified": "2025-10-25 11:15:54.730476",
+=======
+ "modified": "2025-10-27 22:50:32.111079",
+>>>>>>> Stashed changes
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Region Allowance",
