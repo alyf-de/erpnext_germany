@@ -12,9 +12,11 @@ class BusinessTripRegion(Document):
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
+		from erpnext_germany.erpnext_germany.doctype.business_trip_region_allowance.business_trip_region_allowance import BusinessTripRegionAllowance
 		from frappe.types import DF
 
 		accommodation: DF.Currency
+		allowances: DF.Table[BusinessTripRegionAllowance]
 		arrival_or_departure: DF.Currency
 		disabled: DF.Check
 		title: DF.Data | None
