@@ -101,6 +101,12 @@ frappe.ui.form.on("Business Trip Allowance", {
 	},
 });
 
+frappe.ui.form.on("Business Trip Other Expense", {
+	create_purchase_invoice(frm, cdt, cdn) {
+		create_purchase_invoice_with_receipt(frm, cdt, cdn);
+	},
+});
+
 function show_processing_details_dialog(frm) {
 	frappe.call({
 		method: "erpnext_germany.erpnext_germany.doctype.business_trip.business_trip.get_processing_details",
@@ -226,10 +232,12 @@ function get_dates(row) {
 	const FROM_DATE_MAP = {
 		"Business Trip Accommodation": "from_date",
 		"Business Trip Journey": "date",
+		"Business Trip Other Expense": "date",
 	};
 	const TO_DATE_MAP = {
 		"Business Trip Accommodation": "to_date",
 		"Business Trip Journey": "date",
+		"Business Trip Other Expense": "date",
 	};
 
 	return {

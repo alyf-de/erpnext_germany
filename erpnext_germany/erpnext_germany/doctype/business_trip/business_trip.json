@@ -31,6 +31,8 @@
   "region",
   "allowances",
   "total_allowance",
+  "section_break_vadz",
+  "other_expenses",
   "amended_from"
  ],
  "fields": [
@@ -191,6 +193,17 @@
    "fieldtype": "Currency",
    "label": "Total Mileage Allowance",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_vadz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "other_expenses",
+   "fieldtype": "Table",
+   "label": "Other Expenses",
+   "options": "Business Trip Other Expense",
+   "description": "Everything that is not covered by the journeys, accommodations or allowances (e.g. parking fees, conference tickets, etc.)"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -205,7 +218,7 @@
    "link_fieldname": "business_trip"
   }
  ],
- "modified": "2025-09-19 17:11:36.711485",
+ "modified": "2025-10-17 15:45:41.213645",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip",
