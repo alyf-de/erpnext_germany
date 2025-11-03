@@ -13,7 +13,7 @@ def on_trash(doc: SellingController, event: str | None = None) -> None:
 	if is_not_latest_in_series(doc.doctype, doc.name, doc.creation, doc.company, doc.naming_series):
 		frappe.throw(
 			msg=_(
-				"Only the most recent {0} within the same series can be deleted in order to avoid gaps in numbering."
+				"Only the most recent {0} within the same series can be deleted to avoid gaps in numbering."
 			).format(_(doc.doctype)),
 			title=_("Cannot delete this transaction"),
 		)
