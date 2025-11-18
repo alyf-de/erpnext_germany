@@ -58,19 +58,19 @@ def get_columns():
 	return [
 		{
 			"fieldname": "tax_id",
-			"label": "Umsatzsteuer-Identifikationsnummer (USt-IdNr.)",
+			"label": _("Umsatzsteuer-Identifikationsnummer (USt-IdNr.)"),
 			"fieldtype": "Data",
 			"width": 200,
 		},
 		{
 			"fieldname": "amount",
-			"label": "Summe (Euro)",
+			"label": _("Summe (Euro)"),
 			"fieldtype": "Int",
 			"width": 150,
 		},
 		{
 			"fieldname": "service_type",  # [D, L, S]
-			"label": "Art der Leistung",
+			"label": _("Art der Leistung"),
 			"fieldtype": "Data",
 			"width": 150,
 		},
