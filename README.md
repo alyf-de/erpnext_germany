@@ -70,6 +70,10 @@ The receipts for transport and accommodation can be attached, but are not proces
 
 You can use our [Banking app](https://github.com/alyf-de/banking) to reconcile the **Expense Claims** and **Purchase Invoices** with the respective **Bank Transactions**.
 
+## Zusammenfassende Meldung
+
+Currently, this report lists all invoices as other service ("S"). If you do triangular transactions ("D") or intra-Community supplies ("L"), you need to manually adjust this column in the CSV file. Automatically determining the service type is planned for a future version.
+
 ## Quick Start Demo
 
 The fastest way to get a running demo site on your local desktop.
