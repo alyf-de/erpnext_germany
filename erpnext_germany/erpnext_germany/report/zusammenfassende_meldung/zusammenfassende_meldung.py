@@ -29,6 +29,11 @@ import frappe
 from frappe import _
 
 SPEC_VERSION_HEADER = "#v3.0"
+COLUMN_LABELS = {
+	"tax_id": "Umsatzsteuer-Identifikationsnummer (USt-IdNr.)",
+	"amount": "Summe (Euro)",
+	"service_type": "Art der Leistung",
+}
 
 
 def execute(filters=None):
@@ -58,19 +63,19 @@ def get_columns():
 	return [
 		{
 			"fieldname": "tax_id",
-			"label": _("Umsatzsteuer-Identifikationsnummer (USt-IdNr.)"),
+			"label": COLUMN_LABELS["tax_id"],
 			"fieldtype": "Data",
 			"width": 200,
 		},
 		{
 			"fieldname": "amount",
-			"label": _("Summe (Euro)"),
+			"label": COLUMN_LABELS["amount"],
 			"fieldtype": "Int",
 			"width": 150,
 		},
 		{
 			"fieldname": "service_type",  # [D, L, S]
-			"label": _("Art der Leistung"),
+			"label": COLUMN_LABELS["service_type"],
 			"fieldtype": "Data",
 			"width": 150,
 		},
