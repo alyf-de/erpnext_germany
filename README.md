@@ -7,6 +7,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 - German accounting reports
 
     - _Summen- und Saldenliste_
+    - _Zusammenfassende Meldung_
 
 - Section for Register Information (Registerart, -gericht und nummer) in **Company**, **Customer** and **Supplier**
 
