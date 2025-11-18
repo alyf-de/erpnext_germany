@@ -15,25 +15,6 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Reports",
-   "link_count": 1,
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 1,
-   "label": "Summen- und Saldenliste",
-   "link_count": 0,
-   "link_to": "Summen- und Saldenliste",
-   "link_type": "Report",
-   "onboard": 0,
-   "type": "Link"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
    "label": "Setup",
    "link_count": 4,
    "link_type": "DocType",
@@ -79,9 +60,38 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Reports",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Summen- und Saldenliste",
+   "link_count": 0,
+   "link_to": "Summen- und Saldenliste",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 1,
+   "label": "Zusammenfassende Meldung",
+   "link_count": 0,
+   "link_to": "Zusammenfassende Meldung",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-02-26 12:31:44.539466",
+ "modified": "2025-11-19 00:18:31.962588",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Germany",

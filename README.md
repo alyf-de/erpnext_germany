@@ -7,6 +7,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 - German accounting reports
 
     - _Summen- und Saldenliste_
+    - _Zusammenfassende Meldung_
 
 - Section for Register Information (Registerart, -gericht und nummer) in **Company**, **Customer** and **Supplier**
 
@@ -68,6 +69,10 @@ The Additional meal expenses depend on the selected region. Select the "From" an
 The receipts for transport and accommodation can be attached, but are not processed automatically. You can check them, create a **Purchase Invoice** and pay the respective amount to the employee.
 
 You can use our [Banking app](https://github.com/alyf-de/banking) to reconcile the **Expense Claims** and **Purchase Invoices** with the respective **Bank Transactions**.
+
+## Zusammenfassende Meldung
+
+Currently, this report lists all invoices as other service ("S"). If you do triangular transactions ("D") or intra-Community supplies ("L"), you need to manually adjust this column in the CSV file. Automatically determining the service type is planned for a future version.
 
 ## Quick Start Demo
 
