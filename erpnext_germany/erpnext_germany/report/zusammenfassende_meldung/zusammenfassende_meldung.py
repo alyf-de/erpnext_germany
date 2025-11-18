@@ -67,7 +67,6 @@ def get_columns():
 			"label": "Summe (Euro)",
 			"fieldtype": "Int",
 			"width": 150,
-			"precision": 0,
 		},
 		{
 			"fieldname": "service_type",  # [D, L, S]
