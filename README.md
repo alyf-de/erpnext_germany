@@ -7,6 +7,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 - German accounting reports
 
     - _Summen- und Saldenliste_
+    - _Zusammenfassende Meldung_
 
 - Section for Register Information (Registerart, -gericht und nummer) in **Company**, **Customer** and **Supplier**
 
@@ -53,6 +54,10 @@ After that, you can install the app on required site (let's say demo.com ) by ru
 ```bash
 bench --site demo.com install-app erpnext_germany
 ```
+
+## Zusammenfassende Meldung
+
+Currently, this report lists all invoices as other service ("S"). If you do triangular transactions ("D") or intra-Community supplies ("L"), you need to manually adjust this column in the CSV file. Automatically determining the service type is planned for a future version.
 
 ### License
 
