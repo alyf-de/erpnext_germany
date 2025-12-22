@@ -16,7 +16,8 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title"
+   "label": "Title",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_ajul",
@@ -48,11 +49,12 @@
    "link_fieldname": "region"
   }
  ],
- "modified": "2025-12-22 16:37:42.936069",
+ "modified": "2025-12-22 17:25:42.936069",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Region",
- "naming_rule": "Random",
+ "naming_rule": "By fieldname",
+ "autoname": "field:title",
  "owner": "Administrator",
  "permissions": [
   {
@@ -82,6 +84,5 @@
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": [],
- "title_field": "title"
+ "states": []
 }
