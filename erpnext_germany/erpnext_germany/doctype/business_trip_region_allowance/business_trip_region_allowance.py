@@ -1,22 +1,25 @@
-# Copyright (c) 2024, ALYF GmbH and contributors
+# Copyright (c) 2025, ALYF GmbH and contributors
 # For license information, please see license.txt
 
 # import frappe
 from frappe.model.document import Document
 
 
-class BusinessTripRegion(Document):
+class BusinessTripRegionAllowance(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
 	from typing import TYPE_CHECKING
 
 	if TYPE_CHECKING:
-		from erpnext_germany.erpnext_germany.doctype.business_trip_region_allowance.business_trip_region_allowance import BusinessTripRegionAllowance
 		from frappe.types import DF
 
-		allowances: DF.Table[BusinessTripRegionAllowance]
-		disabled: DF.Check
-		title: DF.Data | None
+		accommodation: DF.Currency
+		arrival_or_departure: DF.Currency
+		parent: DF.Data
+		parentfield: DF.Data
+		parenttype: DF.Data
+		valid_from: DF.Date
+		whole_day: DF.Currency
 	# end: auto-generated types
 	pass
