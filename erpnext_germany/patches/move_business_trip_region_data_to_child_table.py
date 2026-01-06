@@ -18,7 +18,7 @@ def execute():
 				"whole_day": doc.whole_day or 0.0,
 				"arrival_or_departure": doc.arrival_or_departure or 0.0,
 				"accommodation": doc.accommodation or 0.0,
-			}
+			},
 		)
 		doc.save()
 

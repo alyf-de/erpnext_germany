@@ -10,9 +10,6 @@ from frappe.utils.data import fmt_money
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
 
 if TYPE_CHECKING:
-	from erpnext_germany.erpnext_germany.doctype.business_trip_region.business_trip_region import (
-		BusinessTripRegion,
-	)
 	from erpnext_germany.erpnext_germany.doctype.business_trip_settings.business_trip_settings import (
 		BusinessTripSettings,
 	)
