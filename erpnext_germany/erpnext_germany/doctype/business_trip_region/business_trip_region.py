@@ -14,7 +14,7 @@ class BusinessTripRegion(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		from erpnext_germany.erpnext_germany.doctype.business_trip_region_allowance.business_trip_region_allowance import (
+		from erpnext_germany.erpnext_germany.doctype.business_trip_region_allowance.business_trip_region_allowance import (  # noqa: E501
 			BusinessTripRegionAllowance,
 		)
 
