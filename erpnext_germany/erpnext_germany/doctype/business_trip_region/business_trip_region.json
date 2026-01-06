@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "hash",
+ "autoname": "field:title",
  "creation": "2022-11-01 20:24:28.877901",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -54,7 +54,6 @@
  "module": "ERPNext Germany",
  "name": "Business Trip Region",
  "naming_rule": "By fieldname",
- "autoname": "field:title",
  "owner": "Administrator",
  "permissions": [
   {
