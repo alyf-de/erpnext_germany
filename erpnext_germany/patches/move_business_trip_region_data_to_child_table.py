@@ -14,10 +14,10 @@ def execute():
 		doc.append(
 			"allowances",
 			{
-				"valid_from": doc.valid_from or "2000-01-01",
-				"whole_day": doc.whole_day or 0.0,
-				"arrival_or_departure": doc.arrival_or_departure or 0.0,
-				"accommodation": doc.accommodation or 0.0,
+				"valid_from": doc.get("valid_from") or "2000-01-01",
+				"whole_day": doc.get("whole_day") or 0.0,
+				"arrival_or_departure": doc.get("arrival_or_departure") or 0.0,
+				"accommodation": doc.get("accommodation") or 0.0,
 			},
 		)
 		doc.save()
