@@ -283,7 +283,11 @@ def get_processing_details(business_trip: str):
 
 
 def _get_allowance_rates(region: str, date: str) -> list[_dict]:
-	return frappe.db.get_all(
+	"""Return allowance rates for a region valid on or before a date.
+
+	Results are ordered by `valid_from` in descending order so the most recent applicable rate is first.
+	"""
+	return frappe.get_all(
 		"Business Trip Region Allowance",
 		filters={
 			"parent": region,
