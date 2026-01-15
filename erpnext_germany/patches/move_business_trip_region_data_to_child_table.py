@@ -23,7 +23,7 @@ def execute():
 		doc.save()
 
 		# Step 2: Rename documents.
-		# Since the valid_from field based on the child table, there is no more need
+		# Since the valid_from field is based on the child table, there is no more need
 		# for several documents with the same title.
 		# Therefore, the title should be used as the new name.
 		try:
