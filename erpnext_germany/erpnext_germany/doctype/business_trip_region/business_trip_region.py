@@ -1,7 +1,8 @@
 # Copyright (c) 2024, ALYF GmbH and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
+from frappe import _
 from frappe.model.document import Document
 
 
@@ -22,4 +23,7 @@ class BusinessTripRegion(Document):
 		disabled: DF.Check
 		title: DF.Data | None
 	# end: auto-generated types
-	pass
+
+	def validate(self):
+		if len(set(allowance.valid_from for allowance in self.allowances)) != len(self.allowances):
+			frappe.throw(_("There are multiple allowance rows with the same Valid From date."))
