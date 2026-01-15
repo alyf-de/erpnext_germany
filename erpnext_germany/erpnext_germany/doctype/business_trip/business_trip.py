@@ -74,22 +74,13 @@ class BusinessTrip(Document):
 		if not self.region:
 			return
 
-		allowance_rates = _get_allowance_rates(self.region, self.to_date)
-
 		for allowance in self.allowances:
 			whole_day = 0.0
 			arrival_or_departure = 0.0
 			accommodation = 0.0
 
-			days_rates = (
-				next(
-					rate
-					for rate in allowance_rates
-					if rate.valid_from <= frappe.utils.getdate(allowance.date)
-				)
-				if allowance_rates
-				else None
-			)
+			allowance_rates = _get_allowance_rates(self.region, allowance.date)
+			days_rates = allowance_rates[0] if allowance_rates else None
 
 			if days_rates:
 				whole_day = days_rates.whole_day
@@ -208,13 +199,10 @@ def get_meal_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> l
 	for allowance in business_trip.allowances:
 		description = "Ganztägig" if allowance.whole_day else "An-/Abreise"
 
+		accommodation = 0.0
 		allowance_rates = _get_allowance_rates(business_trip.region, allowance.date)
 		if allowance_rates:
-			accommodation = next(
-				rate for rate in allowance_rates if rate.valid_from <= frappe.utils.getdate(allowance.date)
-			).accommodation
-		else:
-			accommodation = 0.0
+			accommodation = allowance_rates[0].accommodation
 
 		if not allowance.accommodation_was_provided and accommodation:
 			description += ", zzgl. Hotel"
