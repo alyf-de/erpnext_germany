@@ -10,6 +10,8 @@ from frappe.utils.data import fmt_money
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
 
 if TYPE_CHECKING:
+	from frappe import _dict
+
 	from erpnext_germany.erpnext_germany.doctype.business_trip_settings.business_trip_settings import (
 		BusinessTripSettings,
 	)
@@ -280,7 +282,7 @@ def get_processing_details(business_trip: str):
 	return combined_records
 
 
-def _get_allowance_rates(region: str, date: str) -> list[dict]:
+def _get_allowance_rates(region: str, date: str) -> list[_dict]:
 	return frappe.db.get_all(
 		"Business Trip Region Allowance",
 		filters={
