@@ -27,6 +27,8 @@ from io import StringIO
 
 import frappe
 from frappe import _
+from frappe.query_builder.functions import Round, Sum
+from pypika.functions import Cast
 
 SPEC_VERSION_HEADER = "#v3.0"
 COLUMN_LABELS = {
@@ -84,6 +86,7 @@ def get_columns():
 
 def get_data(company: str, from_date: date, to_date: date):
 	country_code = get_company_country_code(company)
+	sales_invoice = frappe.qb.DocType("Sales Invoice")
 	data = frappe.get_list(
 		"Sales Invoice",
 		filters=(
@@ -95,7 +98,7 @@ def get_data(company: str, from_date: date, to_date: date):
 		),
 		fields=[
 			"tax_id",
-			"CAST(ROUND(SUM(base_grand_total), 0) AS INT) as amount",
+			Cast(Round(Sum(sales_invoice.base_grand_total), 0), "SIGNED").as_("amount"),
 		],
 		group_by="tax_id",
 	)
