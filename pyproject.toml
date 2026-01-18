@@ -8,7 +8,7 @@ requires-python = ">=3.14"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
-    "zeep~=4.2.1",
+    "zeep~=4.3.2",
     "tenacity~=8.2.3",
 ]
 
