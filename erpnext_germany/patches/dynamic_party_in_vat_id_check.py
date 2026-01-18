@@ -1,5 +1,6 @@
 import frappe
 from frappe.model.utils.rename_field import rename_field
+from frappe.query_builder import DocType
 
 
 def execute():
@@ -15,7 +16,8 @@ def execute():
 	"""
 	dt = "VAT ID Check"
 
-	frappe.db.sql("UPDATE `tabVAT ID Check` SET party_type = 'Customer'")
+	VATIDCheck = DocType(dt)
+	frappe.qb.update(VATIDCheck).set(VATIDCheck.party_type, "Customer").run()
 
 	rename_field(dt, "customer", "party")
 	rename_field(dt, "customer_vat_id", "party_vat_id")
