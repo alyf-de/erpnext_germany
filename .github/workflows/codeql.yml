@@ -13,9 +13,7 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "version-15", "version-[a-zA-Z0-9][a-zA-Z0-9]" ]
   pull_request:
-    branches: [ "version-15", "version-[a-zA-Z0-9][a-zA-Z0-9]" ]
   schedule:
     - cron: '31 19 * * 1'
 
