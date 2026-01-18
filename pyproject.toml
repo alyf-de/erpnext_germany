@@ -4,7 +4,7 @@ authors = [
     { name = "ALYF GmbH", email = "hallo@alyf.de"}
 ]
 description = "App to hold regional code for Germany, built on top of ERPNext."
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
@@ -17,12 +17,12 @@ requires = ["flit_core >=3.4,<4"]
 build-backend = "flit_core.buildapi"
 
 [tool.bench.frappe-dependencies]
-frappe = ">=15.64.0,<16.0.0"
-erpnext = ">=15.58.0,<16.0.0"
+frappe = ">=16.0.0,<17.0.0"
+erpnext = ">=16.0.0,<17.0.0"
 
 [tool.ruff]
 line-length = 110
-target-version = "py310"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = [
