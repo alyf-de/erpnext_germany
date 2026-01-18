@@ -31,7 +31,7 @@ class VATIDCheck(Document):
 			run_check,
 			doc=self,
 			queue="long",
-			now=frappe.conf.developer_mode or frappe.flags.in_test,
+			now=frappe.conf.developer_mode or frappe.in_test,
 		)
 
 
