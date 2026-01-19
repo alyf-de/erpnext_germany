@@ -1,6 +1,7 @@
 {
+ "app": "erpnext_germany",
  "charts": [],
- "content": "[{\"id\":\"foL5O8DnUP\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Letter\",\"col\":4}},{\"id\":\"oJkHa86NBg\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Trip\",\"col\":4}},{\"id\":\"VYs-C5iICV\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vat Id Check\",\"col\":3}},{\"id\":\"kJjc0XvpWD\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"8IxzobqofO\",\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}},{\"id\":\"G5Fnz7UZYk\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
+ "content": "[{\"id\":\"S5MEPpJRrB\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Vat Id Check\",\"col\":4}},{\"id\":\"hYYQD555rq\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Trip\",\"col\":4}},{\"id\":\"cZa8Q5Y4aG\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Business Letter\",\"col\":4}},{\"id\":\"kJjc0XvpWD\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"8IxzobqofO\",\"type\":\"card\",\"data\":{\"card_name\":\"Setup\",\"col\":4}},{\"id\":\"G5Fnz7UZYk\",\"type\":\"card\",\"data\":{\"card_name\":\"Reports\",\"col\":4}}]",
  "creation": "2024-10-24 17:31:50.222160",
  "custom_blocks": [],
  "docstatus": 0,
@@ -91,7 +92,7 @@
    "type": "Link"
   }
  ],
- "modified": "2025-11-19 00:18:31.962588",
+ "modified": "2026-01-19 01:01:16.630885",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Germany",
@@ -104,31 +105,31 @@
  "sequence_id": 53.0,
  "shortcuts": [
   {
+   "color": "Red",
+   "doc_view": "List",
+   "format": "{} Invalid",
+   "label": "Vat Id Check",
+   "link_to": "VAT ID Check",
+   "stats_filter": "[[\"VAT ID Check\",\"status\",\"=\",\"Completed\"],[\"VAT ID Check\",\"is_valid\",\"=\",0]]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Business Trip",
+   "link_to": "Business Trip",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
    "color": "Grey",
    "doc_view": "List",
    "label": "Business Letter",
    "link_to": "Business Letter",
    "stats_filter": "[]",
    "type": "DocType"
-  },
-  {
-   "color": "Red",
-   "doc_view": "List",
-   "format": "{} Invalid",
-   "label": "Vat Id Check",
-   "link_to": "VAT ID Check",
-   "stats_filter": "[[\"VAT ID Check\",\"status\",\"=\",\"Completed\",false],[\"VAT ID Check\",\"is_valid\",\"=\",0,false]]",
-   "type": "DocType"
-  },
-  {
-   "color": "Yellow",
-   "doc_view": "List",
-   "format": "{} Open",
-   "label": "Business Trip",
-   "link_to": "Business Trip",
-   "stats_filter": "[[\"Business Trip\",\"status\",\"=\",\"Submitted\",false]]",
-   "type": "DocType"
   }
  ],
- "title": "Germany"
+ "title": "Germany",
+ "type": "Workspace"
 }
