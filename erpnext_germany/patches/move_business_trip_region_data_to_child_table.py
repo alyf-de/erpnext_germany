@@ -6,7 +6,7 @@ def execute():
 	Move the data from the old fields (on doc level) to the new child table.
 	And rename the documents.
 	"""
-	regions = frappe.get_all("Business Trip Region", filters={"disabled": 0}, pluck="name")
+	regions = frappe.get_all("Business Trip Region", pluck="name")
 	for business_trip_region_id in regions:
 		doc = frappe.get_doc("Business Trip Region", business_trip_region_id)
 
