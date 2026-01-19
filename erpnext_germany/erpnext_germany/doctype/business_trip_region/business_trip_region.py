@@ -1,7 +1,8 @@
 # Copyright (c) 2024, ALYF GmbH and contributors
 # For license information, please see license.txt
 
-# import frappe
+import frappe
+from frappe import _
 from frappe.model.document import Document
 
 
@@ -14,11 +15,15 @@ class BusinessTripRegion(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		accommodation: DF.Currency
-		arrival_or_departure: DF.Currency
+		from erpnext_germany.erpnext_germany.doctype.business_trip_region_allowance.business_trip_region_allowance import (  # noqa: E501
+			BusinessTripRegionAllowance,
+		)
+
+		allowances: DF.Table[BusinessTripRegionAllowance]
 		disabled: DF.Check
-		title: DF.Data | None
-		valid_from: DF.Date | None
-		whole_day: DF.Currency
+		title: DF.Data
 	# end: auto-generated types
-	pass
+
+	def validate(self):
+		if len(set(allowance.valid_from for allowance in self.allowances)) != len(self.allowances):
+			frappe.throw(_("There are multiple allowance rows with the same Valid From date."))
