@@ -27,7 +27,7 @@ def execute():
 		# for several documents with the same title.
 		# Therefore, the title should be used as the new name.
 		try:
-			frappe.rename_doc("Business Trip Region", business_trip_region_id, doc.title, force=True)
+			frappe.rename_doc("Business Trip Region", business_trip_region_id, doc.title, force=True, merge=True)
 		except frappe.DuplicateEntryError as e:
 			# Duplicate titles are expected in some cases; log with context and continue.
 			frappe.log_error(
