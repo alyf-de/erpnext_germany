@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 
 
 def execute():
@@ -33,13 +34,17 @@ def execute():
 		except frappe.DuplicateEntryError as e:
 			# Duplicate titles are expected in some cases; log with context and continue.
 			frappe.log_error(
-				message=f"Duplicate title while renaming Business Trip Region '{business_trip_region_id}' to '{doc.title}': {e}",
+				message=_("Duplicate title while renaming Business Trip Region '{0}' to '{1}': {2}").format(
+					business_trip_region_id, doc.title, e
+				),
 				title="Business Trip Region rename skipped due to duplicate title",
 			)
 		except Exception as e:
 			# Unexpected errors should be logged with context and re-raised.
 			frappe.log_error(
-				message=f"Unexpected error while renaming Business Trip Region '{business_trip_region_id}' to '{doc.title}': {e}",
+				message=_("Unexpected error while renaming Business Trip Region '{0}' to '{1}': {2}").format(
+					business_trip_region_id, doc.title, e
+				),
 				title="Business Trip Region rename failed",
 			)
 			raise
