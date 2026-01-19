@@ -21,7 +21,7 @@ class BusinessTripRegion(Document):
 
 		allowances: DF.Table[BusinessTripRegionAllowance]
 		disabled: DF.Check
-		title: DF.Data | None
+		title: DF.Data
 	# end: auto-generated types
 
 	def validate(self):

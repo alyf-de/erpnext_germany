@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "field:title",
+ "autoname": "hash",
  "creation": "2022-11-01 20:24:28.877901",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -16,6 +16,7 @@
   {
    "fieldname": "title",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Title",
    "reqd": 1
   },
@@ -49,11 +50,11 @@
    "link_fieldname": "region"
   }
  ],
- "modified": "2025-12-22 17:25:42.936069",
+ "modified": "2026-01-19 16:42:23.130520",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Region",
- "naming_rule": "By fieldname",
+ "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [
   {
@@ -83,5 +84,6 @@
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "title"
 }
