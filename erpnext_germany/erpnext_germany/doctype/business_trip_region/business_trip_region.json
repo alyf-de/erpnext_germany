@@ -7,45 +7,18 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "whole_day",
-  "arrival_or_departure",
-  "accommodation",
   "column_break_ajul",
-  "valid_from",
-  "disabled"
+  "disabled",
+  "section_break_xukx",
+  "allowances"
  ],
  "fields": [
   {
    "fieldname": "title",
    "fieldtype": "Data",
-   "label": "Title"
-  },
-  {
-   "description": "For an absence of at least 24 hours per calendar day",
-   "fieldname": "whole_day",
-   "fieldtype": "Currency",
    "in_list_view": 1,
-   "label": "Whole Day"
-  },
-  {
-   "description": "For the day of arrival and departure and for an absence of more than 8 hours per calendar day",
-   "fieldname": "arrival_or_departure",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Arrival or Departure"
-  },
-  {
-   "description": "Lump sum for accommodation expenses",
-   "fieldname": "accommodation",
-   "fieldtype": "Currency",
-   "in_list_view": 1,
-   "label": "Accommodation"
-  },
-  {
-   "fieldname": "valid_from",
-   "fieldtype": "Date",
-   "in_list_view": 1,
-   "label": "Valid From"
+   "label": "Title",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_ajul",
@@ -56,8 +29,20 @@
    "fieldname": "disabled",
    "fieldtype": "Check",
    "label": "Disabled"
+  },
+  {
+   "fieldname": "section_break_xukx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "allowances",
+   "fieldtype": "Table",
+   "label": "Allowances",
+   "options": "Business Trip Region Allowance",
+   "reqd": 1
   }
  ],
+ "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [
   {
@@ -65,7 +50,7 @@
    "link_fieldname": "region"
   }
  ],
- "modified": "2024-10-24 22:42:37.127349",
+ "modified": "2026-01-19 16:42:23.130520",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Business Trip Region",
@@ -95,7 +80,7 @@
    "write": 1
   }
  ],
- "search_fields": "valid_from",
+ "row_format": "Dynamic",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
