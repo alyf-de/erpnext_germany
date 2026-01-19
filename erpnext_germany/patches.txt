@@ -13,3 +13,4 @@ execute:frappe.db.set_single_value("ERPNext Germany Settings", "prevent_gaps_in_
 erpnext_germany.patches.set_business_trip_settings
 erpnext_germany.patches.remove_some_employee_property_setters
 execute:from erpnext_germany.install import make_property_setters; make_property_setters()
+erpnext_germany.patches.move_business_trip_region_data_to_child_table #2
