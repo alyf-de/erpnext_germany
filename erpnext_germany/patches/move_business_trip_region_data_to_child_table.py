@@ -28,5 +28,16 @@ def execute():
 		# Therefore, the title should be used as the new name.
 		try:
 			frappe.rename_doc("Business Trip Region", business_trip_region_id, doc.title, force=True)
+		except frappe.DuplicateEntryError as e:
+			# Duplicate titles are expected in some cases; log with context and continue.
+			frappe.log_error(
+				message=f"Duplicate title while renaming Business Trip Region '{business_trip_region_id}' to '{doc.title}': {e}",
+				title="Business Trip Region rename skipped due to duplicate title",
+			)
 		except Exception as e:
-			frappe.log_error(e)
+			# Unexpected errors should be logged with context and re-raised.
+			frappe.log_error(
+				message=f"Unexpected error while renaming Business Trip Region '{business_trip_region_id}' to '{doc.title}': {e}",
+				title="Business Trip Region rename failed",
+			)
+			raise
