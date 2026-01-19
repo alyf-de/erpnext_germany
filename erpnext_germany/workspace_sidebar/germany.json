@@ -1,0 +1,65 @@
+{
+ "app": "erpnext_germany",
+ "creation": "2025-11-28 16:19:17.305532",
+ "docstatus": 0,
+ "doctype": "Workspace Sidebar",
+ "header_icon": "",
+ "idx": 0,
+ "items": [
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "home",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Home",
+   "link_to": "Germany",
+   "link_type": "Workspace",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "file-text",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Business Letter",
+   "link_to": "Business Letter",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "landmark",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "VAT ID Check",
+   "link_to": "VAT ID Check",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 0,
+   "collapsible": 1,
+   "icon": "briefcase",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Business Trip",
+   "link_to": "Business Trip",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-01-19 01:14:38.134424",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Germany",
+ "owner": "Administrator",
+ "standard": 1,
+ "title": "Germany"
+}
