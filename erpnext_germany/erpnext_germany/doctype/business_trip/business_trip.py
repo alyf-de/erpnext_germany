@@ -10,9 +10,6 @@ from frappe.utils.data import fmt_money
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
 
 if TYPE_CHECKING:
-	from erpnext_germany.erpnext_germany.doctype.business_trip_region.business_trip_region import (
-		BusinessTripRegion,
-	)
 	from erpnext_germany.erpnext_germany.doctype.business_trip_settings.business_trip_settings import (
 		BusinessTripSettings,
 	)
@@ -75,12 +72,19 @@ class BusinessTrip(Document):
 		if not self.region:
 			return
 
-		region: BusinessTripRegion = frappe.get_doc("Business Trip Region", self.region)
-		whole_day = region.whole_day or 0.0
-		arrival_or_departure = region.arrival_or_departure or 0.0
-		accomodation = region.accommodation or 0.0
-
 		for allowance in self.allowances:
+			whole_day = 0.0
+			arrival_or_departure = 0.0
+			accommodation = 0.0
+
+			allowance_rates = _get_allowance_rates(self.region, allowance.date)
+			days_rates = allowance_rates[0] if allowance_rates else None
+
+			if days_rates:
+				whole_day = days_rates.whole_day
+				arrival_or_departure = days_rates.arrival_or_departure
+				accommodation = days_rates.accommodation
+
 			amount = whole_day if allowance.whole_day else arrival_or_departure
 			if allowance.breakfast_was_provided:
 				amount -= whole_day * 0.2
@@ -92,7 +96,7 @@ class BusinessTrip(Document):
 				amount -= whole_day * 0.4
 
 			if not allowance.accommodation_was_provided:
-				amount += accomodation
+				amount += accommodation
 
 			allowance.amount = max(amount, 0.0)
 
@@ -192,9 +196,13 @@ def get_meal_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> l
 	expenses = []
 	for allowance in business_trip.allowances:
 		description = "Ganztägig" if allowance.whole_day else "An-/Abreise"
-		if not allowance.accommodation_was_provided and frappe.db.get_value(
-			"Business Trip Region", business_trip.region, "accommodation"
-		):
+
+		accommodation = 0.0
+		allowance_rates = _get_allowance_rates(business_trip.region, allowance.date)
+		if allowance_rates:
+			accommodation = allowance_rates[0].accommodation
+
+		if not allowance.accommodation_was_provided and accommodation:
 			description += ", zzgl. Hotel"
 
 		if allowance.breakfast_was_provided:
@@ -258,3 +266,19 @@ def get_processing_details(business_trip: str):
 		combined_records.append(invoice)
 
 	return combined_records
+
+
+def _get_allowance_rates(region: str, date: str):
+	"""Return allowance rates for a region valid on or before a date.
+
+	Results are ordered by `valid_from` in descending order so the most recent applicable rate is first.
+	"""
+	return frappe.get_all(
+		"Business Trip Region Allowance",
+		filters={
+			"parent": region,
+			"valid_from": ["<=", date],
+		},
+		order_by="valid_from DESC",
+		fields=["valid_from", "whole_day", "arrival_or_departure", "accommodation"],
+	)
