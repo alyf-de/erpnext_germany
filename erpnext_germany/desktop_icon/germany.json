@@ -1,0 +1,20 @@
+{
+ "app": "erpnext_germany",
+ "creation": "2025-11-28 16:19:17.072053",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon_type": "Link",
+ "idx": 0,
+ "label": "Germany",
+ "link_to": "Germany",
+ "link_type": "Workspace Sidebar",
+ "logo_url": "/assets/erpnext_germany/img/logo.png",
+ "modified": "2026-01-20 15:26:04.057464",
+ "modified_by": "Administrator",
+ "name": "Germany",
+ "owner": "Administrator",
+ "restrict_removal": 0,
+ "roles": [],
+ "standard": 1
+}
