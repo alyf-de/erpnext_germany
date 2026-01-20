@@ -6,9 +6,7 @@ frappe.ui.form.on("Business Trip", {
 		frm.set_query("employee", erpnext.queries.employee);
 		frm.set_query("region", (doc) => {
 			return {
-				filters: {
-					valid_from: ["<=", doc.from_date],
-				},
+				filters: [["Business Trip Region Allowance", "valid_from", "<=", doc.from_date]],
 			};
 		});
 	},
