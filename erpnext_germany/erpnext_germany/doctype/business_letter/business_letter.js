@@ -49,7 +49,5 @@ function set_html_data(frm) {
 	)}</div></div>`;
 
 	frm.get_field("html_notice").$wrapper.html(html_notice);
-	frm.get_field("html_help").$wrapper.html(
-		`<div>${erpnext_germany.business_letter.get_help_text()}</div>`
-	);
+	frm.get_field("html_help").$wrapper.html(`<div>${erpnext_germany.business_letter.get_help_text()}</div>`);
 }
