@@ -92,6 +92,26 @@ Log in with the Username `Administrator` and the default password `admin`.
 
 Read more about the setup in the [docker/README.md](docker/README.md) file.
 
+### Contributing
+
+#### Create a release
+
+Create a temporary release branch based on the current hotfix branch:
+
+```bash
+git fetch upstream
+git checkout upstream/version-XX-hotfix
+git checkout -b version-XX-release
+```
+
+Create a PR against the main branch:
+
+```bash
+gh pr create --base version-XX --title "chore: release vXX" --body ""
+```
+
+If all tests pass, merge the PR using a merge commit (don't rebase or squash). This should automatically delete the release branch and trigger a CI workflow to create a new release.
+
 ### License
 
 GNU GPL V3. See the `LICENSE` file for more information.
