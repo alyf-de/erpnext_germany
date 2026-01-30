@@ -73,7 +73,7 @@ class BusinessTrip(Document):
 		if not self.region:
 			return
 
-		is_multiday_trip = bool(self.from_date != self.to_date)
+		is_multiday_trip = self.from_date != self.to_date
 
 		for allowance in self.allowances:
 			whole_day = 0.0
