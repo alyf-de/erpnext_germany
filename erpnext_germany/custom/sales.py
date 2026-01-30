@@ -22,10 +22,9 @@ def on_trash(doc: SellingController, event: str | None = None) -> None:
 
 
 def is_not_latest_in_series(doctype, name, creation, company, naming_series: str | None = None):
-	# Check if the document is not the latest within its naming series and company.
-
+	"""Check if the document is not the latest within its naming series and company."""
 	if not naming_series:
-		# If no naming series, fallback to old global behavior
+		# find a newer doc with the same company
 		return frappe.db.exists(
 			doctype,
 			{
@@ -35,7 +34,7 @@ def is_not_latest_in_series(doctype, name, creation, company, naming_series: str
 			},
 		)
 
-	# Filter for newer docs in the same naming_series
+	# find a newer doc with the same naming series and company
 	return frappe.db.exists(
 		doctype,
 		{
