@@ -27,3 +27,6 @@ class BusinessTripRegion(Document):
 	def validate(self):
 		if len(set(allowance.valid_from for allowance in self.allowances)) != len(self.allowances):
 			frappe.throw(_("There are multiple allowance rows with the same Valid From date."))
+
+		for allowance in self.allowances:
+			allowance.validate()
