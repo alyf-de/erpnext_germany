@@ -19,7 +19,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 
     ![Validate EU VAT ID](docs/vat_check.png)
 
-- Allow deletion of the most recent sales transaction only
+- Allow deletion of the most recent sales transaction (per naming series and company) only
 
     This ensures consecutive numbering of transactions. Applies to **Quotation**, **Sales Order**, **Sales Invoice**.
 
