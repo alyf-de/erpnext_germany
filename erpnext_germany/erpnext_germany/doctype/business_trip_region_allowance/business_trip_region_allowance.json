@@ -1,69 +1,69 @@
 {
-    "actions": [],
-    "allow_rename": 1,
-    "creation": "2025-12-22 16:33:46.478777",
-    "doctype": "DocType",
-    "editable_grid": 1,
-    "engine": "InnoDB",
-    "field_order": [
-     "valid_from",
-     "valid_to",
-     "whole_day",
-     "arrival_or_departure",
-     "accommodation"
-    ],
-    "fields": [
-     {
-      "fieldname": "valid_from",
-      "fieldtype": "Date",
-      "in_list_view": 1,
-      "label": "Valid From",
-      "reqd": 1
-     },
-     {
-      "description": "For an absence of at least 24 hours per calendar day",
-      "fieldname": "whole_day",
-      "fieldtype": "Currency",
-      "in_list_view": 1,
-      "label": "Whole Day",
-      "reqd": 1
-     },
-     {
-      "description": "For the day of arrival and departure and for an absence of more than 8 hours per calendar day",
-      "fieldname": "arrival_or_departure",
-      "fieldtype": "Currency",
-      "in_list_view": 1,
-      "label": "Arrival or Departure",
-      "reqd": 1
-     },
-     {
-      "description": "Lump sum for accommodation expenses",
-      "fieldname": "accommodation",
-      "fieldtype": "Currency",
-      "in_list_view": 1,
-      "label": "Accommodation",
-      "reqd": 1
-     },
-     {
-      "description": "A Valid To is not needed if these rates are replaced by a row with a newer Valid From date.\nSet the Valid To date only if this region's allowance is being retired and will not be replaced by a newer rate.",
-      "fieldname": "valid_to",
-      "fieldtype": "Date",
-      "label": "Valid To"
-     }
-    ],
-    "grid_page_length": 50,
-    "index_web_pages_for_search": 1,
-    "istable": 1,
-    "links": [],
-    "modified": "2026-01-30 16:32:34.099709",
-    "modified_by": "Administrator",
-    "module": "ERPNext Germany",
-    "name": "Business Trip Region Allowance",
-    "owner": "Administrator",
-    "permissions": [],
-    "row_format": "Dynamic",
-    "rows_threshold_for_grid_search": 20,
-    "sort_field": "modified",
-    "sort_order": "DESC",
-    "states": []
-   }
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2025-12-22 16:33:46.478777",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "valid_from",
+  "valid_to",
+  "whole_day",
+  "arrival_or_departure",
+  "accommodation"
+ ],
+ "fields": [
+  {
+   "fieldname": "valid_from",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Valid From",
+   "reqd": 1
+  },
+  {
+   "description": "For an absence of at least 24 hours per calendar day",
+   "fieldname": "whole_day",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Whole Day",
+   "reqd": 1
+  },
+  {
+   "description": "For the day of arrival and departure and for an absence of more than 8 hours per calendar day",
+   "fieldname": "arrival_or_departure",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Arrival or Departure",
+   "reqd": 1
+  },
+  {
+   "description": "Lump sum for accommodation expenses",
+   "fieldname": "accommodation",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Accommodation",
+   "reqd": 1
+  },
+  {
+   "description": "A Valid To is not needed if these rates are replaced by a row with a newer Valid From date.\nSet the Valid To date only if this region's allowance is being retired and will not be replaced by a newer rate.",
+   "fieldname": "valid_to",
+   "fieldtype": "Date",
+   "label": "Valid To"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-01-30 16:32:34.099709",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Business Trip Region Allowance",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
