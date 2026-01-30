@@ -1,13 +1,15 @@
 # Copyright (c) 2024, ALYF GmbH and contributors
 # For license information, please see license.txt
+from datetime import date, datetime
 from typing import TYPE_CHECKING
 
 import frappe
 from frappe import get_installed_apps
 from frappe.model.document import Document
-from frappe.utils.data import fmt_money
+from frappe.utils.data import fmt_money, get_time
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
+ONE_DAY_TRIP_MINIMUM_HOURS = 8
 
 if TYPE_CHECKING:
 	from erpnext_germany.erpnext_germany.doctype.business_trip_settings.business_trip_settings import (
@@ -72,6 +74,8 @@ class BusinessTrip(Document):
 		if not self.region:
 			return
 
+		is_overnight_trip = bool(self.from_date != self.to_date)
+
 		for allowance in self.allowances:
 			whole_day = 0.0
 			arrival_or_departure = 0.0
@@ -97,6 +101,17 @@ class BusinessTrip(Document):
 
 			if not allowance.accommodation_was_provided:
 				amount += accommodation
+
+			# One-day trip (no overnight): 8-hour minimum for arrival/departure allowance.
+			# Multi-day with overnight: full small rate for arrival/departure day regardless of hours.
+			if not allowance.whole_day and not is_overnight_trip:
+				t_from = get_time(allowance.from_time)
+				t_to = get_time(allowance.to_time)
+				duration_hours = (
+					datetime.combine(date.min, t_to) - datetime.combine(date.min, t_from)
+				).total_seconds() / 3600
+				if duration_hours < ONE_DAY_TRIP_MINIMUM_HOURS:
+					amount = 0.0
 
 			allowance.amount = max(amount, 0.0)
 
@@ -279,10 +294,6 @@ def _get_allowance_rates(region: str, date: str):
 			"parent": region,
 			"valid_from": ["<=", date],
 		},
-		or_filters=[
-			["valid_to", "is", "not set"],
-			["valid_to", ">=", date],
-		],
 		order_by="valid_from DESC",
 		fields=["valid_from", "whole_day", "arrival_or_departure", "accommodation"],
 	)
