@@ -20,6 +20,9 @@ class BusinessTripRegionAllowance(Document):
 		parentfield: DF.Data
 		parenttype: DF.Data
 		valid_from: DF.Date
+		valid_to: DF.Date | None
 		whole_day: DF.Currency
 	# end: auto-generated types
-	pass
+
+	def validate(self):
+		self.validate_from_to_dates("valid_from", "valid_to")
