@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2025-10-20 00:48+0053\n"
+"POT-Creation-Date: 2026-01-30 17:46+0053\n"
 "PO-Revision-Date: 2025-02-20 11:46+0100\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language: de\n"
@@ -18,8 +18,18 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
 
-#. Label of a Currency field in DocType 'Business Trip Region'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#. Description of the 'Valid To' (Date) field in DocType 'Business Trip Region
+#. Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
+msgid ""
+"A Valid To is not needed if these rates are replaced by a row with a newer Valid From date.\n"
+"Set the Valid To date only if this region's allowance is being retired and will not be replaced by a newer rate."
+msgstr ""
+"Ein Gültig-bis-Datum ist nicht erforderlich, wenn diese Sätze durch eine Zeile mit einem neueren Gültig-ab-Datum ersetzt werden.\n"
+"Setzen Sie das Gültig-bis-Datum nur, wenn die Verpflegungspauschale dieser Region eingestellt wird und nicht durch einen neueren Satz ersetzt wird."
+
+#. Label of a Currency field in DocType 'Business Trip Region Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
 msgid "Accommodation"
 msgstr "Unterkunft"
 
@@ -72,7 +82,9 @@ msgid "Allow deletion of the most recent record only. Applies to <b>Quotation</b
 msgstr "Falls aktiviert, kann nur die neueste Transaktion vom Typ <b>Angebot</b>, <b>Verkaufsauftrag</b> und <b>Verkaufsrechnung</b> gelöscht werden."
 
 #. Label of a Table field in DocType 'Business Trip'
+#. Label of a Table field in DocType 'Business Trip Region'
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
 msgid "Allowances"
 msgstr "Verpflegungspauschalen"
 
@@ -94,19 +106,25 @@ msgid "Approved"
 msgstr "Genehmigt"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:32
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:27
 msgid "April"
 msgstr "April"
 
-#. Label of a Currency field in DocType 'Business Trip Region'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:37
+msgid "April - May"
+msgstr "April - Mai"
+
+#. Label of a Currency field in DocType 'Business Trip Region Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
 msgid "Arrival or Departure"
 msgstr "Ankunft oder Abreise"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:36
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:31
 msgid "August"
 msgstr "August"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:209
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:207
 msgid "Before creating a purchase invoice, please save this record."
 msgstr "Bitte speichern Sie diesen Datensatz, bevor Sie eine Eingangsrechnung erstellen."
 
@@ -183,11 +201,20 @@ msgid "Business Trip Region"
 msgstr "Dienstreise-Region"
 
 #. Name of a DocType
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
+msgid "Business Trip Region Allowance"
+msgstr "Dienstreise-Region Verpflegungspauschale"
+
+#. Name of a DocType
 #. Label of a Link in the Germany Workspace
 #: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Business Trip Settings"
 msgstr "Dienstreise-Einstellungen"
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:44
+msgid "Calendar Year"
+msgstr "Kalenderjahr"
 
 #: erpnext_germany/custom/sales.py:18
 msgid "Cannot delete this transaction"
@@ -220,7 +247,7 @@ msgstr "Anzahl Kinderfreibeträge"
 msgid "City"
 msgstr "Stadt"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:194
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:192
 msgid "Close"
 msgstr ""
 
@@ -231,6 +258,7 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:9
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:8
 msgid "Company"
 msgstr "Unternehmen"
 
@@ -325,6 +353,7 @@ msgid "Debit until {0}"
 msgstr "Soll bis {0}"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:40
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:35
 msgid "December"
 msgstr "Dezember"
 
@@ -353,13 +382,17 @@ msgstr "Deaktiviert"
 msgid "Distance"
 msgstr "Entfernung"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:141
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:139
 msgid "DocType"
 msgstr ""
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:149
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:147
 msgid "Document Name"
 msgstr ""
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:50
+msgid "Download CSV"
+msgstr "CSV herunterladen"
 
 #: erpnext_germany/config/desktop.py:11
 msgid "ERPNext Germany"
@@ -419,24 +452,33 @@ msgid "Expense Claim Type for Mileage Allowance"
 msgstr "Art der Auslagenabrechnung für Kilometerpauschale"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:30
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:25
 msgid "February"
 msgstr "Februar"
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:40
+msgid "First Quarter"
+msgstr "Erstes Quartal"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:17
 msgid "Fiscal Year"
 msgstr "Geschäftsjahr"
 
 #. Description of the 'Whole Day' (Currency) field in DocType 'Business Trip
-#. Region'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#. Region Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
 msgid "For an absence of at least 24 hours per calendar day"
 msgstr "Für eine Abwesenheit von mindestens 24 Stunden pro Kalendertag"
 
 #. Description of the 'Arrival or Departure' (Currency) field in DocType
-#. 'Business Trip Region'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#. 'Business Trip Region Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
 msgid "For the day of arrival and departure and for an absence of more than 8 hours per calendar day"
 msgstr "Für den An- und Abreisetag und für eine Abwesenheit von mehr als 8 Stunden pro Kalendertag"
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:43
+msgid "Fourth Quarter"
+msgstr "Viertes Quartal"
 
 #. Label of a Data field in DocType 'Business Trip Journey'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
@@ -460,7 +502,7 @@ msgstr "Ab Uhrzeit"
 msgid "Germany"
 msgstr "Deutschland"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:164
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:162
 msgid "Grand Total"
 msgstr ""
 
@@ -509,8 +551,13 @@ msgid "Is Valid"
 msgstr "Ist gültig"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:29
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:24
 msgid "January"
 msgstr "Januar"
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:36
+msgid "January - February"
+msgstr "Januar - Februar"
 
 #. Label of a Table field in DocType 'Business Trip'
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
@@ -518,10 +565,16 @@ msgid "Journeys"
 msgstr "Fahrten"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:35
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:30
 msgid "July"
 msgstr "Juli"
 
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:38
+msgid "July - August"
+msgstr "Juli - August"
+
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:34
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:29
 msgid "June"
 msgstr "Juni"
 
@@ -540,7 +593,7 @@ msgstr "Verknüpftes Dokument"
 msgid "Link Title"
 msgstr "Titel des verknüpften Dokuments"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:123
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:121
 msgid "Linked Documents"
 msgstr "Verknüpfte Dokumente"
 
@@ -550,8 +603,8 @@ msgid "Load From Template"
 msgstr "Aus Vorlage laden"
 
 #. Description of the 'Accommodation' (Currency) field in DocType 'Business
-#. Trip Region'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#. Trip Region Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
 msgid "Lump sum for accommodation expenses"
 msgstr "Pauschale für Unterkunftskosten"
 
@@ -561,10 +614,12 @@ msgid "Lunch was Provided"
 msgstr "Mittagessen wurde gestellt"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:31
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:26
 msgid "March"
 msgstr "März"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:33
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:28
 msgid "May"
 msgstr "Mai"
 
@@ -586,17 +641,23 @@ msgstr "Monat"
 msgid "Nationality"
 msgstr "Nationalität"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:182
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:180
 msgid "No linked documents found."
 msgstr "Keine verknüpften Dokumente gefunden."
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:39
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:34
 msgid "November"
 msgstr "November"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:38
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:33
 msgid "October"
 msgstr "Oktober"
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:39
+msgid "October - November"
+msgstr "Oktober - November"
 
 #: erpnext_germany/custom/sales.py:15
 msgid "Only the most recent {0} can be deleted in order to avoid gaps in numbering."
@@ -642,15 +703,23 @@ msgstr "USt-IdNr. der Partei"
 msgid "Pay to Employee"
 msgstr "An Mitarbeiter zahlen"
 
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:21
+msgid "Period"
+msgstr "Zeitraum"
+
 #. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check_list.js:10
 msgid "Planned"
 msgstr "Geplant"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:65
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:63
 msgid "Please enter a start and end date of the trip!"
 msgstr "Bitte geben Sie das Start- und Enddatum Ihrer Reise ein!"
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.py:114
+msgid "Please set a VAT ID / Tax ID in Company {0}"
+msgstr "Bitte hinterlegen Sie eine USt-IdNr. / Steuer-IdNr. für Unternehmen {0}"
 
 #. Label of a Check field in DocType 'ERPNext Germany Settings'
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
@@ -662,7 +731,7 @@ msgstr "Lücken im Nummernkreis vermeiden"
 msgid "Preview"
 msgstr "Vorschau"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:191
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:189
 msgid "Processing Details"
 msgstr "Bearbeitungsdetails"
 
@@ -786,16 +855,21 @@ msgstr "Stammdaten-Manager Vertrieb"
 msgid "Sales User"
 msgstr "Vertriebsbenutzer"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:208
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:206
 msgid "Save Required"
 msgstr "Speichern erforderlich"
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:41
+msgid "Second Quarter"
+msgstr "Zweites Quartal"
 
 #. Label of a Column Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 msgid "Sender"
-msgstr ""
+msgstr "Absender"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:37
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:32
 msgid "September"
 msgstr "September"
 
@@ -809,13 +883,13 @@ msgstr "Dienst nicht verfügbar"
 msgid "Setup"
 msgstr "Einrichtung"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:18
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:16
 msgid "Show Processing Details"
 msgstr "Bearbeitungsdetails anzeigen"
 
 #. Label of a Select field in DocType 'Business Trip'
 #. Label of a Select field in DocType 'VAT ID Check'
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:171
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:169
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
 msgid "Status"
@@ -843,11 +917,11 @@ msgstr "Gebucht"
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.json
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Summen- und Saldenliste"
-msgstr ""
+msgstr "Summen- und Saldenliste"
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:157
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:155
 msgid "Supplier Name"
-msgstr ""
+msgstr "Name des Lieferanten"
 
 #. Name of a role
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -896,9 +970,17 @@ msgstr "Taxi"
 msgid "The VAT ID in {0} is invalid."
 msgstr "Die USt-IdNr. in {0} ist ungültig."
 
-#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:73
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:71
 msgid "The end date should not be before the start date!"
 msgstr "Das Enddatum darf nicht vor dem Startdatum liegen!"
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.py:29
+msgid "There are multiple allowance rows with the same Valid From date."
+msgstr "Es gibt mehrere Zeilen mit demselben Gültig Ab-Datum."
+
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:42
+msgid "Third Quarter"
+msgstr "Drittes Quartal"
 
 #. Label of a Data field in DocType 'Business Trip'
 #. Label of a Data field in DocType 'Business Trip Region'
@@ -1000,10 +1082,15 @@ msgstr "USt-IdNr Prüfung"
 msgid "Valid"
 msgstr "Gültig"
 
-#. Label of a Date field in DocType 'Business Trip Region'
-#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#. Label of a Date field in DocType 'Business Trip Region Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
 msgid "Valid From"
 msgstr "Gültig ab"
+
+#. Label of a Date field in DocType 'Business Trip Region Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
+msgid "Valid To"
+msgstr "Gültig bis"
 
 #. Label of a shortcut in the Germany Workspace
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
@@ -1011,9 +1098,9 @@ msgid "Vat Id Check"
 msgstr "USt-ID Prüfung"
 
 #. Label of a Check field in DocType 'Business Trip Allowance'
-#. Label of a Currency field in DocType 'Business Trip Region'
+#. Label of a Currency field in DocType 'Business Trip Region Allowance'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_allowance/business_trip_allowance.json
-#: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.json
+#: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
 msgid "Whole Day"
 msgstr "Ganztägig"
 
@@ -1021,9 +1108,20 @@ msgstr "Ganztägig"
 msgid "Working Hours Per Week"
 msgstr "Arbeitsstunden pro Woche"
 
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:15
+msgid "Year"
+msgstr ""
+
 #: erpnext_germany/public/js/erpnext_germany/business_letter.js:7
 msgid "You can use {0} in the Subject and Content fields for dynamic values.<br><br>All address details are available under the <code>address</code> object (e.g., <code>{{ address.city }}</code>), contact details under the <code>contact</code> object (e.g., <code>{{ contact.first_name }}</code>), and any specific information related to the dynamically linked document under the <code>reference</code> object (e.g., <code>{{ reference.some_field }}</code>).<br><br>"
 msgstr "Sie können in den Betreff- und Inhalt-Feldern {0} für dynamische Werte verwenden.<br><br>Alle Adressdetails sind unter dem <code>address</code>-Objekt verfügbar (z.B., <code>{{ address.city }}</code>), Kontaktdetails unter dem <code>contact</code>-Objekt (z.B., <code>{{ contact.first_name }}</code>), und jegliche spezifischen Informationen, die mit dem dynamisch verlinkten Dokument zusammenhängen, unter dem <code>reference</code>-Objekt (z.B., <code>{{ reference.some_field }}</code>).<br><br>"
+
+#. Name of a report
+#. Label of a Link in the Germany Workspace
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.json
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "Zusammenfassende Meldung"
+msgstr ""
 
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.py:49
 msgid "cancelled Business Letter {0}"

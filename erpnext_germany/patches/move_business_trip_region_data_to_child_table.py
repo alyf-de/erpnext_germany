@@ -1,4 +1,5 @@
 import frappe
+from frappe.utils.data import getdate
 
 
 def execute():
@@ -9,7 +10,11 @@ def execute():
 	for business_trip_region_id in regions:
 		doc = frappe.get_doc("Business Trip Region", business_trip_region_id)
 
-		# Step 1: Move the data to the child table.
+		if getdate(doc.valid_from or "2000-01-01") in {
+			getdate(allowance.valid_from) for allowance in doc.allowances
+		}:
+			continue
+
 		doc.append(
 			"allowances",
 			{
