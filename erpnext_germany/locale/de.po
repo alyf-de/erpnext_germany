@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2026-01-30 16:35+0053\n"
+"POT-Creation-Date: 2026-01-30 17:46+0053\n"
 "PO-Revision-Date: 2025-02-20 11:46+0100\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language: de\n"
@@ -112,7 +112,7 @@ msgstr "April"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:37
 msgid "April - May"
-msgstr ""
+msgstr "April - Mai"
 
 #. Label of a Currency field in DocType 'Business Trip Region Allowance'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region_allowance/business_trip_region_allowance.json
@@ -214,7 +214,7 @@ msgstr "Dienstreise-Einstellungen"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:44
 msgid "Calendar Year"
-msgstr ""
+msgstr "Kalenderjahr"
 
 #: erpnext_germany/custom/sales.py:18
 msgid "Cannot delete this transaction"
@@ -392,7 +392,7 @@ msgstr ""
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:50
 msgid "Download CSV"
-msgstr ""
+msgstr "CSV herunterladen"
 
 #: erpnext_germany/config/desktop.py:11
 msgid "ERPNext Germany"
@@ -458,7 +458,7 @@ msgstr "Februar"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:40
 msgid "First Quarter"
-msgstr ""
+msgstr "Erstes Quartal"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:17
 msgid "Fiscal Year"
@@ -478,7 +478,7 @@ msgstr "Für den An- und Abreisetag und für eine Abwesenheit von mehr als 8 Stu
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:43
 msgid "Fourth Quarter"
-msgstr ""
+msgstr "Viertes Quartal"
 
 #. Label of a Data field in DocType 'Business Trip Journey'
 #: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
@@ -557,7 +557,7 @@ msgstr "Januar"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:36
 msgid "January - February"
-msgstr ""
+msgstr "Januar - Februar"
 
 #. Label of a Table field in DocType 'Business Trip'
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.json
@@ -571,7 +571,7 @@ msgstr "Juli"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:38
 msgid "July - August"
-msgstr ""
+msgstr "Juli - August"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:34
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:29
@@ -657,7 +657,7 @@ msgstr "Oktober"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:39
 msgid "October - November"
-msgstr ""
+msgstr "Oktober - November"
 
 #: erpnext_germany/custom/sales.py:15
 msgid "Only the most recent {0} can be deleted in order to avoid gaps in numbering."
@@ -705,7 +705,7 @@ msgstr "An Mitarbeiter zahlen"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:21
 msgid "Period"
-msgstr ""
+msgstr "Zeitraum"
 
 #. Option for the 'Status' (Select) field in DocType 'VAT ID Check'
 #: erpnext_germany/erpnext_germany/doctype/vat_id_check/vat_id_check.json
@@ -717,9 +717,9 @@ msgstr "Geplant"
 msgid "Please enter a start and end date of the trip!"
 msgstr "Bitte geben Sie das Start- und Enddatum Ihrer Reise ein!"
 
-#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.py:117
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.py:114
 msgid "Please set a VAT ID / Tax ID in Company {0}"
-msgstr ""
+msgstr "Bitte hinterlegen Sie eine USt-IdNr. / Steuer-IdNr. für Unternehmen {0}"
 
 #. Label of a Check field in DocType 'ERPNext Germany Settings'
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
@@ -861,12 +861,12 @@ msgstr "Speichern erforderlich"
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:41
 msgid "Second Quarter"
-msgstr ""
+msgstr "Zweites Quartal"
 
 #. Label of a Column Break field in DocType 'Business Letter'
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
 msgid "Sender"
-msgstr ""
+msgstr "Absender"
 
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.js:37
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:32
@@ -917,11 +917,11 @@ msgstr "Gebucht"
 #: erpnext_germany/erpnext_germany/report/summen__und_saldenliste/summen__und_saldenliste.json
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "Summen- und Saldenliste"
-msgstr ""
+msgstr "Summen- und Saldenliste"
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js:155
 msgid "Supplier Name"
-msgstr ""
+msgstr "Name des Lieferanten"
 
 #. Name of a role
 #: erpnext_germany/erpnext_germany/doctype/business_letter/business_letter.json
@@ -976,11 +976,11 @@ msgstr "Das Enddatum darf nicht vor dem Startdatum liegen!"
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip_region/business_trip_region.py:29
 msgid "There are multiple allowance rows with the same Valid From date."
-msgstr ""
+msgstr "Es gibt mehrere Zeilen mit demselben Gültig Ab-Datum."
 
 #: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.js:42
 msgid "Third Quarter"
-msgstr ""
+msgstr "Drittes Quartal"
 
 #. Label of a Data field in DocType 'Business Trip'
 #. Label of a Data field in DocType 'Business Trip Region'
@@ -1141,4 +1141,9 @@ msgstr "Wert / Entfernung: z.B. 0,30€/km"
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "{} Invalid"
 msgstr "{} Ungültig"
+
+#. Count format of shortcut in the Germany Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "{} Open"
+msgstr "{} Offen"
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ERPNext Germany VERSION\n"
 "Report-Msgid-Bugs-To: hallo@alyf.de\n"
-"POT-Creation-Date: 2026-01-30 16:35+0053\n"
-"PO-Revision-Date: 2026-01-30 16:35+0053\n"
+"POT-Creation-Date: 2026-01-30 17:46+0053\n"
+"PO-Revision-Date: 2026-01-30 17:46+0053\n"
 "Last-Translator: hallo@alyf.de\n"
 "Language-Team: hallo@alyf.de\n"
 "MIME-Version: 1.0\n"
@@ -713,7 +713,7 @@ msgstr ""
 msgid "Please enter a start and end date of the trip!"
 msgstr ""
 
-#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.py:117
+#: erpnext_germany/erpnext_germany/report/zusammenfassende_meldung/zusammenfassende_meldung.py:114
 msgid "Please set a VAT ID / Tax ID in Company {0}"
 msgstr ""
 
@@ -1136,5 +1136,10 @@ msgstr ""
 #. Count format of shortcut in the Germany Workspace
 #: erpnext_germany/erpnext_germany/workspace/germany/germany.json
 msgid "{} Invalid"
+msgstr ""
+
+#. Count format of shortcut in the Germany Workspace
+#: erpnext_germany/erpnext_germany/workspace/germany/germany.json
+msgid "{} Open"
 msgstr ""
 
