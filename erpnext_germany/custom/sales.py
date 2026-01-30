@@ -10,7 +10,9 @@ def on_trash(doc: SellingController, event: str | None = None) -> None:
 	if not frappe.db.get_single_value("ERPNext Germany Settings", "prevent_gaps_in_transaction_naming"):
 		return
 
-	if is_not_latest_in_series(doc.doctype, doc.name, doc.creation, doc.company, doc.naming_series):
+	if is_not_latest_in_series(
+		doc.doctype, doc.name, doc.creation, doc.company, getattr(doc, "naming_series", None)
+	):
 		frappe.throw(
 			msg=_(
 				"Only the most recent {0} within the same series can be deleted to avoid gaps in numbering."
@@ -19,7 +21,7 @@ def on_trash(doc: SellingController, event: str | None = None) -> None:
 		)
 
 
-def is_not_latest_in_series(doctype, name, creation, company, naming_series):
+def is_not_latest_in_series(doctype, name, creation, company, naming_series: str | None = None):
 	# Check if the document is not the latest within its naming series and company.
 
 	if not naming_series:
