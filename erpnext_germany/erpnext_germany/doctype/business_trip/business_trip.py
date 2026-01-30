@@ -8,6 +8,7 @@ from frappe.model.document import Document
 from frappe.utils.data import fmt_money
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
+ONE_DAY_TRIP_MINIMUM_HOURS = 8
 
 if TYPE_CHECKING:
 	from erpnext_germany.erpnext_germany.doctype.business_trip_settings.business_trip_settings import (
@@ -72,6 +73,8 @@ class BusinessTrip(Document):
 		if not self.region:
 			return
 
+		is_multiday_trip = self.from_date != self.to_date
+
 		for allowance in self.allowances:
 			whole_day = 0.0
 			arrival_or_departure = 0.0
@@ -97,6 +100,11 @@ class BusinessTrip(Document):
 
 			if not allowance.accommodation_was_provided:
 				amount += accommodation
+
+			# One-day trip (no overnight): 8-hour minimum for arrival/departure allowance.
+			# First day of multi-day trip: rate for arrival/departure regardless of hours.
+			if not is_multiday_trip and not allowance.is_longer_than(ONE_DAY_TRIP_MINIMUM_HOURS):
+				amount = 0.0
 
 			allowance.amount = max(amount, 0.0)
 
