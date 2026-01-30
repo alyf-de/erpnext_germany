@@ -1,7 +1,11 @@
 from frappe import get_app_path
 
-from erpnext_germany.install import import_csv
+from erpnext_germany.install import business_trip_region_csv_import, import_csv
 
 
 def execute():
-	import_csv("Business Trip Region", get_app_path("erpnext_germany", "data", "business_trip_region.csv"))
+	import_csv(
+		"Business Trip Region",
+		get_app_path("erpnext_germany", "data", "business_trip_region.csv"),
+		business_trip_region_csv_import,
+	)

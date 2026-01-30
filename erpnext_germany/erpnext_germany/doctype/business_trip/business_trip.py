@@ -279,6 +279,10 @@ def _get_allowance_rates(region: str, date: str):
 			"parent": region,
 			"valid_from": ["<=", date],
 		},
+		or_filters=[
+			["valid_to", "is", "not set"],
+			["valid_to", ">=", date],
+		],
 		order_by="valid_from DESC",
 		fields=["valid_from", "whole_day", "arrival_or_departure", "accommodation"],
 	)

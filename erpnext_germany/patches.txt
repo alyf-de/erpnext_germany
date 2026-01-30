@@ -7,10 +7,10 @@ execute:from erpnext_germany.install import insert_custom_records; insert_custom
 erpnext_germany.patches.change_position_of_register_info
 erpnext_germany.patches.dynamic_party_in_vat_id_check
 erpnext_germany.patches.add_business_trip_to_expense_claim
-erpnext_germany.patches.import_business_trip_regions
 execute:from erpnext_germany.install import make_custom_fields; make_custom_fields() # 2025-12-12
 execute:frappe.db.set_single_value("ERPNext Germany Settings", "prevent_gaps_in_transaction_naming", 1)
 erpnext_germany.patches.set_business_trip_settings
 erpnext_germany.patches.remove_some_employee_property_setters
 execute:from erpnext_germany.install import make_property_setters; make_property_setters()
 erpnext_germany.patches.move_business_trip_region_data_to_child_table #2
+erpnext_germany.patches.import_business_trip_regions # 2026-01-30
