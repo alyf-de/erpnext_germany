@@ -10,6 +10,7 @@ from tenacity import (
 	wait_exponential,
 )
 from zeep import Client
+from zeep.exceptions import XMLSyntaxError
 
 WSDL_URL = "https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl"
 COUNTRY_CODE_REGEX = r"^[A-Z]{2}$"
@@ -45,6 +46,7 @@ def check_vat(country_code: str, vat_number: str):
 		retry_if_exception_message(message="MS_UNAVAILABLE"),
 		retry_if_exception_message(message="TIMEOUT"),
 		retry_if_exception_type(ConnectionError),
+		retry_if_exception_type(XMLSyntaxError),
 	),
 	stop=stop_after_attempt(3),
 	wait=wait_exponential(multiplier=1, min=2, max=64),
