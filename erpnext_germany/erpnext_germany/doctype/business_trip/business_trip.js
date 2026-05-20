@@ -12,6 +12,17 @@ frappe.ui.form.on("Business Trip", {
 	},
 
 	refresh(frm) {
+		if (frm.fields_dict.from_date?.datepicker) {
+			frm.fields_dict.from_date.datepicker.update({
+				maxDate: frm.doc.to_date ? new Date(frm.doc.to_date) : null,
+			});
+		}
+		if (frm.fields_dict.to_date?.datepicker) {
+			frm.fields_dict.to_date.datepicker.update({
+				minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null,
+			});
+		}
+		
 		if (frm.doc.docstatus === 1) {
 			frm.add_custom_button(__("Show Processing Details"), function () {
 				show_processing_details_dialog(frm);
