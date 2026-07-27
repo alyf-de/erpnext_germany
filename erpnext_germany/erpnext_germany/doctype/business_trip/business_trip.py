@@ -243,23 +243,31 @@ def get_processing_details(business_trip: str):
 	frappe.has_permission("Business Trip", doc=business_trip, throw=True)
 
 	# Get Expense Claims
-	expense_claims = frappe.get_all(
-		"Expense Claim",
-		filters={
-			"business_trip": business_trip,
-			"docstatus": ["!=", 2],
-		},
-		fields=["name", "grand_total", "status"],
+	expense_claims = (
+		frappe.get_list(
+			"Expense Claim",
+			filters={
+				"business_trip": business_trip,
+				"docstatus": ["!=", 2],
+			},
+			fields=["name", "grand_total", "status"],
+		)
+		if frappe.has_permission("Expense Claim")
+		else []
 	)
 
 	# Get Purchase Invoices
-	purchase_invoices = frappe.get_all(
-		"Purchase Invoice",
-		filters={
-			"business_trip": business_trip,
-			"docstatus": ["!=", 2],
-		},
-		fields=["name", "grand_total", "status", "supplier_name"],
+	purchase_invoices = (
+		frappe.get_list(
+			"Purchase Invoice",
+			filters={
+				"business_trip": business_trip,
+				"docstatus": ["!=", 2],
+			},
+			fields=["name", "grand_total", "status", "supplier_name"],
+		)
+		if frappe.has_permission("Purchase Invoice")
+		else []
 	)
 
 	# Combine and add doctype field
