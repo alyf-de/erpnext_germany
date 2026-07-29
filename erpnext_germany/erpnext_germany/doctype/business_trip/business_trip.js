@@ -12,6 +12,8 @@ frappe.ui.form.on("Business Trip", {
 	},
 
 	refresh(frm) {
+		set_date_constraints(frm);
+
 		if (frm.doc.docstatus === 1) {
 			frm.add_custom_button(__("Show Processing Details"), function () {
 				show_processing_details_dialog(frm);
@@ -19,22 +21,31 @@ frappe.ui.form.on("Business Trip", {
 		}
 	},
 
-	from_date: function (frm) {
+	from_date(frm) {
 		if (!frm.doc.to_date) {
 			frm.set_value("to_date", frm.doc.from_date);
 		}
 
-		frm.fields_dict.to_date.datepicker.update({
-			minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null,
-		});
+		set_date_constraints(frm);
 	},
 
-	to_date: function (frm) {
+	to_date(frm) {
+		set_date_constraints(frm);
+	},
+});
+
+function set_date_constraints(frm) {
+	if (frm.fields_dict.from_date?.datepicker) {
 		frm.fields_dict.from_date.datepicker.update({
 			maxDate: frm.doc.to_date ? new Date(frm.doc.to_date) : null,
 		});
-	},
-});
+	}
+	if (frm.fields_dict.to_date?.datepicker) {
+		frm.fields_dict.to_date.datepicker.update({
+			minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null,
+		});
+	}
+}
 
 frappe.ui.form.on("Business Trip Journey", {
 	journeys_add(frm, cdt, cdn) {
