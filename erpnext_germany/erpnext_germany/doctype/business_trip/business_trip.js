@@ -44,9 +44,8 @@ frappe.ui.form.on("Business Trip", {
 				minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null,
 			});
 		}
-	}
+	},
 });
-
 
 frappe.ui.form.on("Business Trip Journey", {
 	journeys_add(frm, cdt, cdn) {
