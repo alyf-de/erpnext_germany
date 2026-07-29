@@ -12,7 +12,7 @@ frappe.ui.form.on("Business Trip", {
 	},
 
 	refresh(frm) {
-		set_date_constraints(frm);
+		frm.trigger("set_date_constraints");
 
 		if (frm.doc.docstatus === 1) {
 			frm.add_custom_button(__("Show Processing Details"), function () {
@@ -26,26 +26,27 @@ frappe.ui.form.on("Business Trip", {
 			frm.set_value("to_date", frm.doc.from_date);
 		}
 
-		set_date_constraints(frm);
+		frm.trigger("set_date_constraints");
 	},
 
 	to_date(frm) {
-		set_date_constraints(frm);
+		frm.trigger("set_date_constraints");
 	},
+
+	set_date_constraints(frm) {
+		if (frm.fields_dict.from_date?.datepicker) {
+			frm.fields_dict.from_date.datepicker.update({
+				maxDate: frm.doc.to_date ? new Date(frm.doc.to_date) : null,
+			});
+		}
+		if (frm.fields_dict.to_date?.datepicker) {
+			frm.fields_dict.to_date.datepicker.update({
+				minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null,
+			});
+		}
+	}
 });
 
-function set_date_constraints(frm) {
-	if (frm.fields_dict.from_date?.datepicker) {
-		frm.fields_dict.from_date.datepicker.update({
-			maxDate: frm.doc.to_date ? new Date(frm.doc.to_date) : null,
-		});
-	}
-	if (frm.fields_dict.to_date?.datepicker) {
-		frm.fields_dict.to_date.datepicker.update({
-			minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null,
-		});
-	}
-}
 
 frappe.ui.form.on("Business Trip Journey", {
 	journeys_add(frm, cdt, cdn) {
