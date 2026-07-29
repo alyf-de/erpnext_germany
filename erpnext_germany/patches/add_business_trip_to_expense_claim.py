@@ -2,7 +2,7 @@ from frappe import get_app_path, get_installed_apps
 from frappe.custom.doctype.custom_field.custom_field import create_custom_fields
 
 from erpnext_germany.custom_fields import _
-from erpnext_germany.install import import_csv
+from erpnext_germany.install import generic_csv_import, import_csv
 
 
 def execute():
@@ -21,4 +21,8 @@ def execute():
 			}
 		)
 
-		import_csv("Expense Claim Type", get_app_path("erpnext_germany", "data", "expense_claim_type.csv"))
+		import_csv(
+			"Expense Claim Type",
+			get_app_path("erpnext_germany", "data", "expense_claim_type.csv"),
+			generic_csv_import,
+		)
