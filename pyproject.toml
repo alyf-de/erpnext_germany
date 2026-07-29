@@ -8,11 +8,7 @@ requires-python = ">=3.14"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
-<<<<<<< HEAD
-    "zeep~=4.3.2",
-=======
     "zeep~=4.3.3",
->>>>>>> a89e452 (fix: bump zeep on v15 hotfix branch (#121))
     "tenacity~=8.2.3",
 ]
 
