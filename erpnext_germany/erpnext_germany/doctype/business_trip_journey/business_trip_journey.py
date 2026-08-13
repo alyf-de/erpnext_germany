@@ -16,6 +16,7 @@ class BusinessTripJourney(Document):
 
 		date: DF.Date
 		distance: DF.Int
+		employee_vehicle: DF.Link | None
 		mode_of_transport: DF.Literal[
 			"Car", "Car (private)", "Car (rental)", "Taxi", "Bus", "Train", "Airplane", "Public Transport"
 		]

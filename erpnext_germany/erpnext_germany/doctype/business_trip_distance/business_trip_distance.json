@@ -32,7 +32,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "From",
+   "label": "From Location",
    "reqd": 1
   },
   {
@@ -41,7 +41,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "To",
+   "label": "To Location",
    "reqd": 1
   },
   {

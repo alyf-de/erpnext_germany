@@ -9,6 +9,7 @@
   "mode_of_transport",
   "from",
   "to",
+  "employee_vehicle",
   "distance",
   "receipt",
   "create_purchase_invoice"
@@ -48,6 +49,14 @@
    "fieldtype": "Attach",
    "in_list_view": 1,
    "label": "Receipt"
+  },
+  {
+   "depends_on": "eval: [\"Car (private)\", \"Car (rental)\", \"Car\"].includes(doc.mode_of_transport)",
+   "description": "Which of the employee's vehicles was driven. Determines the rate per kilometer.",
+   "fieldname": "employee_vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "options": "Employee Vehicle"
   },
   {
    "depends_on": "eval: [\"Car (private)\", \"Car (rental)\", \"Car\"].includes(doc.mode_of_transport)",

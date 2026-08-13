@@ -1147,3 +1147,227 @@ msgstr "{} Ungültig"
 msgid "{} Open"
 msgstr "{} Offen"
 
+
+#. Name of a DocType
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "Business Trip Distance"
+msgstr "Reisestrecke"
+
+#. Name of a DocType
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Employee Vehicle"
+msgstr "Fahrzeug des Mitarbeiters"
+
+#. Label of a Data field in DocType 'Business Trip Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "From Location"
+msgstr "Von"
+
+#. Label of a Data field in DocType 'Business Trip Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "To Location"
+msgstr "Nach"
+
+#. Description of the 'From Location' (Data) field in DocType 'Business Trip
+#. Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "Starting point as it is written in the journey, e.g. <i>Heidelberg, Büro</i>."
+msgstr "Startpunkt, so geschrieben wie in der Fahrt, z.B. <i>Heidelberg, Büro</i>."
+
+#. Description of the 'To Location' (Data) field in DocType 'Business Trip
+#. Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "Destination as it is written in the journey, e.g. <i>Baden-Baden</i>."
+msgstr "Ziel, so geschrieben wie in der Fahrt, z.B. <i>Baden-Baden</i>."
+
+#. Description of the 'Distance' (Int) field in DocType 'Business Trip Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid ""
+"One way, in kilometers. A return journey is entered as two rows in the "
+"Business Trip."
+msgstr ""
+"Einfache Strecke in Kilometern. Hin- und Rückfahrt werden als zwei Zeilen in "
+"der Dienstreise erfasst."
+
+#. Label of a Check field in DocType 'Business Trip Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "Both Directions"
+msgstr "Beide Richtungen"
+
+#. Description of the 'Both Directions' (Check) field in DocType 'Business Trip
+#. Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "Also use this distance for the opposite direction."
+msgstr "Diese Strecke auch für die Gegenrichtung verwenden."
+
+#. Description of the 'Company' (Link) field in DocType 'Business Trip
+#. Distance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.json
+msgid "Leave empty to make this distance available to all companies."
+msgstr "Leer lassen, damit die Strecke für alle Gesellschaften gilt."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.py
+msgid "Distance must be greater than zero."
+msgstr "Die Entfernung muss größer als null sein."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.py
+msgid "From and To must be different."
+msgstr "Von und Nach müssen unterschiedlich sein."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.py
+msgid "{0} already covers this route."
+msgstr "{0} deckt diese Strecke bereits ab."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip_distance/business_trip_distance.py
+msgid "Duplicate Distance"
+msgstr "Doppelte Strecke"
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.js
+msgid "Distance filled in from {0}"
+msgstr "Entfernung übernommen aus {0}"
+
+#. Label of a Data field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Vehicle Name"
+msgstr "Fahrzeugname"
+
+#. Description of the 'Vehicle Name' (Data) field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "How you call this vehicle, e.g. <i>VW Passat</i>."
+msgstr "Wie Sie dieses Fahrzeug nennen, z.B. <i>VW Passat</i>."
+
+#. Label of a Data field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "License Plate"
+msgstr "Kennzeichen"
+
+#. Label of a Select field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Ownership"
+msgstr "Eigentum"
+
+#. Description of the 'Ownership' (Select) field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Only privately owned vehicles are eligible for a mileage allowance."
+msgstr "Nur für private Fahrzeuge wird eine Kilometerpauschale gezahlt."
+
+#. Option for the 'Ownership' (Select) field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Private"
+msgstr "Privat"
+
+#. Option for the 'Ownership' (Select) field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Company Car"
+msgstr "Firmenwagen"
+
+#. Option for the 'Ownership' (Select) field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Rental"
+msgstr "Mietwagen"
+
+#. Label of a Select field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Vehicle Class"
+msgstr "Fahrzeugart"
+
+#. Description of the 'Vehicle Class' (Select) field in DocType 'Employee
+#. Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Motorcycles and other motor vehicles are reimbursed at a lower rate than cars."
+msgstr ""
+"Für Motorräder und andere motorbetriebene Fahrzeuge gilt ein niedrigerer Satz "
+"als für Pkw."
+
+#. Option for the 'Vehicle Class' (Select) field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Motorcycle"
+msgstr "Motorrad"
+
+#. Option for the 'Vehicle Class' (Select) field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Other Motor Vehicle"
+msgstr "Anderes motorbetriebenes Fahrzeug"
+
+#. Label of a Link field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Fleet Vehicle"
+msgstr "Fahrzeug aus dem Fuhrpark"
+
+#. Description of the 'Fleet Vehicle' (Link) field in DocType 'Employee
+#. Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "The fleet record, if this vehicle belongs to the company."
+msgstr "Der Fuhrpark-Datensatz, falls das Fahrzeug der Gesellschaft gehört."
+
+#. Label of a Check field in DocType 'Employee Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Default Vehicle"
+msgstr "Standardfahrzeug"
+
+#. Description of the 'Default Vehicle' (Check) field in DocType 'Employee
+#. Vehicle'
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.json
+msgid "Proposed first when a journey is entered."
+msgstr "Wird bei der Erfassung einer Fahrt zuerst vorgeschlagen."
+
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.py
+msgid "{0} is already the default vehicle of this employee."
+msgstr "{0} ist bereits das Standardfahrzeug dieses Mitarbeiters."
+
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.py
+msgid "Duplicate Default Vehicle"
+msgstr "Doppeltes Standardfahrzeug"
+
+#. Label of a Link field in DocType 'Business Trip Journey'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
+msgid "Vehicle"
+msgstr "Fahrzeug"
+
+#. Description of the 'Vehicle' (Link) field in DocType 'Business Trip Journey'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_journey/business_trip_journey.json
+msgid "Which of the employee's vehicles was driven. Determines the rate per kilometer."
+msgstr ""
+"Welches Fahrzeug des Mitarbeiters gefahren wurde. Bestimmt den Satz je "
+"Kilometer."
+
+#. Label of a Currency field in DocType 'Business Trip Settings'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+msgid "Mileage Allowance for Other Motor Vehicles"
+msgstr "Kilometerpauschale für andere motorbetriebene Fahrzeuge"
+
+#. Description of the 'Mileage Allowance for Other Motor Vehicles' (Currency)
+#. field in DocType 'Business Trip Settings'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_settings/business_trip_settings.json
+msgid ""
+"Rate for motorcycles and other motor vehicles, e.g. 0.20€/km. Falls back to "
+"the <i>Mileage Allowance</i> if left empty."
+msgstr ""
+"Satz für Motorräder und andere motorbetriebene Fahrzeuge, z.B. 0,20€/km. "
+"Ohne Angabe gilt die <i>Kilometerpauschale</i>."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py
+msgid "Row {0}: {1} does not belong to {2}."
+msgstr "Zeile {0}: {1} gehört nicht zu {2}."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py
+msgid "Wrong Vehicle"
+msgstr "Falsches Fahrzeug"
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py
+msgid "Row {0}: {1} is disabled."
+msgstr "Zeile {0}: {1} ist deaktiviert."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py
+msgid "Disabled Vehicle"
+msgstr "Deaktiviertes Fahrzeug"
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py
+msgid "Row {0}: {1} is not a private vehicle, so no mileage allowance can be paid."
+msgstr ""
+"Zeile {0}: {1} ist kein privates Fahrzeug, daher kann keine "
+"Kilometerpauschale gezahlt werden."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py
+msgid "No Mileage Allowance"
+msgstr "Keine Kilometerpauschale"

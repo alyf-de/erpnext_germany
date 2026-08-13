@@ -9,6 +9,14 @@ frappe.ui.form.on("Business Trip", {
 				filters: [["Business Trip Region Allowance", "valid_from", "<=", doc.from_date]],
 			};
 		});
+		frm.set_query("employee_vehicle", "journeys", (doc) => {
+			return {
+				filters: {
+					employee: doc.employee,
+					disabled: 0,
+				},
+			};
+		});
 	},
 
 	refresh(frm) {
@@ -62,6 +70,7 @@ frappe.ui.form.on("Business Trip Journey", {
 	},
 
 	mode_of_transport(frm, cdt, cdn) {
+		suggest_vehicle(frm, cdt, cdn);
 		suggest_distance(frm, cdt, cdn);
 	},
 
@@ -71,6 +80,27 @@ frappe.ui.form.on("Business Trip Journey", {
 });
 
 const CAR_MODES = ["Car", "Car (private)", "Car (rental)"];
+
+/**
+ * Preselect the employee's vehicle, so only someone with several vehicles has to choose.
+ */
+function suggest_vehicle(frm, cdt, cdn) {
+	const row = locals[cdt][cdn];
+
+	if (!row || !frm.doc.employee || row.employee_vehicle || row.mode_of_transport !== "Car (private)") {
+		return;
+	}
+
+	frappe.call({
+		method: "erpnext_germany.erpnext_germany.doctype.employee_vehicle.employee_vehicle.get_default_vehicle",
+		args: { employee: frm.doc.employee },
+		callback: function (r) {
+			if (r.message && !locals[cdt][cdn]?.employee_vehicle) {
+				frappe.model.set_value(cdt, cdn, "employee_vehicle", r.message);
+			}
+		},
+	});
+}
 
 /**
  * Fill in the distance of a recurring route from the Business Trip Distance table.

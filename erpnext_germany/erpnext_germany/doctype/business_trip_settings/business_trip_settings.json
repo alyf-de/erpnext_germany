@@ -7,7 +7,8 @@
  "field_order": [
   "expense_claim_type",
   "expense_claim_type_car",
-  "mileage_allowance"
+  "mileage_allowance",
+  "mileage_allowance_other_motor_vehicle"
  ],
  "fields": [
   {
@@ -19,6 +20,15 @@
    "non_negative": 1,
    "precision": "2",
    "reqd": 1
+  },
+  {
+   "default": "0.20",
+   "description": "Rate for motorcycles and other motor vehicles, e.g. 0.20\u20ac/km. Falls back to the <i>Mileage Allowance</i> if left empty.",
+   "fieldname": "mileage_allowance_other_motor_vehicle",
+   "fieldtype": "Currency",
+   "label": "Mileage Allowance for Other Motor Vehicles",
+   "non_negative": 1,
+   "precision": "2"
   },
   {
    "fieldname": "expense_claim_type",

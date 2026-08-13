@@ -3,9 +3,14 @@
 from typing import TYPE_CHECKING
 
 import frappe
-from frappe import get_installed_apps
+from frappe import _, get_installed_apps
 from frappe.model.document import Document
 from frappe.utils.data import fmt_money
+
+from erpnext_germany.erpnext_germany.doctype.employee_vehicle.employee_vehicle import (
+	PRIVATE,
+	get_mileage_rate,
+)
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
 ONE_DAY_TRIP_MINIMUM_HOURS = 8
@@ -68,6 +73,42 @@ class BusinessTrip(Document):
 
 	def validate(self):
 		self.validate_from_to_dates("from_date", "to_date")
+		self.validate_vehicles()
+
+	def validate_vehicles(self):
+		"""A mileage allowance is only paid for the traveller's own, private vehicle."""
+		for journey in self.journeys:
+			if not journey.employee_vehicle:
+				continue
+
+			vehicle = frappe.db.get_value(
+				"Employee Vehicle",
+				journey.employee_vehicle,
+				["employee", "ownership", "disabled", "title"],
+				as_dict=True,
+			)
+
+			if vehicle.employee != self.employee:
+				frappe.throw(
+					_("Row {0}: {1} does not belong to {2}.").format(
+						journey.idx, vehicle.title, self.employee_name or self.employee
+					),
+					title=_("Wrong Vehicle"),
+				)
+
+			if vehicle.disabled:
+				frappe.throw(
+					_("Row {0}: {1} is disabled.").format(journey.idx, vehicle.title),
+					title=_("Disabled Vehicle"),
+				)
+
+			if journey.mode_of_transport == "Car (private)" and vehicle.ownership != PRIVATE:
+				frappe.throw(
+					_("Row {0}: {1} is not a private vehicle, so no mileage allowance can be paid.").format(
+						journey.idx, vehicle.title
+					),
+					title=_("No Mileage Allowance"),
+				)
 
 	def set_regional_amount(self):
 		if not self.region:
@@ -123,10 +164,11 @@ class BusinessTrip(Document):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
 
 	def calculate_total_mileage_allowance(self):
-		mileage_allowance = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
-		self.total_mileage_allowance = (
-			sum(journey.distance for journey in self.journeys if journey.mode_of_transport == "Car (private)")
-			* mileage_allowance
+		default_rate = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
+		self.total_mileage_allowance = sum(
+			journey.distance * get_mileage_rate(journey.employee_vehicle, default_rate)
+			for journey in self.journeys
+			if journey.mode_of_transport == "Car (private)"
 		)
 
 	def before_submit(self):
@@ -169,21 +211,30 @@ class BusinessTrip(Document):
 def get_mileage_allowances(
 	business_trip: BusinessTrip, expense_claim_type: str, mileage_allowance: float
 ) -> list[dict]:
-	"""Return a list of expense claim rows for mileage allowances."""
+	"""Return a list of expense claim rows for mileage allowances.
+
+	`mileage_allowance` is the standard rate. A journey with a motorcycle or another motor
+	vehicle is reimbursed at the lower rate from Business Trip Settings.
+	"""
 	expenses = []
 	for journey in business_trip.journeys:
 		if journey.mode_of_transport != "Car (private)":
 			continue
 
-		description = (
-			"{distance} * {mileage_allowance} von {from_place} nach {to_place} (Fahrt mit Privatauto)".format(
-				distance=journey.get_formatted("distance"),
-				mileage_allowance=fmt_money(mileage_allowance),
-				from_place=getattr(journey, "from"),
-				to_place=journey.to,
-			)
+		rate = get_mileage_rate(journey.employee_vehicle, mileage_allowance)
+		vehicle = (
+			frappe.db.get_value("Employee Vehicle", journey.employee_vehicle, "title")
+			if journey.employee_vehicle
+			else None
 		)
-		mileage_amount = journey.distance * mileage_allowance
+		description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} ({vehicle})".format(
+			distance=journey.get_formatted("distance"),
+			mileage_allowance=fmt_money(rate),
+			from_place=getattr(journey, "from"),
+			to_place=journey.to,
+			vehicle=f"Fahrt mit {vehicle}" if vehicle else "Fahrt mit Privatauto",
+		)
+		mileage_amount = journey.distance * rate
 		expenses.append(
 			{
 				"expense_date": journey.date,

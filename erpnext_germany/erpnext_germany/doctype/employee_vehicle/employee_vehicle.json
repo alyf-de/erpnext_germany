@@ -1,0 +1,166 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2026-08-13 19:40:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "employee",
+  "employee_name",
+  "vehicle_name",
+  "license_plate",
+  "column_break_vhcl",
+  "ownership",
+  "vehicle_class",
+  "fleet_vehicle",
+  "is_default",
+  "disabled",
+  "section_break_note",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "description": "How you call this vehicle, e.g. <i>VW Passat</i>.",
+   "fieldname": "vehicle_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Vehicle Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "license_plate",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "License Plate"
+  },
+  {
+   "fieldname": "column_break_vhcl",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Private",
+   "description": "Only privately owned vehicles are eligible for a mileage allowance.",
+   "fieldname": "ownership",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Ownership",
+   "options": "Private\nCompany Car\nRental",
+   "reqd": 1
+  },
+  {
+   "default": "Car",
+   "description": "Motorcycles and other motor vehicles are reimbursed at a lower rate than cars.",
+   "fieldname": "vehicle_class",
+   "fieldtype": "Select",
+   "label": "Vehicle Class",
+   "options": "Car\nMotorcycle\nOther Motor Vehicle",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval: doc.ownership != \"Private\"",
+   "description": "The fleet record, if this vehicle belongs to the company.",
+   "fieldname": "fleet_vehicle",
+   "fieldtype": "Link",
+   "label": "Fleet Vehicle",
+   "options": "Vehicle"
+  },
+  {
+   "default": "0",
+   "description": "Proposed first when a journey is entered.",
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "Default Vehicle"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "section_break_note",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-13 19:40:00.000000",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Employee Vehicle",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "if_owner": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "select": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title"
+}
