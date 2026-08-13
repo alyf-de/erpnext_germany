@@ -79,8 +79,6 @@ frappe.ui.form.on("Business Trip Journey", {
 	},
 });
 
-const CAR_MODES = ["Car", "Car (private)", "Car (rental)"];
-
 /**
  * Preselect the employee's vehicle, so only someone with several vehicles has to choose.
  */
@@ -108,9 +106,10 @@ function suggest_vehicle(frm, cdt, cdn) {
  * Only an empty field is filled, so a distance entered by hand is never overwritten.
  */
 function suggest_distance(frm, cdt, cdn) {
+	const car_modes = ["Car", "Car (private)", "Car (rental)"];
 	const row = locals[cdt][cdn];
 
-	if (!row || !row.from || !row.to || row.distance || !CAR_MODES.includes(row.mode_of_transport)) {
+	if (!row || !row.from || !row.to || row.distance || !car_modes.includes(row.mode_of_transport)) {
 		return;
 	}
 

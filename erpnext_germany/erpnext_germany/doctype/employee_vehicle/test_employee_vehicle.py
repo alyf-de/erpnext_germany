@@ -7,6 +7,7 @@ from frappe.tests.utils import FrappeTestCase
 from erpnext_germany.erpnext_germany.doctype.employee_vehicle.employee_vehicle import (
 	get_default_vehicle,
 	get_mileage_rate,
+	get_vehicles,
 )
 
 
@@ -103,21 +104,33 @@ class TestEmployeeVehicle(FrappeTestCase):
 		self.assertIsNone(get_default_vehicle(self.employee))
 
 	def test_car_uses_standard_rate(self):
-		vehicle = create_vehicle(self.employee)
-
-		self.assertEqual(get_mileage_rate(vehicle.name, 0.30), 0.30)
+		self.assertEqual(get_mileage_rate("Car", 0.30, 0.20), 0.30)
 
 	def test_motorcycle_uses_lower_rate(self):
-		vehicle = create_vehicle(self.employee, vehicle_name="BMW R", vehicle_class="Motorcycle")
-		frappe.db.set_single_value("Business Trip Settings", "mileage_allowance_other_motor_vehicle", 0.20)
+		self.assertEqual(get_mileage_rate("Motorcycle", 0.30, 0.20), 0.20)
 
-		self.assertEqual(get_mileage_rate(vehicle.name, 0.30), 0.20)
+	def test_other_motor_vehicle_uses_lower_rate(self):
+		self.assertEqual(get_mileage_rate("Other Motor Vehicle", 0.30, 0.20), 0.20)
 
 	def test_motorcycle_falls_back_to_standard_rate_if_unconfigured(self):
-		vehicle = create_vehicle(self.employee, vehicle_name="BMW R", vehicle_class="Motorcycle")
-		frappe.db.set_single_value("Business Trip Settings", "mileage_allowance_other_motor_vehicle", 0)
-
-		self.assertEqual(get_mileage_rate(vehicle.name, 0.30), 0.30)
+		self.assertEqual(get_mileage_rate("Motorcycle", 0.30, 0), 0.30)
 
 	def test_no_vehicle_uses_standard_rate(self):
-		self.assertEqual(get_mileage_rate(None, 0.30), 0.30)
+		self.assertEqual(get_mileage_rate(None, 0.30, 0.20), 0.30)
+
+	def test_lower_rate_is_read_from_settings_if_not_passed(self):
+		frappe.db.set_single_value("Business Trip Settings", "mileage_allowance_other_motor_vehicle", 0.20)
+
+		self.assertEqual(get_mileage_rate("Motorcycle", 0.30), 0.20)
+
+	def test_get_vehicles_returns_one_entry_per_name(self):
+		first = create_vehicle(self.employee)
+		second = create_vehicle(self.employee, vehicle_name="Audi A4")
+
+		vehicles = get_vehicles([first.name, second.name, None, "does-not-exist"])
+
+		self.assertEqual(set(vehicles), {first.name, second.name})
+		self.assertEqual(vehicles[first.name].vehicle_class, "Car")
+
+	def test_get_vehicles_without_names(self):
+		self.assertEqual(get_vehicles([]), {})

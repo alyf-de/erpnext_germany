@@ -9,7 +9,9 @@ from frappe.utils.data import fmt_money
 
 from erpnext_germany.erpnext_germany.doctype.employee_vehicle.employee_vehicle import (
 	PRIVATE,
+	get_lower_mileage_rate,
 	get_mileage_rate,
+	get_vehicles,
 )
 
 DEFAULT_EXPENSE_CLAIM_TYPE = "Additional meal expenses"
@@ -77,16 +79,12 @@ class BusinessTrip(Document):
 
 	def validate_vehicles(self):
 		"""A mileage allowance is only paid for the traveller's own, private vehicle."""
-		for journey in self.journeys:
-			if not journey.employee_vehicle:
-				continue
+		vehicles = get_vehicles(journey.employee_vehicle for journey in self.journeys)
 
-			vehicle = frappe.db.get_value(
-				"Employee Vehicle",
-				journey.employee_vehicle,
-				["employee", "ownership", "disabled", "title"],
-				as_dict=True,
-			)
+		for journey in self.journeys:
+			vehicle = vehicles.get(journey.employee_vehicle)
+			if not vehicle:
+				continue
 
 			if vehicle.employee != self.employee:
 				frappe.throw(
@@ -165,11 +163,19 @@ class BusinessTrip(Document):
 
 	def calculate_total_mileage_allowance(self):
 		default_rate = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
-		self.total_mileage_allowance = sum(
-			journey.distance * get_mileage_rate(journey.employee_vehicle, default_rate)
-			for journey in self.journeys
-			if journey.mode_of_transport == "Car (private)"
-		)
+		lower_rate = get_lower_mileage_rate()
+		vehicles = get_vehicles(journey.employee_vehicle for journey in self.journeys)
+
+		total = 0.0
+		for journey in self.journeys:
+			if journey.mode_of_transport != "Car (private)":
+				continue
+
+			vehicle = vehicles.get(journey.employee_vehicle)
+			rate = get_mileage_rate(vehicle.vehicle_class if vehicle else None, default_rate, lower_rate)
+			total += journey.distance * rate
+
+		self.total_mileage_allowance = total
 
 	def before_submit(self):
 		self.status = "Submitted"
@@ -217,22 +223,21 @@ def get_mileage_allowances(
 	vehicle is reimbursed at the lower rate from Business Trip Settings.
 	"""
 	expenses = []
+	vehicles = get_vehicles(journey.employee_vehicle for journey in business_trip.journeys)
+	lower_rate = get_lower_mileage_rate()
+
 	for journey in business_trip.journeys:
 		if journey.mode_of_transport != "Car (private)":
 			continue
 
-		rate = get_mileage_rate(journey.employee_vehicle, mileage_allowance)
-		vehicle = (
-			frappe.db.get_value("Employee Vehicle", journey.employee_vehicle, "title")
-			if journey.employee_vehicle
-			else None
-		)
+		vehicle = vehicles.get(journey.employee_vehicle)
+		rate = get_mileage_rate(vehicle.vehicle_class if vehicle else None, mileage_allowance, lower_rate)
 		description = "{distance} * {mileage_allowance} von {from_place} nach {to_place} ({vehicle})".format(
 			distance=journey.get_formatted("distance"),
 			mileage_allowance=fmt_money(rate),
 			from_place=getattr(journey, "from"),
 			to_place=journey.to,
-			vehicle=f"Fahrt mit {vehicle}" if vehicle else "Fahrt mit Privatauto",
+			vehicle=f"Fahrt mit {vehicle.title}" if vehicle else "Fahrt mit Privatauto",
 		)
 		mileage_amount = journey.distance * rate
 		expenses.append(

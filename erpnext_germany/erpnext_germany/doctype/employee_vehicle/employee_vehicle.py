@@ -1,6 +1,8 @@
 # Copyright (c) 2026, ALYF GmbH and contributors
 # For license information, please see license.txt
 
+from collections.abc import Iterable
+
 import frappe
 from frappe import _
 from frappe.model.document import Document
@@ -75,23 +77,45 @@ class EmployeeVehicle(Document):
 		self.title = " ".join(part for part in parts if part)
 
 
-def get_mileage_rate(vehicle: str | None, default_rate: float) -> float:
-	"""Return the rate per kilometer for a vehicle.
+def get_vehicles(names: Iterable[str]) -> dict[str, "frappe._dict"]:
+	"""Return the vehicles by name, in a single query.
+
+	Missing names are simply absent from the result, so callers must use `.get()`.
+	"""
+	names = {name for name in names if name}
+	if not names:
+		return {}
+
+	rows = frappe.get_all(
+		"Employee Vehicle",
+		filters={"name": ("in", list(names))},
+		fields=["name", "employee", "ownership", "vehicle_class", "disabled", "title"],
+	)
+
+	return {row.name: row for row in rows}
+
+
+def get_lower_mileage_rate() -> float:
+	"""Return the configured rate for motorcycles and other motor vehicles, 0 if unset."""
+	return flt(frappe.db.get_single_value("Business Trip Settings", "mileage_allowance_other_motor_vehicle"))
+
+
+def get_mileage_rate(
+	vehicle_class: str | None, default_rate: float, lower_rate: float | None = None
+) -> float:
+	"""Return the rate per kilometer for a vehicle class.
 
 	Cars are reimbursed at the standard rate, motorcycles and other motor vehicles at the
 	lower rate from Business Trip Settings. If that lower rate is not configured, the
-	standard rate applies.
-	"""
-	if not vehicle:
-		return default_rate
+	standard rate applies, so an incomplete setup never pays less than before.
 
-	vehicle_class = frappe.db.get_value("Employee Vehicle", vehicle, "vehicle_class")
+	Pass `lower_rate` to avoid one query per journey.
+	"""
 	if vehicle_class not in LOWER_RATE_CLASSES:
 		return default_rate
 
-	lower_rate = flt(
-		frappe.db.get_single_value("Business Trip Settings", "mileage_allowance_other_motor_vehicle")
-	)
+	if lower_rate is None:
+		lower_rate = get_lower_mileage_rate()
 
 	return lower_rate or default_rate
 
