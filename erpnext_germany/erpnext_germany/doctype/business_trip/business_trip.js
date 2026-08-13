@@ -91,7 +91,7 @@ function suggest_vehicle(frm, cdt, cdn) {
 
 	frappe.call({
 		method: "erpnext_germany.erpnext_germany.doctype.employee_vehicle.employee_vehicle.get_default_vehicle",
-		args: { employee: frm.doc.employee },
+		args: { employee: frm.doc.employee, ownership: "Private" },
 		callback: function (r) {
 			if (r.message && !locals[cdt][cdn]?.employee_vehicle) {
 				frappe.model.set_value(cdt, cdn, "employee_vehicle", r.message);
@@ -103,13 +103,19 @@ function suggest_vehicle(frm, cdt, cdn) {
 /**
  * Fill in the distance of a recurring route from the Business Trip Distance table.
  *
- * Only an empty field is filled, so a distance entered by hand is never overwritten.
+ * A distance entered by hand is never overwritten. A distance this function filled in earlier
+ * is replaced when the route changes -- otherwise the kilometers of the previous route would
+ * quietly stay behind and be reimbursed.
  */
 function suggest_distance(frm, cdt, cdn) {
 	const car_modes = ["Car", "Car (private)", "Car (rental)"];
 	const row = locals[cdt][cdn];
 
-	if (!row || !row.from || !row.to || row.distance || !car_modes.includes(row.mode_of_transport)) {
+	if (!row || !row.from || !row.to || !car_modes.includes(row.mode_of_transport)) {
+		return;
+	}
+
+	if (row.distance && row.distance !== frm.__suggested_distances?.[cdn]) {
 		return;
 	}
 
@@ -121,10 +127,23 @@ function suggest_distance(frm, cdt, cdn) {
 			company: frm.doc.company,
 		},
 		callback: function (r) {
-			if (!r.message || locals[cdt][cdn]?.distance) {
+			const current = locals[cdt][cdn];
+			if (!current || (current.distance && current.distance !== frm.__suggested_distances?.[cdn])) {
 				return;
 			}
 
+			frm.__suggested_distances = frm.__suggested_distances || {};
+
+			if (!r.message) {
+				// The new route is unknown: drop the distance of the old one instead of keeping it.
+				if (current.distance) {
+					frappe.model.set_value(cdt, cdn, "distance", 0);
+					delete frm.__suggested_distances[cdn];
+				}
+				return;
+			}
+
+			frm.__suggested_distances[cdn] = r.message.distance;
 			frappe.model.set_value(cdt, cdn, "distance", r.message.distance);
 			frappe.show_alert({
 				message: __("Distance filled in from {0}", [__("Business Trip Distance")]),

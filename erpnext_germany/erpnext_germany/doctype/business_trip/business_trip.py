@@ -80,6 +80,7 @@ class BusinessTrip(Document):
 	def validate_vehicles(self):
 		"""A mileage allowance is only paid for the traveller's own, private vehicle."""
 		vehicles = get_vehicles(journey.employee_vehicle for journey in self.journeys)
+		already_linked = self.get_previously_linked_vehicles()
 
 		for journey in self.journeys:
 			vehicle = vehicles.get(journey.employee_vehicle)
@@ -94,7 +95,8 @@ class BusinessTrip(Document):
 					title=_("Wrong Vehicle"),
 				)
 
-			if vehicle.disabled:
+			# A vehicle that is retired later must not block trips that already reference it.
+			if vehicle.disabled and vehicle.name not in already_linked:
 				frappe.throw(
 					_("Row {0}: {1} is disabled.").format(journey.idx, vehicle.title),
 					title=_("Disabled Vehicle"),
@@ -107,6 +109,14 @@ class BusinessTrip(Document):
 					),
 					title=_("No Mileage Allowance"),
 				)
+
+	def get_previously_linked_vehicles(self) -> set[str]:
+		"""Vehicles that this trip already referenced when it was last saved."""
+		before_save = self.get_doc_before_save()
+		if not before_save:
+			return set()
+
+		return {journey.employee_vehicle for journey in before_save.journeys if journey.employee_vehicle}
 
 	def set_regional_amount(self):
 		if not self.region:
@@ -162,7 +172,7 @@ class BusinessTrip(Document):
 		self.total_allowance = sum(allowance.amount for allowance in self.allowances)
 
 	def calculate_total_mileage_allowance(self):
-		default_rate = frappe.db.get_single_value("Business Trip Settings", "mileage_allowance") or 0
+		default_rate = frappe.get_cached_doc("Business Trip Settings").mileage_allowance or 0
 		lower_rate = get_lower_mileage_rate()
 		vehicles = get_vehicles(journey.employee_vehicle for journey in self.journeys)
 

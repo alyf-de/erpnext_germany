@@ -57,11 +57,13 @@ class BusinessTripDistance(Document):
 		if self.disabled:
 			return
 
-		for existing in get_candidates(all_companies=True):
+		candidates = get_candidates(self.from_location, self.to_location, all_companies=True)
+
+		for existing in candidates:
 			if existing.name == self.name or (existing.company or "") != (self.company or ""):
 				continue
 
-			if matches(existing, self.from_location, self.to_location):
+			if routes_overlap(existing, self):
 				frappe.throw(
 					_("{0} already covers this route.").format(
 						frappe.utils.get_link_to_form("Business Trip Distance", existing.name)
@@ -95,21 +97,51 @@ def matches(distance, from_location: str, to_location: str) -> bool:
 	return bool(distance.is_bidirectional) and stored_from == wanted_to and stored_to == wanted_from
 
 
-def get_candidates(company: str | None = None, all_companies: bool = False) -> list:
-	"""Return enabled distances of the given company plus those that belong to no company."""
-	or_filters = None
-	if not all_companies:
-		or_filters = [
-			["company", "=", company or ""],
-			["company", "is", "not set"],
-		]
+def routes_overlap(first, second) -> bool:
+	"""Return True if a single journey could match both routes.
 
-	return frappe.get_all(
+	The reverse direction collides as soon as *either* route is bidirectional -- checking only
+	one of them would let a new two-way route slip in behind an existing one-way route.
+	"""
+	first_from, first_to = normalize(first.from_location), normalize(first.to_location)
+	second_from, second_to = normalize(second.from_location), normalize(second.to_location)
+
+	if (first_from, first_to) == (second_from, second_to):
+		return True
+
+	if (first_from, first_to) == (second_to, second_from):
+		return bool(first.is_bidirectional or second.is_bidirectional)
+
+	return False
+
+
+def get_candidates(
+	from_location: str, to_location: str, company: str | None = None, all_companies: bool = False
+) -> list:
+	"""Return enabled routes that could describe this journey.
+
+	The query narrows down to rows that mention one of the two places, in either column; the
+	final decision is made by `matches` / `routes_overlap`. `get_list` is used on purpose, so
+	the caller only ever sees routes they are allowed to read.
+	"""
+	places = [collapse_whitespace(from_location), collapse_whitespace(to_location)]
+	if not all(places):
+		return []
+
+	rows = frappe.get_list(
 		"Business Trip Distance",
 		filters={"disabled": 0},
-		or_filters=or_filters,
+		or_filters=[
+			["from_location", "in", places],
+			["to_location", "in", places],
+		],
 		fields=["name", "from_location", "to_location", "distance", "is_bidirectional", "company"],
 	)
+
+	if all_companies:
+		return rows
+
+	return [row for row in rows if not row.company or row.company == company]
 
 
 @frappe.whitelist()
@@ -124,7 +156,7 @@ def get_distance(from_location: str, to_location: str, company: str | None = Non
 		return None
 
 	best = None
-	for candidate in get_candidates(company):
+	for candidate in get_candidates(from_location, to_location, company):
 		if not matches(candidate, from_location, to_location):
 			continue
 

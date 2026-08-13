@@ -89,6 +89,37 @@ class TestBusinessTripDistance(FrappeTestCase):
 			to_location="Heidelberg, Büro",
 		)
 
+	def test_new_bidirectional_route_cannot_shadow_a_one_way_route(self):
+		create_distance(is_bidirectional=0)
+
+		self.assertRaises(
+			frappe.ValidationError,
+			create_distance,
+			from_location="Baden-Baden",
+			to_location="Heidelberg, Büro",
+			is_bidirectional=1,
+		)
+
+	def test_opposite_one_way_routes_may_coexist(self):
+		create_distance(is_bidirectional=0, distance=90)
+
+		back = create_distance(
+			from_location="Baden-Baden",
+			to_location="Heidelberg, Büro",
+			is_bidirectional=0,
+			distance=95,
+		)
+
+		self.assertEqual(get_distance("Baden-Baden", "Heidelberg, Büro")["name"], back.name)
+		self.assertEqual(get_distance("Heidelberg, Büro", "Baden-Baden")["distance"], 90)
+
+	def test_unrelated_route_is_not_a_duplicate(self):
+		create_distance()
+
+		other = create_distance(to_location="Hamburg", distance=600)
+
+		self.assertEqual(other.distance, 600)
+
 	def test_same_from_and_to_is_rejected(self):
 		self.assertRaises(frappe.ValidationError, create_distance, to_location="Heidelberg, Büro")
 

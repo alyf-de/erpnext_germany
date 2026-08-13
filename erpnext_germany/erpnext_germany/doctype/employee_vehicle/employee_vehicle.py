@@ -10,6 +10,7 @@ from frappe.utils.data import flt
 
 PRIVATE = "Private"
 LOWER_RATE_CLASSES = ("Motorcycle", "Other Motor Vehicle")
+MANAGING_ROLES = ("HR Manager", "System Manager", "Administrator")
 
 
 class EmployeeVehicle(Document):
@@ -43,25 +44,51 @@ class EmployeeVehicle(Document):
 	def validate(self):
 		self.vehicle_name = " ".join((self.vehicle_name or "").split())
 		self.license_plate = " ".join((self.license_plate or "").split())
+		self.validate_employee()
 		self.validate_single_default()
 		self.set_title()
+
+	def validate_employee(self):
+		"""Everyone keeps their own vehicles; only HR maintains them for others.
+
+		Without this, anyone could add a vehicle to a colleague and take away their default.
+		"""
+		if set(MANAGING_ROLES) & set(frappe.get_roles()):
+			return
+
+		own_employee = frappe.get_all(
+			"Employee",
+			filters={"user_id": frappe.session.user},
+			pluck="name",
+			limit=1,
+		)
+
+		if not own_employee or self.employee != own_employee[0]:
+			frappe.throw(
+				_("You can only maintain your own vehicles."),
+				frappe.PermissionError,
+				title=_("Not Your Employee"),
+			)
 
 	def validate_single_default(self):
 		"""Keep at most one default per employee, so the proposal is unambiguous."""
 		if not self.is_default or self.disabled:
 			return
 
-		other_default = frappe.db.exists(
+		other_defaults = frappe.get_all(
 			"Employee Vehicle",
-			{
+			filters={
 				"employee": self.employee,
 				"is_default": 1,
 				"disabled": 0,
 				"name": ("!=", self.name),
 			},
+			pluck="name",
+			limit=1,
 		)
 
-		if other_default:
+		if other_defaults:
+			other_default = other_defaults[0]
 			frappe.throw(
 				_("{0} is already the default vehicle of this employee.").format(
 					frappe.utils.get_link_to_form("Employee Vehicle", other_default)
@@ -80,6 +107,11 @@ class EmployeeVehicle(Document):
 def get_vehicles(names: Iterable[str]) -> dict[str, "frappe._dict"]:
 	"""Return the vehicles by name, in a single query.
 
+	Deliberately not permission filtered: this feeds the integrity checks and the amount
+	calculation of a Business Trip, which an approver or accountant must be able to save even
+	though the vehicle belongs to someone else. Nothing from here is shown to the user beyond
+	the vehicle they picked themselves.
+
 	Missing names are simply absent from the result, so callers must use `.get()`.
 	"""
 	names = {name for name in names if name}
@@ -97,7 +129,9 @@ def get_vehicles(names: Iterable[str]) -> dict[str, "frappe._dict"]:
 
 def get_lower_mileage_rate() -> float:
 	"""Return the configured rate for motorcycles and other motor vehicles, 0 if unset."""
-	return flt(frappe.db.get_single_value("Business Trip Settings", "mileage_allowance_other_motor_vehicle"))
+	settings = frappe.get_cached_doc("Business Trip Settings")
+
+	return flt(settings.mileage_allowance_other_motor_vehicle)
 
 
 def get_mileage_rate(
@@ -121,13 +155,23 @@ def get_mileage_rate(
 
 
 @frappe.whitelist()
-def get_default_vehicle(employee: str) -> str | None:
-	"""Return the employee's default vehicle, or their only one."""
+def get_default_vehicle(employee: str, ownership: str | None = None) -> str | None:
+	"""Return the employee's default vehicle, or their only one.
+
+	`ownership` narrows the proposal to e.g. private vehicles, so a company car is never
+	suggested for a journey that claims a mileage allowance.
+
+	Uses `get_list`, so a caller only ever gets a vehicle they are allowed to read.
+	"""
 	frappe.has_permission("Employee Vehicle", throw=True)
 
-	vehicles = frappe.get_all(
+	filters = {"employee": employee, "disabled": 0}
+	if ownership:
+		filters["ownership"] = ownership
+
+	vehicles = frappe.get_list(
 		"Employee Vehicle",
-		filters={"employee": employee, "disabled": 0},
+		filters=filters,
 		fields=["name", "is_default"],
 		limit=2,
 		order_by="is_default desc",

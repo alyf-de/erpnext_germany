@@ -103,6 +103,17 @@ class TestEmployeeVehicle(FrappeTestCase):
 
 		self.assertIsNone(get_default_vehicle(self.employee))
 
+	def test_company_car_is_not_proposed_for_a_private_journey(self):
+		create_vehicle(self.employee, vehicle_name="Dienstwagen", ownership="Company Car")
+
+		self.assertIsNone(get_default_vehicle(self.employee, ownership="Private"))
+
+	def test_private_vehicle_is_proposed_next_to_a_company_car(self):
+		create_vehicle(self.employee, vehicle_name="Dienstwagen", ownership="Company Car")
+		private = create_vehicle(self.employee)
+
+		self.assertEqual(get_default_vehicle(self.employee, ownership="Private"), private.name)
+
 	def test_car_uses_standard_rate(self):
 		self.assertEqual(get_mileage_rate("Car", 0.30, 0.20), 0.30)
 

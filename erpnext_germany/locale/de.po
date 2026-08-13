@@ -1371,3 +1371,11 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/business_trip/business_trip.py
 msgid "No Mileage Allowance"
 msgstr "Keine Kilometerpauschale"
+
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.py
+msgid "You can only maintain your own vehicles."
+msgstr "Sie können nur Ihre eigenen Fahrzeuge pflegen."
+
+#: erpnext_germany/erpnext_germany/doctype/employee_vehicle/employee_vehicle.py
+msgid "Not Your Employee"
+msgstr "Nicht Ihr Mitarbeiter"
