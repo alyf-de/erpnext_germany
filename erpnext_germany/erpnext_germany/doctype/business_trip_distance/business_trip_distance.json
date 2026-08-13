@@ -1,0 +1,137 @@
+{
+ "actions": [],
+ "autoname": "hash",
+ "creation": "2026-08-13 19:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "from_location",
+  "to_location",
+  "column_break_ftlx",
+  "distance",
+  "is_bidirectional",
+  "disabled",
+  "section_break_scop",
+  "company",
+  "column_break_note",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Title",
+   "read_only": 1
+  },
+  {
+   "description": "Starting point as it is written in the journey, e.g. <i>Heidelberg, Büro</i>.",
+   "fieldname": "from_location",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "From",
+   "reqd": 1
+  },
+  {
+   "description": "Destination as it is written in the journey, e.g. <i>Baden-Baden</i>.",
+   "fieldname": "to_location",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "To",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ftlx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "One way, in kilometers. A return journey is entered as two rows in the Business Trip.",
+   "fieldname": "distance",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Distance",
+   "non_negative": 1,
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "description": "Also use this distance for the opposite direction.",
+   "fieldname": "is_bidirectional",
+   "fieldtype": "Check",
+   "label": "Both Directions"
+  },
+  {
+   "default": "0",
+   "fieldname": "disabled",
+   "fieldtype": "Check",
+   "label": "Disabled"
+  },
+  {
+   "fieldname": "section_break_scop",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "Leave empty to make this distance available to all companies.",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_note",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-13 19:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Business Trip Distance",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Employee",
+   "select": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "show_title_field_in_link": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title"
+}

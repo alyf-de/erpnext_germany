@@ -53,10 +53,57 @@ frappe.ui.form.on("Business Trip Journey", {
 		frappe.model.set_value(cdt, cdn, "date", frm.doc.from_date);
 	},
 
+	from(frm, cdt, cdn) {
+		suggest_distance(frm, cdt, cdn);
+	},
+
+	to(frm, cdt, cdn) {
+		suggest_distance(frm, cdt, cdn);
+	},
+
+	mode_of_transport(frm, cdt, cdn) {
+		suggest_distance(frm, cdt, cdn);
+	},
+
 	create_purchase_invoice(frm, cdt, cdn) {
 		create_purchase_invoice_with_receipt(frm, cdt, cdn);
 	},
 });
+
+const CAR_MODES = ["Car", "Car (private)", "Car (rental)"];
+
+/**
+ * Fill in the distance of a recurring route from the Business Trip Distance table.
+ *
+ * Only an empty field is filled, so a distance entered by hand is never overwritten.
+ */
+function suggest_distance(frm, cdt, cdn) {
+	const row = locals[cdt][cdn];
+
+	if (!row || !row.from || !row.to || row.distance || !CAR_MODES.includes(row.mode_of_transport)) {
+		return;
+	}
+
+	frappe.call({
+		method: "erpnext_germany.erpnext_germany.doctype.business_trip_distance.business_trip_distance.get_distance",
+		args: {
+			from_location: row.from,
+			to_location: row.to,
+			company: frm.doc.company,
+		},
+		callback: function (r) {
+			if (!r.message || locals[cdt][cdn]?.distance) {
+				return;
+			}
+
+			frappe.model.set_value(cdt, cdn, "distance", r.message.distance);
+			frappe.show_alert({
+				message: __("Distance filled in from {0}", [__("Business Trip Distance")]),
+				indicator: "green",
+			});
+		},
+	});
+}
 
 frappe.ui.form.on("Business Trip Accommodation", {
 	accommodations_add(frm, cdt, cdn) {
