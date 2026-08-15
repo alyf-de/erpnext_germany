@@ -8,9 +8,17 @@
   "expense_claim_type",
   "expense_claim_type_car",
   "mileage_allowance",
-  "mileage_allowance_other_motor_vehicle"
+  "mileage_allowance_other_motor_vehicle",
+  "default_region"
  ],
  "fields": [
+  {
+   "description": "Used when a destination does not name a region of its own, e.g. for domestic travel.",
+   "fieldname": "default_region",
+   "fieldtype": "Link",
+   "label": "Default Region",
+   "options": "Business Trip Region"
+  },
   {
    "description": "value / distance: e.g. 0.30\u20ac/km",
    "fieldname": "mileage_allowance",

@@ -1,0 +1,331 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:INTAKE-{YY}{MM}-{#####}",
+ "creation": "2026-08-15 13:00:00.000000",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "employee_name",
+  "company",
+  "column_break_head",
+  "status",
+  "business_trip",
+  "section_break_input",
+  "raw_input",
+  "section_break_trip",
+  "purpose",
+  "start_datetime",
+  "end_datetime",
+  "column_break_trip",
+  "origin",
+  "destination",
+  "region",
+  "section_break_travel",
+  "mode_of_transport",
+  "employee_vehicle",
+  "column_break_travel",
+  "distance",
+  "return_journey",
+  "section_break_meals",
+  "meals_confirmed",
+  "breakfast_was_provided",
+  "lunch_was_provided",
+  "column_break_meals",
+  "dinner_was_provided",
+  "accommodation_was_provided",
+  "section_break_cost",
+  "project",
+  "cost_center",
+  "column_break_cost",
+  "customer",
+  "section_break_result",
+  "open_questions",
+  "calculation_preview",
+  "create_trip"
+ ],
+ "fields": [
+  {
+   "description": "Defaults to the employee of the logged in user.",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "search_index": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_head",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Status",
+   "options": "Draft\nQuestions Open\nReady\nTransferred\nDiscarded",
+   "read_only": 1
+  },
+  {
+   "fieldname": "business_trip",
+   "fieldtype": "Link",
+   "label": "Business Trip",
+   "options": "Business Trip",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_input",
+   "fieldtype": "Section Break"
+  },
+  {
+   "description": "What the traveller said, word for word. Kept for traceability only.",
+   "fieldname": "raw_input",
+   "fieldtype": "Small Text",
+   "label": "Original Wording"
+  },
+  {
+   "fieldname": "section_break_trip",
+   "fieldtype": "Section Break",
+   "label": "Trip"
+  },
+  {
+   "description": "Reason for the trip, e.g. <i>Bauvorhaben Baden-Baden</i>. Required for tax purposes.",
+   "fieldname": "purpose",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Purpose"
+  },
+  {
+   "description": "Departure, including the time of day.",
+   "fieldname": "start_datetime",
+   "fieldtype": "Datetime",
+   "label": "Departure"
+  },
+  {
+   "description": "Return, including the time of day.",
+   "fieldname": "end_datetime",
+   "fieldtype": "Datetime",
+   "label": "Return"
+  },
+  {
+   "fieldname": "column_break_trip",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Where the trip started, e.g. <i>Heidelberg, Büro</i>.",
+   "fieldname": "origin",
+   "fieldtype": "Data",
+   "label": "Origin"
+  },
+  {
+   "fieldname": "destination",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Destination"
+  },
+  {
+   "description": "Determines the allowance rates. Resolved from the destination, otherwise the default region.",
+   "fieldname": "region",
+   "fieldtype": "Link",
+   "label": "Region",
+   "options": "Business Trip Region"
+  },
+  {
+   "fieldname": "section_break_travel",
+   "fieldtype": "Section Break",
+   "label": "Journey"
+  },
+  {
+   "fieldname": "mode_of_transport",
+   "fieldtype": "Select",
+   "label": "Mode of Transport",
+   "options": "\nCar\nCar (private)\nCar (rental)\nTaxi\nBus\nTrain\nAirplane\nPublic Transport"
+  },
+  {
+   "depends_on": "eval: [\"Car (private)\", \"Car (rental)\", \"Car\"].includes(doc.mode_of_transport)",
+   "fieldname": "employee_vehicle",
+   "fieldtype": "Link",
+   "label": "Vehicle",
+   "options": "Employee Vehicle"
+  },
+  {
+   "fieldname": "column_break_travel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval: [\"Car (private)\", \"Car (rental)\", \"Car\"].includes(doc.mode_of_transport)",
+   "description": "One way, in kilometers. Taken from the Business Trip Distance table if the route is known.",
+   "fieldname": "distance",
+   "fieldtype": "Int",
+   "label": "Distance",
+   "non_negative": 1
+  },
+  {
+   "default": "1",
+   "description": "Create a second journey for the way back.",
+   "fieldname": "return_journey",
+   "fieldtype": "Check",
+   "label": "Return Journey"
+  },
+  {
+   "fieldname": "section_break_meals",
+   "fieldtype": "Section Break",
+   "label": "Meals and Accommodation"
+  },
+  {
+   "default": "0",
+   "description": "Set once the traveller has been asked about meals. Without it, the intake keeps asking -- an unanswered question must not silently become a \"no\".",
+   "fieldname": "meals_confirmed",
+   "fieldtype": "Check",
+   "label": "Meals Confirmed"
+  },
+  {
+   "default": "0",
+   "fieldname": "breakfast_was_provided",
+   "fieldtype": "Check",
+   "label": "Breakfast was Provided"
+  },
+  {
+   "default": "0",
+   "fieldname": "lunch_was_provided",
+   "fieldtype": "Check",
+   "label": "Lunch was Provided"
+  },
+  {
+   "fieldname": "column_break_meals",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "dinner_was_provided",
+   "fieldtype": "Check",
+   "label": "Dinner was Provided"
+  },
+  {
+   "default": "0",
+   "fieldname": "accommodation_was_provided",
+   "fieldtype": "Check",
+   "label": "Accommodation was Provided"
+  },
+  {
+   "fieldname": "section_break_cost",
+   "fieldtype": "Section Break",
+   "label": "Cost Assignment"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "label": "Cost Center",
+   "options": "Cost Center"
+  },
+  {
+   "fieldname": "column_break_cost",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "section_break_result",
+   "fieldtype": "Section Break",
+   "label": "Result"
+  },
+  {
+   "description": "One question per line. Answer them by filling in the named fields, then save again.",
+   "fieldname": "open_questions",
+   "fieldtype": "Small Text",
+   "label": "Open Questions",
+   "read_only": 1
+  },
+  {
+   "description": "Calculated by the server, not by an assistant.",
+   "fieldname": "calculation_preview",
+   "fieldtype": "Small Text",
+   "label": "Calculation Preview",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "depends_on": "eval: !doc.business_trip",
+   "description": "Tick once all questions are answered: saving then creates the Business Trip as a draft.",
+   "fieldname": "create_trip",
+   "fieldtype": "Check",
+   "label": "Create Business Trip"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-15 13:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Business Trip Intake",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "export": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "if_owner": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "purpose"
+}

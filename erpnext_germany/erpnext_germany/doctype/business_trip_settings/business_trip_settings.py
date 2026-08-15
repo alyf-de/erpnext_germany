@@ -14,6 +14,7 @@ class BusinessTripSettings(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
+		default_region: DF.Link | None
 		expense_claim_type: DF.Link
 		expense_claim_type_car: DF.Link
 		mileage_allowance: DF.Currency
