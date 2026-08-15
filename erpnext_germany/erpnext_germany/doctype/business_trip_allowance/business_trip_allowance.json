@@ -50,7 +50,8 @@
   },
   {
    "columns": 2,
-   "default": "1",
+   "default": "0",
+   "description": "Only tick what was actually provided. Nothing here is assumed.",
    "fieldname": "breakfast_was_provided",
    "fieldtype": "Check",
    "in_list_view": 1,
@@ -73,7 +74,7 @@
    "label": "Dinner was Provided"
   },
   {
-   "default": "1",
+   "default": "0",
    "fieldname": "accommodation_was_provided",
    "fieldtype": "Check",
    "label": "Accommodation was Provided"

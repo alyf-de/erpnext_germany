@@ -1641,3 +1641,13 @@ msgstr ""
 #: erpnext_germany/erpnext_germany/doctype/business_trip_intake/business_trip_intake.py
 msgid "The trip is still incomplete."
 msgstr "Die Reise ist noch unvollständig."
+
+#: erpnext_germany/erpnext_germany/doctype/business_trip_intake/business_trip_intake.py
+msgid "Who travelled for {0}? There is no employee record for them there."
+msgstr "Wer ist für {0} gereist? Dort gibt es keinen Mitarbeiterdatensatz für diese Person."
+
+#. Description of the 'Breakfast was Provided' (Check) field in DocType
+#. 'Business Trip Allowance'
+#: erpnext_germany/erpnext_germany/doctype/business_trip_allowance/business_trip_allowance.json
+msgid "Only tick what was actually provided. Nothing here is assumed."
+msgstr "Nur ankreuzen, was tatsächlich gestellt wurde. Hier wird nichts unterstellt."

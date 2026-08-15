@@ -82,6 +82,7 @@ class BusinessTripIntake(Document):
 		if self.status in (DISCARDED, TRANSFERRED):
 			return
 
+		self._missing_employee_for_company = False
 		self.validate_dates()
 		self.set_defaults()
 		self.resolve_region()
@@ -115,8 +116,38 @@ class BusinessTripIntake(Document):
 			if own:
 				self.employee = own[0]
 
-		if self.employee and not self.company:
+		if not self.employee:
+			return
+
+		if not self.company:
 			self.company = frappe.get_cached_value("Employee", self.employee, "company")
+			return
+
+		self.match_employee_to_company()
+
+	def match_employee_to_company(self):
+		"""Pick the employee record of the chosen company.
+
+		Someone who works for several companies has one employee record per company, but the
+		user id may only sit on one of them. Without this, an expense claim would be built for
+		the wrong company and refused on submit.
+		"""
+		employee_name, employee_company = frappe.get_cached_value(
+			"Employee", self.employee, ["employee_name", "company"]
+		)
+
+		if employee_company == self.company:
+			return
+
+		sibling = frappe.get_all(
+			"Employee",
+			filters={"employee_name": employee_name, "company": self.company, "status": "Active"},
+			pluck="name",
+			limit=1,
+		)
+
+		self.employee = sibling[0] if sibling else None
+		self._missing_employee_for_company = not sibling
 
 	def resolve_region(self):
 		"""Derive the region from the destination, otherwise fall back to the default.
@@ -183,9 +214,13 @@ class BusinessTripIntake(Document):
 		questions = []
 
 		if not self.employee:
-			questions.append(
-				{"field": "employee", "question": _("Who travelled? No employee is linked to this user.")}
-			)
+			if getattr(self, "_missing_employee_for_company", False):
+				question = _("Who travelled for {0}? There is no employee record for them there.")
+				questions.append({"field": "employee", "question": question.format(self.company)})
+			else:
+				questions.append(
+					{"field": "employee", "question": _("Who travelled? No employee is linked to this user.")}
+				)
 
 		if not self.company:
 			questions.append({"field": "company", "question": _("Which company is this trip for?")})
