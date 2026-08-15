@@ -89,6 +89,15 @@ class BusinessTripIntake(Document):
 		self.resolve_vehicle()
 		self.set_open_questions()
 		self.set_preview()
+		self.validate_ready_to_transfer()
+
+	def validate_ready_to_transfer(self):
+		"""Say why nothing was created, instead of ignoring the checkbox in silence."""
+		if self.create_trip and not self.business_trip and self.status == QUESTIONS_OPEN:
+			frappe.throw(
+				_("Please answer the open questions first:\n{0}").format(self.open_questions),
+				title=_("Questions Open"),
+			)
 
 	def on_update(self):
 		"""The chat has no way to call a method, so a checkbox is what triggers the transfer."""

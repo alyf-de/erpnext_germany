@@ -184,3 +184,9 @@ class TestBusinessTripIntake(FrappeTestCase):
 		intake = self.make_intake(purpose=None)
 
 		self.assertRaises(frappe.ValidationError, intake.create_business_trip)
+
+	def test_asking_for_the_trip_too_early_says_why(self):
+		intake = self.make_intake(purpose=None)
+		intake.create_trip = 1
+
+		self.assertRaises(frappe.ValidationError, intake.save)
