@@ -52,9 +52,8 @@ frappe.ui.form.on("Business Trip", {
 				minDate: frm.doc.from_date ? new Date(frm.doc.from_date) : null,
 			});
 		}
-	}
+	},
 });
-
 
 frappe.ui.form.on("Business Trip Journey", {
 	journeys_add(frm, cdt, cdn) {
@@ -85,7 +84,12 @@ frappe.ui.form.on("Business Trip Journey", {
 function suggest_vehicle(frm, cdt, cdn) {
 	const row = locals[cdt][cdn];
 
-	if (!row || !frm.doc.employee || row.employee_vehicle || row.mode_of_transport !== "Car (private)") {
+	if (
+		!row ||
+		!frm.doc.employee ||
+		row.employee_vehicle ||
+		row.mode_of_transport !== "Car (private)"
+	) {
 		return;
 	}
 
@@ -128,7 +132,10 @@ function suggest_distance(frm, cdt, cdn) {
 		},
 		callback: function (r) {
 			const current = locals[cdt][cdn];
-			if (!current || (current.distance && current.distance !== frm.__suggested_distances?.[cdn])) {
+			if (
+				!current ||
+				(current.distance && current.distance !== frm.__suggested_distances?.[cdn])
+			) {
 				return;
 			}
 
