@@ -217,11 +217,25 @@ class BusinessTrip(Document):
 				"posting_date": frappe.utils.today(),
 				"business_trip": self.name,
 				"project": self.project,
-				"cost_center": self.cost_center,
+				"cost_center": get_cost_center(self),
 			}
 		)
 		expense_claim.extend("expenses", expenses)
 		expense_claim.save()
+
+
+def get_cost_center(business_trip: BusinessTrip) -> str | None:
+	"""Return the cost center for the expense claim rows.
+
+	Every row of an Expense Claim needs one, otherwise the claim cannot be submitted --
+	and a Business Trip usually carries none, because a trip is not booked against a
+	cost center, its reimbursement is. The company default is the honest fallback: it
+	is what a person picking the value by hand would choose.
+	"""
+	if business_trip.cost_center:
+		return business_trip.cost_center
+
+	return frappe.get_cached_value("Company", business_trip.company, "cost_center")
 
 
 def get_mileage_allowances(
@@ -233,6 +247,7 @@ def get_mileage_allowances(
 	vehicle is reimbursed at the lower rate from Business Trip Settings.
 	"""
 	expenses = []
+	cost_center = get_cost_center(business_trip)
 	vehicles = get_vehicles(journey.employee_vehicle for journey in business_trip.journeys)
 	lower_rate = get_lower_mileage_rate()
 
@@ -258,7 +273,7 @@ def get_mileage_allowances(
 				"amount": mileage_amount,
 				"sanctioned_amount": mileage_amount,
 				"project": business_trip.project,
-				"cost_center": business_trip.cost_center,
+				"cost_center": cost_center,
 			},
 		)
 
@@ -268,6 +283,7 @@ def get_mileage_allowances(
 def get_meal_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> list[dict]:
 	"""Return a list of expense claim rows for meal expenses"""
 	expenses = []
+	cost_center = get_cost_center(business_trip)
 	for allowance in business_trip.allowances:
 		description = "Ganztägig" if allowance.whole_day else "An-/Abreise"
 
@@ -296,7 +312,7 @@ def get_meal_expenses(business_trip: BusinessTrip, expense_claim_type: str) -> l
 				"amount": allowance.amount,
 				"sanctioned_amount": allowance.amount,
 				"project": business_trip.project,
-				"cost_center": business_trip.cost_center,
+				"cost_center": cost_center,
 			},
 		)
 
