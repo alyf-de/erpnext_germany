@@ -75,7 +75,7 @@
    "fieldtype": "Section Break"
   },
   {
-   "description": "Leave empty to make this distance available to all companies.",
+   "description": "Leave empty to make this distance available to all companies. Careful: Frappe prefills this with your default company, so clear it for a route that everyone should use.",
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
