@@ -96,7 +96,7 @@ class BusinessTripIntake(Document):
 		"""Say why nothing was created, instead of ignoring the checkbox in silence."""
 		if self.create_trip and not self.business_trip and self.status == QUESTIONS_OPEN:
 			frappe.throw(
-				_("Please answer the open questions first:\n{0}").format(self.open_questions),
+				questions_open_message(self.open_questions),
 				title=_("Questions Open"),
 			)
 
@@ -427,7 +427,7 @@ class BusinessTripIntake(Document):
 
 		if self.status == QUESTIONS_OPEN:
 			frappe.throw(
-				_("Please answer the open questions first:\n{0}").format(self.open_questions),
+				questions_open_message(self.open_questions),
 				title=_("Questions Open"),
 			)
 
@@ -449,6 +449,11 @@ def create_business_trip_from_intake(intake: str) -> str:
 	doc.check_permission("write")
 
 	return doc.create_business_trip()
+
+
+def questions_open_message(open_questions: str) -> str:
+	"""Build the message outside the translation, so the list is not part of the msgid."""
+	return f"{_('Please answer the open questions first:')}<br>{open_questions}"
 
 
 def get_default_region() -> str | None:

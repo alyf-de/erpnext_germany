@@ -1631,12 +1631,8 @@ msgid "Already Transferred"
 msgstr "Bereits übernommen"
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip_intake/business_trip_intake.py
-msgid ""
-"Please answer the open questions first:\n"
-"{0}"
-msgstr ""
-"Bitte zuerst die offenen Rückfragen beantworten:\n"
-"{0}"
+msgid "Please answer the open questions first:"
+msgstr "Bitte zuerst die offenen Rückfragen beantworten:"
 
 #: erpnext_germany/erpnext_germany/doctype/business_trip_intake/business_trip_intake.py
 msgid "The trip is still incomplete."
