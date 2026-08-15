@@ -87,7 +87,7 @@ class BusinessTrip(Document):
 			if not vehicle:
 				continue
 
-			if vehicle.employee != self.employee:
+			if vehicle.employee_name != self.employee_name:
 				frappe.throw(
 					_("Row {0}: {1} does not belong to {2}.").format(
 						journey.idx, vehicle.title, self.employee_name or self.employee

@@ -12,6 +12,10 @@ from erpnext_germany.erpnext_germany.doctype.business_trip.business_trip import 
 from erpnext_germany.erpnext_germany.doctype.business_trip_distance.business_trip_distance import (
 	get_distance,
 )
+from erpnext_germany.erpnext_germany.doctype.employee_vehicle.employee_vehicle import (
+	PRIVATE,
+	get_person_vehicles,
+)
 
 CAR_MODES = ("Car", "Car (private)", "Car (rental)")
 PRIVATE_CAR = "Car (private)"
@@ -185,13 +189,7 @@ class BusinessTripIntake(Document):
 		if self.employee_vehicle or self.mode_of_transport != PRIVATE_CAR or not self.employee:
 			return
 
-		self._private_vehicles = frappe.get_all(
-			"Employee Vehicle",
-			filters={"employee": self.employee, "disabled": 0, "ownership": "Private"},
-			fields=["name", "is_default"],
-			limit=2,
-			order_by="is_default desc",
-		)
+		self._private_vehicles = get_person_vehicles(self.employee, ownership=PRIVATE, limit=2)
 
 		if self._private_vehicles and (
 			self._private_vehicles[0].is_default or len(self._private_vehicles) == 1

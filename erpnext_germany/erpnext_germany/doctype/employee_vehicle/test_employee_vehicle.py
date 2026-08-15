@@ -53,6 +53,29 @@ class TestEmployeeVehicle(FrappeTestCase):
 		self.employee = create_employee()
 		frappe.db.delete("Employee Vehicle", {"employee": self.employee})
 
+	def test_vehicles_follow_the_person_across_companies(self):
+		other_company = frappe.get_all(
+			"Company", filters={"name": ("!=", frappe.db.get_value("Employee", self.employee, "company"))}
+		)
+		if not other_company:
+			self.skipTest("Only one Company in the test site")
+
+		vehicle = create_vehicle(self.employee)
+		second_record = frappe.get_doc(
+			{
+				"doctype": "Employee",
+				"first_name": "_Test",
+				"last_name": "Traveller",
+				"company": other_company[0].name,
+				"date_of_birth": "1990-01-01",
+				"date_of_joining": "2020-01-01",
+				"gender": frappe.db.get_value("Gender", {}, "name"),
+				"status": "Active",
+			}
+		).insert()
+
+		self.assertEqual(get_default_vehicle(second_record.name), vehicle.name)
+
 	def test_title_contains_license_plate(self):
 		vehicle = create_vehicle(self.employee, license_plate="HD-AF 123")
 

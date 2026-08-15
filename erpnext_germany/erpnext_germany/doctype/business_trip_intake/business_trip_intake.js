@@ -7,7 +7,7 @@ frappe.ui.form.on("Business Trip Intake", {
 		frm.set_query("employee_vehicle", (doc) => {
 			return {
 				filters: {
-					employee: doc.employee,
+					employee_name: doc.employee_name,
 					disabled: 0,
 				},
 			};

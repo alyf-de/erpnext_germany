@@ -71,14 +71,18 @@ class EmployeeVehicle(Document):
 			)
 
 	def validate_single_default(self):
-		"""Keep at most one default per employee, so the proposal is unambiguous."""
+		"""Keep at most one default per person, so the proposal is unambiguous.
+
+		Read the name from the employee record rather than from `employee_name`: the fetched
+		value is not filled in yet while this runs on a new document.
+		"""
 		if not self.is_default or self.disabled:
 			return
 
 		other_defaults = frappe.get_all(
 			"Employee Vehicle",
 			filters={
-				"employee": self.employee,
+				"employee_name": get_person(self.employee),
 				"is_default": 1,
 				"disabled": 0,
 				"name": ("!=", self.name),
@@ -104,6 +108,38 @@ class EmployeeVehicle(Document):
 		self.title = " ".join(part for part in parts if part)
 
 
+def get_person(employee: str | None) -> str | None:
+	"""Return the name of the person behind an employee record.
+
+	Someone who works for several companies has one employee record per company. Vehicles
+	belong to the person, not to the record, so everything about vehicles is keyed on the
+	employee name rather than on the record.
+	"""
+	if not employee:
+		return None
+
+	return frappe.get_cached_value("Employee", employee, "employee_name")
+
+
+def get_person_vehicles(employee: str | None, ownership: str | None = None, limit: int = 20) -> list:
+	"""Return the enabled vehicles of the person behind an employee record."""
+	person = get_person(employee)
+	if not person:
+		return []
+
+	filters = {"employee_name": person, "disabled": 0}
+	if ownership:
+		filters["ownership"] = ownership
+
+	return frappe.get_list(
+		"Employee Vehicle",
+		filters=filters,
+		fields=["name", "is_default"],
+		limit=limit,
+		order_by="is_default desc",
+	)
+
+
 def get_vehicles(names: Iterable[str]) -> dict[str, "frappe._dict"]:
 	"""Return the vehicles by name, in a single query.
 
@@ -121,7 +157,7 @@ def get_vehicles(names: Iterable[str]) -> dict[str, "frappe._dict"]:
 	rows = frappe.get_all(
 		"Employee Vehicle",
 		filters={"name": ("in", list(names))},
-		fields=["name", "employee", "ownership", "vehicle_class", "disabled", "title"],
+		fields=["name", "employee", "employee_name", "ownership", "vehicle_class", "disabled", "title"],
 	)
 
 	return {row.name: row for row in rows}
@@ -165,17 +201,7 @@ def get_default_vehicle(employee: str, ownership: str | None = None) -> str | No
 	"""
 	frappe.has_permission("Employee Vehicle", throw=True)
 
-	filters = {"employee": employee, "disabled": 0}
-	if ownership:
-		filters["ownership"] = ownership
-
-	vehicles = frappe.get_list(
-		"Employee Vehicle",
-		filters=filters,
-		fields=["name", "is_default"],
-		limit=2,
-		order_by="is_default desc",
-	)
+	vehicles = get_person_vehicles(employee, ownership, limit=2)
 
 	if not vehicles:
 		return None
