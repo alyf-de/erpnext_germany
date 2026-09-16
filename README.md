@@ -82,16 +82,17 @@ On demand you have to give the tax office your recording- and retention-relevant
 To prepare a handover:
 
 1. Create a new **GDPdU Export**.
-2. Select the company.
-3. Set **From Date** and **To Date** to the period of the audit. Leave both empty to export every period.
-4. Add one row per DocType you want to export. Check **Include Attached Files** to add the documents attached to it.
-5. Submit.
+2. Select the _Company_.
+3. Set _From Date_ and _To Date_ to the period of the audit. Leave both empty to export every period.
+4. Add one row to _Exported DocTypes_ per DocType you want to export.
+5. Check _Include Attached Files_ on a row to add the documents attached to it.
+6. Submit.
 
-The export runs in the background. When it is done, the ZIP archive is attached to the document and a **Download** button appears.
+The export runs in the background. When it is done, the ZIP archive is attached to the document and a _Download_ button appears.
 
 The archive holds one CSV file per DocType, the attached files, an `index.xml` that describes them and the DTD that `index.xml` is validated against. A DocType with a business date (`posting_date`, `transaction_date` or `date`) is limited to the selected period. Master data such as **Customer** or **Account** carries no such date and is always exported in full. Cutting it by the period would leave the transactions pointing at rows that are not part of the data set.
 
-`index.xml` is generated from the meta data. A Link field becomes a foreign key, and a child table becomes a table of its own. Custom fields are exported too, without further configuration.
+`index.xml` is generated from the meta data. A field of type "Link" becomes a foreign key, and a child table becomes a table of its own. Custom fields are exported too, without further configuration.
 
 Ask your tax advisor which DocTypes belong in the handover. The app does not decide the scope for you.
 
