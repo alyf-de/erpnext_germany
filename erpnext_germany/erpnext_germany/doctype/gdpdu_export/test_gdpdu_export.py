@@ -135,6 +135,57 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 			msg=f"no attachment in {names}",
 		)
 
+	def test_attachments_stay_inside_the_export(self):
+		"""A file of a document that is not exported has no business in the archive."""
+
+		def todo_with_file(date):
+			todo = frappe.get_doc(
+				{"doctype": "ToDo", "description": "GDPdU export test", "date": date}
+			).insert()
+			frappe.get_doc(
+				{
+					"doctype": "File",
+					"file_name": f"gdpdu-{date}.txt",
+					"content": date,
+					"attached_to_doctype": "ToDo",
+					"attached_to_name": todo.name,
+					"is_private": 1,
+				}
+			).insert()
+
+		todo_with_file("2024-06-01")
+		todo_with_file("2025-06-01")
+
+		export = frappe._dict(
+			company=None,
+			from_date="2024-01-01",
+			to_date="2024-12-31",
+			exported_doctypes=[frappe._dict(exported_doctype="ToDo", include_attached_files=1)],
+		)
+		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
+
+		self.assertTrue(any(name.endswith("gdpdu-2024-06-01.txt") for name in names), msg=names)
+		self.assertFalse(any(name.endswith("gdpdu-2025-06-01.txt") for name in names), msg=names)
+
+	def test_the_last_day_of_the_period_is_complete(self):
+		"""A Datetime late on the To Date still belongs to the period."""
+		activity = frappe.get_doc(
+			{
+				"doctype": "Asset Activity",
+				"asset": "_Test GDPdU Asset",
+				"subject": "GDPdU export test",
+				"date": "2024-12-31 23:30:00",
+				"user": "Administrator",
+			}
+		).insert(ignore_links=True)
+
+		export = frappe._dict(company=None, from_date="2024-01-01", to_date="2024-12-31")
+		table = get_table("Asset Activity", export)
+		self.assertEqual(table.date_field, "date")
+
+		names = [row["name"] for row in get_rows(table, export, ["name"], 0)]
+		self.assertIn(activity.name, names)
+
 	def test_only_dated_doctypes_are_cut_by_the_period(self):
 		"""Master data has to stay complete, or the ForeignKeys point out of the data set."""
 		export = frappe._dict(company="_Test Company", from_date="2024-01-01", to_date="2024-12-31")

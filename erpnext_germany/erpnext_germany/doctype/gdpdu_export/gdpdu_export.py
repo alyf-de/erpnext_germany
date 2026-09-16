@@ -26,6 +26,7 @@ import frappe
 from frappe import _
 from frappe.model import no_value_fields
 from frappe.model.document import Document
+from frappe.utils import add_days
 from frappe.utils.file_manager import save_file
 
 DTD_FILE_NAME = "gdpdu-01-03-2019.dtd"
@@ -104,6 +105,7 @@ class GDPdUExport(Document):
 		export_file: DF.Attach | None
 		exported_doctypes: DF.Table[GDPdUDocType]
 		from_date: DF.Date | None
+		status: DF.Literal["", "Queued", "Completed", "Failed"]
 		to_date: DF.Date | None
 	# end: auto-generated types
 
@@ -139,6 +141,13 @@ class GDPdUExport(Document):
 				)
 
 	def on_submit(self):
+		self.enqueue_export()
+
+	@frappe.whitelist()
+	def enqueue_export(self):
+		"""Queue the build, also to retry one that failed."""
+		self.check_permission("submit")
+		self.db_set("status", "Queued")
 		frappe.enqueue_doc(
 			self.doctype,
 			self.name,
@@ -153,12 +162,16 @@ class GDPdUExport(Document):
 		try:
 			content = build_archive(self)
 		except Exception:
+			# the form reads the status: without it a failed export stays
+			# indistinguishable from one that is still being generated
+			self.db_set("status", "Failed")
 			self.add_comment("Comment", _("The export failed, see the error log."))
 			frappe.log_error(title=f"GDPdU Export {self.name} failed")
 			return
 
 		file = save_file(f"{self.name}.zip", content, self.doctype, self.name, is_private=1)
 		self.db_set("export_file", file.file_url)
+		self.db_set("status", "Completed")
 
 
 def build_archive(export) -> bytes:
@@ -193,7 +206,8 @@ def build_archive(export) -> bytes:
 
 			for row in export.exported_doctypes:
 				if row.include_attached_files:
-					tables.append(write_attachments(archive, row.exported_doctype))
+					names = get_exported_names(row.exported_doctype, export)
+					tables.append(write_attachments(archive, row.exported_doctype, names))
 
 			archive.writestr(INDEX_FILE_NAME, get_index_xml(tables))
 			archive.write(Path(__file__).parent / DTD_FILE_NAME, arcname=DTD_FILE_NAME)
@@ -314,9 +328,26 @@ def get_rows(table: frappe._dict, export, fieldnames: list[str], start: int) -> 
 		query = query.where(parent[table.date_field] >= export.from_date)
 
 	if table.date_field and export.to_date:
-		query = query.where(parent[table.date_field] <= export.to_date)
+		# exclusive next-day bound, or a Datetime late on the last day would be cut
+		query = query.where(parent[table.date_field] < add_days(export.to_date, 1))
 
 	return query.orderby(rows["name"]).limit(BATCH_SIZE).offset(start).run(as_dict=True)
+
+
+def get_exported_names(doctype: str, export) -> list[str] | None:
+	"""Return the names of the exported rows, or None if the whole table is exported."""
+	table = get_table(doctype, export)
+	if not table.company_field and not table.validity:
+		return None
+
+	# ponytail: the names are collected to filter the attachments by them. Turn it
+	# into a subquery if a single DocType ever holds too many to pass along.
+	names, start = [], 0
+	while rows := get_rows(table, export, ["name"], start):
+		names.extend(row["name"] for row in rows)
+		start += BATCH_SIZE
+
+	return names
 
 
 def write_csv(archive: zipfile.ZipFile, table: frappe._dict, export) -> None:
@@ -340,8 +371,15 @@ def write_csv(archive: zipfile.ZipFile, table: frappe._dict, export) -> None:
 		stream.detach()
 
 
-def write_attachments(archive: zipfile.ZipFile, doctype: str) -> frappe._dict:
-	"""Put the files attached to a DocType into the archive and describe them as a table."""
+def write_attachments(archive: zipfile.ZipFile, doctype: str, names: list[str] | None) -> frappe._dict:
+	"""
+	Put the files attached to a DocType into the archive and describe them as a table.
+
+	Arguments:
+	names -- the exported rows, or None if the DocType is exported in full. A file
+	         of a document outside the company or the period is none of the audit's
+	         business and would point at a row that is not in the CSV.
+	"""
 	table_name = f"{doctype} Attachments"
 	table = frappe._dict(
 		doctype="File",
@@ -359,10 +397,12 @@ def write_attachments(archive: zipfile.ZipFile, doctype: str) -> frappe._dict:
 
 	# The files have to go in before the CSV describing them: a ZIP archive
 	# tolerates only one open writing handle at a time.
+	filters = {"attached_to_doctype": doctype}
+	if names is not None:
+		filters["attached_to_name"] = ("in", names)
+
 	rows = []
-	for name in frappe.get_all(
-		"File", filters={"attached_to_doctype": doctype}, pluck="name", order_by="name"
-	):
+	for name in frappe.get_all("File", filters=filters, pluck="name", order_by="name"):
 		# ponytail: one query per file, the document is needed for its path
 		# anyway. Batch it if an export ever holds enough files to hurt.
 		file = frappe.get_doc("File", name)
