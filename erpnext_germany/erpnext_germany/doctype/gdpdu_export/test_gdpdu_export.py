@@ -160,7 +160,7 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
 
 		self.assertIn("ToDo.csv", names)
-		self.assertIn("ToDo_Attachments.csv", names)
+		self.assertIn("ToDo%20Attachments.csv", names)
 		self.assertIn("index.xml", names)
 		self.assertIn("gdpdu-01-03-2019.dtd", names)
 		self.assertTrue(
