@@ -4,9 +4,10 @@
 import io
 import xml.etree.ElementTree as ET
 import zipfile
+from contextlib import contextmanager
 
 import frappe
-from frappe.tests import IntegrationTestCase, set_user
+from frappe.tests.utils import FrappeTestCase
 
 from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 	FIRST_DATA_ROW,
@@ -37,7 +38,7 @@ TABLE_CHILDREN = [
 COLUMN_TAGS = ("VariablePrimaryKey", "VariableColumn")
 
 
-class IntegrationTestGDPdUExport(IntegrationTestCase):
+class IntegrationTestGDPdUExport(FrappeTestCase):
 	"""
 	Integration tests for GDPdUExport.
 	Use this class for testing interactions between multiple components.
@@ -289,3 +290,14 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 			self.assertIsInstance(rows, list, msg=doctype)
 			if rows:
 				self.assertEqual(set(rows[0]), set(fieldnames), msg=doctype)
+
+
+@contextmanager
+def set_user(user: str):
+	"""Temporarily: set the user."""
+	try:
+		old_user = frappe.session.user
+		frappe.set_user(user)
+		yield
+	finally:
+		frappe.set_user(old_user)
