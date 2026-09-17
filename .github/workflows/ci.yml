@@ -5,11 +5,8 @@ on:
   workflow_dispatch:
   pull_request:
     paths-ignore:
-      - '**.js'
       - '**.css'
       - '**.md'
-      - '**.html'
-      - '**.csv'
       - '**.po'
       - '**.pot'
       - '.editorconfig'
