@@ -5,6 +5,7 @@ import io
 import xml.etree.ElementTree as ET
 import zipfile
 from contextlib import contextmanager
+from unittest.mock import patch
 
 import frappe
 from frappe.tests.utils import FrappeTestCase
@@ -16,6 +17,8 @@ from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 	get_rows,
 	get_table,
 )
+
+MODULE = "erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export"
 
 # On IntegrationTestCase, the doctype test records and all
 # link-field test record dependencies are recursively loaded
@@ -113,6 +116,21 @@ class IntegrationTestGDPdUExport(FrappeTestCase):
 		)
 		with set_user("Guest"):
 			self.assertRaisesRegex(frappe.PermissionError, "not allowed to export", export.enqueue_export)
+
+	def test_a_failed_attachment_marks_the_export_failed(self):
+		"""Attaching fails on its own account, the form only learns it from the status."""
+		export = frappe.get_doc(
+			{
+				"doctype": "GDPdU Export",
+				"company": "_Test Company",
+				"exported_doctypes": [{"exported_doctype": "ToDo"}],
+			}
+		).insert()
+
+		with patch(f"{MODULE}.save_file", side_effect=Exception("file is too large")):
+			export.build_export()
+
+		self.assertEqual(frappe.db.get_value("GDPdU Export", export.name, "status"), "Failed")
 
 	def test_attached_files_land_in_the_archive(self):
 		"""A ZIP tolerates one open writing handle, so the files come before their CSV."""
