@@ -2,8 +2,8 @@
 # See license.txt
 
 # import frappe
-from erpnext_germany.tests.utils import ERPNextGermanyTestSuite
+from frappe.tests.utils import FrappeTestCase
 
 
-class TestVATIDCheck(ERPNextGermanyTestSuite):
+class TestVATIDCheck(FrappeTestCase):
 	pass

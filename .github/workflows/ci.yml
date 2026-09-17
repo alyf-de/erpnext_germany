@@ -43,7 +43,7 @@ jobs:
         ports:
           - 11000:6379
       mariadb:
-        image: mariadb:11.8
+        image: mariadb:10.6
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
@@ -62,12 +62,12 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.14'
+          python-version: '3.11'
 
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24
+          node-version: 18
           check-latest: true
 
       - name: Cache pip
@@ -99,7 +99,7 @@ jobs:
       - name: Setup
         run: |
           pip install frappe-bench
-          bench init --skip-redis-config-generation --skip-assets --python "$(which python)" --frappe-branch version-16 ~/frappe-bench
+          bench init --skip-redis-config-generation --skip-assets --python "$(which python)" --frappe-branch version-15 ~/frappe-bench
           mariadb --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL character_set_server = 'utf8mb4'"
           mariadb --host 127.0.0.1 --port 3306 -u root -proot -e "SET GLOBAL collation_server = 'utf8mb4_unicode_ci'"
 
@@ -107,7 +107,7 @@ jobs:
         working-directory: /home/runner/frappe-bench
         run: |
           bench get-app erpnext_germany $GITHUB_WORKSPACE
-          bench get-app erpnext --branch version-16
+          bench get-app erpnext --branch version-15
           bench setup requirements --dev
           bench new-site --db-root-password root --admin-password admin test_site
           bench --site test_site install-app erpnext
