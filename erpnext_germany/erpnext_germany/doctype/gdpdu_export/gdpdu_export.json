@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "creation": "2026-09-17 01:41:50.014299",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "section_break_pfxf",
+  "company",
+  "from_date",
+  "to_date",
+  "exported_doctypes",
+  "status",
+  "export_file",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "section_break_pfxf",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "description": "Leave empty to export every period. Only DocTypes with a business date are limited, master data is always exported in full.",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To Date"
+  },
+  {
+   "fieldname": "exported_doctypes",
+   "fieldtype": "Table",
+   "label": "Exported DocTypes",
+   "options": "GDPdU DocType"
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Generated in the background after submitting.",
+   "fieldname": "export_file",
+   "fieldtype": "Attach",
+   "label": "Export File",
+   "no_copy": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "GDPdU Export",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "no_copy": 1,
+   "options": "\nQueued\nCompleted\nFailed",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-09-17 04:22:50.970536",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "GDPdU Export",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}
