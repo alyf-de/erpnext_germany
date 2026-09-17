@@ -26,7 +26,7 @@ on:
       - '.github/workflows/release.yml'
 
 concurrency:
-  group: erpnext_germany-${{ github.event.number }}
+  group: erpnext_germany-${{ github.event.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
