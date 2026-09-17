@@ -4,6 +4,9 @@
 # import frappe
 from frappe.tests.utils import FrappeTestCase
 
+# Expense Claim Type belongs to hrms, which CI does not install.
+test_ignore = ["Expense Claim Type"]
+
 
 class TestBusinessTripSettings(FrappeTestCase):
 	pass

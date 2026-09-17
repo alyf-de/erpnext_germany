@@ -21,12 +21,6 @@ from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 
 MODULE = "erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export"
 
-# On IntegrationTestCase, the doctype test records and all
-# link-field test record dependencies are recursively loaded
-# Use these module variables to add/remove to/from that list
-EXTRA_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
-IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
-
 # Child order is prescribed by the DTD, a reader rejects any other order.
 TABLE_CHILDREN = [
 	"URL",

@@ -142,7 +142,8 @@ scheduler_events = {
 # Testing
 # -------
 
-# before_tests = "erpnext_germany.install.before_tests"
+# Seeds the master data (company, accounts, ...) that the tests read.
+before_tests = "erpnext.setup.utils.before_tests"
 
 # Overriding Methods
 # ------------------------------
