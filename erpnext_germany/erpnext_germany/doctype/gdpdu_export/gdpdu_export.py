@@ -192,17 +192,15 @@ def build_archive(export) -> bytes:
 	export -- the `GDPdU Export` naming the DocTypes, the company and the period
 	"""
 	tables = []
-	seen = set()
 
 	for row in export.exported_doctypes:
-		# a child table is a table of its own, linked to its parent by `parent`
+		# A child table is a table of its own, linked to its parent by `parent`, and
+		# one per parent: `get_rows` cuts it to a single `parenttype`, so a DocType
+		# used by two parents (Contact and Address both link Dynamic Link) has to be
+		# delivered once per parent or the second parent's rows are missing.
 		for doctype, parent in [(row.exported_doctype, None)] + [
 			(child, row.exported_doctype) for child in get_child_doctypes(row.exported_doctype)
 		]:
-			if doctype in seen:
-				continue
-
-			seen.add(doctype)
 			tables.append(get_table(doctype, export, parent))
 
 	# ponytail: the archive is built on disk but read into memory once to attach
@@ -230,6 +228,8 @@ def get_table(doctype: str, export, parent: str | None = None) -> frappe._dict:
 	meta = frappe.get_meta(doctype)
 	# a child row carries neither company nor date of its own, its parent does
 	filtered = frappe.get_meta(parent) if parent else meta
+	# the table holds the rows of one parent only, so the name has to say which
+	table_name = f"{doctype} ({parent})" if parent else doctype
 	date_field = get_period_field(filtered)
 	columns = [frappe._dict(fieldname="name", fieldtype="Data")]
 
@@ -249,9 +249,9 @@ def get_table(doctype: str, export, parent: str | None = None) -> frappe._dict:
 
 	return frappe._dict(
 		doctype=doctype,
-		name=doctype,
+		name=table_name,
 		description=_(meta.description or doctype),
-		file_name=get_file_name(doctype),
+		file_name=get_file_name(table_name),
 		columns=columns,
 		parent_doctype=parent,
 		company_field=get_company_field(filtered),
