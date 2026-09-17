@@ -104,6 +104,14 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		with set_user("Guest"):
 			self.assertRaises(frappe.PermissionError, export.validate)
 
+	def test_a_retry_checks_the_permissions_again(self):
+		"""`validate` does not run on a submitted document, the build reads the tables anyway."""
+		export = frappe.get_doc(
+			{"doctype": "GDPdU Export", "exported_doctypes": [{"exported_doctype": "User"}]}
+		)
+		with set_user("Guest"):
+			self.assertRaisesRegex(frappe.PermissionError, "not allowed to export", export.enqueue_export)
+
 	def test_attached_files_land_in_the_archive(self):
 		"""A ZIP tolerates one open writing handle, so the files come before their CSV."""
 		todo = frappe.get_doc({"doctype": "ToDo", "description": "GDPdU export test"}).insert()

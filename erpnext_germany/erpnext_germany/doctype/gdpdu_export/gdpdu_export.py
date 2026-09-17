@@ -132,8 +132,16 @@ class GDPdUExport(Document):
 					)
 				)
 
-			# The export reads whole tables, so the right to export them has to be
-			# checked for every single one.
+		self.check_export_permissions()
+
+	def check_export_permissions(self):
+		"""
+		Check the right to export every selected DocType.
+
+		The build reads whole tables without a permission check of its own, so
+		every path that starts one has to ask first.
+		"""
+		for row in self.exported_doctypes:
 			if not frappe.has_permission(row.exported_doctype, "export"):
 				frappe.throw(
 					_("Row {0}: You are not allowed to export {1}.").format(row.idx, row.exported_doctype),
@@ -146,6 +154,7 @@ class GDPdUExport(Document):
 	@frappe.whitelist()
 	def enqueue_export(self):
 		"""Queue the build, also to retry one that failed."""
+		self.check_export_permissions()
 		self.check_permission("submit")
 		self.db_set("status", "Queued")
 		frappe.enqueue_doc(
@@ -308,7 +317,7 @@ def get_rows(table: frappe._dict, export, fieldnames: list[str], start: int) -> 
 	# PseudoColumn and routes attribute access through __getattr__, where a field
 	# named like a real attribute of the table would not reach.
 	rows = frappe.qb.DocType(table.doctype)
-	# permissions were checked per DocType in `validate`
+	# permissions were checked per DocType in `check_export_permissions`
 	query = frappe.qb.from_(rows).select(*(rows[fieldname] for fieldname in fieldnames))
 
 	if table.parent_doctype:
