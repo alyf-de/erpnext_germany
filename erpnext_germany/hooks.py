@@ -142,7 +142,6 @@ scheduler_events = {
 # Testing
 # -------
 
-# before_tests = "erpnext_germany.install.before_tests"
 
 # Overriding Methods
 # ------------------------------

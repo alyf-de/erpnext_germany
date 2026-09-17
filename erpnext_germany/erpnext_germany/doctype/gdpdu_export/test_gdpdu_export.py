@@ -8,7 +8,11 @@ from contextlib import contextmanager
 from unittest.mock import patch
 
 import frappe
+<<<<<<< HEAD
 from frappe.tests.utils import FrappeTestCase
+=======
+from frappe.tests import set_user
+>>>>>>> 6628bec (ci: run integration test (#132))
 
 from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 	FIRST_DATA_ROW,
@@ -18,14 +22,9 @@ from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 	get_rows,
 	get_table,
 )
+from erpnext_germany.tests.utils import ERPNextGermanyTestSuite
 
 MODULE = "erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export"
-
-# On IntegrationTestCase, the doctype test records and all
-# link-field test record dependencies are recursively loaded
-# Use these module variables to add/remove to/from that list
-EXTRA_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
-IGNORE_TEST_RECORD_DEPENDENCIES = []  # eg. ["User"]
 
 # Child order is prescribed by the DTD, a reader rejects any other order.
 TABLE_CHILDREN = [
@@ -42,7 +41,11 @@ TABLE_CHILDREN = [
 COLUMN_TAGS = ("VariablePrimaryKey", "VariableColumn")
 
 
+<<<<<<< HEAD
 class IntegrationTestGDPdUExport(FrappeTestCase):
+=======
+class IntegrationTestGDPdUExport(ERPNextGermanyTestSuite):
+>>>>>>> 6628bec (ci: run integration test (#132))
 	"""
 	Integration tests for GDPdUExport.
 	Use this class for testing interactions between multiple components.
