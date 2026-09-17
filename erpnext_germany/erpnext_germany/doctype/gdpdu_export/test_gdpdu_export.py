@@ -160,7 +160,7 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
 
 		self.assertIn("ToDo.csv", names)
-		self.assertIn("ToDo%20Attachments.csv", names)
+		self.assertIn("ToDo Attachments.csv", names)
 		self.assertIn("index.xml", names)
 		self.assertIn("gdpdu-01-03-2019.dtd", names)
 		self.assertTrue(
@@ -280,8 +280,8 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		)
 		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
 
-		self.assertIn("Dynamic%20Link%20(Contact).csv", names)
-		self.assertIn("Dynamic%20Link%20(Address).csv", names)
+		self.assertIn("Dynamic Link (Contact).csv", names)
+		self.assertIn("Dynamic Link (Address).csv", names)
 
 	def test_the_data_supplier_is_described(self):
 		"""The business handing the data over is named between Version and Media."""

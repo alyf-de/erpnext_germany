@@ -304,18 +304,14 @@ def get_child_doctypes(doctype: str) -> list[str]:
 
 
 def get_file_name(table_name: str) -> str:
-	return escape_name(table_name) + ".csv"
+	"""Return the file a table is written to.
 
-
-def escape_name(name: str) -> str:
-	"""Return a name that no second name can turn into, and that opens no directory.
-
-	Percent encoding is reversible, so two names stay two names. Substituting the
-	space is not: `A_ B` and `A _B` both end up as `A___B`, however the underscore
-	is escaped, and a reader then associates one of them with the wrong table. The
-	parentheses stay as they are, they carry the parent of a child table.
+	A DocType name carries letters, numbers, spaces, underscores and hyphens only,
+	so it is a file name as it stands. Substituting anything in it would be the one
+	way two tables could end up in one file: `A_ B` and `A _B` both read `A___B`
+	once the space becomes an underscore, however the underscore is escaped.
 	"""
-	return quote(name, safe="()")
+	return table_name + ".csv"
 
 
 def get_rows(table: frappe._dict, export, fieldnames: list[str], start: int) -> list[dict]:
@@ -429,10 +425,12 @@ def write_attachments(archive: zipfile.ZipFile, doctype: str, names: list[str] |
 		# anyway. Batch it if an export ever holds enough files to hurt.
 		file = frappe.get_doc("File", name)
 		# One directory per document, so the files of an invoice are found together.
-		# The name is escaped: it may carry a slash and would otherwise open a
-		# directory of its own, and two documents must not share a directory. Two
-		# files of one document cannot collide, frappe keeps `file_name` unique.
-		path = f"attachments/{doctype}/{escape_name(file.attached_to_name)}/{file.file_name}"
+		# A document name is not as tame as a DocType name: it may carry a slash and
+		# would otherwise open a directory of its own, so it is percent encoded, which
+		# is reversible and leaves an ordinary name untouched. Two files of one
+		# document cannot collide, frappe keeps `file_name` unique.
+		directory = quote(file.attached_to_name, safe="")
+		path = f"attachments/{doctype}/{directory}/{file.file_name}"
 
 		try:
 			archive.write(file.get_full_path(), arcname=path)
