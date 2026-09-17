@@ -21,6 +21,7 @@ import tempfile
 import xml.etree.ElementTree as ET
 import zipfile
 from pathlib import Path
+from urllib.parse import quote
 
 import frappe
 from frappe import _
@@ -303,13 +304,18 @@ def get_child_doctypes(doctype: str) -> list[str]:
 
 
 def get_file_name(table_name: str) -> str:
-	"""Return a file name that no other table can carry.
+	return escape_name(table_name) + ".csv"
 
-	A DocType name may hold letters, numbers, spaces, underscores and hyphens, so
-	doubling the underscore keeps the substitution reversible: `A B` and `A_B` are
-	two DocTypes and must not be written into the same file.
+
+def escape_name(name: str) -> str:
+	"""Return a name that no second name can turn into, and that opens no directory.
+
+	Percent encoding is reversible, so two names stay two names. Substituting the
+	space is not: `A_ B` and `A _B` both end up as `A___B`, however the underscore
+	is escaped, and a reader then associates one of them with the wrong table. The
+	parentheses stay as they are, they carry the parent of a child table.
 	"""
-	return table_name.replace("_", "__").replace(" ", "_") + ".csv"
+	return quote(name, safe="()")
 
 
 def get_rows(table: frappe._dict, export, fieldnames: list[str], start: int) -> list[dict]:
@@ -423,12 +429,10 @@ def write_attachments(archive: zipfile.ZipFile, doctype: str, names: list[str] |
 		# anyway. Batch it if an export ever holds enough files to hurt.
 		file = frappe.get_doc("File", name)
 		# One directory per document, so the files of an invoice are found together.
-		# A name may carry a slash and would otherwise open a directory of its own.
-		# The underscore doubles along with it, or the documents `A/B` and `A_B` would
-		# share a directory. Two files of one document cannot collide, frappe keeps
-		# `file_name` unique.
-		directory = file.attached_to_name.replace("_", "__").replace("/", "_")
-		path = f"attachments/{doctype}/{directory}/{file.file_name}"
+		# The name is escaped: it may carry a slash and would otherwise open a
+		# directory of its own, and two documents must not share a directory. Two
+		# files of one document cannot collide, frappe keeps `file_name` unique.
+		path = f"attachments/{doctype}/{escape_name(file.attached_to_name)}/{file.file_name}"
 
 		try:
 			archive.write(file.get_full_path(), arcname=path)
