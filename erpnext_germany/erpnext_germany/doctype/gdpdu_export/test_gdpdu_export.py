@@ -13,6 +13,7 @@ from frappe.tests.utils import FrappeTestCase
 from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 	FIRST_DATA_ROW,
 	build_archive,
+	get_file_name,
 	get_index_xml,
 	get_rows,
 	get_table,
@@ -116,6 +117,10 @@ class IntegrationTestGDPdUExport(FrappeTestCase):
 		)
 		with set_user("Guest"):
 			self.assertRaisesRegex(frappe.PermissionError, "not allowed to export", export.enqueue_export)
+
+	def test_two_doctypes_never_share_a_file(self):
+		"""`A B` and `A_B` are both legal DocType names, one file would hold both."""
+		self.assertNotEqual(get_file_name("A B"), get_file_name("A_B"))
 
 	def test_a_failed_attachment_marks_the_export_failed(self):
 		"""Attaching fails on its own account, the form only learns it from the status."""

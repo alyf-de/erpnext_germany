@@ -303,7 +303,13 @@ def get_child_doctypes(doctype: str) -> list[str]:
 
 
 def get_file_name(table_name: str) -> str:
-	return table_name.replace(" ", "_").replace("/", "_") + ".csv"
+	"""Return a file name that no other table can carry.
+
+	A DocType name may hold letters, numbers, spaces, underscores and hyphens, so
+	doubling the underscore keeps the substitution reversible: `A B` and `A_B` are
+	two DocTypes and must not be written into the same file.
+	"""
+	return table_name.replace("_", "__").replace(" ", "_") + ".csv"
 
 
 def get_rows(table: frappe._dict, export, fieldnames: list[str], start: int) -> list[dict]:
@@ -418,8 +424,11 @@ def write_attachments(archive: zipfile.ZipFile, doctype: str, names: list[str] |
 		file = frappe.get_doc("File", name)
 		# One directory per document, so the files of an invoice are found together.
 		# A name may carry a slash and would otherwise open a directory of its own.
-		# Two files of one document cannot collide, frappe keeps `file_name` unique.
-		path = f"attachments/{doctype}/{file.attached_to_name.replace('/', '_')}/{file.file_name}"
+		# The underscore doubles along with it, or the documents `A/B` and `A_B` would
+		# share a directory. Two files of one document cannot collide, frappe keeps
+		# `file_name` unique.
+		directory = file.attached_to_name.replace("_", "__").replace("/", "_")
+		path = f"attachments/{doctype}/{directory}/{file.file_name}"
 
 		try:
 			archive.write(file.get_full_path(), arcname=path)
