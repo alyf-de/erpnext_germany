@@ -65,7 +65,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Reports",
-   "link_count": 2,
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -89,9 +89,19 @@
    "link_type": "Report",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "GDPdU Export",
+   "link_count": 0,
+   "link_to": "GDPdU Export",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2025-11-19 00:18:31.962588",
+ "modified": "2026-09-17 19:13:44.018438",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Germany",

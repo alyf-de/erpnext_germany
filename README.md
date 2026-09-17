@@ -29,6 +29,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 - List of German health insurance providers (depends on HRMS)
 - Create **Business Letters** from a template and print or email them to your customers or suppliers
 - Record **Business Trips** and pay out allowances to your employees (dt. Reisekostenabrechnung) (depends on HRMS)
+- Hand over your data to the tax office in machine-evaluable form (**GDPdU Export**)
 
 ## Installation
 
@@ -74,6 +75,27 @@ You can use our [Banking app](https://github.com/alyf-de/banking) to reconcile t
 
 Currently, this report lists all invoices as other service ("S"). If you do triangular transactions ("D") or intra-Community supplies ("L"), you need to manually adjust this column in the CSV file. Automatically determining the service type is planned for a future version.
 
+## GDPdU Export
+
+On demand you have to give the tax office your recording- and retention-relevant data, together with the structural information needed to evaluate them. This follows from section 147 paragraph 6 of the Abgabenordnung and the GoBD in the version of the BMF letter of 11 March 2024.
+
+To prepare a handover:
+
+1. Create a new **GDPdU Export**.
+2. Select the _Company_.
+3. Set _From Date_ and _To Date_ to the period of the audit. Leave both empty to export every period.
+4. Add one row to _Exported DocTypes_ per DocType you want to export.
+5. Check _Include Attached Files_ on a row to add the documents attached to it.
+6. Submit.
+
+The export runs in the background. When it is done, the ZIP archive is attached to the document and a _Download_ button appears.
+
+The archive holds one CSV file per DocType, the attached files, an `index.xml` that describes them and the DTD that `index.xml` is validated against. A DocType with a business date (`posting_date`, `transaction_date` or `date`) is limited to the selected period. Master data such as **Customer** or **Account** carries no such date and is always exported in full. Cutting it by the period would leave the transactions pointing at rows that are not part of the data set.
+
+`index.xml` is generated from the meta data. A field of type "Link" becomes a foreign key, and a child table becomes a table of its own. Custom fields are exported too, without further configuration.
+
+Ask your tax advisor which DocTypes belong in the handover. The app does not decide the scope for you.
+
 ## Quick Start Demo
 
 The fastest way to get a running demo site on your local desktop.
@@ -95,3 +117,5 @@ Read more about the setup in the [docker/README.md](docker/README.md) file.
 ### License
 
 GNU GPL V3. See the `LICENSE` file for more information.
+
+The file `gdpdu-01-03-2019.dtd` is not part of this app. CaseWare Germany GmbH publishes it at https://www.caseware.com/de/beschreibungsstandard and holds the copyright. The app ships the file unmodified, because the description standard requires it to be handed over next to `index.xml`.

@@ -1,0 +1,3 @@
+# The GDPdU description standard has to be handed over unmodified.
+# Line ending conversion would change the file.
+*.dtd -text
