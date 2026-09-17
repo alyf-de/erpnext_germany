@@ -4,6 +4,7 @@
 import io
 import xml.etree.ElementTree as ET
 import zipfile
+from unittest.mock import patch
 
 import frappe
 from frappe.tests import IntegrationTestCase, set_user
@@ -11,10 +12,13 @@ from frappe.tests import IntegrationTestCase, set_user
 from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 	FIRST_DATA_ROW,
 	build_archive,
+	get_file_name,
 	get_index_xml,
 	get_rows,
 	get_table,
 )
+
+MODULE = "erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export"
 
 # On IntegrationTestCase, the doctype test records and all
 # link-field test record dependencies are recursively loaded
@@ -83,7 +87,7 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 	def test_child_table_links_to_its_parent(self):
 		links = {
 			(key.findtext("Name"), key.findtext("References"))
-			for key in self.described["Has Role"].iter("ForeignKey")
+			for key in self.described["Has Role (User)"].iter("ForeignKey")
 		}
 		self.assertIn(("parent", "User"), links)
 
@@ -113,6 +117,26 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		with set_user("Guest"):
 			self.assertRaisesRegex(frappe.PermissionError, "not allowed to export", export.enqueue_export)
 
+	def test_two_doctypes_never_share_a_file(self):
+		"""Space, underscore and both next to each other are all legal in a DocType name."""
+		names = ["A B", "A_B", "A_ B", "A _B", "A__B", "A%20B"]
+		self.assertEqual(len({get_file_name(name) for name in names}), len(names))
+
+	def test_a_failed_attachment_marks_the_export_failed(self):
+		"""Attaching fails on its own account, the form only learns it from the status."""
+		export = frappe.get_doc(
+			{
+				"doctype": "GDPdU Export",
+				"company": "_Test Company",
+				"exported_doctypes": [{"exported_doctype": "ToDo"}],
+			}
+		).insert()
+
+		with patch(f"{MODULE}.save_file", side_effect=Exception("file is too large")):
+			export.build_export()
+
+		self.assertEqual(frappe.db.get_value("GDPdU Export", export.name, "status"), "Failed")
+
 	def test_attached_files_land_in_the_archive(self):
 		"""A ZIP tolerates one open writing handle, so the files come before their CSV."""
 		todo = frappe.get_doc({"doctype": "ToDo", "description": "GDPdU export test"}).insert()
@@ -136,7 +160,7 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
 
 		self.assertIn("ToDo.csv", names)
-		self.assertIn("ToDo_Attachments.csv", names)
+		self.assertIn("ToDo Attachments.csv", names)
 		self.assertIn("index.xml", names)
 		self.assertIn("gdpdu-01-03-2019.dtd", names)
 		self.assertTrue(
@@ -242,6 +266,22 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		self.assertEqual(child.parent_doctype, "Sales Invoice")
 		self.assertEqual(child.company_field, "company")
 		self.assertEqual(child.date_field, "posting_date")
+
+	def test_a_shared_child_doctype_is_delivered_per_parent(self):
+		"""Contact and Address both hold Dynamic Link rows, one table would drop one parent."""
+		export = frappe._dict(
+			company=None,
+			from_date=None,
+			to_date=None,
+			exported_doctypes=[
+				frappe._dict(exported_doctype="Contact", include_attached_files=0),
+				frappe._dict(exported_doctype="Address", include_attached_files=0),
+			],
+		)
+		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
+
+		self.assertIn("Dynamic Link (Contact).csv", names)
+		self.assertIn("Dynamic Link (Address).csv", names)
 
 	def test_the_data_supplier_is_described(self):
 		"""The business handing the data over is named between Version and Media."""

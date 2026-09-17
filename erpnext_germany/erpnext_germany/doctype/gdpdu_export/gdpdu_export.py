@@ -21,6 +21,7 @@ import tempfile
 import xml.etree.ElementTree as ET
 import zipfile
 from pathlib import Path
+from urllib.parse import quote
 
 import frappe
 from frappe import _
@@ -171,17 +172,17 @@ class GDPdUExport(Document):
 		"""Write the archive and attach it to this document."""
 		try:
 			content = build_archive(self)
+			# attaching fails on its own account, e.g. when the archive is larger
+			# than the maximum file size, so it is watched along with the build
+			file = save_file(f"{self.name}.zip", content, self.doctype, self.name, is_private=1)
+			self.db_set("export_file", file.file_url)
+			self.db_set("status", "Completed")
 		except Exception:
 			# the form reads the status: without it a failed export stays
 			# indistinguishable from one that is still being generated
 			self.db_set("status", "Failed")
 			self.add_comment("Comment", _("The export failed, see the error log."))
 			frappe.log_error(title=f"GDPdU Export {self.name} failed")
-			return
-
-		file = save_file(f"{self.name}.zip", content, self.doctype, self.name, is_private=1)
-		self.db_set("export_file", file.file_url)
-		self.db_set("status", "Completed")
 
 
 def build_archive(export) -> bytes:
@@ -192,17 +193,15 @@ def build_archive(export) -> bytes:
 	export -- the `GDPdU Export` naming the DocTypes, the company and the period
 	"""
 	tables = []
-	seen = set()
 
 	for row in export.exported_doctypes:
-		# a child table is a table of its own, linked to its parent by `parent`
+		# A child table is a table of its own, linked to its parent by `parent`, and
+		# one per parent: `get_rows` cuts it to a single `parenttype`, so a DocType
+		# used by two parents (Contact and Address both link Dynamic Link) has to be
+		# delivered once per parent or the second parent's rows are missing.
 		for doctype, parent in [(row.exported_doctype, None)] + [
 			(child, row.exported_doctype) for child in get_child_doctypes(row.exported_doctype)
 		]:
-			if doctype in seen:
-				continue
-
-			seen.add(doctype)
 			tables.append(get_table(doctype, export, parent))
 
 	# ponytail: the archive is built on disk but read into memory once to attach
@@ -230,6 +229,8 @@ def get_table(doctype: str, export, parent: str | None = None) -> frappe._dict:
 	meta = frappe.get_meta(doctype)
 	# a child row carries neither company nor date of its own, its parent does
 	filtered = frappe.get_meta(parent) if parent else meta
+	# the table holds the rows of one parent only, so the name has to say which
+	table_name = f"{doctype} ({parent})" if parent else doctype
 	date_field = get_period_field(filtered)
 	columns = [frappe._dict(fieldname="name", fieldtype="Data")]
 
@@ -249,9 +250,9 @@ def get_table(doctype: str, export, parent: str | None = None) -> frappe._dict:
 
 	return frappe._dict(
 		doctype=doctype,
-		name=doctype,
+		name=table_name,
 		description=_(meta.description or doctype),
-		file_name=get_file_name(doctype),
+		file_name=get_file_name(table_name),
 		columns=columns,
 		parent_doctype=parent,
 		company_field=get_company_field(filtered),
@@ -303,7 +304,14 @@ def get_child_doctypes(doctype: str) -> list[str]:
 
 
 def get_file_name(table_name: str) -> str:
-	return table_name.replace(" ", "_").replace("/", "_") + ".csv"
+	"""Return the file a table is written to.
+
+	A DocType name carries letters, numbers, spaces, underscores and hyphens only,
+	so it is a file name as it stands. Substituting anything in it would be the one
+	way two tables could end up in one file: `A_ B` and `A _B` both read `A___B`
+	once the space becomes an underscore, however the underscore is escaped.
+	"""
+	return table_name + ".csv"
 
 
 def get_rows(table: frappe._dict, export, fieldnames: list[str], start: int) -> list[dict]:
@@ -417,9 +425,12 @@ def write_attachments(archive: zipfile.ZipFile, doctype: str, names: list[str] |
 		# anyway. Batch it if an export ever holds enough files to hurt.
 		file = frappe.get_doc("File", name)
 		# One directory per document, so the files of an invoice are found together.
-		# A name may carry a slash and would otherwise open a directory of its own.
-		# Two files of one document cannot collide, frappe keeps `file_name` unique.
-		path = f"attachments/{doctype}/{file.attached_to_name.replace('/', '_')}/{file.file_name}"
+		# A document name is not as tame as a DocType name: it may carry a slash and
+		# would otherwise open a directory of its own, so it is percent encoded, which
+		# is reversible and leaves an ordinary name untouched. Two files of one
+		# document cannot collide, frappe keeps `file_name` unique.
+		directory = quote(file.attached_to_name, safe="")
+		path = f"attachments/{doctype}/{directory}/{file.file_name}"
 
 		try:
 			archive.write(file.get_full_path(), arcname=path)
