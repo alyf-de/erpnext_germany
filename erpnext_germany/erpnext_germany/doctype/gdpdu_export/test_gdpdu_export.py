@@ -143,6 +143,33 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 			msg=f"no attachment in {names}",
 		)
 
+	def test_files_of_one_document_share_a_directory(self):
+		"""Two files of a document may carry the same name and must not overwrite each other."""
+		todo = frappe.get_doc({"doctype": "ToDo", "description": "GDPdU export test"}).insert()
+		for content in ("first", "second"):
+			frappe.get_doc(
+				{
+					"doctype": "File",
+					"file_name": "gdpdu-same-name.txt",
+					"content": content,
+					"attached_to_doctype": "ToDo",
+					"attached_to_name": todo.name,
+					"is_private": 1,
+				}
+			).insert()
+
+		export = frappe._dict(
+			company=None,
+			from_date=None,
+			to_date=None,
+			exported_doctypes=[frappe._dict(exported_doctype="ToDo", include_attached_files=1)],
+		)
+		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
+
+		attached = [name for name in names if name.startswith(f"attachments/ToDo/{todo.name}/")]
+		self.assertEqual(len(attached), 2, msg=attached)
+		self.assertEqual(len(set(attached)), 2, msg=attached)
+
 	def test_attachments_stay_inside_the_export(self):
 		"""A file of a document that is not exported has no business in the archive."""
 

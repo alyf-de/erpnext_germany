@@ -415,8 +415,10 @@ def write_attachments(archive: zipfile.ZipFile, doctype: str, names: list[str] |
 		# ponytail: one query per file, the document is needed for its path
 		# anyway. Batch it if an export ever holds enough files to hurt.
 		file = frappe.get_doc("File", name)
-		# the File name is unique, so files of one document cannot collide
-		path = f"attachments/{doctype}/{file.name}/{file.file_name}"
+		# One directory per document, so the files of an invoice are found together.
+		# A name may carry a slash and would otherwise open a directory of its own.
+		# Two files of one document cannot collide, frappe keeps `file_name` unique.
+		path = f"attachments/{doctype}/{file.attached_to_name.replace('/', '_')}/{file.file_name}"
 
 		try:
 			archive.write(file.get_full_path(), arcname=path)
