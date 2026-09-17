@@ -50,7 +50,8 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 			get_table("Has Role", self.export, parent="User"),
 		]
 		self.described = {
-			table.findtext("Name"): table for table in ET.fromstring(get_index_xml(self.tables)).iter("Table")
+			table.findtext("Name"): table
+			for table in ET.fromstring(get_index_xml(self.tables, self.export)).iter("Table")
 		}
 
 	def test_table_child_order(self):
@@ -242,9 +243,27 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		self.assertEqual(child.company_field, "company")
 		self.assertEqual(child.date_field, "posting_date")
 
+	def test_the_data_supplier_is_described(self):
+		"""The business handing the data over is named between Version and Media."""
+		export = frappe._dict(
+			company="_Test Company",
+			from_date=None,
+			to_date=None,
+			creation="2026-09-17 10:00:00",
+			owner="Administrator",
+		)
+		data_set = ET.fromstring(get_index_xml([get_table("User", export)], export))
+
+		self.assertEqual([child.tag for child in data_set], ["Version", "DataSupplier", "Media"])
+		supplier = data_set.find("DataSupplier")
+		self.assertEqual([child.tag for child in supplier], ["Name", "Location", "Comment"])
+		self.assertEqual(supplier.findtext("Name"), "_Test Company")
+		self.assertIn("§ 147 Abs. 6 AO vom 17.09.2026", supplier.findtext("Comment"))
+
 	def test_validity_is_described(self):
 		export = frappe._dict(company="_Test Company", from_date="2024-01-01", to_date="2024-12-31")
-		table = ET.fromstring(get_index_xml([get_table("Sales Invoice", export)])).find(".//Table")
+		index = get_index_xml([get_table("Sales Invoice", export)], export)
+		table = ET.fromstring(index).find(".//Table")
 
 		self.assertEqual(
 			[child.tag for child in table],

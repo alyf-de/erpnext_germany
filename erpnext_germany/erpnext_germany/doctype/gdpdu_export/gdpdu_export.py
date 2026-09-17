@@ -24,9 +24,10 @@ from pathlib import Path
 
 import frappe
 from frappe import _
+from frappe.contacts.doctype.address.address import get_default_address
 from frappe.model import no_value_fields
 from frappe.model.document import Document
-from frappe.utils import add_days
+from frappe.utils import add_days, formatdate
 from frappe.utils.file_manager import save_file
 
 DTD_FILE_NAME = "gdpdu-01-03-2019.dtd"
@@ -218,7 +219,7 @@ def build_archive(export) -> bytes:
 					names = get_exported_names(row.exported_doctype, export)
 					tables.append(write_attachments(archive, row.exported_doctype, names))
 
-			archive.writestr(INDEX_FILE_NAME, get_index_xml(tables))
+			archive.writestr(INDEX_FILE_NAME, get_index_xml(tables, export))
 			archive.write(Path(__file__).parent / DTD_FILE_NAME, arcname=DTD_FILE_NAME)
 
 		return path.read_bytes()
@@ -467,13 +468,16 @@ def escape(value) -> str:
 	return str(value).replace('"', "'").replace("\r", " ").replace("\n", " ")
 
 
-def get_index_xml(tables: list[frappe._dict]) -> bytes:
+def get_index_xml(tables: list[frappe._dict], export) -> bytes:
 	"""Describe the delivered CSV files according to the description standard."""
 	table_names = {table.name for table in tables}
 
 	data_set = ET.Element("DataSet")
 	# version of the data delivery, not of the description standard
 	ET.SubElement(data_set, "Version").text = "1.0"
+
+	if export.company:
+		add_data_supplier(data_set, export)
 
 	media = ET.SubElement(data_set, "Media")
 	ET.SubElement(media, "Name").text = "ERPNext"
@@ -487,6 +491,37 @@ def get_index_xml(tables: list[frappe._dict]) -> bytes:
 	# a literal CR in the record delimiter would be normalized to LF by any XML
 	# parser, so it has to be a character reference
 	return xml.replace("\r\n", "&#13;&#10;").encode("utf-8")
+
+
+def add_data_supplier(data_set: ET.Element, export) -> None:
+	"""
+	Name the business that hands the data over, it is the one obliged to do so.
+
+	Child order is prescribed by the DTD and none of the three may be left out.
+	`Comment` is free text. The published example names the kind of handover, its
+	date and somebody to call back, so this one does the same.
+	"""
+	address = get_default_address("Company", export.company)
+	city, country = frappe.db.get_value("Address", address, ["city", "country"]) if address else (None, None)
+
+	# The remark is read by a German tax auditor, so it stays German whatever
+	# language the user who ran the export works in.
+	remark = [f"Datenträgerüberlassung nach § 147 Abs. 6 AO vom {formatdate(export.creation, 'dd.MM.yyyy')}"]
+	contact = (
+		frappe.db.get_value("User", export.owner, ["full_name", "phone", "mobile_no"], as_dict=True)
+		if export.owner
+		else None
+	)
+	if contact:
+		remark.append(contact.full_name)
+		if phone := (contact.mobile_no or contact.phone):
+			remark.append(f"Tel: {phone}")
+
+	supplier = ET.SubElement(data_set, "DataSupplier")
+	ET.SubElement(supplier, "Name").text = export.company
+	# the published example reads "Singen/Deutschland"
+	ET.SubElement(supplier, "Location").text = "/".join(filter(None, (city, country)))
+	ET.SubElement(supplier, "Comment").text = ", ".join(remark)
 
 
 def add_table(media: ET.Element, table: frappe._dict, table_names: set[str]) -> None:
