@@ -118,8 +118,9 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 			self.assertRaisesRegex(frappe.PermissionError, "not allowed to export", export.enqueue_export)
 
 	def test_two_doctypes_never_share_a_file(self):
-		"""`A B` and `A_B` are both legal DocType names, one file would hold both."""
-		self.assertNotEqual(get_file_name("A B"), get_file_name("A_B"))
+		"""Space, underscore and both next to each other are all legal in a DocType name."""
+		names = ["A B", "A_B", "A_ B", "A _B", "A__B", "A%20B"]
+		self.assertEqual(len({get_file_name(name) for name in names}), len(names))
 
 	def test_a_failed_attachment_marks_the_export_failed(self):
 		"""Attaching fails on its own account, the form only learns it from the status."""
@@ -279,8 +280,8 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		)
 		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
 
-		self.assertIn("Dynamic_Link_(Contact).csv", names)
-		self.assertIn("Dynamic_Link_(Address).csv", names)
+		self.assertIn("Dynamic%20Link%20(Contact).csv", names)
+		self.assertIn("Dynamic%20Link%20(Address).csv", names)
 
 	def test_the_data_supplier_is_described(self):
 		"""The business handing the data over is named between Version and Media."""
