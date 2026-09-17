@@ -21,9 +21,6 @@ from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 
 MODULE = "erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export"
 
-# `_Test Company` and its accounts come from ERPNext's Company test records.
-test_dependencies = ["Company"]
-
 # Child order is prescribed by the DTD, a reader rejects any other order.
 TABLE_CHILDREN = [
 	"URL",
