@@ -423,7 +423,7 @@ def write_attachments(archive: zipfile.ZipFile, doctype: str, names: list[str] |
 
 		try:
 			archive.write(file.get_full_path(), arcname=path)
-		except OSError, frappe.ValidationError:
+		except (OSError, frappe.ValidationError):
 			# a File whose content is gone must not lose us the whole export
 			frappe.log_error(title=f"GDPdU Export: cannot read file {file.name}")
 			continue
