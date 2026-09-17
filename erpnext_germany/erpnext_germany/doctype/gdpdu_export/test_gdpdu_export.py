@@ -83,7 +83,7 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 	def test_child_table_links_to_its_parent(self):
 		links = {
 			(key.findtext("Name"), key.findtext("References"))
-			for key in self.described["Has Role"].iter("ForeignKey")
+			for key in self.described["Has Role (User)"].iter("ForeignKey")
 		}
 		self.assertIn(("parent", "User"), links)
 
@@ -242,6 +242,22 @@ class IntegrationTestGDPdUExport(IntegrationTestCase):
 		self.assertEqual(child.parent_doctype, "Sales Invoice")
 		self.assertEqual(child.company_field, "company")
 		self.assertEqual(child.date_field, "posting_date")
+
+	def test_a_shared_child_doctype_is_delivered_per_parent(self):
+		"""Contact and Address both hold Dynamic Link rows, one table would drop one parent."""
+		export = frappe._dict(
+			company=None,
+			from_date=None,
+			to_date=None,
+			exported_doctypes=[
+				frappe._dict(exported_doctype="Contact", include_attached_files=0),
+				frappe._dict(exported_doctype="Address", include_attached_files=0),
+			],
+		)
+		names = zipfile.ZipFile(io.BytesIO(build_archive(export))).namelist()
+
+		self.assertIn("Dynamic_Link_(Contact).csv", names)
+		self.assertIn("Dynamic_Link_(Address).csv", names)
 
 	def test_the_data_supplier_is_described(self):
 		"""The business handing the data over is named between Version and Media."""
