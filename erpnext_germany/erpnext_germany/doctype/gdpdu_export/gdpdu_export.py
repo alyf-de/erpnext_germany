@@ -171,17 +171,17 @@ class GDPdUExport(Document):
 		"""Write the archive and attach it to this document."""
 		try:
 			content = build_archive(self)
+			# attaching fails on its own account, e.g. when the archive is larger
+			# than the maximum file size, so it is watched along with the build
+			file = save_file(f"{self.name}.zip", content, self.doctype, self.name, is_private=1)
+			self.db_set("export_file", file.file_url)
+			self.db_set("status", "Completed")
 		except Exception:
 			# the form reads the status: without it a failed export stays
 			# indistinguishable from one that is still being generated
 			self.db_set("status", "Failed")
 			self.add_comment("Comment", _("The export failed, see the error log."))
 			frappe.log_error(title=f"GDPdU Export {self.name} failed")
-			return
-
-		file = save_file(f"{self.name}.zip", content, self.doctype, self.name, is_private=1)
-		self.db_set("export_file", file.file_url)
-		self.db_set("status", "Completed")
 
 
 def build_archive(export) -> bytes:
