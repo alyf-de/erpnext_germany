@@ -1,7 +1,9 @@
 name: Pytest
 
 on:
-  pull_request: {}
+  pull_request:
+    paths-ignore:
+      - "**/locale/main.pot"
 
 jobs:
   pytest:
