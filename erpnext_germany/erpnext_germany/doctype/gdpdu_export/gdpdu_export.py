@@ -28,6 +28,7 @@ from frappe import _
 from frappe.contacts.doctype.address.address import get_default_address
 from frappe.model import no_value_fields
 from frappe.model.document import Document
+from frappe.model.meta import get_field_precision
 from frappe.utils import add_days, formatdate
 from frappe.utils.file_manager import save_file
 
@@ -371,6 +372,10 @@ def get_exported_names(doctype: str, export) -> list[str] | None:
 def write_csv(archive: zipfile.ZipFile, table: frappe._dict, export) -> None:
 	"""Stream one DocType into the archive, a batch of rows at a time."""
 	fieldnames = [column.fieldname for column in table.columns]
+	accuracies = [
+		get_accuracy(column) if column.fieldtype in NUMERIC_FIELDTYPES else None for column in table.columns
+	]
+	formats = list(zip(fieldnames, accuracies, strict=True))
 
 	with archive.open(table.file_name, "w") as raw:
 		writer, stream = get_writer(raw)
@@ -382,7 +387,9 @@ def write_csv(archive: zipfile.ZipFile, table: frappe._dict, export) -> None:
 			if not rows:
 				break
 
-			writer.writerows([[escape(row[fieldname]) for fieldname in fieldnames] for row in rows])
+			writer.writerows(
+				[[format_value(row[fieldname], accuracy) for fieldname, accuracy in formats] for row in rows]
+			)
 			start += BATCH_SIZE
 
 		stream.flush()
@@ -464,6 +471,34 @@ def get_writer(raw) -> tuple[csv.writer, io.TextIOWrapper]:
 	)
 
 	return writer, stream
+
+
+def get_accuracy(column) -> int:
+	"""
+	Return the number of decimals a numeric column is declared and written with.
+
+	Never fewer than frappe rounds the field to, or writing the value would cut
+	decimals off it. A Currency may carry more than two, depending on the system
+	settings.
+	"""
+	if NUMERIC_FIELDTYPES[column.fieldtype] == 0:
+		return 0
+
+	return max(get_field_precision(column), NUMERIC_FIELDTYPES[column.fieldtype])
+
+
+def format_value(value, accuracy: int | None) -> str:
+	"""
+	Write a numeric value with exactly the declared number of decimals.
+
+	`str()` would write `500.0` for a Currency declared with two decimals, or
+	`1e-05` for a small Float, which is no number to the reader at all.
+	"""
+	if value is None or accuracy is None:
+		return escape(value)
+
+	# `z` turns a negative zero into "0.00"
+	return f"{value:z.{accuracy}f}"
 
 
 def escape(value) -> str:
@@ -585,9 +620,7 @@ def add_column(variable_length: ET.Element, column: frappe._dict) -> None:
 
 	if column.fieldtype in NUMERIC_FIELDTYPES:
 		numeric = ET.SubElement(element, "Numeric")
-		ET.SubElement(numeric, "Accuracy").text = str(
-			column.precision or NUMERIC_FIELDTYPES[column.fieldtype]
-		)
+		ET.SubElement(numeric, "Accuracy").text = str(get_accuracy(column))
 	elif column.fieldtype in DATE_FIELDTYPES:
 		date = ET.SubElement(element, "Date")
 		ET.SubElement(date, "Format").text = DATE_FIELDTYPES[column.fieldtype]

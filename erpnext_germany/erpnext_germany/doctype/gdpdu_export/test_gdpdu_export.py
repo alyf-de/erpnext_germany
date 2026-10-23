@@ -1,17 +1,22 @@
 # Copyright (c) 2026, ALYF GmbH and Contributors
 # See license.txt
 
+import csv
 import io
 import xml.etree.ElementTree as ET
 import zipfile
+from pathlib import Path
 from unittest.mock import patch
 
 import frappe
 from frappe.tests import set_user
+from lxml import etree
 
 from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
+	DTD_FILE_NAME,
 	FIRST_DATA_ROW,
 	build_archive,
+	format_value,
 	get_file_name,
 	get_index_xml,
 	get_rows,
@@ -324,3 +329,55 @@ class IntegrationTestGDPdUExport(ERPNextGermanyTestSuite):
 			self.assertIsInstance(rows, list, msg=doctype)
 			if rows:
 				self.assertEqual(set(rows[0]), set(fieldnames), msg=doctype)
+
+	def test_index_is_valid_against_the_dtd(self):
+		export = frappe._dict(
+			company="_Test Company",
+			from_date="2024-01-01",
+			to_date="2024-12-31",
+			creation="2026-09-17 10:00:00",
+			owner="Administrator",
+		)
+		tables = [*self.tables, get_table("Sales Invoice", export)]
+		# libxml2 rejects the content model of Media as published, it is not deterministic.
+		# This one accepts the same documents.
+		dtd = (Path(__file__).parent / DTD_FILE_NAME).read_text(encoding="utf-8")
+		dtd = dtd.replace(
+			"(Name, Command*, Table*, Command*, AcceptNoTables?)",
+			"(Name, Command*, (Table+, Command*)?, AcceptNoTables?)",
+		)
+		validator = etree.DTD(io.StringIO(dtd))
+		index = etree.fromstring(get_index_xml(tables, export))
+
+		self.assertTrue(validator.validate(index), msg=validator.error_log.filter_from_errors())
+
+	def test_numbers_carry_the_declared_decimals(self):
+		"""A reader takes the Accuracy at its word, so every value has to match it exactly."""
+		export = frappe._dict(
+			company=None,
+			from_date=None,
+			to_date=None,
+			# Currency holds a Currency, a Float and an Int field
+			exported_doctypes=[frappe._dict(exported_doctype="Currency", include_attached_files=0)],
+		)
+		archive = zipfile.ZipFile(io.BytesIO(build_archive(export)))
+		table = ET.fromstring(archive.read("index.xml")).find(".//Table")
+		columns = [column for column in table.find("VariableLength") if column.tag in COLUMN_TAGS]
+
+		with archive.open(table.findtext("URL")) as raw:
+			rows = list(csv.reader(io.TextIOWrapper(raw, encoding="utf-8", newline=""), delimiter=";"))
+
+		self.assertGreater(len(rows), 1, msg="no currency to check")
+		for row in rows[1:]:
+			for column, value in zip(columns, row, strict=True):
+				if column.find("Numeric") is None or value == "":
+					continue
+
+				accuracy = int(column.findtext("Numeric/Accuracy"))
+				_, _, decimals = value.partition(".")
+				self.assertEqual(len(decimals), accuracy, msg=f"{column.findtext('Name')}: {value}")
+
+	def test_small_numbers_are_not_written_in_scientific_notation(self):
+		self.assertEqual(format_value(1e-05, 6), "0.000010")
+		self.assertEqual(format_value(-0.001, 2), "0.00")
+		self.assertEqual(format_value(None, 2), "")
