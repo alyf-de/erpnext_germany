@@ -5,20 +5,13 @@ import csv
 import io
 import xml.etree.ElementTree as ET
 import zipfile
-<<<<<<< HEAD
 from contextlib import contextmanager
-from unittest.mock import patch
-
-import frappe
-from frappe.tests.utils import FrappeTestCase
-=======
 from pathlib import Path
 from unittest.mock import patch
 
 import frappe
-from frappe.tests import set_user
+from frappe.tests.utils import FrappeTestCase
 from lxml import etree
->>>>>>> 1b2b237 (fix(GDPdU Export): write numbers with the declared accuracy (#140))
 
 from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import (
 	DTD_FILE_NAME,
@@ -337,18 +330,6 @@ class IntegrationTestGDPdUExport(FrappeTestCase):
 			if rows:
 				self.assertEqual(set(rows[0]), set(fieldnames), msg=doctype)
 
-<<<<<<< HEAD
-
-@contextmanager
-def set_user(user: str):
-	"""Temporarily: set the user."""
-	try:
-		old_user = frappe.session.user
-		frappe.set_user(user)
-		yield
-	finally:
-		frappe.set_user(old_user)
-=======
 	def test_index_is_valid_against_the_dtd(self):
 		export = frappe._dict(
 			company="_Test Company",
@@ -404,4 +385,14 @@ def set_user(user: str):
 	def test_large_integers_keep_every_digit(self):
 		"""A Long Int above 2**53 has no exact float."""
 		self.assertEqual(format_value(2**53 + 1, 0), "9007199254740993")
->>>>>>> 1b2b237 (fix(GDPdU Export): write numbers with the declared accuracy (#140))
+
+
+@contextmanager
+def set_user(user: str):
+	"""Temporarily: set the user."""
+	try:
+		old_user = frappe.session.user
+		frappe.set_user(user)
+		yield
+	finally:
+		frappe.set_user(old_user)
