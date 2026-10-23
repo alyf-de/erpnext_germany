@@ -381,3 +381,7 @@ class IntegrationTestGDPdUExport(ERPNextGermanyTestSuite):
 		self.assertEqual(format_value(1e-05, 6), "0.000010")
 		self.assertEqual(format_value(-0.001, 2), "0.00")
 		self.assertEqual(format_value(None, 2), "")
+
+	def test_large_integers_keep_every_digit(self):
+		"""A Long Int above 2**53 has no exact float."""
+		self.assertEqual(format_value(2**53 + 1, 0), "9007199254740993")

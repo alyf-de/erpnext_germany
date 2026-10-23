@@ -20,6 +20,7 @@ import io
 import tempfile
 import xml.etree.ElementTree as ET
 import zipfile
+from decimal import Decimal
 from pathlib import Path
 from urllib.parse import quote
 
@@ -497,8 +498,8 @@ def format_value(value, accuracy: int | None) -> str:
 	if value is None or accuracy is None:
 		return escape(value)
 
-	# `z` turns a negative zero into "0.00"
-	return f"{value:z.{accuracy}f}"
+	# `Decimal` keeps an integer above 2**53 exact, `z` turns a negative zero into "0.00"
+	return f"{Decimal(value):z.{accuracy}f}"
 
 
 def escape(value) -> str:
