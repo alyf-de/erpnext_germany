@@ -498,8 +498,13 @@ def format_value(value, accuracy: int | None) -> str:
 	if value is None or accuracy is None:
 		return escape(value)
 
-	# `Decimal` keeps an integer above 2**53 exact, `z` turns a negative zero into "0.00"
-	return f"{Decimal(value):z.{accuracy}f}"
+	# `Decimal` keeps an integer above 2**53 exact
+	text = f"{Decimal(value):.{accuracy}f}"
+	# Turn a negative zero into "0.00". Python 3.10 has no `z` format option for this.
+	if Decimal(text) == 0:
+		return text.lstrip("-")
+
+	return text
 
 
 def escape(value) -> str:
