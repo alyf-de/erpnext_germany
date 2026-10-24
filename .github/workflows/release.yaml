@@ -2,7 +2,6 @@ name: Generate Semantic Release
 on:
   push:
     branches:
-      - version-14
       - version-15
 
 jobs:
