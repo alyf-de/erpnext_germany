@@ -1142,3 +1142,89 @@ msgstr "Wert / Entfernung: z.B. 0,30€/km"
 msgid "{} Invalid"
 msgstr "{} Ungültig"
 
+msgid "Account Assignment Rule"
+msgstr "Kontierungsregel"
+
+msgid "Account Assignment Rule Overview"
+msgstr "Kontierungsregel-Übersicht"
+
+msgid "Account Assignment Rule {0}: invalid conditions"
+msgstr "Kontierungsregel {0}: ungültige Bedingungen"
+
+msgid "Account must have root type {0}."
+msgstr "Das Konto muss den Root-Typ {0} haben."
+
+msgid "Applied"
+msgstr "Angewendet"
+
+msgid "Apply Account Assignment Rules to Returns"
+msgstr "Kontierungsregeln auf Retouren anwenden"
+
+msgid "By default, returns created against an original document keep its accounts and cost centers."
+msgstr "Standardmäßig behalten Retouren, die aus einem Originalbeleg erstellt wurden, dessen Konten und Kostenstellen."
+
+msgid "Conditions"
+msgstr "Bedingungen"
+
+msgid "Conditions must be a valid Python expression."
+msgstr "Die Bedingungen müssen ein gültiger Python-Ausdruck sein."
+
+msgid "Conflicting Rules"
+msgstr "Widersprüchliche Regeln"
+
+msgid "Conflicting rules found with the same filters and priority: {0}"
+msgstr "Widersprüchliche Regeln mit denselben Filtern und derselben Priorität gefunden: {0}"
+
+msgid "Empty filters match everything."
+msgstr "Leere Filter treffen auf alles zu."
+
+msgid "For DocType"
+msgstr "Für DocType"
+
+msgid "If several rules match, the rule with the highest priority wins. Among rules with the same priority, the most specific one wins."
+msgstr "Treffen mehrere Regeln zu, gewinnt die Regel mit der höchsten Priorität. Bei gleicher Priorität gewinnt die spezifischste Regel."
+
+msgid "Invalid Conditions"
+msgstr "Ungültige Bedingungen"
+
+msgid "Item {0} is not in {1}."
+msgstr "Artikel {0} ist nicht in {1} enthalten."
+
+msgid "Leave empty to apply the rule to all selling or buying documents."
+msgstr "Leer lassen, um die Regel auf alle Verkaufs- bzw. Einkaufsbelege anzuwenden."
+
+msgid "More Filters"
+msgstr "Weitere Filter"
+
+msgid "Python expression evaluated against the document, e.g. <code>is_return == 0</code>. Leave empty to always match."
+msgstr "Python-Ausdruck, der für den Beleg ausgewertet wird, z. B. <code>is_return == 0</code>. Leer lassen, damit die Regel immer zutrifft."
+
+msgid "Rule"
+msgstr "Regel"
+
+msgid "Rule Type"
+msgstr "Regeltyp"
+
+msgid "Rule Type {0} can only be used for {1}."
+msgstr "Regeltyp {0} kann nur für {1} verwendet werden."
+
+msgid "Selling or Buying"
+msgstr "Vertrieb oder Einkauf"
+
+msgid "Specificity"
+msgstr "Spezifität"
+
+msgid "Values"
+msgstr "Werte"
+
+msgid "{0} is neither a selling nor a buying document."
+msgstr "{0} ist weder ein Vertriebs- noch ein Einkaufsbeleg."
+
+msgid "{0} {1} does not belong to company {2}."
+msgstr "{0} {1} gehört nicht zum Unternehmen {2}."
+
+msgid "{0} {1} is a group."
+msgstr "{0} {1} ist eine Gruppe."
+
+msgid "Please set the {0}."
+msgstr "Bitte {0} angeben."

@@ -30,6 +30,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 - Create **Business Letters** from a template and print or email them to your customers or suppliers
 - Record **Business Trips** and pay out allowances to your employees (dt. Reisekostenabrechnung) (depends on HRMS)
 - Hand over your data to the tax office in machine-evaluable form (**GDPdU Export**)
+- Set accounts and cost centers of transaction items by rules (**Account Assignment Rule**, dt. Kontierungsregel)
 
 ## Installation
 
@@ -95,6 +96,18 @@ The archive holds one CSV file per DocType, the attached files, an `index.xml` t
 `index.xml` is generated from the meta data. A field of type "Link" becomes a foreign key, and a child table becomes a table of its own. Custom fields are exported too, without further configuration.
 
 Ask your tax advisor which DocTypes belong in the handover. The app does not decide the scope for you.
+
+## Account Assignment Rule
+
+An **Account Assignment Rule** sets the _Income Account_, _Expense Account_, _Discount Account_, _Provisional Account_ or _Cost Center_ of the item rows in selling and buying transactions, for example **Sales Invoice**, **Delivery Note**, **Purchase Invoice** or **Purchase Receipt**. Each rule sets one value and applies to either selling or buying documents. It only sets fields the item rows have: a **Sales Order** has only _Income Account_ and _Cost Center_, and a **Quotation** has none, so no rule applies there. **Material Request** counts as a buying document.
+
+A rule matches an item row when all of its filled filters match: _Item_, _Item Group_, _Item Tax Template_, _Customer_ / _Supplier_, their group, _Tax Category_, the _Sales_ / _Purchase Taxes and Charges Template_, _For DocType_, and the Python expression in _Conditions_. For example, `po_no == "ABC"` matches documents with that customer PO. Empty filters match everything. If several rules match, the rule with the highest _Priority_ wins. Among rules with the same priority, the most specific one wins. A match on _Item_, _Customer_ or _Supplier_ counts twice as much as one on any other filter. If that is a tie as well, the newest rule wins. The report **Account Assignment Rule Overview** shows all rules matching an item row of a document, and which of them is applied. For returns, it only shows rules if _Apply Account Assignment Rules to Returns_ is enabled.
+
+Rules are applied whenever a document is saved, and they **overwrite** values that were changed by hand. Rows that no rule matches keep the values ERPNext set. As long as a company has no rules, nothing changes. ERPNext still has the last word where it enforces an account: with perpetual inventory, for example, it books stock items on a **Purchase Invoice** to the stock account (or _Stock Received But Not Billed_), whatever an _Expense Account_ rule says. Likewise, if ERPNext replaces an _Item Tax Template_ that is not allowed for the item, the rules only see the new template on the next save.
+
+Returns created against an original document (e.g. a credit note made from a **Sales Invoice**) keep the accounts of the original. To apply the rules to them as well, enable _Apply Account Assignment Rules to Returns_ in **ERPNext Germany Settings**.
+
+The form shows the values as soon as an item is selected. Changes to other fields, such as the customer or the tax template, take effect when the document is saved. If _Use Legacy (Client side) Reactivity_ is enabled in **Selling Settings** (it affects buying documents as well), the values only appear after saving.
 
 ## Quick Start Demo
 

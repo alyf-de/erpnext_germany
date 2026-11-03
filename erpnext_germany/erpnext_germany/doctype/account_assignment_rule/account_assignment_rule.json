@@ -1,0 +1,249 @@
+{
+ "actions": [],
+ "allow_bulk_edit": 1,
+ "allow_rename": 1,
+ "autoname": "ACC-RULE-.YYYY.-.#####",
+ "creation": "2026-11-02 22:33:17.731111",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "company",
+  "column_break_rule",
+  "selling_or_buying",
+  "for_doctype",
+  "values_section",
+  "rule_type",
+  "column_break_values",
+  "account",
+  "cost_center",
+  "filters_section",
+  "filter_item",
+  "filter_item_group",
+  "filter_item_tax_template",
+  "column_break_filters",
+  "filter_customer",
+  "filter_customer_group",
+  "filter_supplier",
+  "filter_supplier_group",
+  "filter_tax_category",
+  "filter_sales_taxes_and_charges_template",
+  "filter_purchase_taxes_and_charges_template",
+  "more_filters_section",
+  "conditions",
+  "priority"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Title"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_rule",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Selling",
+   "fieldname": "selling_or_buying",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Selling or Buying",
+   "options": "Selling\nBuying",
+   "reqd": 1
+  },
+  {
+   "description": "Leave empty to apply the rule to all selling or buying documents.",
+   "fieldname": "for_doctype",
+   "fieldtype": "Link",
+   "label": "For DocType",
+   "options": "DocType"
+  },
+  {
+   "fieldname": "values_section",
+   "fieldtype": "Section Break",
+   "label": "Values"
+  },
+  {
+   "default": "Income Account",
+   "fieldname": "rule_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Rule Type",
+   "options": "Income Account\nExpense Account\nDiscount Account\nProvisional Account\nCost Center",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_values",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.rule_type != \"Cost Center\"",
+   "fieldname": "account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Account",
+   "mandatory_depends_on": "eval:doc.rule_type != \"Cost Center\"",
+   "options": "Account"
+  },
+  {
+   "depends_on": "eval:doc.rule_type == \"Cost Center\"",
+   "fieldname": "cost_center",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Cost Center",
+   "mandatory_depends_on": "eval:doc.rule_type == \"Cost Center\"",
+   "options": "Cost Center"
+  },
+  {
+   "description": "Empty filters match everything.",
+   "fieldname": "filters_section",
+   "fieldtype": "Section Break",
+   "label": "Filters"
+  },
+  {
+   "fieldname": "column_break_filters",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "more_filters_section",
+   "fieldtype": "Section Break",
+   "label": "More Filters"
+  },
+  {
+   "description": "Python expression evaluated against the document, e.g. <code>is_return == 0</code>. Leave empty to always match.",
+   "fieldname": "conditions",
+   "fieldtype": "Code",
+   "label": "Conditions",
+   "options": "Python"
+  },
+  {
+   "default": "0",
+   "description": "If several rules match, the rule with the highest priority wins. Among rules with the same priority, the most specific one wins.",
+   "fieldname": "priority",
+   "fieldtype": "Int",
+   "label": "Priority"
+  },
+  {
+   "fieldname": "filter_item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "filter_item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "filter_item_tax_template",
+   "fieldtype": "Link",
+   "label": "Item Tax Template",
+   "options": "Item Tax Template"
+  },
+  {
+   "depends_on": "eval:doc.selling_or_buying == \"Selling\"",
+   "fieldname": "filter_customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "depends_on": "eval:doc.selling_or_buying == \"Selling\"",
+   "fieldname": "filter_customer_group",
+   "fieldtype": "Link",
+   "label": "Customer Group",
+   "options": "Customer Group"
+  },
+  {
+   "depends_on": "eval:doc.selling_or_buying == \"Buying\"",
+   "fieldname": "filter_supplier",
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
+  },
+  {
+   "depends_on": "eval:doc.selling_or_buying == \"Buying\"",
+   "fieldname": "filter_supplier_group",
+   "fieldtype": "Link",
+   "label": "Supplier Group",
+   "options": "Supplier Group"
+  },
+  {
+   "fieldname": "filter_tax_category",
+   "fieldtype": "Link",
+   "label": "Tax Category",
+   "options": "Tax Category"
+  },
+  {
+   "depends_on": "eval:doc.selling_or_buying == \"Selling\"",
+   "fieldname": "filter_sales_taxes_and_charges_template",
+   "fieldtype": "Link",
+   "label": "Sales Taxes and Charges Template",
+   "options": "Sales Taxes and Charges Template"
+  },
+  {
+   "depends_on": "eval:doc.selling_or_buying == \"Buying\"",
+   "fieldname": "filter_purchase_taxes_and_charges_template",
+   "fieldtype": "Link",
+   "label": "Purchase Taxes and Charges Template",
+   "options": "Purchase Taxes and Charges Template"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-11-02 22:43:03.397230",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Account Assignment Rule",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "show_title_field_in_link": 1,
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "title",
+ "track_changes": 1
+}
