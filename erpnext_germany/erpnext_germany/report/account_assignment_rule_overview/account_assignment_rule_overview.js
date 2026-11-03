@@ -1,6 +1,32 @@
 // Copyright (c) 2026, ALYF GmbH and contributors
 // For license information, please see license.txt
 
+function load_rows(report) {
+	const document_type = report.get_filter_value("document_type");
+	const document_name = report.get_filter_value("document_name");
+	if (!document_type || !document_name) {
+		return;
+	}
+
+	frappe.db.get_doc(document_type, document_name).then((doc) => {
+		if (report.get_filter_value("document_name") !== doc.name) {
+			return; // another document was picked in the meantime
+		}
+
+		const row_filter = report.get_filter("row");
+		row_filter.df.options = (doc.items || []).map((row) => ({
+			value: String(row.idx),
+			label: `${row.idx}: ${row.item_code} - ${row.item_name}`,
+		}));
+		// keep a row from the URL, otherwise start with the first one
+		const row = row_filter.df.options.some((option) => option.value === row_filter.get_value())
+			? row_filter.get_value()
+			: "1";
+		report.set_filter_value("row", row); // also renders the new options
+		report.refresh();
+	});
+}
+
 frappe.query_reports["Account Assignment Rule Overview"] = {
 	filters: [
 		{
@@ -18,26 +44,17 @@ frappe.query_reports["Account Assignment Rule Overview"] = {
 			fieldtype: "Dynamic Link",
 			get_options: () => frappe.query_report.get_filter_value("document_type"),
 			reqd: 1,
-			on_change: () => {
-				const document_type = frappe.query_report.get_filter_value("document_type");
-				const document_name = frappe.query_report.get_filter_value("document_name");
-				if (!document_type || !document_name) {
-					return;
-				}
-
-				frappe.db.get_doc(document_type, document_name).then((doc) => {
-					frappe.query_report.set_filter_value("item", doc.items?.[0]?.item_code);
-				});
-			},
+			on_change: load_rows,
 		},
 		{
-			fieldname: "item",
-			label: __("Item"),
-			fieldtype: "Link",
-			options: "Item",
+			fieldname: "row",
+			label: __("Row"),
+			fieldtype: "Select",
 			reqd: 1,
 		},
 	],
+
+	onload: load_rows, // e.g. when the filters come from the URL
 
 	formatter(value, row, column, data, default_formatter) {
 		value = default_formatter(value, row, column, data);

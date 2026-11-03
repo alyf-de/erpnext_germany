@@ -3,6 +3,7 @@
 
 import frappe
 from frappe import _
+from frappe.utils import cint
 
 from erpnext_germany.erpnext_germany.doctype.account_assignment_rule.account_assignment_rule import (
 	TARGET_FIELDS,
@@ -19,8 +20,8 @@ def execute(filters: dict | None = None):
 
 
 def get_data(filters: frappe._dict) -> list[dict]:
-	"""List the rules matching the first row of `item` in the document, applied rule per Rule Type first."""
-	if not (filters.document_type and filters.document_name and filters.item):
+	"""List the rules matching an item row of the document, applied rule per Rule Type first."""
+	if not (filters.document_type and filters.document_name and filters.row):
 		return []
 
 	doc = frappe.get_doc(filters.document_type, filters.document_name)
@@ -30,9 +31,9 @@ def get_data(filters: frappe._dict) -> list[dict]:
 	if not side:
 		frappe.throw(_("{0} is neither a selling nor a buying document.").format(_(doc.doctype)))
 
-	row = next((row for row in doc.get("items", []) if row.item_code == filters.item), None)
+	row = next((row for row in doc.get("items", []) if row.idx == cint(filters.row)), None)
 	if not row:
-		frappe.throw(_("Item {0} is not in {1}.").format(filters.item, doc.name))
+		frappe.throw(_("Row {0} is not in {1}.").format(filters.row, doc.name))
 
 	matching_rules = get_matching_rules(get_applicable_rules(doc, side), get_criteria(doc, row))
 

@@ -1187,9 +1187,6 @@ msgstr "Treffen mehrere Regeln zu, gewinnt die Regel mit der höchsten Prioritä
 msgid "Invalid Conditions"
 msgstr "Ungültige Bedingungen"
 
-msgid "Item {0} is not in {1}."
-msgstr "Artikel {0} ist nicht in {1} enthalten."
-
 msgid "Leave empty to apply the rule to all selling or buying documents."
 msgstr "Leer lassen, um die Regel auf alle Verkaufs- bzw. Einkaufsbelege anzuwenden."
 
@@ -1201,6 +1198,12 @@ msgstr "Python-Ausdruck, der für den Beleg ausgewertet wird, z. B. <code>is_ret
 
 msgid "Rule"
 msgstr "Regel"
+
+msgid "Row"
+msgstr "Zeile"
+
+msgid "Row {0} is not in {1}."
+msgstr "Zeile {0} ist nicht in {1} enthalten."
 
 msgid "Rule Type"
 msgstr "Regeltyp"

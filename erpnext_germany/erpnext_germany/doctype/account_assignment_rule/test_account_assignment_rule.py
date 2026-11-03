@@ -161,7 +161,7 @@ class TestAccountAssignmentRule(ERPNextGermanyTestSuite):
 		si = create_sales_invoice(do_not_submit=True)
 
 		_columns, data = overview_report.execute(
-			{"document_type": "Sales Invoice", "document_name": si.name, "item": "_Test Item"}
+			{"document_type": "Sales Invoice", "document_name": si.name, "row": "1"}
 		)
 		self.assertEqual(
 			[(row["account"], row["applied"]) for row in data], [(INCOME_B, True), (INCOME_A, False)]
