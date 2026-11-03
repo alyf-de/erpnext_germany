@@ -103,7 +103,12 @@ class TestAccountAssignmentRule(ERPNextGermanyTestSuite):
 		si = create_sales_invoice(do_not_save=True)
 		si.append(
 			"items",
-			{**si.items[0].as_dict(), "name": None, "item_tax_template": "_Test Item Tax Template 1 - _TC"},
+			{
+				**si.items[0].as_dict(),
+				"name": None,
+				"item_code": "_Test Item 2",  # a different item, duplicates may be disallowed
+				"item_tax_template": "_Test Item Tax Template 1 - _TC",
+			},
 		)
 		si.insert()
 		self.assertEqual(income_accounts(si), [DEFAULT_INCOME, INCOME_A])
