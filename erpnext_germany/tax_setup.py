@@ -318,9 +318,9 @@ class TaxSetup:
 	def run_small_business(self):
 		"""§ 19 UStG: one Sales Taxes and Charges Template without rows for customers without Tax Category.
 
-		For e-invoices it carries the VAT category E; its `tax_exemption_reason` is printed on the
-		invoice. eu_einvoice takes the exemption text (BT-120) from its settings when no line has
-		an Item Tax Template.
+		For e-invoices it carries the VAT category E. Its `tax_exemption_reason` is fetched into the
+		invoice, printed, and used by eu_einvoice as the exemption text (BT-120), since no line has an
+		Item Tax Template.
 		"""
 		template = f"{SMALL_BUSINESS} - {self.abbr}"
 		if frappe.db.exists("Sales Taxes and Charges Template", template):
@@ -339,7 +339,6 @@ class TaxSetup:
 		self.make_tax_rule(template)
 		if code_list := self.get_code_list(VAT_CATEGORY_CODE_LISTS):
 			self.link_common_code(code_list, "E", "Sales Taxes and Charges Template", template)
-			self.set_einvoice_exemption_text(SMALL_BUSINESS_TEXT)
 
 	def validate(self):
 		for key, account in SALES_ACCOUNTS.items():
@@ -614,22 +613,6 @@ class TaxSetup:
 			doc = frappe.get_doc("Common Code", common_code)
 			doc.append("applies_to", {"link_doctype": link_doctype, "link_name": link_name})
 			doc.save()
-
-	def set_einvoice_exemption_text(self, text: str):
-		"""Default exemption text (BT-120) of eu_einvoice, used for lines without Item Tax Template.
-
-		ponytail: a site-wide setting, so a second company with another default text is reported
-		as a conflict instead of being overwritten.
-		"""
-		current = frappe.db.get_single_value("E Invoice Settings", "vat_exemption_reason_text")
-		if current == text:
-			self.add("exists", "E Invoice Settings", "vat_exemption_reason_text", text)
-		elif current:
-			self.add("conflict", "E Invoice Settings", "vat_exemption_reason_text", current)
-		else:
-			self.add("change", "E Invoice Settings", "vat_exemption_reason_text", text)
-			if not self.dry_run:
-				frappe.db.set_single_value("E Invoice Settings", "vat_exemption_reason_text", text)
 
 	def update_settings(self):
 		"""Rows come from the Sales Taxes and Charges Template, rates from the Item Tax Template.

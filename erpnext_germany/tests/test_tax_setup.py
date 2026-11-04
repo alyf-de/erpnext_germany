@@ -181,6 +181,7 @@ class TestTaxSetup(ERPNextGermanyTestSuite):
 		template = f"{SMALL_BUSINESS} - {self.abbr}"
 		self.assertIn(("create", "Sales Taxes and Charges Template", template), actions(setup.report))
 		self.assertNotIn("Item Tax Template", {row["doctype"] for row in setup.report})
+		self.assertNotIn("E Invoice Settings", {row["doctype"] for row in setup.report})
 		if frappe.db.exists("DocType", "E Invoice Settings"):
 			self.assertTrue(
 				frappe.db.exists(

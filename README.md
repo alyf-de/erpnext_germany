@@ -91,7 +91,7 @@ Presets:
 
 You can add EU businesses or non-EU countries later by running the setup again. For SKR03 and SKR04 the tax accounts are found by account number, otherwise select them in the dialog. Leave the purchase accounts empty to set up sales taxes only. Accounts without an account type (ERPNext creates some German VAT accounts that way) get the type "Tax", which Item Tax Templates require. Import VAT is not covered: it is paid to customs, not on the supplier's invoice.
 
-Small businesses (_Kleinunternehmer_) charge no VAT, so items and accounts play no role. This preset creates one **Sales Taxes and Charges Template** "Kleinunternehmer" without tax rows and a **Tax Rule** that applies it to every customer without a **Tax Category**. Its _Tax Exemption Reason_ "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet." is printed on the invoice. With eu_einvoice, the template gets the VAT category "E" and the text becomes the default exemption reason in **E Invoice Settings**.
+Small businesses (_Kleinunternehmer_) charge no VAT, so items and accounts play no role. This preset creates one **Sales Taxes and Charges Template** "Kleinunternehmer" without tax rows and a **Tax Rule** that applies it to every customer without a **Tax Category**. Its _Tax Exemption Reason_ "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet." is printed on the invoice. With eu_einvoice, the template gets the VAT category "E", and the e-invoice takes the exemption reason from the invoice's _Tax Exemption Reason_.
 
 _Preview_ lists what would be created without writing anything. The setup only creates what is missing: existing records are never changed, conflicts are listed for you to check. You can adapt everything afterwards and run it again.
 
