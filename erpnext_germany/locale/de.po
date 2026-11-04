@@ -1142,13 +1142,193 @@ msgstr "Wert / Entfernung: z.B. 0,30€/km"
 msgid "{} Invalid"
 msgstr "{} Ungültig"
 
+#: erpnext_germany/tax_setup.py
+msgid "Account {0} does not belong to company {1}."
+msgstr "Konto {0} gehört nicht zum Unternehmen {1}."
+
+#: erpnext_germany/tax_setup.py
+msgid "Install eu_einvoice and run again."
+msgstr "eu_einvoice installieren und erneut ausführen."
+
+#: erpnext_germany/tax_setup.py
+msgid "Not created, an existing Tax Rule has the same filters."
+msgstr "Nicht angelegt, eine bestehende Steuerregel hat dieselben Filter."
+
+#: erpnext_germany/tax_setup.py
+msgid "Not found in {0}"
+msgstr "Nicht gefunden in {0}"
+
+#: erpnext_germany/tax_setup.py
+msgid "Unknown tax class: {0}"
+msgstr "Unbekannte Steuerklasse: {0}"
+
 #: erpnext_germany/custom/taxes.py
 msgid "No Tax Category is set, so taxes may not be applied automatically."
 msgstr "Es ist keine Steuerkategorie gesetzt, daher werden Steuern eventuell nicht automatisch angewendet."
 
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Set up Taxes"
+msgstr "Steuern einrichten"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Set up"
+msgstr "Einrichten"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Preset"
+msgstr "Vorlage"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "EU Businesses (Reverse Charge)"
+msgstr "EU-Unternehmen (Reverse Charge)"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Non-EU Countries"
+msgstr "Drittland"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Small Business (§ 19 UStG)"
+msgstr "Kleinunternehmer (§ 19 UStG)"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Subgroups inherit the tax class of their parent. Add rows only for groups that differ."
+msgstr "Untergruppen erben die Steuerklasse ihrer übergeordneten Gruppe. Fügen Sie nur Zeilen für abweichende Gruppen hinzu."
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Tax Class"
+msgstr "Steuerklasse"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Tax Class per Item Group"
+msgstr "Steuerklasse je Artikelgruppe"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Tax setup completed"
+msgstr "Steuereinrichtung abgeschlossen"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Will be created"
+msgstr "Wird angelegt"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Will be changed"
+msgstr "Wird geändert"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Exists, unchanged"
+msgstr "Vorhanden, unverändert"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Conflict, please check"
+msgstr "Konflikt, bitte prüfen"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Created"
+msgstr "Angelegt"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Changed"
+msgstr "Geändert"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Skipped"
+msgstr "Übersprungen"
+
+#: erpnext_germany/tax_setup.py
+msgid "Item Group {0} is listed more than once."
+msgstr "Artikelgruppe {0} ist mehrfach aufgeführt."
+
+#: erpnext_germany/tax_setup.py
+msgid "Missing tax rows: {0}"
+msgstr "Fehlende Steuerzeilen: {0}"
+
+#: erpnext_germany/tax_setup.py
+msgid "Not created: {0} already uses Tax Category {1}."
+msgstr "Nicht angelegt: {0} verwendet bereits die Steuerkategorie {1}."
+
 #: erpnext_germany/custom/taxes.py
 msgid "Tax rows for {0} lack the Tax Categories {1}, so the Item Group's rows apply."
 msgstr "Den Steuerzeilen für {0} fehlen die Steuerkategorien {1}, daher gelten dafür die Zeilen der Artikelgruppe."
+
+#: erpnext_germany/tax_setup.py
+msgid "VAT 19 %"
+msgstr "Umsatzsteuer 19 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "VAT 7 %"
+msgstr "Umsatzsteuer 7 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "Input VAT 19 %"
+msgstr "Vorsteuer 19 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "Input VAT 7 %"
+msgstr "Vorsteuer 7 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "VAT on Intra-EU Acquisitions 19 %"
+msgstr "Umsatzsteuer aus innergemeinschaftlichem Erwerb 19 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "VAT on Intra-EU Acquisitions 7 %"
+msgstr "Umsatzsteuer aus innergemeinschaftlichem Erwerb 7 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "Input VAT on Intra-EU Acquisitions 19 %"
+msgstr "Vorsteuer aus innergemeinschaftlichem Erwerb 19 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "Input VAT on Intra-EU Acquisitions 7 %"
+msgstr "Vorsteuer aus innergemeinschaftlichem Erwerb 7 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "VAT under § 13b UStG 19 %"
+msgstr "Umsatzsteuer nach § 13b UStG 19 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "VAT under § 13b UStG 7 %"
+msgstr "Umsatzsteuer nach § 13b UStG 7 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "Input VAT under § 13b UStG 19 %"
+msgstr "Vorsteuer nach § 13b UStG 19 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "Input VAT under § 13b UStG 7 %"
+msgstr "Vorsteuer nach § 13b UStG 7 %"
+
+#: erpnext_germany/tax_setup.py
+msgid "Please select the account {0}."
+msgstr "Bitte wählen Sie das Konto {0}."
+
+#: erpnext_germany/tax_setup.py
+msgid "Please select all purchase accounts, or none to set up sales taxes only."
+msgstr "Bitte wählen Sie alle Einkaufskonten aus, oder keines, um nur die Umsatzsteuer im Verkauf einzurichten."
+
+#: erpnext_germany/tax_setup.py
+msgid "Please select a different account for each tax."
+msgstr "Bitte wählen Sie für jede Steuer ein eigenes Konto."
+
+#: erpnext_germany/tax_setup.py
+msgid "Account Type: Tax"
+msgstr "Kontotyp: Steuer"
+
+#: erpnext_germany/tax_setup.py
+msgid "Applies to the same parties. If it has more filters set, it wins over ours."
+msgstr "Gilt für dieselben Parteien. Hat sie mehr Filter gesetzt, gewinnt sie gegenüber unserer."
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Sales Accounts"
+msgstr "Konten Verkauf"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Purchase Accounts"
+msgstr "Konten Einkauf"
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Leave all empty to set up sales taxes only."
+msgstr "Alle leer lassen, um nur die Umsatzsteuer im Verkauf einzurichten."
 
 #. Label of a Check field in DocType 'ERPNext Germany Settings'
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
@@ -1160,3 +1340,15 @@ msgstr "Bei fehlender Steuerkategorie warnen"
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
 msgid "Show a warning on Customer, Supplier, Sales Invoice and Purchase Invoice without Tax Category. Tax Rules and Item Group tax rows match the Tax Category exactly, so without one no taxes are applied automatically."
 msgstr "Zeigt eine Warnung bei Kunden, Lieferanten, Ausgangs- und Eingangsrechnungen ohne Steuerkategorie. Steuerregeln und die Steuerzeilen der Artikelgruppen greifen nur bei genau passender Steuerkategorie, ohne sie werden also keine Steuern automatisch berechnet."
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Domestic business only: 19 % and 7 % per Item Group."
+msgstr "Nur Inlandsgeschäft: 19 % und 7 % je Artikelgruppe."
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Domestic business, EU businesses (intra-EU supplies, reverse charge) and non-EU countries (exports, imports, services abroad)."
+msgstr "Inlandsgeschäft, EU-Unternehmen (innergemeinschaftliche Lieferungen, Reverse Charge) und Drittländer (Ausfuhr, Einfuhr, Leistungen ins Ausland)."
+
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.js
+msgid "Small business under § 19 UStG: no VAT on any invoice."
+msgstr "Kleinunternehmer nach § 19 UStG: keine Umsatzsteuer auf Rechnungen."
