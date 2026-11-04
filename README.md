@@ -30,6 +30,7 @@ App to hold regional code for Germany, built on top of ERPNext.
 - Create **Business Letters** from a template and print or email them to your customers or suppliers
 - Record **Business Trips** and pay out allowances to your employees (dt. Reisekostenabrechnung) (depends on HRMS)
 - Hand over your data to the tax office in machine-evaluable form (**GDPdU Export**)
+- Set up German VAT (domestic, EU businesses, non-EU countries, small business) with a few clicks, see [Tax Setup](#tax-setup)
 
 ## Installation
 
@@ -70,6 +71,37 @@ The Additional meal expenses depend on the selected region. Select the "From" an
 The receipts for transport and accommodation can be attached, but are not processed automatically. You can check them, create a **Purchase Invoice** and pay the respective amount to the employee.
 
 You can use our [Banking app](https://github.com/alyf-de/banking) to reconcile the **Expense Claims** and **Purchase Invoices** with the respective **Bank Transactions**.
+
+## Tax Setup
+
+In **ERPNext Germany Settings**, click _Set up Taxes_ to create a German VAT setup for one company. It uses standard ERPNext features only.
+
+- **Tax Category** describes the business partner: "Inland", "EU Unternehmen (Reverse Charge)", "Drittland". Set it on the **Customer** or **Supplier** (or **Address**). Without one, invoices get no taxes. The setup turns on _Warn if Tax Category is missing_ in **ERPNext Germany Settings**, which then warns on customers, suppliers, sales and purchase invoices without one. Turn it off if you work without Tax Categories.
+- **Item Tax Template** is the tax key of an invoice line, for sales and purchases: the rate per tax account, and for e-invoices the VAT category and exemption reason. Created: "Inland Standard", "Inland Ermäßigt", "Steuerfrei", "Innergemeinschaftliche Lieferung/Erwerb Standard / Ermäßigt / Steuerfrei", "Reverse Charge Leistung EU Standard / Ermäßigt", "Ausfuhrlieferung/Einfuhr" and "Leistung Drittland Standard / Ermäßigt / Steuerfrei". Cross-border sales are 0 % at any rate, but on purchases you owe VAT at the item's rate (intra-EU acquisition, § 13b), hence one template per rate.
+- **Item Group** rows pick the key per Tax Category. You assign a tax class to an Item Group, e.g. "Ware Standard" or "Leistung Ermäßigt", and subgroups inherit it. Goods from or to an EU business then get "Innergemeinschaftliche Lieferung/Erwerb Standard", services "Reverse Charge Leistung EU Standard".
+- **Sales Taxes and Charges Template**, **Purchase Taxes and Charges Template** and **Tax Rule** per Tax Category. The templates pick the accounts of their side; the rate comes from the line's Item Tax Template, so the sales accounts in an Item Tax Template don't matter on purchases and vice versa. Purchase templates add input VAT and deduct the VAT you owe yourself (intra-EU acquisition, § 13b). A line without an Item Tax Template falls back to 19 %, so a gap in the setup shows up as too much VAT instead of none.
+
+Exceptions on an Item or Item Group need rows for every Tax Category: for a missing one ERPNext falls back to the parent Item Group, e.g. a service item in a goods group would get the goods template for EU customers. ERPNext Germany warns when the rows cover only some of the Tax Categories used in your Tax Rules.
+
+Presets:
+
+- _Simple_: domestic business only. Creates the Tax Category "Inland" with 19 % and 7 % per Item Group.
+- _Standard_: additionally EU businesses (intra-EU supplies and acquisitions, reverse charge for services) and non-EU countries (exports, imports, services abroad).
+- _Kleinunternehmer_: small businesses under § 19 UStG that charge no VAT, see below.
+
+You can add EU businesses or non-EU countries later by running the setup again. For SKR03 and SKR04 the tax accounts are found by account number, otherwise select them in the dialog. Leave the purchase accounts empty to set up sales taxes only. Accounts without an account type (ERPNext creates some German VAT accounts that way) get the type "Tax", which Item Tax Templates require. Import VAT is not covered: it is paid to customs, not on the supplier's invoice.
+
+Small businesses (_Kleinunternehmer_) charge no VAT, so items and accounts play no role. This preset creates one **Sales Taxes and Charges Template** "Kleinunternehmer" without tax rows and a **Tax Rule** that applies it to every customer without a **Tax Category**. Its _Tax Exemption Reason_ "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet." is printed on the invoice. With eu_einvoice, the template gets the VAT category "E", and the e-invoice takes the exemption reason from the invoice's _Tax Exemption Reason_.
+
+_Preview_ lists what would be created without writing anything. The setup only creates what is missing: existing records are never changed, conflicts are listed for you to check. You can adapt everything afterwards and run it again.
+
+With [eu_einvoice](https://github.com/alyf-de/eu_einvoice) installed, the setup also links the e-invoice codes (VAT category, VATEX) and sets the exemption reason text of each Item Tax Template. The texts are collected on **Quotation**, **Sales Order** and **Sales Invoice** (_Tax Exemption Reason_).
+
+The exemption reason texts are the invoice note required by § 14 Abs. 4 Nr. 8 and § 14a UStG. They are invoice data in German, not translated per user; edit them on the Item Tax Template, e.g. "Steuerschuldnerschaft des Leistungsempfängers / Reverse charge" for foreign customers. "Steuerfrei" is a placeholder: make its text specific to your exemption (e.g. "Steuerfreie Heilbehandlung nach § 4 Nr. 14 UStG") and, if one fits, link the matching VATEX code (e.g. "VATEX-EU-132-1C") in **Common Code**. The setup links no VATEX code to it because § 4 UStG covers several exemptions with different codes.
+
+An e-invoice to a non-EU customer can't contain both goods and services: services there are "not subject to VAT" (category "O"), which EN 16931 doesn't allow next to other categories. Send separate invoices for goods and services, or send such invoices without e-invoice (e-invoicing is mandatory only between businesses established in Germany).
+
+ERPNext's own **Item Tax Templates** "0 %", "7 %" and "19 %" are not used by this setup. You can disable them once no Item or Item Group refers to them.
 
 ## Zusammenfassende Meldung
 

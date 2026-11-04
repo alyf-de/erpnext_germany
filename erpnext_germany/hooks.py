@@ -108,13 +108,34 @@ before_uninstall = "erpnext_germany.uninstall.before_uninstall"
 
 doc_events = {
 	"Quotation": {
+		"validate": "erpnext_germany.custom.taxes.set_tax_exemption_reason",
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
 	},
 	"Sales Order": {
+		"validate": "erpnext_germany.custom.taxes.set_tax_exemption_reason",
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
 	},
 	"Sales Invoice": {
+		"validate": [
+			"erpnext_germany.custom.taxes.set_tax_exemption_reason",
+			"erpnext_germany.custom.taxes.warn_if_tax_category_missing",
+		],
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
+	},
+	"Purchase Invoice": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
+	},
+	"Customer": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
+	},
+	"Supplier": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
+	},
+	"Item": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_rows_incomplete",
+	},
+	"Item Group": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_rows_incomplete",
 	},
 }
 
