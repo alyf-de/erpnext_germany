@@ -13,7 +13,6 @@ everything afterwards and run the setup again to add what is missing.
 """
 
 import frappe
-from erpnext.accounts.doctype.tax_rule.tax_rule import ConflictingTaxRule
 from erpnext.edi.doctype.code_list.code_list import get_codes_for, resolve_code_list
 from frappe import _, _lt
 from frappe.utils.nestedset import get_root_of
@@ -207,6 +206,26 @@ TAX_CLASSES = {
 }
 
 # Taxes and Charges Template per side: doctype, field on Tax Rule, accounts.
+TAX_RULE_PRIORITY = 1
+# Tax Rule filters besides company, tax type and Tax Category (see `TaxRule.validate_filters`)
+TAX_RULE_FILTERS = (
+	"customer",
+	"customer_group",
+	"supplier",
+	"supplier_group",
+	"item",
+	"item_group",
+	"billing_city",
+	"billing_county",
+	"billing_state",
+	"billing_zipcode",
+	"billing_country",
+	"shipping_city",
+	"shipping_county",
+	"shipping_state",
+	"shipping_zipcode",
+	"shipping_country",
+)
 TEMPLATE_TYPES = {
 	"Sales": ("Sales Taxes and Charges Template", "sales_tax_template", SALES_ACCOUNTS),
 	"Purchase": ("Purchase Taxes and Charges Template", "purchase_tax_template", PURCHASE_ACCOUNTS),
@@ -515,19 +534,32 @@ class TaxSetup:
 				"tax_type": tax_type,
 				"tax_category": category or ("is", "not set"),
 			},
-			fields=["name", template_field],
+			fields=["name", "priority", "from_date", "to_date", template_field, *TAX_RULE_FILTERS],
 		)
-		if any(rule[template_field] == template for rule in rules):
+		# Rules with more filters only apply to some of the parties, so ours is still needed.
+		general_rules = [rule for rule in rules if not any(rule[field] for field in TAX_RULE_FILTERS)]
+		if any(
+			rule[template_field] == template and not rule.from_date and not rule.to_date
+			for rule in general_rules
+		):
 			self.add("exists", "Tax Rule", label)
 			return
 
 		for rule in rules:
+			if rule[template_field] != template:
+				self.add(
+					"conflict",
+					"Tax Rule",
+					rule.name,
+					_("Applies to the same parties. If it has more filters set, it wins over ours."),
+				)
+
+		# ERPNext refuses a second rule with the same filters and priority (`TaxRule.validate_filters`).
+		if any(rule.priority == TAX_RULE_PRIORITY for rule in general_rules):
 			self.add(
-				"conflict",
-				"Tax Rule",
-				rule.name,
-				_("Applies to the same parties. If it has more filters set, it wins over ours."),
+				"conflict", "Tax Rule", label, _("Not created, an existing Tax Rule has the same filters.")
 			)
+			return
 
 		self.add("create", "Tax Rule", label, template)
 		# Tax Rule.insert() fills blank fields from Global Defaults, which narrows the rule down
@@ -542,13 +574,8 @@ class TaxSetup:
 					"tax_category": category,
 					template_field: template,
 					"company": self.company,
-					"priority": 1,
+					"priority": TAX_RULE_PRIORITY,
 				}
-			)
-		except ConflictingTaxRule:
-			frappe.clear_last_message()
-			self.report[-1].update(
-				action="conflict", message=_("Not created, an existing Tax Rule has the same filters.")
 			)
 		finally:
 			frappe.flags.in_import = in_import

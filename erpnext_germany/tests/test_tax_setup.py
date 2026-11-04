@@ -427,10 +427,28 @@ class TestTaxSetup(ERPNextGermanyTestSuite):
 		frappe.db.set_value("Tax Rule", ours, "sales_tax_template", f"{EU_BUSINESS} - {self.abbr}")
 		frappe.local.message_log = []
 
+		for dry_run in (True, False):
+			report = self.run_setup(tax_categories=[INLAND], dry_run=dry_run)
+			self.assertIn(("conflict", "Tax Rule", f"Sales: {INLAND}"), actions(report))
+			self.assertNotIn(("create", "Tax Rule", f"Sales: {INLAND}"), actions(report))
+		self.assertEqual(frappe.get_message_log(), [])
+
+	def test_narrowed_rule_with_our_template_is_not_enough(self):
+		"""A rule with our template but an extra filter applies to some parties only."""
+		self.run_setup(tax_categories=[INLAND])
+		ours = frappe.db.get_value(
+			"Tax Rule", {"company": COMPANY, "tax_category": INLAND, "tax_type": "Sales"}
+		)
+		frappe.db.set_value(
+			"Tax Rule", ours, "customer_group", frappe.db.get_value("Customer Group", {"is_group": 0})
+		)
+
 		report = self.run_setup(tax_categories=[INLAND])
 
-		self.assertIn(("conflict", "Tax Rule", f"Sales: {INLAND}"), actions(report))
-		self.assertEqual(frappe.get_message_log(), [])
+		self.assertIn(("create", "Tax Rule", f"Sales: {INLAND}"), actions(report))
+		self.assertEqual(
+			frappe.db.count("Tax Rule", {"company": COMPANY, "tax_category": INLAND, "tax_type": "Sales"}), 2
+		)
 
 	def test_missing_tax_category_warning(self):
 		warning = "No Tax Category is set, so taxes may not be applied automatically."
