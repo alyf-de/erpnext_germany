@@ -18,3 +18,21 @@ def warn_if_tax_category_missing(doc, event=None):
 		indicator="orange",
 		alert=True,
 	)
+
+
+def set_tax_exemption_reason(doc, event=None):
+	"""Quotation / Sales Order / Sales Invoice validate: collect the exemption texts of the lines'
+	Item Tax Templates (field added by eu_einvoice). Keeps the value fetched from the Sales Taxes
+	and Charges Template when no line has a text.
+	"""
+	if not frappe.get_meta("Item Tax Template").has_field("vat_exemption_reason_text"):
+		return
+
+	templates = dict.fromkeys(row.item_tax_template for row in doc.items if row.item_tax_template)
+	texts = dict.fromkeys(
+		text
+		for template in templates
+		if (text := frappe.get_cached_value("Item Tax Template", template, "vat_exemption_reason_text"))
+	)
+	if texts:
+		doc.tax_exemption_reason = "\n".join(texts)
