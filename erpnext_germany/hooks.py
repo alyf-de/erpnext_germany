@@ -131,6 +131,12 @@ doc_events = {
 	"Supplier": {
 		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
 	},
+	"Item": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_rows_incomplete",
+	},
+	"Item Group": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_rows_incomplete",
+	},
 }
 
 # doc_events = {}

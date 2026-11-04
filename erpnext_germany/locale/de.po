@@ -1146,6 +1146,10 @@ msgstr "{} Ungültig"
 msgid "No Tax Category is set, so taxes may not be applied automatically."
 msgstr "Es ist keine Steuerkategorie gesetzt, daher werden Steuern eventuell nicht automatisch angewendet."
 
+#: erpnext_germany/custom/taxes.py
+msgid "Tax rows for {0} lack the Tax Categories {1}, so the Item Group's rows apply."
+msgstr "Den Steuerzeilen für {0} fehlen die Steuerkategorien {1}, daher gelten dafür die Zeilen der Artikelgruppe."
+
 #. Label of a Check field in DocType 'ERPNext Germany Settings'
 #: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
 msgid "Warn if Tax Category is missing"
