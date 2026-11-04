@@ -1142,3 +1142,17 @@ msgstr "Wert / Entfernung: z.B. 0,30€/km"
 msgid "{} Invalid"
 msgstr "{} Ungültig"
 
+#: erpnext_germany/custom/taxes.py
+msgid "No Tax Category is set, so taxes may not be applied automatically."
+msgstr "Es ist keine Steuerkategorie gesetzt, daher werden Steuern eventuell nicht automatisch angewendet."
+
+#. Label of a Check field in DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "Warn if Tax Category is missing"
+msgstr "Bei fehlender Steuerkategorie warnen"
+
+#. Description of the 'Warn if Tax Category is missing' (Check) field in
+#. DocType 'ERPNext Germany Settings'
+#: erpnext_germany/erpnext_germany/doctype/erpnext_germany_settings/erpnext_germany_settings.json
+msgid "Show a warning on Customer, Supplier, Sales Invoice and Purchase Invoice without Tax Category. Tax Rules and Item Group tax rows match the Tax Category exactly, so without one no taxes are applied automatically."
+msgstr "Zeigt eine Warnung bei Kunden, Lieferanten, Ausgangs- und Eingangsrechnungen ohne Steuerkategorie. Steuerregeln und die Steuerzeilen der Artikelgruppen greifen nur bei genau passender Steuerkategorie, ohne sie werden also keine Steuern automatisch berechnet."

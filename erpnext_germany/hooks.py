@@ -114,7 +114,17 @@ doc_events = {
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
 	},
 	"Sales Invoice": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
+	},
+	"Purchase Invoice": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
+	},
+	"Customer": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
+	},
+	"Supplier": {
+		"validate": "erpnext_germany.custom.taxes.warn_if_tax_category_missing",
 	},
 }
 
