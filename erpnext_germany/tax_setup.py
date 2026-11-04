@@ -620,7 +620,8 @@ class TaxSetup:
 					self.link_common_code(code_list, code, "Item Tax Template", f"{title} - {self.abbr}")
 
 	def get_code_list(self, code_lists: list[str]) -> str | None:
-		code_list = next(filter(None, map(resolve_code_list, code_lists)), None)
+		resolved = (resolve_code_list(code_list) for code_list in code_lists)
+		code_list = next((code_list for code_list in resolved if code_list), None)
 		if not code_list:
 			self.add("skipped", "Code List", code_lists[0], _("Install eu_einvoice and run again."))
 		return code_list
