@@ -227,10 +227,12 @@ function render_report(rows, dry_run) {
 		)
 		.join("");
 
+	const headers = [__("Action"), __("DocType"), __("Name"), __("Details")]
+		.map((label) => `<th>${label}</th>`)
+		.join("");
+
 	return `<table class="table table-bordered small">
-		<thead><tr><th>${__("Action")}</th><th>${__("DocType")}</th><th>${__("Name")}</th><th>${__(
-			"Details"
-		)}</th></tr></thead>
+		<thead><tr>${headers}</tr></thead>
 		<tbody>${body}</tbody>
 	</table>`;
 }
