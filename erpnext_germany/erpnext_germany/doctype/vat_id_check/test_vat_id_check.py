@@ -51,3 +51,27 @@ class TestVATIDCheck(ERPNextGermanyTestSuite):
 		doc = self.run_check_with_vies(check_vat_approx)
 
 		self.assertEqual(doc.status, "Service Unavailable")
+
+	def test_invalid_vat_id(self):
+		"""A user creating a check for an unparseable VAT ID gets a validation message."""
+		with self.assertRaises(frappe.ValidationError):
+			frappe.get_doc({"doctype": "VAT ID Check", "party_vat_id": "CHE-123.456.789 MWST"}).insert()
+
+	def test_invalid_vat_id_recorded(self):
+		"""With the flag set, an unparseable VAT ID is stored as "Invalid Input" without asking VIES."""
+		doc = frappe.get_doc({"doctype": "VAT ID Check", "party_vat_id": "CHE-123.456.789 MWST"})
+		doc.flags.ignore_invalid_vat_id = True
+		with patch("frappe.enqueue") as enqueue:
+			doc.insert()
+
+		enqueue.assert_not_called()
+		doc.reload()
+		self.assertEqual(doc.status, "Invalid Input")
+		self.assertFalse(doc.is_valid)
+
+	def test_enqueued_after_commit(self):
+		"""The background job must not run before the VAT ID Check is committed."""
+		with patch("frappe.enqueue") as enqueue:
+			frappe.get_doc({"doctype": "VAT ID Check", "party_vat_id": "DE329035522"}).insert()
+
+		self.assertTrue(enqueue.call_args.kwargs["enqueue_after_commit"])

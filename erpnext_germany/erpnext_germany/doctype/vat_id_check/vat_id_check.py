@@ -23,15 +23,28 @@ class VATIDCheck(Document):
 		try:
 			country_code, vat_number = parse_vat_id(self.party_vat_id)
 		except ValueError:
-			frappe.throw(_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("party_vat_id"))))
+			if not self.flags.ignore_invalid_vat_id:
+				frappe.throw(
+					_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("party_vat_id")))
+				)
+
+			# Record the result, so that the scheduler doesn't pick this party again right away.
+			self.status = "Invalid Input"
+			self.is_valid = 0
+			return
+
 		self.party_vat_id = f"{country_code}{vat_number}"
 
 	def after_insert(self):
+		if self.status == "Invalid Input":
+			return
+
 		frappe.enqueue(
 			run_check,
 			doc=self,
 			queue="long",
 			now=frappe.conf.developer_mode or frappe.in_test,
+			enqueue_after_commit=True,
 		)
 
 
