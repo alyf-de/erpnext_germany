@@ -1,11 +1,11 @@
 {
  "actions": [],
- "allow_rename": 1,
  "creation": "2025-02-23 17:36:40.481091",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "prevent_gaps_in_transaction_naming"
+  "prevent_gaps_in_transaction_naming",
+  "apply_account_assignment_rules_to_returns"
  ],
  "fields": [
   {
@@ -14,12 +14,19 @@
    "fieldname": "prevent_gaps_in_transaction_naming",
    "fieldtype": "Check",
    "label": "Prevent Gaps In Transaction Naming"
+  },
+  {
+   "default": "0",
+   "description": "By default, returns created against an original document keep its accounts and cost centers.",
+   "fieldname": "apply_account_assignment_rules_to_returns",
+   "fieldtype": "Check",
+   "label": "Apply Account Assignment Rules to Returns"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-23 17:38:08.351007",
+ "modified": "2026-11-02 22:54:14.852042",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "ERPNext Germany Settings",
@@ -36,6 +43,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

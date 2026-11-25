@@ -106,6 +106,10 @@ before_uninstall = "erpnext_germany.uninstall.before_uninstall"
 # ---------------
 # Hook on document methods and events
 
+_ACCOUNT_ASSIGNMENT_RULE = (
+	"erpnext_germany.erpnext_germany.doctype.account_assignment_rule.account_assignment_rule"
+)
+
 doc_events = {
 	"Quotation": {
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
@@ -115,6 +119,10 @@ doc_events = {
 	},
 	"Sales Invoice": {
 		"on_trash": "erpnext_germany.custom.sales.on_trash",
+	},
+	"*": {
+		"before_validate": f"{_ACCOUNT_ASSIGNMENT_RULE}.apply_account_assignment_rules",
+		"process_item_selection": f"{_ACCOUNT_ASSIGNMENT_RULE}.apply_account_assignment_rules",
 	},
 }
 
