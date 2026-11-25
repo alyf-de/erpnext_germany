@@ -58,6 +58,17 @@ class TestVATIDCheck(ERPNextGermanyTestSuite):
 		with self.assertRaises(frappe.ValidationError):
 			frappe.get_doc({"doctype": "VAT ID Check", "party_vat_id": "CHE-123.456.789 MWST"}).insert()
 
+	def test_invalid_requester_vat_id(self):
+		"""A user still gets a validation message for an unparseable requester VAT ID."""
+		with self.assertRaises(frappe.ValidationError):
+			frappe.get_doc(
+				{
+					"doctype": "VAT ID Check",
+					"party_vat_id": "DE329035522",
+					"requester_vat_id": "123/456/78901",
+				}
+			).insert()
+
 	def test_invalid_vat_id_recorded(self):
 		"""With the flag set, an unparseable VAT ID is stored as "Invalid Input" without asking VIES."""
 		doc = frappe.get_doc({"doctype": "VAT ID Check", "party_vat_id": "CHE-123.456.789 MWST"})

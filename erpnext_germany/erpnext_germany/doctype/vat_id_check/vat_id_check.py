@@ -18,10 +18,15 @@ class VATIDCheck(Document):
 			try:
 				requester_country_code, requester_vat_number = parse_vat_id(self.requester_vat_id)
 			except ValueError:
-				frappe.throw(
-					_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("requester_vat_id")))
-				)
-			self.requester_vat_id = f"{requester_country_code}{requester_vat_number}"
+				if not self.flags.ignore_invalid_vat_id:
+					frappe.throw(
+						_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("requester_vat_id")))
+					)
+
+				# VIES accepts requests without a requester, they just get no request identifier.
+				self.requester_vat_id = None
+			else:
+				self.requester_vat_id = f"{requester_country_code}{requester_vat_number}"
 
 		try:
 			country_code, vat_number = parse_vat_id(self.party_vat_id)

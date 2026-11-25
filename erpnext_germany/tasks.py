@@ -5,8 +5,6 @@ from frappe.query_builder import Case, DocType
 from frappe.utils import add_to_date, now_datetime
 from pypika import functions as fn
 
-from erpnext_germany.utils.eu_vat import parse_vat_id
-
 RECHECK_AFTER_MONTHS = 3
 RETRY_AFTER_DAYS = 1
 
@@ -103,8 +101,9 @@ def due_condition(last_check):
 
 def check_some_parties():
 	"""Check the VAT IDs of some customers and suppliers that are due (see `due_condition`)."""
-	company = get_default_company()
-	requester_vat_id = get_requester_vat_id(company)
+	requester_vat_id = None
+	if company := get_default_company():
+		requester_vat_id = frappe.get_cached_value("Company", company, "tax_id")
 
 	for party_type, party, party_name, primary_address, vat_id in get_customers() + get_suppliers():
 		frappe.db.savepoint("vat_id_check")
@@ -120,23 +119,6 @@ def check_some_parties():
 				record_failed_attempt(party_type, party, vat_id, company)
 		else:
 			frappe.db.release_savepoint("vat_id_check")
-
-
-def get_requester_vat_id(company: str | None) -> str | None:
-	"""Return the company's VAT ID, or None if it is missing or cannot be parsed.
-
-	VIES accepts requests without a requester, they just don't get a request identifier.
-	"""
-	vat_id = frappe.get_cached_value("Company", company, "tax_id") if company else None
-	if not vat_id:
-		return None
-
-	try:
-		parse_vat_id(vat_id)
-	except ValueError:
-		return None
-
-	return vat_id
 
 
 def create_vat_id_check(party_type, party, party_name, primary_address, vat_id, company, requester_vat_id):
