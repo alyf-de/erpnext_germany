@@ -4,7 +4,7 @@ authors = [
     { name = "ALYF GmbH", email = "hallo@alyf.de"}
 ]
 description = "App to hold regional code for Germany, built on top of ERPNext."
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 readme = "README.md"
 dynamic = ["version"]
 dependencies = [
@@ -22,7 +22,7 @@ erpnext = ">=15.58.0,<16.0.0"
 
 [tool.ruff]
 line-length = 110
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = [
