@@ -10,32 +10,89 @@ from erpnext_germany.utils.eu_vat import check_vat_approx, parse_vat_id
 
 
 class VATIDCheck(Document):
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
+
+	from typing import TYPE_CHECKING
+
+	if TYPE_CHECKING:
+		from frappe.types import DF
+
+		actual_trader_address: DF.SmallText | None
+		actual_trader_name: DF.Data | None
+		company: DF.Link | None
+		is_valid: DF.Check
+		party: DF.DynamicLink | None
+		party_address: DF.Link | None
+		party_type: DF.Link | None
+		party_vat_id: DF.Data
+		request_id: DF.Data | None
+		requester_vat_id: DF.Data | None
+		status: DF.Literal["Planned", "Running", "Completed", "Service Unavailable", "Invalid Input", "Error"]
+		trader_city: DF.Data | None
+		trader_city_match: DF.Check
+		trader_name: DF.Data | None
+		trader_name_match: DF.Check
+		trader_postcode: DF.Data | None
+		trader_postcode_match: DF.Check
+		trader_street: DF.Data | None
+		trader_street_match: DF.Check
+	# end: auto-generated types
+
 	def before_insert(self):
+		if not self.flags.skip_vies_request:
+			self.status = "Planned"
+
 		if self.requester_vat_id:
 			try:
 				requester_country_code, requester_vat_number = parse_vat_id(self.requester_vat_id)
 			except ValueError:
-				frappe.throw(
-					_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("requester_vat_id")))
-				)
-			self.requester_vat_id = f"{requester_country_code}{requester_vat_number}"
+				if not self.flags.ignore_invalid_vat_id:
+					frappe.throw(
+						_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("requester_vat_id")))
+					)
+
+				# VIES accepts requests without a requester, they just get no request identifier.
+				self.requester_vat_id = None
+			else:
+				self.requester_vat_id = f"{requester_country_code}{requester_vat_number}"
 
 		try:
 			country_code, vat_number = parse_vat_id(self.party_vat_id)
 		except ValueError:
-			frappe.throw(_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("party_vat_id"))))
+			if not self.flags.ignore_invalid_vat_id:
+				frappe.throw(
+					_("The VAT ID in {0} is invalid.").format(_(self.meta.get_label("party_vat_id")))
+				)
+
+			# Record the result, so that the scheduler doesn't pick this party again right away.
+			self.status = "Invalid Input"
+			self.is_valid = 0
+			self.flags.skip_vies_request = True
+			# A blank ID (e.g. a non-breaking space) would fail the mandatory check and not be recorded.
+			self.flags.ignore_mandatory = True
+			return
+
 		self.party_vat_id = f"{country_code}{vat_number}"
 
 	def after_insert(self):
+		if self.flags.skip_vies_request:
+			return
+
 		frappe.enqueue(
 			run_check,
 			doc=self,
 			queue="long",
 			now=frappe.conf.developer_mode or frappe.flags.in_test,
+			enqueue_after_commit=True,
 		)
 
 
 def run_check(doc: VATIDCheck):
+	# Rolling back to a savepoint keeps the after-commit job of a check that is gone.
+	if not frappe.db.exists("VAT ID Check", doc.name):
+		return
+
 	doc.db_set("status", "Running", notify=True)
 	requester_country_code, requester_vat_number = None, None
 	if doc.requester_vat_id:
