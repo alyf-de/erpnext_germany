@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 import frappe
 
+from erpnext_germany.erpnext_germany.doctype.vat_id_check.vat_id_check import run_check
 from erpnext_germany.tests.utils import ERPNextGermanyTestSuite
 
 
@@ -88,3 +89,13 @@ class TestVATIDCheck(ERPNextGermanyTestSuite):
 
 	def test_status_is_not_copied(self):
 		self.assertTrue(frappe.get_meta("VAT ID Check").get_field("status").no_copy)
+
+	def test_rolled_back_check_is_not_run(self):
+		"""A job whose check no longer exists does not ask VIES."""
+		doc = frappe.get_doc({"doctype": "VAT ID Check", "party_vat_id": "DE329035522"})
+		doc.name = "rolled-back-check"
+
+		with patch("erpnext_germany.utils.eu_vat.Client") as client:
+			run_check(doc)
+
+		client.assert_not_called()

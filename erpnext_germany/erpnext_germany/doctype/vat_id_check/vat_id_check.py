@@ -53,6 +53,10 @@ class VATIDCheck(Document):
 
 
 def run_check(doc: VATIDCheck):
+	# Rolling back to a savepoint keeps the after-commit job of a check that is gone.
+	if not frappe.db.exists("VAT ID Check", doc.name):
+		return
+
 	doc.db_set("status", "Running", notify=True)
 	requester_country_code, requester_vat_number = None, None
 	if doc.requester_vat_id:
