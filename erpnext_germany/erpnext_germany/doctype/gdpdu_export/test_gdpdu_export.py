@@ -259,6 +259,13 @@ class IntegrationTestGDPdUExport(ERPNextGermanyTestSuite):
 		self.assertIsNone(master.date_field)
 		self.assertIsNone(master.validity)
 
+	def test_parties_are_not_cut_by_the_company_they_represent(self):
+		"""`represents_company` marks internal parties only, it does not own the record."""
+		export = frappe._dict(company="_Test Company", from_date=None, to_date=None)
+
+		for doctype in ("Customer", "Supplier"):
+			self.assertIsNone(get_table(doctype, export).company_field)
+
 	def test_a_child_table_is_filtered_by_its_parent(self):
 		export = frappe._dict(company="_Test Company", from_date="2024-01-01", to_date="2024-12-31")
 		child = get_table("Sales Invoice Item", export, parent="Sales Invoice")

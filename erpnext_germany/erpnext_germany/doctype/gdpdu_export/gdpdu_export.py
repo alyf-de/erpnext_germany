@@ -267,13 +267,17 @@ def get_table(doctype: str, export, parent: str | None = None) -> frappe._dict:
 
 
 def get_company_field(meta) -> str | None:
-	"""Return the field that ties a document to a company."""
+	"""Return the field that ties a document to a company.
+
+	Only a field named `company` counts. Other links to Company say something
+	else, like `represents_company` of an internal Customer or Supplier.
+	"""
 	if meta.name == "Company":
 		return "name"
 
-	for df in meta.fields:
-		if df.fieldtype == "Link" and df.options == "Company":
-			return df.fieldname
+	df = meta.get_field("company")
+	if df and df.fieldtype == "Link" and df.options == "Company":
+		return "company"
 
 	return None
 
