@@ -83,12 +83,8 @@ class VATIDCheck(Document):
 			run_check,
 			doc=self,
 			queue="long",
-<<<<<<< HEAD
 			now=frappe.conf.developer_mode or frappe.flags.in_test,
-=======
-			now=frappe.conf.developer_mode or frappe.in_test,
 			enqueue_after_commit=True,
->>>>>>> 3fc03cc (fix(VAT ID Check): keep the scheduled checks going (#148))
 		)
 
 

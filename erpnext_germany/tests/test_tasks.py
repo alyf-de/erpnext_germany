@@ -6,10 +6,10 @@ from unittest.mock import patch
 
 import frappe
 from frappe.model.document import Document
+from frappe.tests.utils import FrappeTestCase
 from frappe.utils import add_days, add_months, add_to_date, now_datetime
 
 from erpnext_germany.tasks import check_some_parties, get_customers, get_suppliers
-from erpnext_germany.tests.utils import ERPNextGermanyTestSuite
 
 VALID_RESULT = SimpleNamespace(
 	valid=True,
@@ -23,7 +23,7 @@ VALID_RESULT = SimpleNamespace(
 )
 
 
-class TestTasks(ERPNextGermanyTestSuite):
+class TestTasks(FrappeTestCase):
 	def make_customer(self, customer_name, tax_id="DE329035522"):
 		return (
 			frappe.get_doc(
