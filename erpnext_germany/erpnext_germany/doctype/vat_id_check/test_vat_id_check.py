@@ -70,8 +70,21 @@ class TestVATIDCheck(ERPNextGermanyTestSuite):
 		self.assertFalse(doc.is_valid)
 
 	def test_enqueued_after_commit(self):
-		"""The background job must not run before the VAT ID Check is committed."""
+		"""The job is requested after commit. Tests run it inline, so only the argument is checked."""
 		with patch("frappe.enqueue") as enqueue:
 			frappe.get_doc({"doctype": "VAT ID Check", "party_vat_id": "DE329035522"}).insert()
 
 		self.assertTrue(enqueue.call_args.kwargs["enqueue_after_commit"])
+
+	def test_duplicate_is_checked_again(self):
+		"""A check created with a status from another check (e.g. via Duplicate) still asks VIES."""
+		with patch("frappe.enqueue") as enqueue:
+			doc = frappe.get_doc(
+				{"doctype": "VAT ID Check", "party_vat_id": "DE329035522", "status": "Completed"}
+			).insert()
+
+		enqueue.assert_called_once()
+		self.assertEqual(doc.status, "Planned")
+
+	def test_status_is_not_copied(self):
+		self.assertTrue(frappe.get_meta("VAT ID Check").get_field("status").no_copy)

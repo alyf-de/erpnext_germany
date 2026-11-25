@@ -136,4 +136,5 @@ def record_failed_attempt(party_type, party, vat_id, company):
 	doc.company = company
 	doc.status = "Error"
 	doc.flags.ignore_invalid_vat_id = True
+	doc.flags.skip_vies_request = True
 	doc.insert(ignore_permissions=True)

@@ -11,6 +11,9 @@ from erpnext_germany.utils.eu_vat import check_vat_approx, parse_vat_id
 
 class VATIDCheck(Document):
 	def before_insert(self):
+		if not self.flags.skip_vies_request:
+			self.status = "Planned"
+
 		if self.requester_vat_id:
 			try:
 				requester_country_code, requester_vat_number = parse_vat_id(self.requester_vat_id)
@@ -31,12 +34,13 @@ class VATIDCheck(Document):
 			# Record the result, so that the scheduler doesn't pick this party again right away.
 			self.status = "Invalid Input"
 			self.is_valid = 0
+			self.flags.skip_vies_request = True
 			return
 
 		self.party_vat_id = f"{country_code}{vat_number}"
 
 	def after_insert(self):
-		if self.status != "Planned":
+		if self.flags.skip_vies_request:
 			return
 
 		frappe.enqueue(

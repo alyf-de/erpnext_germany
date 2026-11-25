@@ -10,6 +10,8 @@ frappe.listview_settings["VAT ID Check"] = {
 			return [__("Planned"), "blue", "status,=,Planned"];
 		} else if (doc.status === "Running") {
 			return [__("Running"), "yellow", "status,=,Running"];
+		} else if (doc.status === "Error") {
+			return [__("Error"), "red", "status,=,Error"];
 		} else if (["Service Unavailable", "Invalid Input"].includes(doc.status)) {
 			return [__(doc.status), "gray", `status,=,${doc.status}`];
 		}
