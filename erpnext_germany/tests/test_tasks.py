@@ -11,6 +11,9 @@ from frappe.utils import add_days, add_months, add_to_date, now_datetime
 
 from erpnext_germany.tasks import check_some_parties, get_customers, get_suppliers
 
+# The test runner creates ERPNext's test records for these, e.g. "_Test Customer Group".
+test_dependencies = ["Company", "Customer Group", "Supplier Group", "Territory"]
+
 VALID_RESULT = SimpleNamespace(
 	valid=True,
 	traderNameMatch=None,
