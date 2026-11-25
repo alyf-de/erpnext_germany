@@ -2,10 +2,13 @@ import frappe
 from erpnext import get_default_company
 from frappe.database.database import savepoint
 from frappe.query_builder import Case, DocType
-from pypika import Interval
+from frappe.utils import add_to_date, now_datetime
 from pypika import functions as fn
 
 from erpnext_germany.utils.eu_vat import parse_vat_id
+
+RECHECK_AFTER_MONTHS = 3
+RETRY_AFTER_DAYS = 1
 
 
 def all():
@@ -13,7 +16,7 @@ def all():
 
 
 def get_customers(batch_size=4):
-	"""Return a list of n customers who didn't have their VAT ID checked in the last 3 months."""
+	"""Return up to n customers that are due for a VAT ID check (see `due_condition`)."""
 	customers = DocType("Customer")
 	last_check = get_last_check_query("Customer")
 
@@ -32,7 +35,7 @@ def get_customers(batch_size=4):
 			customers.tax_id.notnull()
 			& (customers.tax_id != "")
 			& (customers.disabled == 0)
-			& is_due(last_check)
+			& due_condition(last_check)
 		)
 		.limit(batch_size)
 		.run()
@@ -40,7 +43,7 @@ def get_customers(batch_size=4):
 
 
 def get_suppliers(batch_size=4):
-	"""Return a list of n suppliers who didn't have their VAT ID checked in the last 3 months."""
+	"""Return up to n suppliers that are due for a VAT ID check (see `due_condition`)."""
 	suppliers = DocType("Supplier")
 	last_check = get_last_check_query("Supplier")
 
@@ -59,7 +62,7 @@ def get_suppliers(batch_size=4):
 			suppliers.tax_id.notnull()
 			& (suppliers.tax_id != "")
 			& (suppliers.disabled == 0)
-			& is_due(last_check)
+			& due_condition(last_check)
 		)
 		.limit(batch_size)
 		.run()
@@ -74,7 +77,7 @@ def get_last_check_query(party_type: str):
 			vat_id_checks.party,
 			fn.Max(
 				Case().when(vat_id_checks.status.isin(["Completed", "Invalid Input"]), vat_id_checks.creation)
-			).as_("creation"),
+			).as_("last_result"),
 			fn.Max(vat_id_checks.creation).as_("last_attempt"),
 		)
 		.where(vat_id_checks.party_type == party_type)
@@ -82,19 +85,24 @@ def get_last_check_query(party_type: str):
 	)
 
 
-def is_due(last_check):
-	"""A party is due if it has no result from the last 3 months and no attempt from the last day.
+def due_condition(last_check):
+	"""Return the condition for a party without a recent result and without an attempt in the last day.
 
 	Checks without a result ("Service Unavailable", "Error", or a job that never finished)
-	are retried after a day instead of on every run.
+	are retried after a day instead of on every run. The limits are computed in Python, because
+	`creation` is stored in the system time zone, which can differ from the database's.
 	"""
-	return (last_check.creation.isnull() | (last_check.creation < fn.Now() - Interval(months=3))) & (
-		last_check.last_attempt.isnull() | (last_check.last_attempt < fn.Now() - Interval(days=1))
+	now = now_datetime()
+	recheck_before = add_to_date(now, months=-RECHECK_AFTER_MONTHS)
+	retry_before = add_to_date(now, days=-RETRY_AFTER_DAYS)
+
+	return (last_check.last_result.isnull() | (last_check.last_result < recheck_before)) & (
+		last_check.last_attempt.isnull() | (last_check.last_attempt < retry_before)
 	)
 
 
 def check_some_parties():
-	"""Check VAT IDs of customers who didn't have their VAT ID checked in the last 3 months."""
+	"""Check the VAT IDs of some customers and suppliers that are due (see `due_condition`)."""
 	company = get_default_company()
 	requester_vat_id = get_requester_vat_id(company)
 

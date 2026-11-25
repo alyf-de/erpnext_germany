@@ -5,7 +5,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import frappe
-from frappe.utils import add_days, add_months, now_datetime
+from frappe.utils import add_days, add_months, add_to_date, now_datetime
 
 from erpnext_germany.tasks import check_some_parties, get_customers, get_suppliers
 from erpnext_germany.tests.utils import ERPNextGermanyTestSuite
@@ -69,6 +69,9 @@ class TestTasks(ERPNextGermanyTestSuite):
 
 	def is_due(self, customer):
 		return customer in [row[1] for row in get_customers(batch_size=10000)]
+
+	def is_supplier_due(self, supplier):
+		return supplier in [row[1] for row in get_suppliers(batch_size=10000)]
 
 	def run_scheduler(self, customers, suppliers=(), company=None):
 		with (
@@ -173,7 +176,7 @@ class TestTasks(ERPNextGermanyTestSuite):
 		supplier = self.make_supplier("_Test VAT Empty Supplier", "")
 
 		self.assertFalse(self.is_due(customer))
-		self.assertNotIn(supplier, [row[1] for row in get_suppliers(batch_size=10000)])
+		self.assertFalse(self.is_supplier_due(supplier))
 
 	def test_result_is_kept_for_three_months(self):
 		customer = self.make_customer("_Test VAT Completed")
@@ -193,6 +196,27 @@ class TestTasks(ERPNextGermanyTestSuite):
 
 		frappe.db.set_value("VAT ID Check", {"party": customer}, "creation", add_days(now_datetime(), -2))
 		self.assertTrue(self.is_due(customer))
+
+	def test_retry_waits_a_full_day(self):
+		customer = self.make_customer("_Test VAT Retry Boundary")
+
+		self.make_check(customer, "Service Unavailable", add_to_date(now_datetime(), hours=-23))
+		self.assertFalse(self.is_due(customer))
+
+		frappe.db.set_value(
+			"VAT ID Check", {"party": customer}, "creation", add_to_date(now_datetime(), hours=-25)
+		)
+		self.assertTrue(self.is_due(customer))
+
+	def test_supplier_is_retried_after_a_day(self):
+		supplier = self.make_supplier("_Test VAT Supplier Unavailable")
+		self.assertTrue(self.is_supplier_due(supplier))
+
+		self.make_check(supplier, "Service Unavailable", now_datetime(), party_type="Supplier")
+		self.assertFalse(self.is_supplier_due(supplier))
+
+		frappe.db.set_value("VAT ID Check", {"party": supplier}, "creation", add_days(now_datetime(), -2))
+		self.assertTrue(self.is_supplier_due(supplier))
 
 	def test_stale_check_is_retried_after_a_day(self):
 		"""A check that never finished blocks the party for a day, not forever and not just one run."""
