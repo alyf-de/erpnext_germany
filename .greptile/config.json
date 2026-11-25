@@ -1,0 +1,15 @@
+{
+    "disabledLabels": [
+        "conflicts"
+    ],
+    "context": {
+        "repos": [
+            "frappe/frappe",
+            "frappe/erpnext",
+            "frappe/hrms",
+            "alyf-de/eu_einvoice",
+            "alyf-de/banking"
+        ]
+    },
+    "autoReview": ["open", "push", "rebase"]
+}
