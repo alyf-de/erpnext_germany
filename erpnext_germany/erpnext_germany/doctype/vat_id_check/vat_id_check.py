@@ -10,6 +10,35 @@ from erpnext_germany.utils.eu_vat import check_vat_approx, parse_vat_id
 
 
 class VATIDCheck(Document):
+	# begin: auto-generated types
+	# This code is auto-generated. Do not modify anything in this block.
+
+	from typing import TYPE_CHECKING
+
+	if TYPE_CHECKING:
+		from frappe.types import DF
+
+		actual_trader_address: DF.SmallText | None
+		actual_trader_name: DF.Data | None
+		company: DF.Link | None
+		is_valid: DF.Check
+		party: DF.DynamicLink | None
+		party_address: DF.Link | None
+		party_type: DF.Link | None
+		party_vat_id: DF.Data
+		request_id: DF.Data | None
+		requester_vat_id: DF.Data | None
+		status: DF.Literal["Planned", "Running", "Completed", "Service Unavailable", "Invalid Input", "Error"]
+		trader_city: DF.Data | None
+		trader_city_match: DF.Check
+		trader_name: DF.Data | None
+		trader_name_match: DF.Check
+		trader_postcode: DF.Data | None
+		trader_postcode_match: DF.Check
+		trader_street: DF.Data | None
+		trader_street_match: DF.Check
+	# end: auto-generated types
+
 	def before_insert(self):
 		if not self.flags.skip_vies_request:
 			self.status = "Planned"
