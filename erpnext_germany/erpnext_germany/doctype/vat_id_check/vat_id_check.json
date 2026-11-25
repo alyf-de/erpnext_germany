@@ -89,6 +89,7 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
+   "no_copy": 1,
    "options": "Planned\nRunning\nCompleted\nService Unavailable\nInvalid Input\nError",
    "read_only": 1
   },
@@ -218,8 +219,9 @@
    "set_only_once": 1
   }
  ],
+ "link_display_mode": "Search",
  "links": [],
- "modified": "2024-06-11 10:14:55.846253",
+ "modified": "2026-11-25 19:19:10.259765",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "VAT ID Check",
@@ -272,6 +274,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "creation",
  "sort_order": "DESC",
  "states": [],
