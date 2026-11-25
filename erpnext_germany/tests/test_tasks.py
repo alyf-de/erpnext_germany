@@ -5,6 +5,7 @@ from types import SimpleNamespace
 from unittest.mock import patch
 
 import frappe
+from frappe.model.document import Document
 from frappe.utils import add_days, add_months, add_to_date, now_datetime
 
 from erpnext_germany.tasks import check_some_parties, get_customers, get_suppliers
@@ -85,6 +86,11 @@ class TestTasks(ERPNextGermanyTestSuite):
 
 		return client.return_value.service.checkVatApprox
 
+	def set_company_tax_id(self, tax_id):
+		previous = frappe.db.get_value("Company", "_Test Company", "tax_id")
+		frappe.db.set_value("Company", "_Test Company", "tax_id", tax_id)
+		self.addCleanup(frappe.db.set_value, "Company", "_Test Company", "tax_id", previous)
+
 	def get_status(self, party):
 		return frappe.db.get_value("VAT ID Check", {"party": party}, "status")
 
@@ -106,6 +112,36 @@ class TestTasks(ERPNextGermanyTestSuite):
 		self.assertEqual(self.get_status(customer), "Completed")
 		self.assertEqual(self.get_status(supplier), "Completed")
 		self.assertEqual(check_vat_approx.call_count, 2)
+
+		# "Invalid Input" counts as a result, so the party waits three months, not just a day.
+		frappe.db.set_value("VAT ID Check", {"party": unparseable}, "creation", add_days(now_datetime(), -2))
+		self.assertFalse(self.is_due(unparseable))
+
+	def test_blank_vat_id_is_recorded_once(self):
+		"""A tax ID of only a non-breaking space passes the query filter and must still be recorded."""
+		blank = self.make_customer("_Test VAT Blank")
+
+		self.run_scheduler(customers=[("Customer", blank, blank, None, "\u00a0")])
+
+		self.assertEqual(frappe.db.count("VAT ID Check", {"party": blank}), 1)
+		self.assertEqual(self.get_status(blank), "Invalid Input")
+		self.assertFalse(frappe.db.exists("Error Log", {"reference_name": blank}))
+
+	def test_check_rolled_back_after_insert(self):
+		"""An error after the check was inserted leaves only the "Error" record."""
+		party = self.make_customer("_Test VAT Rolled Back")
+		run_post_save_methods = Document.run_post_save_methods
+
+		def fail_for_new_check(doc):
+			if doc.doctype == "VAT ID Check" and doc.status != "Error":
+				raise frappe.ValidationError
+			return run_post_save_methods(doc)
+
+		with patch.object(Document, "run_post_save_methods", autospec=True, side_effect=fail_for_new_check):
+			self.run_scheduler(customers=[("Customer", party, party, None, "DE329035522")])
+
+		self.assertEqual(frappe.db.count("VAT ID Check", {"party": party}), 1)
+		self.assertEqual(self.get_status(party), "Error")
 
 	def test_failing_party_does_not_stop_the_run(self):
 		"""Any error for one party is logged and recorded, and the remaining parties are still checked."""
@@ -165,11 +201,6 @@ class TestTasks(ERPNextGermanyTestSuite):
 		self.assertEqual(self.get_status(customer), "Completed")
 		self.assertIsNone(check_vat_approx.call_args.kwargs["requesterCountryCode"])
 		self.assertIsNone(frappe.db.get_value("VAT ID Check", {"party": customer}, "requester_vat_id"))
-
-	def set_company_tax_id(self, tax_id):
-		previous = frappe.db.get_value("Company", "_Test Company", "tax_id")
-		frappe.db.set_value("Company", "_Test Company", "tax_id", tax_id)
-		self.addCleanup(frappe.db.set_value, "Company", "_Test Company", "tax_id", previous)
 
 	def test_empty_tax_id_is_not_checked(self):
 		customer = self.make_customer("_Test VAT Empty", "")

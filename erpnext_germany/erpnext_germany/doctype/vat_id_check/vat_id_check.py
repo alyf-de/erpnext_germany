@@ -40,6 +40,8 @@ class VATIDCheck(Document):
 			self.status = "Invalid Input"
 			self.is_valid = 0
 			self.flags.skip_vies_request = True
+			# A blank ID (e.g. a non-breaking space) would fail the mandatory check and not be recorded.
+			self.flags.ignore_mandatory = True
 			return
 
 		self.party_vat_id = f"{country_code}{vat_number}"
