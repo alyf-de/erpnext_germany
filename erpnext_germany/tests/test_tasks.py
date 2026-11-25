@@ -70,9 +70,9 @@ class TestTasks(ERPNextGermanyTestSuite):
 	def is_due(self, customer):
 		return customer in [row[1] for row in get_customers(batch_size=10000)]
 
-	def run_scheduler(self, customers, suppliers=()):
+	def run_scheduler(self, customers, suppliers=(), company=None):
 		with (
-			patch("erpnext_germany.tasks.get_default_company", return_value=None),
+			patch("erpnext_germany.tasks.get_default_company", return_value=company),
 			patch("erpnext_germany.tasks.get_customers", return_value=list(customers)),
 			patch("erpnext_germany.tasks.get_suppliers", return_value=list(suppliers)),
 			patch("erpnext_germany.utils.eu_vat.Client") as client,
@@ -120,6 +120,53 @@ class TestTasks(ERPNextGermanyTestSuite):
 		self.assertTrue(frappe.db.exists("Error Log", {"reference_name": failing}))
 		self.assertEqual(self.get_status(customer), "Completed")
 		self.assertFalse(self.is_due(failing))
+
+	def test_failing_record_does_not_stop_the_run(self):
+		"""If even recording the failed attempt fails, the error stays logged and the run continues."""
+		failing = self.make_customer("_Test VAT Record Failing")
+		customer = self.make_customer("_Test VAT After Record")
+
+		with patch("erpnext_germany.tasks.record_failed_attempt", side_effect=frappe.ValidationError):
+			self.run_scheduler(
+				customers=[
+					("Customer", failing, failing, "_Test Missing Address", "DE329035522"),
+					("Customer", customer, customer, None, "DE329035522"),
+				]
+			)
+
+		self.assertIsNone(self.get_status(failing))
+		self.assertTrue(frappe.db.exists("Error Log", {"reference_name": failing}))
+		self.assertEqual(self.get_status(customer), "Completed")
+
+	def test_company_vat_id_is_sent_as_requester(self):
+		customer = self.make_customer("_Test VAT Requester")
+		self.set_company_tax_id("DE 123 456 789")
+
+		check_vat_approx = self.run_scheduler(
+			customers=[("Customer", customer, customer, None, "DE329035522")], company="_Test Company"
+		)
+
+		self.assertEqual(self.get_status(customer), "Completed")
+		self.assertEqual(check_vat_approx.call_args.kwargs["requesterCountryCode"], "DE")
+		self.assertEqual(check_vat_approx.call_args.kwargs["requesterVatNumber"], "123456789")
+
+	def test_invalid_company_vat_id_is_not_sent(self):
+		"""An unparseable company tax ID must not make every check fail; the checks run without requester."""
+		customer = self.make_customer("_Test VAT Invalid Requester")
+		self.set_company_tax_id("123/456/78901")
+
+		check_vat_approx = self.run_scheduler(
+			customers=[("Customer", customer, customer, None, "DE329035522")], company="_Test Company"
+		)
+
+		self.assertEqual(self.get_status(customer), "Completed")
+		self.assertIsNone(check_vat_approx.call_args.kwargs["requesterCountryCode"])
+		self.assertIsNone(frappe.db.get_value("VAT ID Check", {"party": customer}, "requester_vat_id"))
+
+	def set_company_tax_id(self, tax_id):
+		previous = frappe.db.get_value("Company", "_Test Company", "tax_id")
+		frappe.db.set_value("Company", "_Test Company", "tax_id", tax_id)
+		self.addCleanup(frappe.db.set_value, "Company", "_Test Company", "tax_id", previous)
 
 	def test_empty_tax_id_is_not_checked(self):
 		customer = self.make_customer("_Test VAT Empty", "")
