@@ -105,7 +105,7 @@ class TestTasks(ERPNextGermanyTestSuite):
 		self.assertEqual(check_vat_approx.call_count, 2)
 
 	def test_failing_party_does_not_stop_the_run(self):
-		"""Any error for one party is logged and the remaining parties are still checked."""
+		"""Any error for one party is logged and recorded, and the remaining parties are still checked."""
 		failing = self.make_customer("_Test VAT Failing")
 		customer = self.make_customer("_Test VAT Next")
 
@@ -116,9 +116,10 @@ class TestTasks(ERPNextGermanyTestSuite):
 			]
 		)
 
-		self.assertIsNone(self.get_status(failing))
+		self.assertEqual(self.get_status(failing), "Error")
 		self.assertTrue(frappe.db.exists("Error Log", {"reference_name": failing}))
 		self.assertEqual(self.get_status(customer), "Completed")
+		self.assertFalse(self.is_due(failing))
 
 	def test_empty_tax_id_is_not_checked(self):
 		customer = self.make_customer("_Test VAT Empty", "")

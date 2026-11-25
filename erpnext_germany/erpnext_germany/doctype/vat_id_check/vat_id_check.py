@@ -36,7 +36,7 @@ class VATIDCheck(Document):
 		self.party_vat_id = f"{country_code}{vat_number}"
 
 	def after_insert(self):
-		if self.status == "Invalid Input":
+		if self.status != "Planned":
 			return
 
 		frappe.enqueue(

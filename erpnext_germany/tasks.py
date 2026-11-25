@@ -106,6 +106,7 @@ def check_some_parties():
 			# One failing party must not keep the others from being checked.
 			frappe.db.rollback(save_point="vat_id_check")
 			frappe.log_error("VAT ID Check Error", reference_doctype=party_type, reference_name=party)
+			record_failed_attempt(party_type, party, vat_id, company)
 
 
 def create_vat_id_check(party_type, party, party_name, primary_address, vat_id, company, requester_vat_id):
@@ -122,5 +123,17 @@ def create_vat_id_check(party_type, party, party_name, primary_address, vat_id, 
 		doc.trader_postcode = address.pincode
 		doc.trader_city = address.city
 
+	doc.flags.ignore_invalid_vat_id = True
+	doc.insert(ignore_permissions=True)
+
+
+def record_failed_attempt(party_type, party, vat_id, company):
+	"""Store the attempt as "Error", so that the party waits a day instead of taking a slot on every run."""
+	doc = frappe.new_doc("VAT ID Check")
+	doc.party_type = party_type
+	doc.party = party
+	doc.party_vat_id = vat_id
+	doc.company = company
+	doc.status = "Error"
 	doc.flags.ignore_invalid_vat_id = True
 	doc.insert(ignore_permissions=True)
