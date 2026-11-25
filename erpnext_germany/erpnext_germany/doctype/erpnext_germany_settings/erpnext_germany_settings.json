@@ -1,11 +1,11 @@
 {
  "actions": [],
- "allow_rename": 1,
  "creation": "2025-02-23 17:36:40.481091",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "prevent_gaps_in_transaction_naming"
+  "prevent_gaps_in_transaction_naming",
+  "warn_if_tax_category_missing"
  ],
  "fields": [
   {
@@ -14,12 +14,19 @@
    "fieldname": "prevent_gaps_in_transaction_naming",
    "fieldtype": "Check",
    "label": "Prevent Gaps In Transaction Naming"
+  },
+  {
+   "default": "0",
+   "description": "Show a warning on Customer, Supplier, Sales Invoice and Purchase Invoice without Tax Category. Tax Rules and Item Group tax rows match the Tax Category exactly, so without one no taxes are applied automatically.",
+   "fieldname": "warn_if_tax_category_missing",
+   "fieldtype": "Check",
+   "label": "Warn if Tax Category is missing"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-23 17:38:08.351007",
+ "modified": "2026-11-04 16:05:36.127733",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "ERPNext Germany Settings",
@@ -36,6 +43,7 @@
    "write": 1
   }
  ],
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
