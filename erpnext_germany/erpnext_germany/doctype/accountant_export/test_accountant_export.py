@@ -105,6 +105,26 @@ class IntegrationTestAccountantExport(ERPNextGermanyTestSuite):
 		cancelled = [row.reference_name for row in make_export().cancelled_documents]
 		self.assertNotIn(self.with_file.name, cancelled)
 
+	def test_company_cannot_be_changed(self):
+		export = make_export()
+		export.company = frappe.db.get_value("Company", {"name": ("!=", COMPANY)})
+		self.assertRaises(frappe.CannotChangeConstantError, export.save)
+
+	def test_changed_filters_refresh_the_documents(self):
+		export = make_export()
+		self.assertIn(self.with_file.name, get_counts(export))
+
+		export.from_date = export.to_date = add_days(today(), 1)
+		export.save()
+		self.assertNotIn(self.with_file.name, get_counts(export))
+
+	def test_other_drafts_are_shown(self):
+		draft = make_export()
+		frappe.message_log.clear()
+		make_export()
+
+		self.assertTrue(any(draft.name in str(message) for message in frappe.message_log))
+
 	def test_unsupported_doctype_is_rejected(self):
 		export = make_export(doctypes=[{"reference_doctype": "Sales Order"}], insert=False)
 		self.assertRaises(frappe.ValidationError, export.insert)

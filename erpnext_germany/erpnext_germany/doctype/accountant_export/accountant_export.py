@@ -69,6 +69,48 @@ class AccountantExport(Document):
 
 		validate_doctypes(self.doctypes)
 
+		# set if the documents were just filled, e.g. by "Refresh Documents"
+		documents_filled = self.flags.pop("documents_filled", False)
+		if self.docstatus == 0:
+			if not self.is_new() and not documents_filled and self.filters_changed():
+				self.fill_documents()
+
+			self.show_other_drafts()
+
+	def filters_changed(self) -> bool:
+		"""Return whether the documents table is based on other filters than the current ones."""
+		before = self.get_doc_before_save()
+		if not before:
+			return False
+
+		def get_filters(doc):
+			return (
+				doc.from_date and str(doc.from_date),
+				doc.to_date and str(doc.to_date),
+				bool(doc.allow_duplicates),
+				[(row.reference_doctype, row.attach_field or None) for row in doc.doctypes],
+			)
+
+		return get_filters(before) != get_filters(self)
+
+	def show_other_drafts(self):
+		"""Two drafts can contain the same documents. Only the first one submitted should export them."""
+		other_drafts = frappe.get_all(
+			"Accountant Export",
+			filters={"company": self.company, "docstatus": 0, "name": ("!=", self.name)},
+			pluck="name",
+		)
+		if not other_drafts:
+			return
+
+		frappe.msgprint(
+			_(
+				"There are other draft Accountant Exports for {0}: {1}. They may contain the same documents. Please submit or delete them first, and refresh the documents of this one afterwards."  # noqa: E501
+			).format(self.company, ", ".join(other_drafts)),
+			title=_("Other Drafts"),
+			indicator="orange",
+		)
+
 	@frappe.whitelist()
 	def refresh_documents(self):
 		if self.docstatus != 0:
@@ -106,6 +148,7 @@ class AccountantExport(Document):
 		self.set("documents", documents)
 		self.set("cancelled_documents", self.get_cancelled_documents())
 		self.show_documents_without_attachments()
+		self.flags.documents_filled = True
 
 	def get_document_names(self, doctype: str) -> list[str]:
 		"""
