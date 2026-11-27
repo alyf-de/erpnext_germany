@@ -1,0 +1,29 @@
+<h2>{{ _("Cancelled Documents") }}</h2>
+<p>
+	{{ _("Company") }}: {{ doc.company }}<br>
+	{{ _("Accountant Export") }}: {{ doc.name }}<br>
+	{{ _("To Date") }}: {{ frappe.utils.formatdate(doc.to_date) }}
+</p>
+<p>
+	{{ _("The following documents were included in a previous Accountant Export and have been cancelled since.") }}
+</p>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>{{ _("No.") }}</th>
+			<th>{{ _("Reference DocType") }}</th>
+			<th>{{ _("Reference Name") }}</th>
+			<th>{{ _("Previous Accountant Export") }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for row in doc.cancelled_documents %}
+		<tr>
+			<td>{{ row.idx }}</td>
+			<td>{{ _(row.reference_doctype) }}</td>
+			<td>{{ row.reference_name }}</td>
+			<td>{{ row.previous_accountant_export or "" }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
