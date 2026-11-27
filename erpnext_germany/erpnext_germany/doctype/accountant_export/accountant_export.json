@@ -124,7 +124,7 @@
  "grid_page_length": 50,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-11-27 10:00:00.000000",
+ "modified": "2026-11-27 14:00:00.000000",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "Accountant Export",
@@ -141,7 +141,7 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1,
+   "share": 0,
    "submit": 1,
    "write": 1
   },
@@ -155,18 +155,7 @@
    "read": 1,
    "report": 1,
    "role": "Accounts Manager",
-   "share": 1,
-   "submit": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "email": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Accounts User",
-   "share": 1,
+   "share": 0,
    "submit": 1,
    "write": 1
   }

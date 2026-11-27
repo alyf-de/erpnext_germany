@@ -108,16 +108,20 @@ class AccountantExport(Document):
 		self.show_documents_without_attachments()
 
 	def get_document_names(self, doctype: str) -> list[str]:
-		"""Return the submitted documents the user may read, up to the To Date, in order of their date."""
+		"""
+		Return the submitted documents up to the To Date, in order of their date.
+
+		The accountant needs the full picture, so the documents are not limited by
+		the user's permissions. Instead, only Accounts Manager and System Manager
+		have access to Accountant Export (and its ZIP file).
+		"""
 		date_field = get_period_field(frappe.get_meta(doctype))
 		filters = {"company": self.company, "docstatus": 1}
 		filters[date_field] = (
 			("between", [self.from_date, self.to_date]) if self.from_date else ("<=", self.to_date)
 		)
 
-		names = frappe.get_list(
-			doctype, filters=filters, pluck="name", order_by=f"{date_field} asc, name asc"
-		)
+		names = frappe.get_all(doctype, filters=filters, pluck="name", order_by=f"{date_field} asc, name asc")
 
 		if self.allow_duplicates:
 			return names
@@ -180,17 +184,10 @@ class AccountantExport(Document):
 			if doctype not in attach_fields:
 				frappe.throw(_("{0} is not selected in the DocTypes table.").format(_(doctype)))
 
-			names = [row.reference_name for row in rows]
-			# the documents table is read only in the form, but could still be sent by the client
-			readable = set(frappe.get_list(doctype, filters={"name": ("in", names)}, pluck="name"))
-			attachments = get_attachments(doctype, names, attach_fields[doctype])
+			attachments = get_attachments(
+				doctype, [row.reference_name for row in rows], attach_fields[doctype]
+			)
 			for row in rows:
-				if row.reference_name not in readable:
-					frappe.throw(
-						_("You are not allowed to read {0} {1}.").format(_(doctype), row.reference_name),
-						frappe.PermissionError,
-					)
-
 				row.attachments = len(attachments.get(row.reference_name, []))
 
 	def get_documents_by_doctype(self, with_attachments_only: bool = False) -> dict[str, list]:
