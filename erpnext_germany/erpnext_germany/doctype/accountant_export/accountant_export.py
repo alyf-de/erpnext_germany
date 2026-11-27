@@ -25,6 +25,8 @@ from erpnext_germany.erpnext_germany.doctype.gdpdu_export.gdpdu_export import ge
 
 PRINT_FORMAT = "Accountant Export Cancelled Documents"
 ATTACH_FIELDTYPES = ("Attach", "Attach Image")
+# DocTypes whose date is not found by `get_period_field`
+DATE_FIELDS = {"Asset": "purchase_date"}
 
 
 class AccountantExport(Document):
@@ -158,7 +160,7 @@ class AccountantExport(Document):
 		the user's permissions. Instead, only Accounts Manager and System Manager
 		have access to Accountant Export (and its ZIP file).
 		"""
-		date_field = get_period_field(frappe.get_meta(doctype))
+		date_field = get_date_field(doctype)
 		filters = {"company": self.company, "docstatus": 1}
 		filters[date_field] = (
 			("between", [self.from_date, self.to_date]) if self.from_date else ("<=", self.to_date)
@@ -290,11 +292,24 @@ class AccountantExport(Document):
 
 @frappe.whitelist()
 def get_allowed_doctypes() -> list[str]:
-	doctypes = ["Purchase Invoice", "Sales Invoice", "Journal Entry", "Payment Entry"]
+	doctypes = [
+		"Asset",
+		"Delivery Note",
+		"Journal Entry",
+		"Payment Entry",
+		"Purchase Invoice",
+		"Purchase Receipt",
+		"Sales Invoice",
+	]
 	if "hrms" in frappe.get_installed_apps():  # Expense Claim is part of HRMS
-		doctypes.insert(0, "Expense Claim")
+		doctypes.insert(1, "Expense Claim")
 
 	return doctypes
+
+
+def get_date_field(doctype: str) -> str:
+	# Asset has no posting date
+	return DATE_FIELDS.get(doctype) or get_period_field(frappe.get_meta(doctype))
 
 
 @frappe.whitelist()

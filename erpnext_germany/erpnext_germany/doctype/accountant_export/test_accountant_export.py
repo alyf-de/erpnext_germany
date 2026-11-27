@@ -10,6 +10,7 @@ from frappe.utils import add_days, today
 from erpnext_germany.erpnext_germany.doctype.accountant_export.accountant_export import (
 	PRINT_FORMAT,
 	get_allowed_doctypes,
+	get_date_field,
 	get_unique_arcname,
 )
 from erpnext_germany.tests.utils import ERPNextGermanyTestSuite
@@ -137,6 +138,15 @@ class IntegrationTestAccountantExport(ERPNextGermanyTestSuite):
 
 	def test_expense_claim_depends_on_hrms(self):
 		self.assertEqual("Expense Claim" in get_allowed_doctypes(), "hrms" in frappe.get_installed_apps())
+
+	def test_every_allowed_doctype_has_a_date_field(self):
+		for doctype in get_allowed_doctypes():
+			date_field = get_date_field(doctype)
+			self.assertEqual(frappe.get_meta(doctype).get_field(date_field).fieldtype, "Date", msg=doctype)
+
+	def test_all_allowed_doctypes_can_be_exported(self):
+		export = make_export(doctypes=[{"reference_doctype": doctype} for doctype in get_allowed_doctypes()])
+		self.assertIn(self.with_file.name, get_counts(export))
 
 	def test_unique_arcname(self):
 		arcnames = set()
