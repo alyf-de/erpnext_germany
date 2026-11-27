@@ -193,6 +193,9 @@ scheduler_events = {
 # 	"erpnext_germany.auth.validate"
 # ]
 
+# Including a document in an Accountant Export must not prevent cancelling it
+ignore_links_on_delete = ["Accountant Export Document", "Accountant Export Cancelled Document"]
+
 export_python_type_annotations = True
 
 germany_custom_records = [

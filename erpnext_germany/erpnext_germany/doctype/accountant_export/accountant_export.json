@@ -1,0 +1,168 @@
+{
+ "actions": [],
+ "autoname": "ACC-EXP-.YYYY.-.#####",
+ "creation": "2026-11-27 10:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "allow_duplicates",
+  "column_break_dates",
+  "from_date",
+  "to_date",
+  "section_break_doctypes",
+  "doctypes",
+  "section_break_documents",
+  "refresh_documents",
+  "documents",
+  "cancelled_documents",
+  "section_break_zip_file",
+  "zip_file",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Company",
+   "options": "Company",
+   "remember_last_selected_value": 1,
+   "reqd": 1,
+   "set_only_once": 1
+  },
+  {
+   "default": "0",
+   "description": "This allows that a certain invoice for example is considered again, even if it was already included in another <b>Accountant Export</b>",
+   "fieldname": "allow_duplicates",
+   "fieldtype": "Check",
+   "label": "Allow Duplicates"
+  },
+  {
+   "fieldname": "column_break_dates",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "Only needed for the first run. Documents up to the <i>To Date</i> that have not been included yet are considered, so late submissions are not lost.",
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "From Date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "To Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_doctypes",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "doctypes",
+   "fieldtype": "Table",
+   "label": "DocTypes",
+   "options": "Accountant Export DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_documents",
+   "fieldtype": "Section Break",
+   "label": "Documents"
+  },
+  {
+   "depends_on": "eval: doc.docstatus === 0 && !doc.__islocal",
+   "fieldname": "refresh_documents",
+   "fieldtype": "Button",
+   "label": "Refresh Documents"
+  },
+  {
+   "fieldname": "documents",
+   "fieldtype": "Table",
+   "label": "Documents",
+   "no_copy": 1,
+   "options": "Accountant Export Document",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.cancelled_documents && doc.cancelled_documents.length",
+   "description": "Documents that were included in a previous <b>Accountant Export</b> and have been cancelled since. They are listed in a PDF inside the ZIP file.",
+   "fieldname": "cancelled_documents",
+   "fieldtype": "Table",
+   "label": "Cancelled Documents",
+   "no_copy": 1,
+   "options": "Accountant Export Cancelled Document",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.docstatus === 1",
+   "fieldname": "section_break_zip_file",
+   "fieldtype": "Section Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "zip_file",
+   "fieldtype": "Link",
+   "label": "ZIP File",
+   "no_copy": 1,
+   "options": "File",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Accountant Export",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-11-27 14:10:00.000000",
+ "modified_by": "Administrator",
+ "module": "ERPNext Germany",
+ "name": "Accountant Export",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 0,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "cancel": 1,
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 0,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": []
+}

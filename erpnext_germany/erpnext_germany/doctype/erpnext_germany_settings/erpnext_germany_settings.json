@@ -5,7 +5,9 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "prevent_gaps_in_transaction_naming"
+  "prevent_gaps_in_transaction_naming",
+  "accountant_export_tab",
+  "accountant_export_doctypes"
  ],
  "fields": [
   {
@@ -14,12 +16,24 @@
    "fieldname": "prevent_gaps_in_transaction_naming",
    "fieldtype": "Check",
    "label": "Prevent Gaps In Transaction Naming"
+  },
+  {
+   "fieldname": "accountant_export_tab",
+   "fieldtype": "Tab Break",
+   "label": "Accountant Export"
+  },
+  {
+   "description": "Used as default on new <b>Accountant Export</b>. If no attach field is set, all attachments of the document are included.",
+   "fieldname": "accountant_export_doctypes",
+   "fieldtype": "Table",
+   "label": "DocTypes",
+   "options": "Accountant Export DocType"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2025-02-23 17:38:08.351007",
+ "modified": "2026-11-27 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "ERPNext Germany",
  "name": "ERPNext Germany Settings",
